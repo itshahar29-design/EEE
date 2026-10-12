@@ -1,0 +1,16 @@
+{
+  "name": "fitnes-va-sport-zali",
+  "version": "1.0.0",
+  "description": "Fitnes va Sport Zali",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

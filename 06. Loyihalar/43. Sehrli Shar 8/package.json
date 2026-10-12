@@ -1,0 +1,16 @@
+{
+  "name": "sehrli-shar-8",
+  "version": "1.0.0",
+  "description": "Sehrli Shar 8",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "rangni-top-oyini",
+  "version": "1.0.0",
+  "description": "Rangni Top O'yini",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "o'yinlar"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

@@ -2,7 +2,7 @@
     window.calcBMI = () => {
         const h = parseFloat(document.getElementById('bmi-height').value) / 100;
         const w = parseFloat(document.getElementById('bmi-weight').value);
-        if (!h || !w) return alert('Iltimos, ma'lumotlarni kiriting!');
+        if (!h || !w) return alert("Iltimos, ma'lumotlarni kiriting!");
         const bmi = (w / (h * h)).toFixed(1);
         document.getElementById('bmi-val').textContent = bmi;
         let status = 'Normal vazn', color = '#10b981';

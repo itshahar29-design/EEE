@@ -1,0 +1,16 @@
+{
+  "name": "bmi-tana-vazni-kalkulyatori",
+  "version": "1.0.0",
+  "description": "BMI Tana Vazni Kalkulyatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

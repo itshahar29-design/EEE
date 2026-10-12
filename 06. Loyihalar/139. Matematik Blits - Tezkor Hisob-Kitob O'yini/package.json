@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-139-matematik-blits-tezkor-hisob-kitob-oyini",
+  "version": "1.0.0",
+  "description": "Matematik Blits: Tezkor Hisob-Kitob O'yini",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "o'yinlar",
+    "math blitz",
+    "mental math",
+    "arithmetic",
+    "speed challenge"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

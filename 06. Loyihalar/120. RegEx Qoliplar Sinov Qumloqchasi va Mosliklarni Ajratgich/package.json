@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-120-regex-qoliplar-sinov-qumloqchasi-va-mosliklarni-ajratgich",
+  "version": "1.0.0",
+  "description": "RegEx Qoliplar Sinov Qumloqchasi va Mosliklarni Ajratgich",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "regex tester",
+    "regular expressions",
+    "pattern matcher",
+    "developer tools"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

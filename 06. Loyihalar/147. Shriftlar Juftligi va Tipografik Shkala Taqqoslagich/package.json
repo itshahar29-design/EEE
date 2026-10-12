@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-147-shriftlar-juftligi-va-tipografik-shkala-taqqoslagich",
+  "version": "1.0.0",
+  "description": "Shriftlar Juftligi va Tipografik Shkala Taqqoslagich",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "font pairs",
+    "typography",
+    "hierarchy",
+    "design tools"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "html-teglarni-tozalovchi",
+  "version": "1.0.0",
+  "description": "HTML Teglarni Tozalovchi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

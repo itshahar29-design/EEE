@@ -1,4524 +1,947 @@
-// FRONT-END PORTAL JAVASCRIPT
-const ALL_LESSONS = [
-  {
-    "module": "01. HTML",
-    "moduleName": "01. HTML",
-    "moduleIcon": "fa-brands fa-html5",
-    "moduleColor": "#e34c26",
-    "title": "01. 1-dars -3",
-    "folderPath": "./01. HTML/01. 1-dars -3/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./01. HTML/01. 1-dars -3/index.html"
-      }
-    ]
-  },
-  {
-    "module": "01. HTML",
-    "moduleName": "01. HTML",
-    "moduleIcon": "fa-brands fa-html5",
-    "moduleColor": "#e34c26",
-    "title": "02. 2-dars -3",
-    "folderPath": "./01. HTML/02. 2-dars -3/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./01. HTML/02. 2-dars -3/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./01. HTML/02. 2-dars -3/style.css"
-      }
-    ]
-  },
-  {
-    "module": "01. HTML",
-    "moduleName": "01. HTML",
-    "moduleIcon": "fa-brands fa-html5",
-    "moduleColor": "#e34c26",
-    "title": "03. 3-dars -2",
-    "folderPath": "./01. HTML/03. 3-dars -2/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./01. HTML/03. 3-dars -2/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./01. HTML/03. 3-dars -2/style.css"
-      }
-    ]
-  },
-  {
-    "module": "01. HTML",
-    "moduleName": "01. HTML",
-    "moduleIcon": "fa-brands fa-html5",
-    "moduleColor": "#e34c26",
-    "title": "04. 4-dars -2",
-    "folderPath": "./01. HTML/04. 4-dars -2/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./01. HTML/04. 4-dars -2/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./01. HTML/04. 4-dars -2/style.css"
-      }
-    ]
-  },
-  {
-    "module": "01. HTML",
-    "moduleName": "01. HTML",
-    "moduleIcon": "fa-brands fa-html5",
-    "moduleColor": "#e34c26",
-    "title": "05. 5-dars -2",
-    "folderPath": "./01. HTML/05. 5-dars -2/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./01. HTML/05. 5-dars -2/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./01. HTML/05. 5-dars -2/style.css"
-      }
-    ]
-  },
-  {
-    "module": "01. HTML",
-    "moduleName": "01. HTML",
-    "moduleIcon": "fa-brands fa-html5",
-    "moduleColor": "#e34c26",
-    "title": "06. 6-dars",
-    "folderPath": "./01. HTML/06. 6-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./01. HTML/06. 6-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./01. HTML/06. 6-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "01. HTML",
-    "moduleName": "01. HTML",
-    "moduleIcon": "fa-brands fa-html5",
-    "moduleColor": "#e34c26",
-    "title": "07. 7-dars",
-    "folderPath": "./01. HTML/07. 7-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./01. HTML/07. 7-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./01. HTML/07. 7-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "01. HTML",
-    "moduleName": "01. HTML",
-    "moduleIcon": "fa-brands fa-html5",
-    "moduleColor": "#e34c26",
-    "title": "08. Imtihon",
-    "folderPath": "./01. HTML/08. Imtihon/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./01. HTML/08. Imtihon/index.html"
-      }
-    ]
-  },
-  {
-    "module": "02. CSS",
-    "moduleName": "02. CSS",
-    "moduleIcon": "fa-brands fa-css3-alt",
-    "moduleColor": "#264de4",
-    "title": "01. 1-dars",
-    "folderPath": "./02. CSS/01. 1-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./02. CSS/01. 1-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./02. CSS/01. 1-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "02. CSS",
-    "moduleName": "02. CSS",
-    "moduleIcon": "fa-brands fa-css3-alt",
-    "moduleColor": "#264de4",
-    "title": "02. 2-dars",
-    "folderPath": "./02. CSS/02. 2-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./02. CSS/02. 2-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./02. CSS/02. 2-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "02. CSS",
-    "moduleName": "02. CSS",
-    "moduleIcon": "fa-brands fa-css3-alt",
-    "moduleColor": "#264de4",
-    "title": "03. 3-dars",
-    "folderPath": "./02. CSS/03. 3-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./02. CSS/03. 3-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./02. CSS/03. 3-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "02. CSS",
-    "moduleName": "02. CSS",
-    "moduleIcon": "fa-brands fa-css3-alt",
-    "moduleColor": "#264de4",
-    "title": "04. 4-dars",
-    "folderPath": "./02. CSS/04. 4-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./02. CSS/04. 4-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./02. CSS/04. 4-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "02. CSS",
-    "moduleName": "02. CSS",
-    "moduleIcon": "fa-brands fa-css3-alt",
-    "moduleColor": "#264de4",
-    "title": "05. 5-dars",
-    "folderPath": "./02. CSS/05. 5-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./02. CSS/05. 5-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./02. CSS/05. 5-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "02. CSS",
-    "moduleName": "02. CSS",
-    "moduleIcon": "fa-brands fa-css3-alt",
-    "moduleColor": "#264de4",
-    "title": "06. 6-dars",
-    "folderPath": "./02. CSS/06. 6-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./02. CSS/06. 6-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./02. CSS/06. 6-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "02. CSS",
-    "moduleName": "02. CSS",
-    "moduleIcon": "fa-brands fa-css3-alt",
-    "moduleColor": "#264de4",
-    "title": "07. 7-dars",
-    "folderPath": "./02. CSS/07. 7-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./02. CSS/07. 7-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./02. CSS/07. 7-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "02. CSS",
-    "moduleName": "02. CSS",
-    "moduleIcon": "fa-brands fa-css3-alt",
-    "moduleColor": "#264de4",
-    "title": "08. 8-dars",
-    "folderPath": "./02. CSS/08. 8-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./02. CSS/08. 8-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./02. CSS/08. 8-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "02. CSS",
-    "moduleName": "02. CSS",
-    "moduleIcon": "fa-brands fa-css3-alt",
-    "moduleColor": "#264de4",
-    "title": "09. 9-dars",
-    "folderPath": "./02. CSS/09. 9-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./02. CSS/09. 9-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./02. CSS/09. 9-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "02. CSS",
-    "moduleName": "02. CSS",
-    "moduleIcon": "fa-brands fa-css3-alt",
-    "moduleColor": "#264de4",
-    "title": "10. 10-dars",
-    "folderPath": "./02. CSS/10. 10-dars/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./02. CSS/10. 10-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./02. CSS/10. 10-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "01. JavaScript",
-    "folderPath": "./03. JS/01. JavaScript/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/01. JavaScript/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/01. JavaScript/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/01. JavaScript/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "02. String and Number",
-    "folderPath": "./03. JS/02. String and Number/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/02. String and Number/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/02. String and Number/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/02. String and Number/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "03. Template string",
-    "folderPath": "./03. JS/03. Template string/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/03. Template string/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/03. Template string/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/03. Template string/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "04. Null and Undefined",
-    "folderPath": "./03. JS/04. Null and Undefined/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/04. Null and Undefined/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/04. Null and Undefined/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/04. Null and Undefined/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "05. Boolean",
-    "folderPath": "./03. JS/05. Boolean/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/05. Boolean/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/05. Boolean/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/05. Boolean/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "06. tack",
-    "folderPath": "./03. JS/06. tack/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/06. tack/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/06. tack/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/06. tack/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "07. Array",
-    "folderPath": "./03. JS/07. Array/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/07. Array/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/07. Array/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/07. Array/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "08. Loop",
-    "folderPath": "./03. JS/08. Loop/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/08. Loop/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/08. Loop/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/08. Loop/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "09. If - else",
-    "folderPath": "./03. JS/09. If - else/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/09. If - else/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/09. If - else/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/09. If - else/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "10. Or And && NOT(!) mantiqiy operatorlar",
-    "folderPath": "./03. JS/10. Or And && NOT(!) mantiqiy operatorlar/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/10. Or And && NOT(!) mantiqiy operatorlar/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/10. Or And && NOT(!) mantiqiy operatorlar/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/10. Or And && NOT(!) mantiqiy operatorlar/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "11. switch case",
-    "folderPath": "./03. JS/11. switch case/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/11. switch case/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/11. switch case/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/11. switch case/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "12. Scope - global and block",
-    "folderPath": "./03. JS/12. Scope - global and block/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/12. Scope - global and block/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/12. Scope - global and block/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/12. Scope - global and block/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "13. Amaliyod",
-    "folderPath": "./03. JS/13. Amaliyod/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/13. Amaliyod/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/13. Amaliyod/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/13. Amaliyod/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "14. TDZ",
-    "folderPath": "./03. JS/14. TDZ/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/14. TDZ/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/14. TDZ/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/14. TDZ/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "15. Function",
-    "folderPath": "./03. JS/15. Function/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/15. Function/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/15. Function/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/15. Function/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "16. Arrow Function and Return",
-    "folderPath": "./03. JS/16. Arrow Function and Return/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/16. Arrow Function and Return/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/16. Arrow Function and Return/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/16. Arrow Function and Return/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "17. Funcitons and Methods",
-    "folderPath": "./03. JS/17. Funcitons and Methods/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/17. Funcitons and Methods/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/17. Funcitons and Methods/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/17. Funcitons and Methods/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "18. ForEach",
-    "folderPath": "./03. JS/18. ForEach/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/18. ForEach/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/18. ForEach/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/18. ForEach/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "19. Object",
-    "folderPath": "./03. JS/19. Object/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/19. Object/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/19. Object/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/19. Object/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "20. Amaliy-2",
-    "folderPath": "./03. JS/20. Amaliy-2/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/20. Amaliy-2/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/20. Amaliy-2/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/20. Amaliy-2/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "21. Object This",
-    "folderPath": "./03. JS/21. Object This/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/21. Object This/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/21. Object This/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/21. Object This/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "22. Arraylar ichida Objectlar",
-    "folderPath": "./03. JS/22. Arraylar ichida Objectlar/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/22. Arraylar ichida Objectlar/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/22. Arraylar ichida Objectlar/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/22. Arraylar ichida Objectlar/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "23. Math Objecti",
-    "folderPath": "./03. JS/23. Math Objecti/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/23. Math Objecti/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/23. Math Objecti/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/23. Math Objecti/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "24. Amaliy-3",
-    "folderPath": "./03. JS/24. Amaliy-3/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/24. Amaliy-3/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/24. Amaliy-3/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/24. Amaliy-3/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "25. DOM (Document Object Model)",
-    "folderPath": "./03. JS/25. DOM (Document Object Model)/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/25. DOM (Document Object Model)/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/25. DOM (Document Object Model)/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/25. DOM (Document Object Model)/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "26. Dom selectors",
-    "folderPath": "./03. JS/26. Dom selectors/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/26. Dom selectors/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/26. Dom selectors/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/26. Dom selectors/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "27. textContent Va innerHTML",
-    "folderPath": "./03. JS/27. textContent Va innerHTML/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/27. textContent Va innerHTML/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/27. textContent Va innerHTML/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/27. textContent Va innerHTML/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "28. setAttribute va getAttribute",
-    "folderPath": "./03. JS/28. setAttribute va getAttribute/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/28. setAttribute va getAttribute/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/28. setAttribute va getAttribute/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/28. setAttribute va getAttribute/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "29. add va remove toggle methodlari",
-    "folderPath": "./03. JS/29. add va remove toggle methodlari/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/29. add va remove toggle methodlari/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/29. add va remove toggle methodlari/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/29. add va remove toggle methodlari/style.css"
-      }
-    ]
-  },
-  {
-    "module": "03. JS",
-    "moduleName": "03. JS",
-    "moduleIcon": "fa-brands fa-js",
-    "moduleColor": "#f59e0b",
-    "title": "30. Imtihon",
-    "folderPath": "./03. JS/30. Imtihon/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./03. JS/30. Imtihon/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./03. JS/30. Imtihon/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./03. JS/30. Imtihon/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "01. 1-dars",
-    "folderPath": "./04. Advanced JavaScript/01. 1-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/01. 1-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/01. 1-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/01. 1-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/01. 1-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "02. 2-dars",
-    "folderPath": "./04. Advanced JavaScript/02. 2-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/02. 2-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/02. 2-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/02. 2-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/02. 2-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "03. 3-dars",
-    "folderPath": "./04. Advanced JavaScript/03. 3-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/03. 3-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/03. 3-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/03. 3-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/03. 3-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "04. 4-dars",
-    "folderPath": "./04. Advanced JavaScript/04. 4-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/04. 4-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/04. 4-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/04. 4-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/04. 4-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "05. 5-dars",
-    "folderPath": "./04. Advanced JavaScript/05. 5-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/05. 5-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/05. 5-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/05. 5-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/05. 5-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "06. 6-dars",
-    "folderPath": "./04. Advanced JavaScript/06. 6-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/06. 6-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/06. 6-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/06. 6-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/06. 6-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "07. Amaliyod",
-    "folderPath": "./04. Advanced JavaScript/07. Amaliyod/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/07. Amaliyod/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/07. Amaliyod/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/07. Amaliyod/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/07. Amaliyod/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "08. 7-dars",
-    "folderPath": "./04. Advanced JavaScript/08. 7-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/08. 7-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/08. 7-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/08. 7-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/08. 7-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "09. 9-dars",
-    "folderPath": "./04. Advanced JavaScript/09. 9-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/09. 9-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/09. 9-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/09. 9-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/09. 9-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "10. 9-dars-repeat",
-    "folderPath": "./04. Advanced JavaScript/10. 9-dars-repeat/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/10. 9-dars-repeat/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/10. 9-dars-repeat/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/10. 9-dars-repeat/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/10. 9-dars-repeat/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "11. 10-dars",
-    "folderPath": "./04. Advanced JavaScript/11. 10-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/11. 10-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/11. 10-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/11. 10-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/11. 10-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "12. 11-dars",
-    "folderPath": "./04. Advanced JavaScript/12. 11-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/12. 11-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/12. 11-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/12. 11-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/12. 11-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "13. 12-dars",
-    "folderPath": "./04. Advanced JavaScript/13. 12-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/13. 12-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/13. 12-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/13. 12-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/13. 12-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "14. 13-dars",
-    "folderPath": "./04. Advanced JavaScript/14. 13-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/14. 13-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/14. 13-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/14. 13-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/14. 13-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "15. 14-dars",
-    "folderPath": "./04. Advanced JavaScript/15. 14-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/15. 14-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/15. 14-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/15. 14-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/15. 14-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "16. 15-dars",
-    "folderPath": "./04. Advanced JavaScript/16. 15-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/16. 15-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/16. 15-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/16. 15-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/16. 15-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "17. Amaliyod-2",
-    "folderPath": "./04. Advanced JavaScript/17. Amaliyod-2/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/17. Amaliyod-2/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/17. Amaliyod-2/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/17. Amaliyod-2/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/17. Amaliyod-2/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "18. 16-dars",
-    "folderPath": "./04. Advanced JavaScript/18. 16-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/18. 16-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/18. 16-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/18. 16-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/18. 16-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "19. 17-dars",
-    "folderPath": "./04. Advanced JavaScript/19. 17-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/19. 17-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/19. 17-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/19. 17-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/19. 17-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "20. 18-dars",
-    "folderPath": "./04. Advanced JavaScript/20. 18-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/20. 18-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/20. 18-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/20. 18-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/20. 18-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "21. 19-dars",
-    "folderPath": "./04. Advanced JavaScript/21. 19-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/21. 19-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/21. 19-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/21. 19-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/21. 19-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "21. 21-dars",
-    "folderPath": "./04. Advanced JavaScript/21. 21-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/21. 21-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/21. 21-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/21. 21-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/21. 21-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "22. 20-dars",
-    "folderPath": "./04. Advanced JavaScript/22. 20-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/22. 20-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/22. 20-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/22. 20-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/22. 20-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "24. 22-dars",
-    "folderPath": "./04. Advanced JavaScript/24. 22-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/24. 22-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/24. 22-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/24. 22-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/24. 22-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "25. 23-dars",
-    "folderPath": "./04. Advanced JavaScript/25. 23-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/25. 23-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/25. 23-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/25. 23-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/25. 23-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "04. Advanced JavaScript",
-    "moduleName": "04. Advanced JavaScript",
-    "moduleIcon": "fa-solid fa-code",
-    "moduleColor": "#10b981",
-    "title": "26. 24-dars",
-    "folderPath": "./04. Advanced JavaScript/26. 24-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./04. Advanced JavaScript/26. 24-dars/app.js"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./04. Advanced JavaScript/26. 24-dars/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./04. Advanced JavaScript/26. 24-dars/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./04. Advanced JavaScript/26. 24-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "05. React",
-    "moduleName": "05. React",
-    "moduleIcon": "fa-brands fa-react",
-    "moduleColor": "#00d8ff",
-    "title": "01. Kirish",
-    "folderPath": "./05. React/01. Kirish/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./05. React/01. Kirish/app.js"
-      },
-      {
-        "name": "App.jsx",
-        "relPath": "./05. React/01. Kirish/App.jsx"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./05. React/01. Kirish/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./05. React/01. Kirish/style.css"
-      }
-    ]
-  },
-  {
-    "module": "05. React",
-    "moduleName": "05. React",
-    "moduleIcon": "fa-brands fa-react",
-    "moduleColor": "#00d8ff",
-    "title": "02. 1-dars",
-    "folderPath": "./05. React/02. 1-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./05. React/02. 1-dars/app.js"
-      },
-      {
-        "name": "App.jsx",
-        "relPath": "./05. React/02. 1-dars/App.jsx"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./05. React/02. 1-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./05. React/02. 1-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "05. React",
-    "moduleName": "05. React",
-    "moduleIcon": "fa-brands fa-react",
-    "moduleColor": "#00d8ff",
-    "title": "03. 2-dars",
-    "folderPath": "./05. React/03. 2-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./05. React/03. 2-dars/app.js"
-      },
-      {
-        "name": "App.jsx",
-        "relPath": "./05. React/03. 2-dars/App.jsx"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./05. React/03. 2-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./05. React/03. 2-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "05. React",
-    "moduleName": "05. React",
-    "moduleIcon": "fa-brands fa-react",
-    "moduleColor": "#00d8ff",
-    "title": "04. 3-dars",
-    "folderPath": "./05. React/04. 3-dars/index.html",
-    "files": [
-      {
-        "name": "app.js",
-        "relPath": "./05. React/04. 3-dars/app.js"
-      },
-      {
-        "name": "App.jsx",
-        "relPath": "./05. React/04. 3-dars/App.jsx"
-      },
-      {
-        "name": "index.html",
-        "relPath": "./05. React/04. 3-dars/index.html"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./05. React/04. 3-dars/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "01. Shaxsiy Portfolio Sayti",
-    "folderPath": "./06. Loyihalar/01. Shaxsiy Portfolio Sayti/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/01. Shaxsiy Portfolio Sayti/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/01. Shaxsiy Portfolio Sayti/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/01. Shaxsiy Portfolio Sayti/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "02. E-Commerce Do'kon",
-    "folderPath": "./06. Loyihalar/02. E-Commerce Do'kon/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/02. E-Commerce Do'kon/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/02. E-Commerce Do'kon/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/02. E-Commerce Do'kon/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "03. Ob-havo Ilovasi",
-    "folderPath": "./06. Loyihalar/03. Ob-havo Ilovasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/03. Ob-havo Ilovasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/03. Ob-havo Ilovasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/03. Ob-havo Ilovasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "04. Zamonaviy Kalkulyator",
-    "folderPath": "./06. Loyihalar/04. Zamonaviy Kalkulyator/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/04. Zamonaviy Kalkulyator/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/04. Zamonaviy Kalkulyator/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/04. Zamonaviy Kalkulyator/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "05. Viktorina Ilovasi",
-    "folderPath": "./06. Loyihalar/05. Viktorina Ilovasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/05. Viktorina Ilovasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/05. Viktorina Ilovasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/05. Viktorina Ilovasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "06. Kripto Kurslari Kuzatuvchisi",
-    "folderPath": "./06. Loyihalar/06. Kripto Kurslari Kuzatuvchisi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/06. Kripto Kurslari Kuzatuvchisi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/06. Kripto Kurslari Kuzatuvchisi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/06. Kripto Kurslari Kuzatuvchisi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "07. Xavfsiz Parol Generatori",
-    "folderPath": "./06. Loyihalar/07. Xavfsiz Parol Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/07. Xavfsiz Parol Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/07. Xavfsiz Parol Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/07. Xavfsiz Parol Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "08. Rang va Gradiyent Generatori",
-    "folderPath": "./06. Loyihalar/08. Rang va Gradiyent Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/08. Rang va Gradiyent Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/08. Rang va Gradiyent Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/08. Rang va Gradiyent Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "09. Raqamli Soat va Sekundomer",
-    "folderPath": "./06. Loyihalar/09. Raqamli Soat va Sekundomer/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/09. Raqamli Soat va Sekundomer/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/09. Raqamli Soat va Sekundomer/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/09. Raqamli Soat va Sekundomer/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "10. Musiqa Pleyeri UI",
-    "folderPath": "./06. Loyihalar/10. Musiqa Pleyeri UI/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/10. Musiqa Pleyeri UI/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/10. Musiqa Pleyeri UI/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/10. Musiqa Pleyeri UI/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "100. Front-End Cheat Sheet & Interaktiv Kod Kutubxonasi",
-    "folderPath": "./06. Loyihalar/100. Front-End Cheat Sheet & Interaktiv Kod Kutubxonasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/100. Front-End Cheat Sheet & Interaktiv Kod Kutubxonasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/100. Front-End Cheat Sheet & Interaktiv Kod Kutubxonasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/100. Front-End Cheat Sheet & Interaktiv Kod Kutubxonasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "11. Pomodoro Taymeri",
-    "folderPath": "./06. Loyihalar/11. Pomodoro Taymeri/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/11. Pomodoro Taymeri/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/11. Pomodoro Taymeri/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/11. Pomodoro Taymeri/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "12. Kanban Doskasi",
-    "folderPath": "./06. Loyihalar/12. Kanban Doskasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/12. Kanban Doskasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/12. Kanban Doskasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/12. Kanban Doskasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "13. Tezkor Eslatmalar",
-    "folderPath": "./06. Loyihalar/13. Tezkor Eslatmalar/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/13. Tezkor Eslatmalar/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/13. Tezkor Eslatmalar/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/13. Tezkor Eslatmalar/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "14. Matn Tahrirlagich",
-    "folderPath": "./06. Loyihalar/14. Matn Tahrirlagich/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/14. Matn Tahrirlagich/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/14. Matn Tahrirlagich/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/14. Matn Tahrirlagich/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "15. QR Kod Generatori",
-    "folderPath": "./06. Loyihalar/15. QR Kod Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/15. QR Kod Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/15. QR Kod Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/15. QR Kod Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "16. Xarajatlar Kundaligi",
-    "folderPath": "./06. Loyihalar/16. Xarajatlar Kundaligi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/16. Xarajatlar Kundaligi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/16. Xarajatlar Kundaligi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/16. Xarajatlar Kundaligi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "17. BMI Tana Vazni Kalkulyatori",
-    "folderPath": "./06. Loyihalar/17. BMI Tana Vazni Kalkulyatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/17. BMI Tana Vazni Kalkulyatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/17. BMI Tana Vazni Kalkulyatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/17. BMI Tana Vazni Kalkulyatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "18. Kredit va Ipoteka Kalkulyatori",
-    "folderPath": "./06. Loyihalar/18. Kredit va Ipoteka Kalkulyatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/18. Kredit va Ipoteka Kalkulyatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/18. Kredit va Ipoteka Kalkulyatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/18. Kredit va Ipoteka Kalkulyatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "19. Choychaqa Kalkulyatori",
-    "folderPath": "./06. Loyihalar/19. Choychaqa Kalkulyatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/19. Choychaqa Kalkulyatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/19. Choychaqa Kalkulyatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/19. Choychaqa Kalkulyatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "20. Birliklar Konverteri",
-    "folderPath": "./06. Loyihalar/20. Birliklar Konverteri/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/20. Birliklar Konverteri/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/20. Birliklar Konverteri/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/20. Birliklar Konverteri/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "21. Yosh Kalkulyatori",
-    "folderPath": "./06. Loyihalar/21. Yosh Kalkulyatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/21. Yosh Kalkulyatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/21. Yosh Kalkulyatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/21. Yosh Kalkulyatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "22. So'z va Belgi Sanagich",
-    "folderPath": "./06. Loyihalar/22. So'z va Belgi Sanagich/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/22. So'z va Belgi Sanagich/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/22. So'z va Belgi Sanagich/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/22. So'z va Belgi Sanagich/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "23. Valyuta Kurslari Konverteri",
-    "folderPath": "./06. Loyihalar/23. Valyuta Kurslari Konverteri/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/23. Valyuta Kurslari Konverteri/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/23. Valyuta Kurslari Konverteri/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/23. Valyuta Kurslari Konverteri/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "24. Odatlar Kuzatuvchisi",
-    "folderPath": "./06. Loyihalar/24. Odatlar Kuzatuvchisi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/24. Odatlar Kuzatuvchisi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/24. Odatlar Kuzatuvchisi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/24. Odatlar Kuzatuvchisi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "25. Rezyume Yaratuvchi",
-    "folderPath": "./06. Loyihalar/25. Rezyume Yaratuvchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/25. Rezyume Yaratuvchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/25. Rezyume Yaratuvchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/25. Rezyume Yaratuvchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "26. Markdown Jonli Tahrirlagich",
-    "folderPath": "./06. Loyihalar/26. Markdown Jonli Tahrirlagich/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/26. Markdown Jonli Tahrirlagich/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/26. Markdown Jonli Tahrirlagich/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/26. Markdown Jonli Tahrirlagich/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "27. Readme Fayl Generatori",
-    "folderPath": "./06. Loyihalar/27. Readme Fayl Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/27. Readme Fayl Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/27. Readme Fayl Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/27. Readme Fayl Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "28. Taymer va Budilnik",
-    "folderPath": "./06. Loyihalar/28. Taymer va Budilnik/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/28. Taymer va Budilnik/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/28. Taymer va Budilnik/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/28. Taymer va Budilnik/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "29. Matnni Ovozga O'giruvchi",
-    "folderPath": "./06. Loyihalar/29. Matnni Ovozga O'giruvchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/29. Matnni Ovozga O'giruvchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/29. Matnni Ovozga O'giruvchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/29. Matnni Ovozga O'giruvchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "30. Ovozni Matnga O'giruvchi",
-    "folderPath": "./06. Loyihalar/30. Ovozni Matnga O'giruvchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/30. Ovozni Matnga O'giruvchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/30. Ovozni Matnga O'giruvchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/30. Ovozni Matnga O'giruvchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "31. Tic-Tac-Toe",
-    "folderPath": "./06. Loyihalar/31. Tic-Tac-Toe/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/31. Tic-Tac-Toe/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/31. Tic-Tac-Toe/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/31. Tic-Tac-Toe/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "32. Xotira O'yini",
-    "folderPath": "./06. Loyihalar/32. Xotira O'yini/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/32. Xotira O'yini/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/32. Xotira O'yini/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/32. Xotira O'yini/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "33. Tosh Qaychi Qog'oz",
-    "folderPath": "./06. Loyihalar/33. Tosh Qaychi Qog'oz/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/33. Tosh Qaychi Qog'oz/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/33. Tosh Qaychi Qog'oz/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/33. Tosh Qaychi Qog'oz/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "34. Iloncha O'yini",
-    "folderPath": "./06. Loyihalar/34. Iloncha O'yini/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/34. Iloncha O'yini/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/34. Iloncha O'yini/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/34. Iloncha O'yini/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "35. Qushcha O'yini",
-    "folderPath": "./06. Loyihalar/35. Qushcha O'yini/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/35. Qushcha O'yini/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/35. Qushcha O'yini/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/35. Qushcha O'yini/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "36. Mole O'yini",
-    "folderPath": "./06. Loyihalar/36. Mole O'yini/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/36. Mole O'yini/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/36. Mole O'yini/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/36. Mole O'yini/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "37. Tez Yozish Mashqi",
-    "folderPath": "./06. Loyihalar/37. Tez Yozish Mashqi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/37. Tez Yozish Mashqi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/37. Tez Yozish Mashqi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/37. Tez Yozish Mashqi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "38. So'zni Top",
-    "folderPath": "./06. Loyihalar/38. So'zni Top/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/38. So'zni Top/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/38. So'zni Top/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/38. So'zni Top/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "39. Simon Says O'yini",
-    "folderPath": "./06. Loyihalar/39. Simon Says O'yini/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/39. Simon Says O'yini/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/39. Simon Says O'yini/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/39. Simon Says O'yini/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "40. 2048 O'yini",
-    "folderPath": "./06. Loyihalar/40. 2048 O'yini/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/40. 2048 O'yini/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/40. 2048 O'yini/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/40. 2048 O'yini/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "41. Ping-Pong O'yini",
-    "folderPath": "./06. Loyihalar/41. Ping-Pong O'yini/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/41. Ping-Pong O'yini/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/41. Ping-Pong O'yini/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/41. Ping-Pong O'yini/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "42. G'ildirak Aylantirish",
-    "folderPath": "./06. Loyihalar/42. G'ildirak Aylantirish/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/42. G'ildirak Aylantirish/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/42. G'ildirak Aylantirish/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/42. G'ildirak Aylantirish/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "43. Sehrli Shar 8",
-    "folderPath": "./06. Loyihalar/43. Sehrli Shar 8/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/43. Sehrli Shar 8/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/43. Sehrli Shar 8/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/43. Sehrli Shar 8/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "44. Tasodifiy Son Generatori",
-    "folderPath": "./06. Loyihalar/44. Tasodifiy Son Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/44. Tasodifiy Son Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/44. Tasodifiy Son Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/44. Tasodifiy Son Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "45. Tangacha Tashlash",
-    "folderPath": "./06. Loyihalar/45. Tangacha Tashlash/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/45. Tangacha Tashlash/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/45. Tangacha Tashlash/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/45. Tangacha Tashlash/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "46. Zar Tashlash",
-    "folderPath": "./06. Loyihalar/46. Zar Tashlash/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/46. Zar Tashlash/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/46. Zar Tashlash/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/46. Zar Tashlash/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "47. Musiqiy Baraban",
-    "folderPath": "./06. Loyihalar/47. Musiqiy Baraban/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/47. Musiqiy Baraban/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/47. Musiqiy Baraban/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/47. Musiqiy Baraban/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "48. Virtual Pianino",
-    "folderPath": "./06. Loyihalar/48. Virtual Pianino/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/48. Virtual Pianino/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/48. Virtual Pianino/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/48. Virtual Pianino/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "49. Rangni Top O'yini",
-    "folderPath": "./06. Loyihalar/49. Rangni Top O'yini/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/49. Rangni Top O'yini/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/49. Rangni Top O'yini/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/49. Rangni Top O'yini/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "50. Matematik Blits O'yin",
-    "folderPath": "./06. Loyihalar/50. Matematik Blits O'yin/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/50. Matematik Blits O'yin/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/50. Matematik Blits O'yin/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/50. Matematik Blits O'yin/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "51. Box-Shadow Generatori",
-    "folderPath": "./06. Loyihalar/51. Box-Shadow Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/51. Box-Shadow Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/51. Box-Shadow Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/51. Box-Shadow Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "52. Border-Radius Vizual Generatori",
-    "folderPath": "./06. Loyihalar/52. Border-Radius Vizual Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/52. Border-Radius Vizual Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/52. Border-Radius Vizual Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/52. Border-Radius Vizual Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "53. Glassmorphism Generatori",
-    "folderPath": "./06. Loyihalar/53. Glassmorphism Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/53. Glassmorphism Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/53. Glassmorphism Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/53. Glassmorphism Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "54. Neumorphism Generatori",
-    "folderPath": "./06. Loyihalar/54. Neumorphism Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/54. Neumorphism Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/54. Neumorphism Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/54. Neumorphism Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "55. CSS Clip-Path Shakllar Generatori",
-    "folderPath": "./06. Loyihalar/55. CSS Clip-Path Shakllar Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/55. CSS Clip-Path Shakllar Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/55. CSS Clip-Path Shakllar Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/55. CSS Clip-Path Shakllar Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "56. Rasm Filtrlari Studiyasi",
-    "folderPath": "./06. Loyihalar/56. Rasm Filtrlari Studiyasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/56. Rasm Filtrlari Studiyasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/56. Rasm Filtrlari Studiyasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/56. Rasm Filtrlari Studiyasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "57. Chizmachilik Doskasi",
-    "folderPath": "./06. Loyihalar/57. Chizmachilik Doskasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/57. Chizmachilik Doskasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/57. Chizmachilik Doskasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/57. Chizmachilik Doskasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "58. Rasm Hajmini O'zgartiruvchi va Qirquvchi",
-    "folderPath": "./06. Loyihalar/58. Rasm Hajmini O'zgartiruvchi va Qirquvchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/58. Rasm Hajmini O'zgartiruvchi va Qirquvchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/58. Rasm Hajmini O'zgartiruvchi va Qirquvchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/58. Rasm Hajmini O'zgartiruvchi va Qirquvchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "59. Palitra O'g'risi",
-    "folderPath": "./06. Loyihalar/59. Palitra O'g'risi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/59. Palitra O'g'risi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/59. Palitra O'g'risi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/59. Palitra O'g'risi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "60. SVG Ikonlar Kolleksiyasi va Qidiruvi",
-    "folderPath": "./06. Loyihalar/60. SVG Ikonlar Kolleksiyasi va Qidiruvi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/60. SVG Ikonlar Kolleksiyasi va Qidiruvi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/60. SVG Ikonlar Kolleksiyasi va Qidiruvi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/60. SVG Ikonlar Kolleksiyasi va Qidiruvi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "61. CSS Tugmalar Kolleksiyasi",
-    "folderPath": "./06. Loyihalar/61. CSS Tugmalar Kolleksiyasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/61. CSS Tugmalar Kolleksiyasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/61. CSS Tugmalar Kolleksiyasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/61. CSS Tugmalar Kolleksiyasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "62. Akkordeon & FAQ Komponenti",
-    "folderPath": "./06. Loyihalar/62. Akkordeon & FAQ Komponenti/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/62. Akkordeon & FAQ Komponenti/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/62. Akkordeon & FAQ Komponenti/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/62. Akkordeon & FAQ Komponenti/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "63. Rasmlar Slayderi",
-    "folderPath": "./06. Loyihalar/63. Rasmlar Slayderi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/63. Rasmlar Slayderi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/63. Rasmlar Slayderi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/63. Rasmlar Slayderi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "64. Modal va Popuplar To'plami",
-    "folderPath": "./06. Loyihalar/64. Modal va Popuplar To'plami/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/64. Modal va Popuplar To'plami/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/64. Modal va Popuplar To'plami/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/64. Modal va Popuplar To'plami/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "65. Ko'p Bosqichli Forma",
-    "folderPath": "./06. Loyihalar/65. Ko'p Bosqichli Forma/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/65. Ko'p Bosqichli Forma/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/65. Ko'p Bosqichli Forma/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/65. Ko'p Bosqichli Forma/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "66. Reyting va Yulduzchalar",
-    "folderPath": "./06. Loyihalar/66. Reyting va Yulduzchalar/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/66. Reyting va Yulduzchalar/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/66. Reyting va Yulduzchalar/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/66. Reyting va Yulduzchalar/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "67. Yuklanish Animatsiyalari",
-    "folderPath": "./06. Loyihalar/67. Yuklanish Animatsiyalari/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/67. Yuklanish Animatsiyalari/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/67. Yuklanish Animatsiyalari/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/67. Yuklanish Animatsiyalari/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "68. Narxlar Jadvali",
-    "folderPath": "./06. Loyihalar/68. Narxlar Jadvali/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/68. Narxlar Jadvali/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/68. Narxlar Jadvali/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/68. Narxlar Jadvali/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "69. Parol Kuchini Tekshiruvchi",
-    "folderPath": "./06. Loyihalar/69. Parol Kuchini Tekshiruvchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/69. Parol Kuchini Tekshiruvchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/69. Parol Kuchini Tekshiruvchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/69. Parol Kuchini Tekshiruvchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "70. Drag and Drop Fayl Yuklovchi",
-    "folderPath": "./06. Loyihalar/70. Drag and Drop Fayl Yuklovchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/70. Drag and Drop Fayl Yuklovchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/70. Drag and Drop Fayl Yuklovchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/70. Drag and Drop Fayl Yuklovchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "71. IT Akademiya Landing Sahifasi",
-    "folderPath": "./06. Loyihalar/71. IT Akademiya Landing Sahifasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/71. IT Akademiya Landing Sahifasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/71. IT Akademiya Landing Sahifasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/71. IT Akademiya Landing Sahifasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "72. Zamonaviy Restoran & Menyu",
-    "folderPath": "./06. Loyihalar/72. Zamonaviy Restoran & Menyu/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/72. Zamonaviy Restoran & Menyu/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/72. Zamonaviy Restoran & Menyu/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/72. Zamonaviy Restoran & Menyu/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "73. Qahvaxona Sayti",
-    "folderPath": "./06. Loyihalar/73. Qahvaxona Sayti/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/73. Qahvaxona Sayti/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/73. Qahvaxona Sayti/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/73. Qahvaxona Sayti/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "74. Fitnes va Sport Zali",
-    "folderPath": "./06. Loyihalar/74. Fitnes va Sport Zali/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/74. Fitnes va Sport Zali/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/74. Fitnes va Sport Zali/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/74. Fitnes va Sport Zali/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "75. Sayohat va Turizm Agentligi",
-    "folderPath": "./06. Loyihalar/75. Sayohat va Turizm Agentligi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/75. Sayohat va Turizm Agentligi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/75. Sayohat va Turizm Agentligi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/75. Sayohat va Turizm Agentligi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "76. Shaxsiy Brend Freelancer Portfolio",
-    "folderPath": "./06. Loyihalar/76. Shaxsiy Brend Freelancer Portfolio/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/76. Shaxsiy Brend Freelancer Portfolio/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/76. Shaxsiy Brend Freelancer Portfolio/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/76. Shaxsiy Brend Freelancer Portfolio/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "77. Kiberxavfsizlik Xizmatlari Sayti",
-    "folderPath": "./06. Loyihalar/77. Kiberxavfsizlik Xizmatlari Sayti/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/77. Kiberxavfsizlik Xizmatlari Sayti/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/77. Kiberxavfsizlik Xizmatlari Sayti/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/77. Kiberxavfsizlik Xizmatlari Sayti/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "78. SaaS Dastur Landing Sahifasi",
-    "folderPath": "./06. Loyihalar/78. SaaS Dastur Landing Sahifasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/78. SaaS Dastur Landing Sahifasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/78. SaaS Dastur Landing Sahifasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/78. SaaS Dastur Landing Sahifasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "79. Go'zallik Saloni & Sartaroshxona",
-    "folderPath": "./06. Loyihalar/79. Go'zallik Saloni & Sartaroshxona/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/79. Go'zallik Saloni & Sartaroshxona/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/79. Go'zallik Saloni & Sartaroshxona/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/79. Go'zallik Saloni & Sartaroshxona/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "80. Avtomobil Ijarasi",
-    "folderPath": "./06. Loyihalar/80. Avtomobil Ijarasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/80. Avtomobil Ijarasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/80. Avtomobil Ijarasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/80. Avtomobil Ijarasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "81. Tibbiy Klinika Sayti",
-    "folderPath": "./06. Loyihalar/81. Tibbiy Klinika Sayti/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/81. Tibbiy Klinika Sayti/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/81. Tibbiy Klinika Sayti/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/81. Tibbiy Klinika Sayti/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "82. Ko'chmas Mulk Agentligi",
-    "folderPath": "./06. Loyihalar/82. Ko'chmas Mulk Agentligi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/82. Ko'chmas Mulk Agentligi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/82. Ko'chmas Mulk Agentligi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/82. Ko'chmas Mulk Agentligi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "83. Kitoblar Kutubxonasi UI",
-    "folderPath": "./06. Loyihalar/83. Kitoblar Kutubxonasi UI/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/83. Kitoblar Kutubxonasi UI/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/83. Kitoblar Kutubxonasi UI/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/83. Kitoblar Kutubxonasi UI/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "84. Bolalar Bog'chasi & O'quv Markazi",
-    "folderPath": "./06. Loyihalar/84. Bolalar Bog'chasi & O'quv Markazi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/84. Bolalar Bog'chasi & O'quv Markazi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/84. Bolalar Bog'chasi & O'quv Markazi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/84. Bolalar Bog'chasi & O'quv Markazi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "85. Konferensiya & Tadbirlar Sayti",
-    "folderPath": "./06. Loyihalar/85. Konferensiya & Tadbirlar Sayti/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/85. Konferensiya & Tadbirlar Sayti/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/85. Konferensiya & Tadbirlar Sayti/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/85. Konferensiya & Tadbirlar Sayti/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "86. JSON Formatlagich va Validator",
-    "folderPath": "./06. Loyihalar/86. JSON Formatlagich va Validator/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/86. JSON Formatlagich va Validator/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/86. JSON Formatlagich va Validator/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/86. JSON Formatlagich va Validator/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "87. Regex Sinovchi",
-    "folderPath": "./06. Loyihalar/87. Regex Sinovchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/87. Regex Sinovchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/87. Regex Sinovchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/87. Regex Sinovchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "88. Base64 Kodlovchi va Dekodlovchi",
-    "folderPath": "./06. Loyihalar/88. Base64 Kodlovchi va Dekodlovchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/88. Base64 Kodlovchi va Dekodlovchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/88. Base64 Kodlovchi va Dekodlovchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/88. Base64 Kodlovchi va Dekodlovchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "89. HTML Teglarni Tozalovchi",
-    "folderPath": "./06. Loyihalar/89. HTML Teglarni Tozalovchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/89. HTML Teglarni Tozalovchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/89. HTML Teglarni Tozalovchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/89. HTML Teglarni Tozalovchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "90. Klaviatura Tugmalari Inspektori",
-    "folderPath": "./06. Loyihalar/90. Klaviatura Tugmalari Inspektori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/90. Klaviatura Tugmalari Inspektori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/90. Klaviatura Tugmalari Inspektori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/90. Klaviatura Tugmalari Inspektori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "91. Flexbox Vizual Qumloqchasi",
-    "folderPath": "./06. Loyihalar/91. Flexbox Vizual Qumloqchasi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/91. Flexbox Vizual Qumloqchasi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/91. Flexbox Vizual Qumloqchasi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/91. Flexbox Vizual Qumloqchasi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "92. CSS Grid Vizual Quruvchisi",
-    "folderPath": "./06. Loyihalar/92. CSS Grid Vizual Quruvchisi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/92. CSS Grid Vizual Quruvchisi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/92. CSS Grid Vizual Quruvchisi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/92. CSS Grid Vizual Quruvchisi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "93. URL Kodlovchi va Tahlilchi",
-    "folderPath": "./06. Loyihalar/93. URL Kodlovchi va Tahlilchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/93. URL Kodlovchi va Tahlilchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/93. URL Kodlovchi va Tahlilchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/93. URL Kodlovchi va Tahlilchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "94. Lorem Ipsum Matn Generatori",
-    "folderPath": "./06. Loyihalar/94. Lorem Ipsum Matn Generatori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/94. Lorem Ipsum Matn Generatori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/94. Lorem Ipsum Matn Generatori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/94. Lorem Ipsum Matn Generatori/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "95. Rasm Ranglarini Invertor Qiluvchi",
-    "folderPath": "./06. Loyihalar/95. Rasm Ranglarini Invertor Qiluvchi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/95. Rasm Ranglarini Invertor Qiluvchi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/95. Rasm Ranglarini Invertor Qiluvchi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/95. Rasm Ranglarini Invertor Qiluvchi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "96. Jonli Chat Messenjer UI",
-    "folderPath": "./06. Loyihalar/96. Jonli Chat Messenjer UI/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/96. Jonli Chat Messenjer UI/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/96. Jonli Chat Messenjer UI/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/96. Jonli Chat Messenjer UI/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "97. Bildirishnomalar Markazi",
-    "folderPath": "./06. Loyihalar/97. Bildirishnomalar Markazi/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/97. Bildirishnomalar Markazi/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/97. Bildirishnomalar Markazi/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/97. Bildirishnomalar Markazi/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "98. Xatcho'plar Menejeri",
-    "folderPath": "./06. Loyihalar/98. Xatcho'plar Menejeri/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/98. Xatcho'plar Menejeri/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/98. Xatcho'plar Menejeri/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/98. Xatcho'plar Menejeri/style.css"
-      }
-    ]
-  },
-  {
-    "module": "06. Loyihalar",
-    "moduleName": "06. Real Loyihalar",
-    "moduleIcon": "fa-solid fa-rocket",
-    "moduleColor": "#ec4899",
-    "title": "99. Cookie va LocalStorage Inspektori",
-    "folderPath": "./06. Loyihalar/99. Cookie va LocalStorage Inspektori/index.html",
-    "files": [
-      {
-        "name": "index.html",
-        "relPath": "./06. Loyihalar/99. Cookie va LocalStorage Inspektori/index.html"
-      },
-      {
-        "name": "script.js",
-        "relPath": "./06. Loyihalar/99. Cookie va LocalStorage Inspektori/script.js"
-      },
-      {
-        "name": "style.css",
-        "relPath": "./06. Loyihalar/99. Cookie va LocalStorage Inspektori/style.css"
-      }
-    ]
-  }
-];
+/**
+ * EduMemory Pro Platform - Main Engine
+ * YouTube-style catalog, interactive studio, lessons, i18n & PWA
+ */
 
-let currentIndex = 0;
-let currentTab = 'preview'; // 'preview' | 'code' | 'playground'
-let currentPortalMode = 'lessons'; // 'lessons' | 'projects'
-let currentModuleFilter = 'all';
-let currentProjectCategory = 'all';
+(function () {
+  'use strict';
 
-const lessonsTreeEl = document.getElementById('lessons-tree');
-const lessonTitleEl = document.getElementById('lesson-title');
-const lessonModuleEl = document.getElementById('lesson-module');
-const previewFrame = document.getElementById('preview-frame');
-const codeViewer = document.getElementById('code-viewer');
-const playgroundView = document.getElementById('playground-view');
-const playgroundEditor = document.getElementById('playground-editor');
-const searchInput = document.getElementById('search-input');
-const progressFill = document.getElementById('progress-fill');
-const progressPercent = document.getElementById('progress-percent');
-const openNewTabBtn = document.getElementById('open-new-tab');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
-const markDoneBtn = document.getElementById('mark-done-btn');
-const tabPreviewBtn = document.getElementById('tab-preview-btn');
-const tabCodeBtn = document.getElementById('tab-code-btn');
-const tabPlaygroundBtn = document.getElementById('tab-playground-btn');
-
-// LocalStorage for progress
-function getCompletedLessons() {
-    try {
-        return JSON.parse(localStorage.getItem('frontend_completed_lessons') || '[]');
-    } catch {
-        return [];
+  // 1. i18n Tarjimalar lug'ati (UZ, RU, EN)
+  const I18N = {
+    uz: {
+      siteTitle: "EduMemory Pro",
+      siteSubtitle: "Frontend Dasturlash Platformasi",
+      searchPlaceholder: "Loyiha, texnologiya yoki mavzu bo'yicha qidiring... (/)",
+      heroBadge: "10X FRONTEND PLATFORMA",
+      heroTitle: "Dasturchilar Uchun <span>Frontend Loyihalar</span> Markazi",
+      heroDesc: "150+ dan ortiq tayyor real portfolio loyihalari, bosqichma-bosqich darslar va kodlar ombori.",
+      lessonsCardTitle: "Interaktiv Darslar",
+      lessonsCardDesc: "Boshlang'ichdan professionalgacha ketma-ket darslar, tushuntirishlar va amaliy mashqlar.",
+      lessonsCardAction: "Darslarga o'tish →",
+      projectsCardTitle: "Tayyor Portfolio Loyihalar",
+      projectsCardDesc: "Jonli ko'rish, manba kodlari va 1-bosishda ZIP qilib yuklab olish imkoniyati.",
+      projectsCardAction: "Loyihalarni ko'rish →",
+      statsProjects: "Real Loyihalar",
+      statsLessons: "Interaktiv Darslar",
+      statsDownloads: "Yuklab Olishlar",
+      statsRating: "Jamoa Bahosi",
+      continueTitle: "Oxirgi ko'rilgan loyiha",
+      continueAction: "Davom ettirish →",
+      categoriesHeading: "Kategoriyalar",
+      allCategory: "Barcha Loyihalar",
+      favoritesCategory: "Sevimli Loyihalar",
+      historyCategory: "Ko'rilganlar Tarixi",
+      allLevels: "Barcha darajalar",
+      levelBasic: "Boshlang'ich",
+      levelMid: "O'rta",
+      levelAdv: "Murakkab",
+      sortNewest: "Yangi loyihalar",
+      sortPopular: "Eng mashhur",
+      sortDownloads: "Ko'p yuklangan",
+      tabPreview: "Jonli Ko'rish",
+      tabCode: "Manba Kodi",
+      tabLesson: "Dars Rejasi",
+      tabReadme: "Hujjatlar (README)",
+      copyCode: "Kodni nusxalash",
+      downloadZip: "ZIP Yuklab Olish",
+      openNewTab: "Yangi oynada",
+      markCompleted: "Darsni yakunlash",
+      completedBadge: "O'zlashtirildi",
+      relatedHeading: "O'xshash loyihalar",
+      toastCopied: "Kod clipboardga nusxalandi!",
+      toastCompleted: "Tabriklaymiz! Dars muvaffaqiyatli yakunlandi."
+    },
+    ru: {
+      siteTitle: "EduMemory Pro",
+      siteSubtitle: "Платформа фронтенд разработки",
+      searchPlaceholder: "Поиск проекта, технологии или темы... (/)",
+      heroBadge: "10X ФРОНТЕНД ПЛАТФОРМА",
+      heroTitle: "Центр <span>Фронтенд Проектов</span> Для Разработчиков",
+      heroDesc: "Более 150+ готовых проектов для портфолио, пошаговые уроки и хранилище кода.",
+      lessonsCardTitle: "Интерактивные Уроки",
+      lessonsCardDesc: "Последовательные уроки от начального до профи, подробные объяснения и упражнения.",
+      lessonsCardAction: "Перейти к урокам →",
+      projectsCardTitle: "Готовые Проекты Портфолио",
+      projectsCardDesc: "Живой предпросмотр, исходный код и скачивание в ZIP в один клик.",
+      projectsCardAction: "Смотреть проекты →",
+      statsProjects: "Реальных Проектов",
+      statsLessons: "Интерактивных Уроков",
+      statsDownloads: "Скачиваний",
+      statsRating: "Оценка Сообщества",
+      continueTitle: "Последний просмотренный проект",
+      continueAction: "Продолжить →",
+      categoriesHeading: "Категории",
+      allCategory: "Все Проекты",
+      favoritesCategory: "Избранные Проекты",
+      historyCategory: "История Просмотра",
+      allLevels: "Все уровни",
+      levelBasic: "Начальный",
+      levelMid: "Средний",
+      levelAdv: "Сложный",
+      sortNewest: "Новые проекты",
+      sortPopular: "Самые популярные",
+      sortDownloads: "Много скачиваний",
+      tabPreview: "Живой Просмотр",
+      tabCode: "Исходный Код",
+      tabLesson: "План Урока",
+      tabReadme: "Документация (README)",
+      copyCode: "Копировать код",
+      downloadZip: "Скачать ZIP",
+      openNewTab: "В новой вкладке",
+      markCompleted: "Завершить урок",
+      completedBadge: "Освоено",
+      relatedHeading: "Похожие проекты",
+      toastCopied: "Код скопирован в буфер обмена!",
+      toastCompleted: "Поздравляем! Урок успешно завершён."
+    },
+    en: {
+      siteTitle: "EduMemory Pro",
+      siteSubtitle: "Frontend Developer Platform",
+      searchPlaceholder: "Search projects, technologies or tags... (/)",
+      heroBadge: "10X FRONTEND PLATFORM",
+      heroTitle: "<span>Frontend Projects</span> Hub for Developers",
+      heroDesc: "150+ production-ready portfolio projects, step-by-step masterclass lessons and code vault.",
+      lessonsCardTitle: "Interactive Lessons",
+      lessonsCardDesc: "Level-based sequential lessons, deep architecture breakdown and hands-on exercises.",
+      lessonsCardAction: "Explore lessons →",
+      projectsCardTitle: "Portfolio Projects",
+      projectsCardDesc: "Live preview, source code inspection and 1-click ZIP downloads.",
+      projectsCardAction: "Browse projects →",
+      statsProjects: "Real Projects",
+      statsLessons: "Interactive Lessons",
+      statsDownloads: "Downloads",
+      statsRating: "Community Rating",
+      continueTitle: "Last viewed project",
+      continueAction: "Continue learning →",
+      categoriesHeading: "Categories",
+      allCategory: "All Projects",
+      favoritesCategory: "Favorite Projects",
+      historyCategory: "Browsing History",
+      allLevels: "All levels",
+      levelBasic: "Beginner",
+      levelMid: "Intermediate",
+      levelAdv: "Advanced",
+      sortNewest: "Newest",
+      sortPopular: "Most Popular",
+      sortDownloads: "Most Downloaded",
+      tabPreview: "Live Preview",
+      tabCode: "Source Code",
+      tabLesson: "Lesson Plan",
+      tabReadme: "Docs (README)",
+      copyCode: "Copy code",
+      downloadZip: "Download ZIP",
+      openNewTab: "Open in new tab",
+      markCompleted: "Mark as completed",
+      completedBadge: "Completed",
+      relatedHeading: "Related projects",
+      toastCopied: "Code copied to clipboard!",
+      toastCompleted: "Congratulations! Lesson marked as completed."
     }
-}
+  };
 
-function saveCompletedLesson(index, isDone) {
-    const list = getCompletedLessons();
-    const idx = list.indexOf(index);
-    if (isDone && idx === -1) {
-        list.push(index);
-    } else if (!isDone && idx !== -1) {
-        list.splice(idx, 1);
-    }
-    localStorage.setItem('frontend_completed_lessons', JSON.stringify(list));
-    updateProgress();
-    updateMarkDoneBtn();
-}
+  // 2. Global State
+  const App = {
+    lang: localStorage.getItem('edumemory_lang') || 'uz',
+    theme: localStorage.getItem('edumemory_theme') || 'dark',
+    projects: [],
+    filteredProjects: [],
+    currentCategory: 'all',
+    currentLevel: 'all',
+    currentTech: 'all',
+    searchQuery: '',
+    sortBy: 'newest',
+    favorites: JSON.parse(localStorage.getItem('edumemory_favorites') || '[]'),
+    history: JSON.parse(localStorage.getItem('edumemory_history') || '[]'),
+    completedLessons: JSON.parse(localStorage.getItem('edumemory_completed') || '[]'),
+    activeProject: null,
+    activeCodeTab: 'html',
+    loadedCount: 18,
+    activeViewport: 'desktop'
+  };
 
-function updateProgress() {
-    if (!progressFill || !progressPercent) return;
-    const completed = getCompletedLessons();
-    if (currentPortalMode === 'lessons') {
-        const completedLessons = completed.filter(i => i < 78).length;
-        const totalLessons = 78;
-        const pct = Math.round((completedLessons / totalLessons) * 100);
-        progressFill.style.width = pct + '%';
-        progressPercent.textContent = pct + '% (' + completedLessons + '/' + totalLessons + ' dars)';
-    } else {
-        const completedProjects = completed.filter(i => i >= 78 && i < ALL_LESSONS.length).length;
-        const totalProjects = Math.max(1, ALL_LESSONS.length - 78);
-        const pct = Math.round((completedProjects / totalProjects) * 100);
-        progressFill.style.width = pct + '%';
-        progressPercent.textContent = pct + '% (' + completedProjects + '/' + totalProjects + ' loyiha)';
-    }
-}
+  // DOM Elements cache
+  const UI = {};
 
-function updateMarkDoneBtn() {
-    if (!markDoneBtn) return;
-    const completed = getCompletedLessons();
-    const isDone = completed.includes(currentIndex);
-    if (isDone) {
-        markDoneBtn.className = "btn success";
-        markDoneBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Tugatilgan';
-    } else {
-        markDoneBtn.className = "btn";
-        markDoneBtn.innerHTML = '<i class="fa-regular fa-circle-check"></i> Tugatildi deb belgilash';
-    }
-}
-
-function toggleCurrentCompleted() {
-    const completed = getCompletedLessons();
-    const isDone = completed.includes(currentIndex);
-    saveCompletedLesson(currentIndex, !isDone);
-    renderTree(searchInput ? searchInput.value.trim() : '');
-}
-
-// 2-Way Section Mode Switcher (Darslar vs Real Loyihalar)
-function setPortalMode(mode, switchLesson = true) {
-    currentPortalMode = mode;
-
-    // Sidebar buttons state
-    const secLessonsBtn = document.getElementById('sec-lessons-btn');
-    const secProjectsBtn = document.getElementById('sec-projects-btn');
-    if (secLessonsBtn) secLessonsBtn.classList.toggle('active', mode === 'lessons');
-    if (secProjectsBtn) secProjectsBtn.classList.toggle('active', mode === 'projects');
-
-    // Top navbar buttons state
-    const topSecLessonsBtn = document.getElementById('top-sec-lessons-btn');
-    const topSecProjectsBtn = document.getElementById('top-sec-projects-btn');
-    if (topSecLessonsBtn) topSecLessonsBtn.classList.toggle('active', mode === 'lessons');
-    if (topSecProjectsBtn) topSecProjectsBtn.classList.toggle('active', mode === 'projects');
-
-    // Toggle Pills container
-    const lessonsPills = document.getElementById('lessons-pills');
-    const projectsPills = document.getElementById('projects-pills');
-    if (lessonsPills) lessonsPills.style.display = mode === 'lessons' ? 'flex' : 'none';
-    if (projectsPills) projectsPills.style.display = mode === 'projects' ? 'flex' : 'none';
-
-    // Reset filters
-    if (mode === 'lessons') {
-        currentModuleFilter = 'all';
-        if (lessonsPills) {
-            lessonsPills.querySelectorAll('.pill-btn').forEach((btn, idx) => {
-                btn.classList.toggle('active', idx === 0);
-            });
-        }
-        if (switchLesson && currentIndex >= 78) {
-            loadLesson(0);
-        }
-    } else {
-        currentProjectCategory = 'all';
-        if (projectsPills) {
-            projectsPills.querySelectorAll('.pill-btn').forEach((btn, idx) => {
-                btn.classList.toggle('active', idx === 0);
-            });
-        }
-        if (switchLesson && currentIndex < 78) {
-            loadLesson(78);
-        }
-    }
-
-    updateProgress();
-    renderTree(searchInput ? searchInput.value.trim() : '');
-}
-
-function chooseSectionAndEnter(mode) {
-    setPortalMode(mode, true);
-    closeWelcomeModal();
-}
-
-// Module Filtering for Lessons
-function filterByModule(mod) {
-    currentModuleFilter = mod;
-    const lessonsPills = document.getElementById('lessons-pills');
-    if (lessonsPills) {
-        lessonsPills.querySelectorAll('.pill-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('onclick')?.includes("'" + mod + "'"));
-        });
-    }
-    renderTree(searchInput ? searchInput.value.trim() : '');
-}
-
-// Category Filtering for 100 Projects
-function filterProjectsCategory(cat) {
-    currentProjectCategory = cat;
-    const projectsPills = document.getElementById('projects-pills');
-    if (projectsPills) {
-        projectsPills.querySelectorAll('.pill-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('onclick')?.includes("'" + cat + "'"));
-        });
-    }
-    renderTree(searchInput ? searchInput.value.trim() : '');
-}
-
-function matchProjectCategory(item, globalIdx) {
-    if (currentProjectCategory === 'all') return true;
-    const match = item.title.match(/^(\d+)/);
-    const num = match ? parseInt(match[1], 10) : (globalIdx - 78 + 1);
-    if (currentProjectCategory === 'basic') return num >= 1 && num <= 20;
-    if (currentProjectCategory === 'games') return num >= 21 && num <= 40;
-    if (currentProjectCategory === 'ui') return num >= 41 && num <= 60;
-    if (currentProjectCategory === 'sites') return num >= 61 && num <= 80;
-    if (currentProjectCategory === 'tools') return num >= 81 && num <= 100;
-    return true;
-}
-
-// Build Sidebar Tree with Section & Category Awareness
-function renderTree(filter = '') {
-    if (!lessonsTreeEl) return;
-    lessonsTreeEl.innerHTML = '';
-    const completed = getCompletedLessons();
+  function initUI() {
+    UI.searchInput = document.getElementById('globalSearchInput');
+    UI.searchClearBtn = document.getElementById('searchClearBtn');
+    UI.projectsGrid = document.getElementById('projectsGrid');
+    UI.categoryList = document.getElementById('categoryList');
+    UI.chipsScroll = document.getElementById('chipsScroll');
+    UI.sortSelect = document.getElementById('sortSelect');
+    UI.themeToggleBtn = document.getElementById('themeToggleBtn');
+    UI.langSelect = document.getElementById('langSelect');
+    UI.toast = document.getElementById('toastMsg');
+    UI.continueBanner = document.getElementById('continueBanner');
+    UI.continueProjectName = document.getElementById('continueProjectName');
+    UI.continueBtn = document.getElementById('continueBtn');
     
-    // Group lessons/projects
-    const groups = {};
-    ALL_LESSONS.forEach((l, idx) => {
-        const isProject = (idx >= 78 || l.module === '06. Loyihalar');
-        
-        // Strict section split
-        if (currentPortalMode === 'lessons' && isProject) return;
-        if (currentPortalMode === 'projects' && !isProject) return;
+    // Studio
+    UI.studio = document.getElementById('studioOverlay');
+    UI.studioTitle = document.getElementById('studioTitle');
+    UI.studioClose = document.getElementById('studioCloseBtn');
+    UI.studioPreviewIframe = document.getElementById('studioPreviewIframe');
+    UI.studioCodePre = document.getElementById('studioCodePre');
+    UI.studioLessonContent = document.getElementById('studioLessonContent');
+    UI.studioReadmeContent = document.getElementById('studioReadmeContent');
+    UI.relatedProjectsList = document.getElementById('relatedProjectsList');
+    UI.copyCodeBtn = document.getElementById('studioCopyCodeBtn');
+    UI.downloadZipBtn = document.getElementById('studioDownloadZipBtn');
+    UI.openExternalBtn = document.getElementById('studioOpenExternalBtn');
+    UI.markCompletedBtn = document.getElementById('studioMarkCompletedBtn');
+    UI.favStudioBtn = document.getElementById('studioFavBtn');
+  }
 
-        // Subcategory filter in projects mode
-        if (currentPortalMode === 'projects' && !matchProjectCategory(l, idx)) return;
+  // 3. Data Fetching
+  async function loadProjectsData() {
+    try {
+      const res = await fetch('./data/projects.json');
+      if (res.ok) {
+        App.projects = await res.json();
+      } else {
+        console.error('projects.json yuklanmadi');
+      }
+    } catch (e) {
+      console.warn('projects.json o\'qishda xatolik:', e);
+    }
+    applyFilters();
+    renderCategories();
+    updateContinueBanner();
+    renderStats();
+  }
 
-        // Module filter in lessons mode
-        if (currentPortalMode === 'lessons' && currentModuleFilter !== 'all' && l.module !== currentModuleFilter) return;
-
-        // Search filter
-        const matchesSearch = !filter || 
-            l.title.toLowerCase().includes(filter.toLowerCase()) || 
-            l.module.toLowerCase().includes(filter.toLowerCase());
-        if (!matchesSearch) return;
-
-        if (!groups[l.module]) {
-            groups[l.module] = {
-                name: l.moduleName,
-                icon: l.moduleIcon,
-                color: l.moduleColor,
-                items: []
-            };
+  // 4. Fuzzy Search (Levenshtein + Token matching)
+  function levenshtein(a, b) {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+    for (let i = 1; i <= b.length; i++) {
+      for (let j = 1; j <= a.length; j++) {
+        if (b.charAt(i - 1) === a.charAt(j - 1)) {
+          matrix[i][j] = matrix[i - 1][j - 1];
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j - 1] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j] + 1
+          );
         }
-        groups[l.module].items.push({ ...l, globalIndex: idx });
+      }
+    }
+    return matrix[b.length][a.length];
+  }
+
+  function matchesFuzzy(text, query) {
+    if (!text || !query) return false;
+    const t = text.toLowerCase();
+    const q = query.toLowerCase();
+    if (t.includes(q)) return true;
+
+    // Check individual tokens
+    const tokens = t.split(/[\s,.\-_/]+/);
+    for (const tok of tokens) {
+      if (tok.startsWith(q)) return true;
+      if (tok.length > 3 && q.length > 3 && levenshtein(tok, q) <= 2) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // 5. Filter & Sort
+  function applyFilters() {
+    let list = [...App.projects];
+
+    // Category filter
+    if (App.currentCategory === 'favorites') {
+      list = list.filter(p => App.favorites.includes(p.id));
+    } else if (App.currentCategory === 'history') {
+      const historyIds = App.history;
+      list = historyIds.map(id => list.find(p => p.id === id)).filter(Boolean);
+    } else if (App.currentCategory !== 'all') {
+      list = list.filter(p => p.category.toLowerCase() === App.currentCategory.toLowerCase());
+    }
+
+    // Level filter
+    if (App.currentLevel !== 'all') {
+      list = list.filter(p => p.level.toLowerCase().includes(App.currentLevel.toLowerCase()));
+    }
+
+    // Tech filter
+    if (App.currentTech !== 'all') {
+      list = list.filter(p => p.tech.some(t => t.toLowerCase().includes(App.currentTech.toLowerCase())));
+    }
+
+    // Search query
+    if (App.searchQuery.trim()) {
+      const q = App.searchQuery.trim();
+      list = list.filter(p => {
+        return matchesFuzzy(p.title, q) ||
+               matchesFuzzy(p.category, q) ||
+               p.tags.some(tag => matchesFuzzy(tag, q)) ||
+               p.tech.some(tech => matchesFuzzy(tech, q));
+      });
+    }
+
+    // Sorting
+    if (App.sortBy === 'newest') {
+      list.sort((a, b) => b.id - a.id);
+    } else if (App.sortBy === 'popular') {
+      list.sort((a, b) => b.rating - a.rating);
+    } else if (App.sortBy === 'downloads') {
+      list.sort((a, b) => b.downloads - a.downloads);
+    } else if (App.sortBy === 'alpha') {
+      list.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    App.filteredProjects = list;
+    App.loadedCount = 18;
+    renderGrid();
+  }
+
+  // 6. Render Categories in Sidebar
+  function renderCategories() {
+    if (!UI.categoryList) return;
+
+    const categories = [
+      { id: 'all', icon: 'fa-house', name: I18N[App.lang].allCategory },
+      { id: 'favorites', icon: 'fa-heart', name: I18N[App.lang].favoritesCategory },
+      { id: 'history', icon: 'fa-clock-rotate-left', name: I18N[App.lang].historyCategory },
+      { id: 'Landing', icon: 'fa-rocket', name: 'Landing' },
+      { id: 'Dashboard', icon: 'fa-chart-pie', name: 'Dashboard' },
+      { id: 'E-commerce', icon: 'fa-bag-shopping', name: 'E-commerce' },
+      { id: 'Admin panel', icon: 'fa-gear', name: 'Admin panel' },
+      { id: 'O\'yinlar', icon: 'fa-gamepad', name: 'O\'yinlar' },
+      { id: 'Animatsiya', icon: 'fa-wand-magic-sparkles', name: 'Animatsiya' },
+      { id: 'Portfolio', icon: 'fa-briefcase', name: 'Portfolio' },
+      { id: 'Calculator', icon: 'fa-calculator', name: 'Calculator' },
+      { id: 'CRM/To-do', icon: 'fa-list-check', name: 'CRM / To-do' },
+      { id: 'Chat UI', icon: 'fa-comments', name: 'Chat UI' },
+      { id: 'Clone UI', icon: 'fa-clone', name: 'Clone UI' },
+      { id: 'API loyihalar', icon: 'fa-cloud', name: 'API loyihalar' },
+      { id: 'Data visualization', icon: 'fa-chart-line', name: 'Data visualization' },
+      { id: 'Kanban', icon: 'fa-table-columns', name: 'Kanban' },
+      { id: 'Editor', icon: 'fa-pen-to-square', name: 'Editor' }
+    ];
+
+    UI.categoryList.innerHTML = categories.map(cat => {
+      let count = 0;
+      if (cat.id === 'all') count = App.projects.length;
+      else if (cat.id === 'favorites') count = App.favorites.length;
+      else if (cat.id === 'history') count = App.history.length;
+      else count = App.projects.filter(p => p.category.toLowerCase() === cat.id.toLowerCase()).length;
+
+      const isActive = App.currentCategory.toLowerCase() === cat.id.toLowerCase();
+      return `
+        <div class="category-item ${isActive ? 'active' : ''}" data-cat="${cat.id}">
+          <span class="cat-label">
+            <i class="fa-solid ${cat.icon}"></i>
+            <span>${cat.name}</span>
+          </span>
+          <span class="cat-count">${count}</span>
+        </div>
+      `;
+    }).join('');
+
+    UI.categoryList.querySelectorAll('.category-item').forEach(item => {
+      item.onclick = () => {
+        App.currentCategory = item.dataset.cat;
+        renderCategories();
+        applyFilters();
+      };
+    });
+  }
+
+  // 7. Render Projects Grid (YouTube-Style with Hover Live Preview)
+  function renderGrid() {
+    if (!UI.projectsGrid) return;
+
+    const visibleList = App.filteredProjects.slice(0, App.loadedCount);
+
+    if (visibleList.length === 0) {
+      UI.projectsGrid.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align:center; padding: 60px 20px;">
+          <div style="font-size: 48px; opacity: 0.5; margin-bottom: 16px;">🔍</div>
+          <h3>Mos keluvchi loyihalar topilmadi</h3>
+          <p style="color:var(--text-muted); margin-top:8px;">Boshqa kalit so'z yoki filtrlar orqali qidirib ko'ring.</p>
+        </div>
+      `;
+      return;
+    }
+
+    UI.projectsGrid.innerHTML = visibleList.map(p => {
+      const isFav = App.favorites.includes(p.id);
+      const isCompleted = App.completedLessons.includes(p.id);
+      const levelClass = p.level.toLowerCase().includes('bosh') ? 'boshlangich' : (p.level.toLowerCase().includes('o\'rta') ? 'orta' : 'murakkab');
+
+      return `
+        <article class="project-card" data-id="${p.id}" tabindex="0" role="button" aria-label="${p.title}">
+          <div class="card-preview-box">
+            <div class="card-thumbnail-mock">
+              <i class="fa-solid fa-code"></i>
+              <span>${p.category}</span>
+            </div>
+            <!-- Hover'da avtomatik o'ynovchi iframe sandbox -->
+            <iframe class="card-hover-iframe" data-src="${p.demo}" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+            
+            <span class="card-level-badge ${levelClass}">${p.level}</span>
+            <button class="card-fav-btn ${isFav ? 'active' : ''}" data-fav="${p.id}" aria-label="Sevimlilarga qo'shish">
+              <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
+            </button>
+            <span class="card-duration-badge">${p.duration}</span>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">${p.title}</h3>
+            
+            <div class="card-tech-tags">
+              ${p.tech.slice(0, 3).map(t => `<span class="tech-tag">${t}</span>`).join('')}
+              ${isCompleted ? `<span class="tech-tag" style="background:rgba(16,185,129,0.15); color:#10b981;"><i class="fa-solid fa-check"></i> ${I18N[App.lang].completedBadge}</span>` : ''}
+            </div>
+
+            <div class="card-meta-row">
+              <span class="card-rating">
+                <i class="fa-solid fa-star"></i> ${p.rating}
+              </span>
+              <span><i class="fa-solid fa-download"></i> ${p.downloads}</span>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    // Attach card event listeners (Hover preview + Click open studio)
+    UI.projectsGrid.querySelectorAll('.project-card').forEach(card => {
+      const id = parseInt(card.dataset.id, 10);
+      const iframe = card.querySelector('.card-hover-iframe');
+      let hoverTimeout = null;
+
+      // Hover live preview with 250ms debounce
+      card.onmouseenter = () => {
+        hoverTimeout = setTimeout(() => {
+          if (iframe && iframe.dataset.src && !iframe.src) {
+            iframe.src = iframe.dataset.src;
+            iframe.onload = () => iframe.classList.add('loaded');
+          }
+        }, 250);
+      };
+
+      card.onmouseleave = () => {
+        if (hoverTimeout) clearTimeout(hoverTimeout);
+      };
+
+      // Click opens Project Studio
+      card.onclick = (e) => {
+        if (e.target.closest('.card-fav-btn')) return; // Fav button handled separately
+        openStudio(id);
+      };
+
+      // Keyboard Accessibility
+      card.onkeydown = (e) => {
+        if (e.key === 'Enter') openStudio(id);
+      };
     });
 
-    const groupKeys = Object.keys(groups);
-    for (const modKey of groupKeys) {
-        const grp = groups[modKey];
-        if (grp.items.length === 0) continue;
+    // Attach heart button toggles
+    UI.projectsGrid.querySelectorAll('.card-fav-btn').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const id = parseInt(btn.dataset.fav, 10);
+        toggleFavorite(id);
+      };
+    });
+  }
 
-        const groupDiv = document.createElement('div');
-        groupDiv.className = 'module-group';
-
-        const shouldBeOpen = Boolean(
-            filter || 
-            currentModuleFilter !== 'all' || 
-            currentPortalMode === 'projects' || 
-            grp.items.some(it => it.globalIndex === currentIndex)
-        );
-
-        const header = document.createElement('div');
-        header.className = 'module-header';
-        header.innerHTML = `
-            <div class="module-title">
-                <i class="${grp.icon}" style="color: ${grp.color}"></i>
-                <span>${grp.name}</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:8px;">
-                <span class="module-badge">${grp.items.length}</span>
-                <i class="fa-solid fa-chevron-right chevron ${shouldBeOpen ? 'open' : ''}"></i>
-            </div>
-        `;
-
-        const list = document.createElement('ul');
-        list.className = 'lesson-list ' + (shouldBeOpen ? 'open' : '');
-
-        header.onclick = () => {
-            const isOpen = list.classList.toggle('open');
-            header.querySelector('.chevron').classList.toggle('open', isOpen);
-        };
-
-        grp.items.forEach(item => {
-            const li = document.createElement('li');
-            li.className = 'lesson-item' + (item.globalIndex === currentIndex ? ' active' : '');
-            
-            const isChecked = completed.includes(item.globalIndex);
-            
-            li.innerHTML = `
-                <input type="checkbox" ${isChecked ? 'checked' : ''} title="Tugatildi deb belgilash">
-                <span title="${item.title}">${item.title}</span>
-            `;
-
-            // Checkbox click
-            const chk = li.querySelector('input');
-            chk.onclick = (e) => {
-                e.stopPropagation();
-                saveCompletedLesson(item.globalIndex, chk.checked);
-            };
-
-            // Item click
-            li.onclick = () => {
-                loadLesson(item.globalIndex);
-            };
-
-            list.appendChild(li);
-        });
-
-        groupDiv.appendChild(header);
-        groupDiv.appendChild(list);
-        lessonsTreeEl.appendChild(groupDiv);
+  // 8. Infinite Scroll
+  window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+      if (App.loadedCount < App.filteredProjects.length) {
+        App.loadedCount += 12;
+        renderGrid();
+      }
     }
-}
+  });
 
-// Load Lesson or Project
-async function loadLesson(index) {
-    if (index < 0 || index >= ALL_LESSONS.length) return;
-    currentIndex = index;
-    const lesson = ALL_LESSONS[index];
+  // 9. Open Project Studio Modal
+  async function openStudio(id) {
+    const p = App.projects.find(item => item.id === id);
+    if (!p) return;
 
-    // Auto synchronize portal mode if loaded by index
-    const shouldBeMode = index >= 78 ? 'projects' : 'lessons';
-    if (currentPortalMode !== shouldBeMode) {
-        setPortalMode(shouldBeMode, false);
+    App.activeProject = p;
+    recordHistory(id);
+
+    // Update Studio UI Headers
+    if (UI.studioTitle) UI.studioTitle.textContent = `${p.id}. ${p.title}`;
+    if (UI.studioPreviewIframe) UI.studioPreviewIframe.src = p.demo;
+    
+    // Set Active Tab to Preview
+    switchStudioTab('preview');
+
+    // Update Favorites button state in Studio
+    updateStudioFavBtn();
+
+    // Populate Lesson Tab
+    if (UI.studioLessonContent) {
+      const isCompleted = App.completedLessons.includes(p.id);
+      UI.studioLessonContent.innerHTML = `
+        <div class="lesson-section-card">
+          <h3><i class="fa-solid fa-bullseye"></i> 1. Dars Maqsadi</h3>
+          <p>${p.lesson.objective}</p>
+        </div>
+
+        <div class="lesson-section-card">
+          <h3><i class="fa-solid fa-list-ol"></i> 2. Amalga Oshirish Qadamlari</h3>
+          <ul class="lesson-steps-list">
+            ${p.lesson.steps.map(step => `<li class="lesson-step-item">${step}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="lesson-section-card">
+          <h3><i class="fa-solid fa-code"></i> 3. Chuqur Kod Tahlili (Under The Hood)</h3>
+          <p>${p.lesson.codeExplanation}</p>
+        </div>
+
+        <div class="lesson-section-card">
+          <h3><i class="fa-solid fa-dumbbell"></i> 4. Amaliy Mustahkamlash Mashqi</h3>
+          <p>${p.lesson.exercise}</p>
+        </div>
+
+        <div class="lesson-complete-action">
+          <button id="markCompletedActionBtn" class="nav-btn ${isCompleted ? 'active' : ''}" style="font-size:1rem; padding:12px 24px;">
+            <i class="fa-solid fa-circle-check"></i> ${isCompleted ? I18N[App.lang].completedBadge : I18N[App.lang].markCompleted}
+          </button>
+        </div>
+      `;
+
+      const compBtn = document.getElementById('markCompletedActionBtn');
+      if (compBtn) {
+        compBtn.onclick = () => toggleLessonCompleted(p.id);
+      }
     }
 
-    if (lessonTitleEl) lessonTitleEl.textContent = lesson.title;
-    if (lessonModuleEl) lessonModuleEl.innerHTML = `<i class="${lesson.moduleIcon}"></i> ${lesson.moduleName}`;
-
-    updateMarkDoneBtn();
-
-    // highlight selected in tree
-    renderTree(searchInput ? searchInput.value.trim() : '');
-
-    // load iframe
-    if (previewFrame) previewFrame.src = lesson.folderPath;
-
-    // load code view & playground
-    await loadCodeView(lesson);
-
-    // Navigation buttons state within current mode
-    if (currentPortalMode === 'lessons') {
-        if (prevBtn) prevBtn.disabled = index <= 0;
-        if (nextBtn) nextBtn.disabled = index >= 77;
-    } else {
-        if (prevBtn) prevBtn.disabled = index <= 78;
-        if (nextBtn) nextBtn.disabled = index >= ALL_LESSONS.length - 1;
+    // Populate Readme Tab
+    if (UI.studioReadmeContent) {
+      loadReadme(p);
     }
 
-    // auto open parent module
-    const activeItem = document.querySelector('.lesson-item.active');
-    if (activeItem) {
-        const parentList = activeItem.closest('.lesson-list');
-        if (parentList) {
-            parentList.classList.add('open');
-            const chevron = parentList.previousElementSibling?.querySelector('.chevron');
-            if (chevron) chevron.classList.add('open');
-        }
-    }
-}
+    // Load Code Content
+    loadSourceCode(p, App.activeCodeTab);
 
-async function loadCodeView(lesson) {
-    codeViewer.textContent = '// Kod yuklanmoqda...';
+    // Render Related Projects
+    renderRelatedProjects(p);
+
+    if (UI.studio) UI.studio.classList.add('active');
+  }
+
+  function closeStudio() {
+    if (UI.studio) UI.studio.classList.remove('active');
+    if (UI.studioPreviewIframe) UI.studioPreviewIframe.src = 'about:blank';
+    App.activeProject = null;
+  }
+
+  // 10. Load Source Code for Studio
+  async function loadSourceCode(p, fileType) {
+    if (!UI.studioCodePre) return;
+    UI.studioCodePre.textContent = 'Kod yuklanmoqda...';
+
+    const dir = p.demo ? p.demo.replace('/index.html', '') : '';
+    const fileName = fileType === 'html' ? 'index.html' : (fileType === 'css' ? 'style.css' : 'script.js');
+    const filePath = `${dir}/${fileName}`;
+
     try {
-        let fullCode = '';
-        let mainHtmlCode = '';
-
-        for (const f of lesson.files) {
-            try {
-                const resp = await fetch(f.relPath);
-                if (resp.ok) {
-                    const txt = await resp.text();
-                    fullCode += `/* ========================================================
-   FAYL: ${f.name}
-   ======================================================== */\n\n` + txt + '\n\n\n';
-                    if (f.name === 'index.html' && !mainHtmlCode) {
-                        mainHtmlCode = txt;
-                    }
-                }
-            } catch (err) {
-                fullCode += `// ${f.name} faylini yuklab bo'lmadi\n\n`;
-            }
-        }
-        codeViewer.textContent = fullCode || '// Kod mavjud emas';
-        if (playgroundEditor && mainHtmlCode) {
-            playgroundEditor.value = mainHtmlCode;
-        }
+      const res = await fetch(filePath);
+      if (res.ok) {
+        const text = await res.text();
+        UI.studioCodePre.textContent = text;
+      } else {
+        UI.studioCodePre.textContent = `// ${fileName} fayli topilmadi`;
+      }
     } catch (e) {
-        codeViewer.textContent = '// Xatolik yuz berdi: ' + e.message;
+      UI.studioCodePre.textContent = `// Xatolik yuz berdi: ${e.message}`;
     }
-}
+  }
 
-function runPlaygroundCode() {
-    if (!playgroundEditor) return;
-    const code = playgroundEditor.value;
-    previewFrame.srcdoc = code;
-    // Switch to preview tab
-    tabPreviewBtn.click();
-}
-
-function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-    } else {
-        document.exitFullscreen().catch(() => {});
+  async function loadReadme(p) {
+    if (!UI.studioReadmeContent) return;
+    const dir = p.demo ? p.demo.replace('/index.html', '') : '';
+    try {
+      const res = await fetch(`${dir}/README.md`);
+      if (res.ok) {
+        const text = await res.text();
+        UI.studioReadmeContent.innerHTML = `<div class="readme-box"><pre style="white-space:pre-wrap; font-family:inherit;">${text}</pre></div>`;
+      } else {
+        UI.studioReadmeContent.innerHTML = `<div class="readme-box"><p>${p.title} loyihasi hujjatlari.</p></div>`;
+      }
+    } catch (e) {
+      UI.studioReadmeContent.innerHTML = `<div class="readme-box"><p>${p.title}</p></div>`;
     }
-}
+  }
 
-// Tab Switching
-tabPreviewBtn.onclick = () => {
-    currentTab = 'preview';
-    tabPreviewBtn.classList.add('active');
-    tabCodeBtn.classList.remove('active');
-    tabPlaygroundBtn?.classList.remove('active');
-    previewFrame.style.display = 'block';
-    codeViewer.classList.remove('active');
-    playgroundView?.classList.remove('active');
-};
+  // 11. Studio Tabs Switching
+  function switchStudioTab(tab) {
+    document.querySelectorAll('.studio-tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tab);
+    });
 
-tabCodeBtn.onclick = () => {
-    currentTab = 'code';
-    tabCodeBtn.classList.add('active');
-    tabPreviewBtn.classList.remove('active');
-    tabPlaygroundBtn?.classList.remove('active');
-    previewFrame.style.display = 'none';
-    codeViewer.classList.add('active');
-    playgroundView?.classList.remove('active');
-};
+    document.querySelectorAll('.tab-pane').forEach(pane => {
+      pane.classList.toggle('active', pane.id === `tabPane-${tab}`);
+    });
+  }
 
-if (tabPlaygroundBtn) {
-    tabPlaygroundBtn.onclick = () => {
-        currentTab = 'playground';
-        tabPlaygroundBtn.classList.add('active');
-        tabPreviewBtn.classList.remove('active');
-        tabCodeBtn.classList.remove('active');
-        previewFrame.style.display = 'none';
-        codeViewer.classList.remove('active');
-        playgroundView.classList.add('active');
-    };
-}
+  // 12. Studio Viewport Switcher
+  function setViewport(view) {
+    App.activeViewport = view;
+    document.querySelectorAll('.device-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.device === view);
+    });
 
-// Open in new tab
-openNewTabBtn.onclick = () => {
-    const lesson = ALL_LESSONS[currentIndex];
-    if (lesson) {
-        window.open(lesson.folderPath, '_blank');
-    }
-};
+    if (!UI.studioPreviewIframe) return;
+    UI.studioPreviewIframe.className = '';
+    if (view === 'tablet') UI.studioPreviewIframe.classList.add('tablet-view');
+    else if (view === 'mobile') UI.studioPreviewIframe.classList.add('mobile-view');
+  }
 
-// Navigation within current section mode
-prevBtn.onclick = () => {
-    if (currentPortalMode === 'lessons') {
-        if (currentIndex > 0) loadLesson(currentIndex - 1);
-    } else {
-        if (currentIndex > 78) loadLesson(currentIndex - 1);
-    }
-};
-nextBtn.onclick = () => {
-    if (currentPortalMode === 'lessons') {
-        if (currentIndex < 77) loadLesson(currentIndex + 1);
-    } else {
-        if (currentIndex < ALL_LESSONS.length - 1) loadLesson(currentIndex + 1);
-    }
-};
-
-// Keyboard shortcuts (ArrowLeft, ArrowRight)
-window.addEventListener('keydown', (e) => {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-    if (e.key === 'ArrowLeft') prevBtn.click();
-    if (e.key === 'ArrowRight') nextBtn.click();
-});
-
-// Search
-searchInput.oninput = () => {
-    renderTree(searchInput.value.trim());
-};
-
-// Download Lesson / Project as ZIP Archive
-async function downloadCurrentLessonZip() {
-    const lesson = ALL_LESSONS[currentIndex];
-    if (!lesson) return;
-
-    const btn = document.getElementById('download-zip-btn');
-    const originalHtml = btn ? btn.innerHTML : '';
+  // 13. Download Project as ZIP using JSZip
+  async function downloadProjectZip(p) {
+    if (!p) return;
+    const btn = UI.downloadZipBtn;
+    const origHtml = btn ? btn.innerHTML : '';
     if (btn) {
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Tayyorlanmoqda...';
-        btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Tayyorlanmoqda...';
+      btn.disabled = true;
     }
 
     try {
-        if (typeof JSZip === 'undefined') {
-            alert("JSZip kutubxonasi yuklanmadi. Iltimos internet aloqasini tekshiring yoki sahifani yangilang.");
-            return;
+      if (typeof JSZip === 'undefined') {
+        alert("JSZip yuklanmadi. Sahifani yangilang.");
+        return;
+      }
+
+      const zip = new JSZip();
+      const folderName = `${p.id}-${p.slug}`;
+      const folder = zip.folder(folderName);
+      const dir = p.demo ? p.demo.replace('/index.html', '') : '';
+
+      const files = ['index.html', 'style.css', 'script.js', 'README.md', 'package.json', 'LICENSE'];
+
+      for (const f of files) {
+        try {
+          const res = await fetch(`${dir}/${f}`);
+          if (res.ok) {
+            const blob = await res.blob();
+            folder.file(f, blob);
+          }
+        } catch (err) {
+          console.warn('Faylni olishda xato:', f, err);
         }
+      }
 
-        const zip = new JSZip();
-        const safeTitle = lesson.title.replace(/[\\/:*?"<>|]/g, '_');
-        const folder = zip.folder(safeTitle);
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const fileName = `${folderName}.zip`;
 
-        // Fetch each file in lesson
-        for (const file of lesson.files) {
-            try {
-                const res = await fetch(file.relPath);
-                if (res.ok) {
-                    const blob = await res.blob();
-                    folder.file(file.name, blob);
-                }
-            } catch (err) {
-                console.warn('Faylni yuklab olishda xatolik:', file.name, err);
-            }
-        }
+      if (typeof saveAs === 'function') {
+        saveAs(zipBlob, fileName);
+      } else {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(zipBlob);
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      }
 
-        // Add informative README.md
-        const readmeContent = `# ${lesson.title}\n\n` +
-            `Modul: ${lesson.moduleName}\n` +
-            `Dars/Loyiha: ${lesson.title}\n` +
-            `Manba: Front-End Masterclass Portali (Fayozbek Hamidov)\n\n` +
-            `## Ishga tushirish:\n` +
-            `1. Ushbu papkadagi \`index.html\` faylini ixtiyoriy brauzerda (Chrome, Edge, Firefox) oching.\n` +
-            `2. Yoki VS Code dasturida "Live Server" kengaytmasi orqali ishga tushiring.\n\n` +
-            `Muvaffaqiyatli kod yozish tilaymiz! 🚀\n`;
-        folder.file('README.md', readmeContent);
-
-        // Generate the zip archive
-        const zipBlob = await zip.generateAsync({ type: 'blob' });
-        const fileName = `${safeTitle}.zip`;
-
-        if (typeof saveAs === 'function') {
-            saveAs(zipBlob, fileName);
-        } else {
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(zipBlob);
-            link.download = fileName;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-        }
-
-        if (btn) {
-            btn.innerHTML = '<i class="fa-solid fa-check"></i> Yuklab olindi!';
-            btn.classList.remove('success');
-            btn.style.backgroundColor = '#059669';
-            setTimeout(() => {
-                btn.innerHTML = originalHtml;
-                btn.disabled = false;
-                btn.style.backgroundColor = '';
-                btn.classList.add('success');
-            }, 2000);
-        }
+      showToast(`📦 ${p.title} ZIP yuklab olindi!`);
     } catch (err) {
-        alert("ZIP arxivlashda xatolik yuz berdi: " + err.message);
-        if (btn) {
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
+      alert("ZIP yaratishda xatolik: " + err.message);
+    } finally {
+      if (btn) {
+        btn.innerHTML = origHtml;
+        btn.disabled = false;
+      }
+    }
+  }
+
+  // 14. Related Projects Recommendation
+  function renderRelatedProjects(currentProject) {
+    if (!UI.relatedProjectsList) return;
+    const related = App.projects
+      .filter(p => p.id !== currentProject.id && (p.category === currentProject.category || p.level === currentProject.level))
+      .slice(0, 6);
+
+    UI.relatedProjectsList.innerHTML = related.map(p => `
+      <div class="related-card" data-rel="${p.id}">
+        <h5>${p.title}</h5>
+        <small style="color:var(--text-muted);">${p.category} &bull; ${p.level}</small>
+      </div>
+    `).join('');
+
+    UI.relatedProjectsList.querySelectorAll('.related-card').forEach(card => {
+      card.onclick = () => {
+        openStudio(parseInt(card.dataset.rel, 10));
+      };
+    });
+  }
+
+  // 15. Favorites & History
+  function toggleFavorite(id) {
+    const idx = App.favorites.indexOf(id);
+    if (idx > -1) {
+      App.favorites.splice(idx, 1);
+    } else {
+      App.favorites.push(id);
+    }
+    localStorage.setItem('edumemory_favorites', JSON.stringify(App.favorites));
+    renderCategories();
+    renderGrid();
+    updateStudioFavBtn();
+  }
+
+  function updateStudioFavBtn() {
+    if (!UI.favStudioBtn || !App.activeProject) return;
+    const isFav = App.favorites.includes(App.activeProject.id);
+    UI.favStudioBtn.innerHTML = `<i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>`;
+    UI.favStudioBtn.style.color = isFav ? 'var(--danger)' : '';
+  }
+
+  function recordHistory(id) {
+    App.history = App.history.filter(hId => hId !== id);
+    App.history.unshift(id);
+    if (App.history.length > 30) App.history.pop();
+    localStorage.setItem('edumemory_history', JSON.stringify(App.history));
+    updateContinueBanner();
+  }
+
+  function toggleLessonCompleted(id) {
+    const idx = App.completedLessons.indexOf(id);
+    if (idx > -1) {
+      App.completedLessons.splice(idx, 1);
+    } else {
+      App.completedLessons.push(id);
+      showToast(I18N[App.lang].toastCompleted);
+    }
+    localStorage.setItem('edumemory_completed', JSON.stringify(App.completedLessons));
+    renderGrid();
+    if (App.activeProject) openStudio(App.activeProject.id);
+  }
+
+  // 16. Continue Learning Banner
+  function updateContinueBanner() {
+    if (!UI.continueBanner) return;
+    if (App.history.length > 0) {
+      const lastId = App.history[0];
+      const p = App.projects.find(item => item.id === lastId);
+      if (p) {
+        if (UI.continueProjectName) UI.continueProjectName.textContent = p.title;
+        UI.continueBanner.style.display = 'flex';
+        if (UI.continueBtn) {
+          UI.continueBtn.onclick = () => openStudio(p.id);
         }
+        return;
+      }
     }
-}
+    UI.continueBanner.style.display = 'none';
+  }
 
-// Welcome & About Modal Functions
-function openWelcomeModal() {
-    const modal = document.getElementById('welcome-modal');
-    if (modal) {
-        modal.style.display = 'flex';
+  // 17. Stats Rendering
+  function renderStats() {
+    const countEl = document.getElementById('statsProjectsCount');
+    if (countEl) countEl.textContent = App.projects.length + '+';
+  }
+
+  // 18. Toast Message Notification
+  function showToast(msg) {
+    if (!UI.toast) return;
+    UI.toast.textContent = msg;
+    UI.toast.classList.add('show');
+    setTimeout(() => UI.toast.classList.remove('show'), 2800);
+  }
+
+  // 19. Event Listeners Setup
+  function setupEvents() {
+    // Search input
+    if (UI.searchInput) {
+      UI.searchInput.oninput = () => {
+        App.searchQuery = UI.searchInput.value;
+        if (UI.searchClearBtn) {
+          UI.searchClearBtn.classList.toggle('visible', !!App.searchQuery);
+        }
+        applyFilters();
+      };
     }
-}
 
-function closeWelcomeModal() {
-    const modal = document.getElementById('welcome-modal');
-    if (modal) {
-        modal.style.display = 'none';
+    if (UI.searchClearBtn) {
+      UI.searchClearBtn.onclick = () => {
+        UI.searchInput.value = '';
+        App.searchQuery = '';
+        UI.searchClearBtn.classList.remove('visible');
+        applyFilters();
+      };
     }
-    const chk = document.getElementById('dont-show-again-chk');
-    if (chk && chk.checked) {
-        localStorage.setItem('frontend_hide_welcome', 'true');
+
+    // Sort select
+    if (UI.sortSelect) {
+      UI.sortSelect.onchange = (e) => {
+        App.sortBy = e.target.value;
+        applyFilters();
+      };
     }
-}
 
-// Close modal on Escape key or clicking outside
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeWelcomeModal();
-});
-document.addEventListener('click', (e) => {
-    const modal = document.getElementById('welcome-modal');
-    if (modal && e.target === modal) closeWelcomeModal();
-});
+    // Chip filters
+    document.querySelectorAll('.chip-btn').forEach(btn => {
+      btn.onclick = () => {
+        const type = btn.dataset.filterType;
+        const val = btn.dataset.filterVal;
 
-// Init
-window.onload = () => {
-    updateProgress();
-    renderTree();
-    loadLesson(0);
+        btn.parentElement.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-    // Show welcome modal on load unless user checked don't show
-    if (!localStorage.getItem('frontend_hide_welcome')) {
-        setTimeout(openWelcomeModal, 400);
+        if (type === 'level') App.currentLevel = val;
+        if (type === 'tech') App.currentTech = val;
+
+        applyFilters();
+      };
+    });
+
+    // Theme Toggle
+    if (UI.themeToggleBtn) {
+      UI.themeToggleBtn.onclick = () => {
+        App.theme = App.theme === 'dark' ? 'light' : 'dark';
+        document.body.setAttribute('data-theme', App.theme);
+        localStorage.setItem('edumemory_theme', App.theme);
+        UI.themeToggleBtn.innerHTML = App.theme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+      };
     }
-};
+
+    // Language Switcher
+    if (UI.langSelect) {
+      UI.langSelect.value = App.lang;
+      UI.langSelect.onchange = (e) => {
+        App.lang = e.target.value;
+        localStorage.setItem('edumemory_lang', App.lang);
+        updateLanguageUI();
+        renderCategories();
+      };
+    }
+
+    // Studio Tabs
+    document.querySelectorAll('.studio-tab-btn').forEach(btn => {
+      btn.onclick = () => {
+        switchStudioTab(btn.dataset.tab);
+      };
+    });
+
+    // Code subtabs
+    document.querySelectorAll('.code-file-btn').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.code-file-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        App.activeCodeTab = btn.dataset.file;
+        if (App.activeProject) loadSourceCode(App.activeProject, App.activeCodeTab);
+      };
+    });
+
+    // Viewport switchers
+    document.querySelectorAll('.device-btn').forEach(btn => {
+      btn.onclick = () => setViewport(btn.dataset.device);
+    });
+
+    // Copy Code button
+    if (UI.copyCodeBtn) {
+      UI.copyCodeBtn.onclick = () => {
+        if (UI.studioCodePre && navigator.clipboard) {
+          navigator.clipboard.writeText(UI.studioCodePre.textContent).then(() => {
+            showToast(I18N[App.lang].toastCopied);
+          });
+        }
+      };
+    }
+
+    // Download ZIP button
+    if (UI.downloadZipBtn) {
+      UI.downloadZipBtn.onclick = () => {
+        if (App.activeProject) downloadProjectZip(App.activeProject);
+      };
+    }
+
+    // Open in New Tab
+    if (UI.openExternalBtn) {
+      UI.openExternalBtn.onclick = () => {
+        if (App.activeProject) window.open(App.activeProject.demo, '_blank');
+      };
+    }
+
+    // Favorite button in studio
+    if (UI.favStudioBtn) {
+      UI.favStudioBtn.onclick = () => {
+        if (App.activeProject) toggleFavorite(App.activeProject.id);
+      };
+    }
+
+    // Studio close
+    if (UI.studioClose) UI.studioClose.onclick = closeStudio;
+
+    // Keyboard Shortcuts: "/" focuses search, "Escape" closes studio
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== UI.searchInput) {
+        e.preventDefault();
+        if (UI.searchInput) {
+          UI.searchInput.focus();
+          UI.searchInput.select();
+        }
+      } else if (e.key === 'Escape') {
+        closeStudio();
+      }
+    });
+
+    // Welcome cards click handlers
+    const cardLessons = document.getElementById('welcomeCardLessons');
+    const cardProjects = document.getElementById('welcomeCardProjects');
+    if (cardLessons) {
+      cardLessons.onclick = () => {
+        App.currentCategory = 'all';
+        renderCategories();
+        applyFilters();
+        const catalogEl = document.querySelector('.platform-layout');
+        if (catalogEl) catalogEl.scrollIntoView({ behavior: 'smooth' });
+      };
+    }
+    if (cardProjects) {
+      cardProjects.onclick = () => {
+        const catalogEl = document.querySelector('.platform-layout');
+        if (catalogEl) catalogEl.scrollIntoView({ behavior: 'smooth' });
+      };
+    }
+  }
+
+  // 20. Update Language Strings in DOM
+  function updateLanguageUI() {
+    const dict = I18N[App.lang];
+    if (UI.searchInput) UI.searchInput.placeholder = dict.searchPlaceholder;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (dict[key]) el.textContent = dict[key];
+    });
+  }
+
+  // 21. Service Worker Registration for PWA Offline Capability
+  function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(err => {
+        console.log('SW ro\'yxatdan o\'tmadi:', err);
+      });
+    }
+  }
+
+  // Initialize App on DOM Load
+  document.addEventListener('DOMContentLoaded', () => {
+    initUI();
+    document.body.setAttribute('data-theme', App.theme);
+    setupEvents();
+    loadProjectsData();
+    registerServiceWorker();
+  });
+
+})();

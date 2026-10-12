@@ -1,0 +1,21 @@
+{
+  "name": "edumemory-project-130-universal-birliklar-va-valyutalar-konverteri",
+  "version": "1.0.0",
+  "description": "Universal Birliklar va Valyutalar Konverteri",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator",
+    "unit converter",
+    "currency",
+    "length",
+    "weight",
+    "temperature"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

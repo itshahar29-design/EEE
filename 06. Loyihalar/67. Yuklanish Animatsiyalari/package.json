@@ -1,0 +1,16 @@
+{
+  "name": "yuklanish-animatsiyalari",
+  "version": "1.0.0",
+  "description": "Yuklanish Animatsiyalari",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "animatsiya"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "edumemory-project-115-aqlli-veb-xatchoplar-va-teglar-menejeri",
+  "version": "1.0.0",
+  "description": "Aqlli Veb-Xatcho'plar va Teglar Menejeri",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "crm/to-do",
+    "bookmarks",
+    "manager",
+    "tags",
+    "organizer",
+    "productivity"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

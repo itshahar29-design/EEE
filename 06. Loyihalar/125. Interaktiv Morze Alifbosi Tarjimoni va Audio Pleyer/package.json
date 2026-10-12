@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-125-interaktiv-morze-alifbosi-tarjimoni-va-audio-pleyer",
+  "version": "1.0.0",
+  "description": "Interaktiv Morze Alifbosi Tarjimoni va Audio Pleyer",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "api loyihalar",
+    "morse code",
+    "audio player",
+    "translator",
+    "education"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

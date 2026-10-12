@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-150-frilanser-invoys-va-hisob-faktura-generatori",
+  "version": "1.0.0",
+  "description": "Frilanser Invoys va Hisob-Faktura Generatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "crm/to-do",
+    "invoice generator",
+    "freelance",
+    "billing",
+    "printable pdf"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

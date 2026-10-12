@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-110-tezkor-yozish-typing-speed-spidometri-va-analitika",
+  "version": "1.0.0",
+  "description": "Tezkor Yozish (Typing Speed) Spidometri va Analitika",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "o'yinlar",
+    "typing test",
+    "wpm",
+    "keyboard",
+    "speed challenge"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

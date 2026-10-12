@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-134-mini-elektron-jadval-va-matematik-formulalar-hisoblagich",
+  "version": "1.0.0",
+  "description": "Mini Elektron Jadval va Matematik Formulalar Hisoblagich",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "spreadsheet",
+    "formulas",
+    "excel clone",
+    "calculator"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

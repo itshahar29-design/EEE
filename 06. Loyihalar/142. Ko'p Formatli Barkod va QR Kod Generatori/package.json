@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-142-kop-formatli-barkod-va-qr-kod-generatori",
+  "version": "1.0.0",
+  "description": "Ko'p Formatli Barkod va QR Kod Generatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "qr generator",
+    "barcode",
+    "scanner tools",
+    "utilities"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

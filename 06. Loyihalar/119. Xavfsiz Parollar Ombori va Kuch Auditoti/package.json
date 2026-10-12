@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-119-xavfsiz-parollar-ombori-va-kuch-auditoti",
+  "version": "1.0.0",
+  "description": "Xavfsiz Parollar Ombori va Kuch Auditoti",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "password vault",
+    "security",
+    "entropy",
+    "crypto tools"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

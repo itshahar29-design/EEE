@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-149-markdown-jadvallar-generatori-va-csv-konverteri",
+  "version": "1.0.0",
+  "description": "Markdown Jadvallar Generatori va CSV Konverteri",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "markdown table",
+    "csv converter",
+    "data grid",
+    "documentation"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-126-css-gradiyent-tori-mesh-gradient-va-fon-generatori",
+  "version": "1.0.0",
+  "description": "CSS Gradiyent To'ri (Mesh Gradient) va Fon Generatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "animatsiya",
+    "mesh gradient",
+    "css generator",
+    "backgrounds",
+    "modern ui"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

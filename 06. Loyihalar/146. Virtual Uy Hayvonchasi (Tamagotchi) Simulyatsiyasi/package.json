@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-146-virtual-uy-hayvonchasi-tamagotchi-simulyatsiyasi",
+  "version": "1.0.0",
+  "description": "Virtual Uy Hayvonchasi (Tamagotchi) Simulyatsiyasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "o'yinlar",
+    "virtual pet",
+    "tamagotchi",
+    "simulation",
+    "interactive game"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

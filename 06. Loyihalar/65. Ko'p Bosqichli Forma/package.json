@@ -1,0 +1,16 @@
+{
+  "name": "kop-bosqichli-forma",
+  "version": "1.0.0",
+  "description": "Ko'p Bosqichli Forma",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

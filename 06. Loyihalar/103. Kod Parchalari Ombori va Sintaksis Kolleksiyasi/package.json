@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-103-kod-parchalari-ombori-va-sintaksis-kolleksiyasi",
+  "version": "1.0.0",
+  "description": "Kod Parchalari Ombori va Sintaksis Kolleksiyasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "code vault",
+    "snippets",
+    "syntax",
+    "developer tools"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

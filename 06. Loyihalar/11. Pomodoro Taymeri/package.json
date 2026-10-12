@@ -1,0 +1,16 @@
+{
+  "name": "pomodoro-taymeri",
+  "version": "1.0.0",
+  "description": "Pomodoro Taymeri",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

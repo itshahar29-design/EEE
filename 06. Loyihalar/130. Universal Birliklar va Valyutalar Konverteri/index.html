@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universal Birliklar va Valyutalar Konverteri | EduMemory Pro Platforma</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body data-theme="dark">
+  <header class="app-header" role="banner">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <div class="brand-text">
+          <h1>Universal Birliklar va Valyutalar Konverteri</h1>
+          <p class="subtitle">EduMemory Frontend Platformasi &bull; №130 Loyiha</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="badge level-badge" aria-label="Daraja: Boshlang'ich">Boshlang'ich</span>
+        <button id="themeToggleBtn" class="btn btn-secondary icon-btn" aria-label="Yorug'lik rejimini almashtirish">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button id="resetAppBtn" class="btn btn-secondary" aria-label="Holatni qayta tiklash">
+          <i class="fa-solid fa-rotate-right"></i> Qayta o'rnatish
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" role="main">
+    <div class="app-layout">
+      <!-- Asosiy boshqaruv paneli -->
+      <section class="control-panel card" aria-label="Boshqaruv elementlari">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-sliders"></i> Boshqaruv va Sozlamalar</h2>
+          <span class="status-indicator online">Faol</span>
+        </div>
+        
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="primaryInput"><i class="fa-solid fa-pen"></i> Asosiy parametr / Ma'lumot kiriting:</label>
+            <input type="text" id="primaryInput" class="form-control" placeholder="Ushbu maydonga qiymat kiriting..." aria-required="true" autocomplete="off">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label for="categorySelect"><i class="fa-solid fa-filter"></i> Kategoriya / Holat:</label>
+              <select id="categorySelect" class="form-control" aria-label="Kategoriyani tanlang">
+                <option value="standart">Standart variant</option>
+                <option value="premium">Kengaytirilgan rejim</option>
+                <option value="tezkor">Tezkor tahlil</option>
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label for="rangeSlider"><i class="fa-solid fa-gauge-high"></i> Intensivlik: <span id="rangeValue" class="highlight-val">50%</span></label>
+              <input type="range" id="rangeSlider" min="1" max="100" value="50" class="form-range" aria-label="Intensivlik slayderi">
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button id="actionExecuteBtn" class="btn btn-primary" aria-label="Amalni bajarish">
+              <i class="fa-solid fa-bolt"></i> Hisoblash / Ishga tushirish
+            </button>
+            <button id="actionClearBtn" class="btn btn-danger" aria-label="Tozalash">
+              <i class="fa-solid fa-trash-can"></i> Tozalash
+            </button>
+            <button id="actionExportBtn" class="btn btn-outline" aria-label="Eksport qilish">
+              <i class="fa-solid fa-file-export"></i> JSON Saqlash
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Natijalar va Vizual hudud -->
+      <section class="display-panel card" aria-label="Natijalar paneli">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-chart-simple"></i> Interaktiv Natija va Dinamika</h2>
+          <div class="card-tools">
+            <button id="copyResultBtn" class="btn btn-small btn-secondary" aria-label="Natijani nusxalash">
+              <i class="fa-solid fa-copy"></i> Nusxa
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <span class="metric-title">Jami Amallar</span>
+              <span id="metricCount" class="metric-value">0</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-title">Samaradorlik</span>
+              <span id="metricEfficiency" class="metric-value">100%</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-title">Status</span>
+              <span id="metricStatus" class="metric-value success">Tayyor</span>
+            </div>
+          </div>
+
+          <div class="viewport-box" id="viewportArea" tabindex="0" role="region" aria-label="Jonli vizualizatsiya maydoni">
+            <div id="visualDisplay" class="visual-canvas">
+              <div class="empty-state">
+                <i class="fa-solid fa-circle-nodes"></i>
+                <p>Natijani ko'rish uchun yuqoridagi boshqaruv panelidan foydalaning.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tarix va Faoliyat Qaydlari -->
+          <div class="history-container">
+            <h3><i class="fa-solid fa-clock-rotate-left"></i> Oxirgi Harakatlar Tarixi</h3>
+            <ul id="activityList" class="activity-log" role="log" aria-live="polite">
+              <li class="log-item">Loyiha ishga tushirildi va tizim tayyor.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <p>&copy; 2026 EduMemory. Professional Frontend Dasturlash Kursi &bull; Barcha huquqlar himoyalangan.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

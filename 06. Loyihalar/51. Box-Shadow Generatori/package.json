@@ -1,0 +1,16 @@
+{
+  "name": "box-shadow-generatori",
+  "version": "1.0.0",
+  "description": "Box-Shadow Generatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

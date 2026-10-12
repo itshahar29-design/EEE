@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-121-pomodoro-diqqat-taymeri-va-tinchlantiruvchi-ovozlar",
+  "version": "1.0.0",
+  "description": "Pomodoro Diqqat Taymeri va Tinchlantiruvchi Ovozlar",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "crm/to-do",
+    "pomodoro",
+    "focus timer",
+    "productivity",
+    "ambient sounds"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

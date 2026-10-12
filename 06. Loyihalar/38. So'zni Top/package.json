@@ -1,0 +1,16 @@
+{
+  "name": "sozni-top",
+  "version": "1.0.0",
+  "description": "So'zni Top",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

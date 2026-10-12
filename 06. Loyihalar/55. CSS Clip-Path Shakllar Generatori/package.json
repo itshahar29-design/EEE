@@ -1,0 +1,16 @@
+{
+  "name": "css-clip-path-shakllar-generatori",
+  "version": "1.0.0",
+  "description": "CSS Clip-Path Shakllar Generatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

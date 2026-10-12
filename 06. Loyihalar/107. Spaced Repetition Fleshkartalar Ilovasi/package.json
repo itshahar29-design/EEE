@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-107-spaced-repetition-fleshkartalar-ilovasi",
+  "version": "1.0.0",
+  "description": "Spaced Repetition Fleshkartalar Ilovasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "crm/to-do",
+    "flashcards",
+    "study",
+    "memory",
+    "education"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

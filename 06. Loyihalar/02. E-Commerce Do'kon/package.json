@@ -1,0 +1,16 @@
+{
+  "name": "e-commerce-dokon",
+  "version": "1.0.0",
+  "description": "E-Commerce Do'kon",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "e-commerce"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

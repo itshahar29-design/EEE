@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-145-bosqichma-bosqich-buyurtma-berish-multi-step-checkout-formasi",
+  "version": "1.0.0",
+  "description": "Bosqichma-bosqich Buyurtma Berish (Multi-Step Checkout) Formasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "e-commerce",
+    "multi-step form",
+    "checkout",
+    "e-commerce",
+    "validation"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

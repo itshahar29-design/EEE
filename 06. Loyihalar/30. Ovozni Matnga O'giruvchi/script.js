@@ -17,7 +17,7 @@
     }
 
     window.toggleRec = () => {
-        if (!rec) return alert('Kechirasiz, brauzeringiz SpeechRecognition ni qo'llab-quvvatlamaydi.');
+        if (!rec) return alert("Kechirasiz, brauzeringiz SpeechRecognition ni qo'llab-quvvatlamaydi.");
         if (!isRec) {
             rec.start();
             isRec = true;

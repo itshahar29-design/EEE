@@ -1,0 +1,16 @@
+{
+  "name": "tosh-qaychi-qogoz",
+  "version": "1.0.0",
+  "description": "Tosh Qaychi Qog'oz",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

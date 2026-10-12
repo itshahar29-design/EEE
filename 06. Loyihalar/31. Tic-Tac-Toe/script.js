@@ -18,7 +18,7 @@
         for (const w of wins) {
             if (board[w[0]] && board[w[0]] === board[w[1]] && board[w[0]] === board[w[2]]) {
                 isOver = true;
-                document.getElementById('ttt-status').textContent = '🎉 ' + board[w[0]] + ' G'OLIB BO'LDI!';
+                document.getElementById('ttt-status').textContent = '🎉 ' + board[w[0]] + " G'OLIB BO'LDI!";
                 return;
             }
         }
@@ -32,6 +32,6 @@
         current = 'X';
         isOver = false;
         document.querySelectorAll('.ttt-cell').forEach(c => c.textContent = '');
-        document.getElementById('ttt-status').textContent = 'X o'yinchining navbati';
+        document.getElementById('ttt-status').textContent = "X o'yinchining navbati";
     };
   

@@ -1,0 +1,16 @@
+{
+  "name": "jonli-chat-messenjer-ui",
+  "version": "1.0.0",
+  "description": "Jonli Chat Messenjer UI",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "chat ui"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

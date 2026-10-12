@@ -1,0 +1,16 @@
+{
+  "name": "svg-ikonlar-kolleksiyasi-va-qidiruvi",
+  "version": "1.0.0",
+  "description": "SVG Ikonlar Kolleksiyasi va Qidiruvi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

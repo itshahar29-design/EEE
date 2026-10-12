@@ -1,0 +1,21 @@
+{
+  "name": "edumemory-project-131-interaktiv-fikrlar-xaritasi-mind-map-va-tugunlar-boglagich",
+  "version": "1.0.0",
+  "description": "Interaktiv Fikrlar Xaritasi (Mind Map) va Tugunlar Bog'lagich",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "data visualization",
+    "mind map",
+    "diagram",
+    "nodes",
+    "brainstorming",
+    "visualization"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-138-interaktiv-kimyoviy-elementlar-davriy-jadvali",
+  "version": "1.0.0",
+  "description": "Interaktiv Kimyoviy Elementlar Davriy Jadvali",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "data visualization",
+    "periodic table",
+    "chemistry",
+    "education",
+    "interactive guide"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

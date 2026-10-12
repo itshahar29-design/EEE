@@ -1,0 +1,16 @@
+{
+  "name": "choychaqa-kalkulyatori",
+  "version": "1.0.0",
+  "description": "Choychaqa Kalkulyatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

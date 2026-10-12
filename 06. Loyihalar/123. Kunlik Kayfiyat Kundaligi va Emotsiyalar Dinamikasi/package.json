@@ -1,0 +1,21 @@
+{
+  "name": "edumemory-project-123-kunlik-kayfiyat-kundaligi-va-emotsiyalar-dinamikasi",
+  "version": "1.0.0",
+  "description": "Kunlik Kayfiyat Kundaligi va Emotsiyalar Dinamikasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "dashboard",
+    "mood tracker",
+    "journal",
+    "emotions",
+    "mental health",
+    "dashboard"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

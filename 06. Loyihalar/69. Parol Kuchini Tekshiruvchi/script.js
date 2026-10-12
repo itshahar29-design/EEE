@@ -11,7 +11,7 @@
         const pct = (score / 4) * 100;
         bar.style.width = pct + '%';
         if (score <= 1) { bar.style.background = '#ef4444'; st.textContent = 'Zaif parol'; }
-        else if (score <= 3) { bar.style.background = '#f59e0b'; st.textContent = 'O'rtacha parol'; }
+        else if (score <= 3) { bar.style.background = '#f59e0b'; st.textContent = "O'rtacha parol"; }
         else { bar.style.background = '#10b981'; st.textContent = 'Juda kuchli parol!'; }
     };
   

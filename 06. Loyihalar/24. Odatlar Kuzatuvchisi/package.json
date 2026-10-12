@@ -1,0 +1,16 @@
+{
+  "name": "odatlar-kuzatuvchisi",
+  "version": "1.0.0",
+  "description": "Odatlar Kuzatuvchisi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "crm/to-do"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

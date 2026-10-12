@@ -2,7 +2,7 @@ const weatherDB = {
     'toshkent': { temp: '26°C', desc: 'Quyoshli va musaffo', icon: '☀️', hum: '38%', wind: '12 km/s' },
     'samarqand': { temp: '24°C', desc: 'Biroz bulutli', icon: '⛅', hum: '44%', wind: '16 km/s' },
     'buxoro': { temp: '28°C', desc: 'Issiq va quyoshli', icon: '☀️', hum: '25%', wind: '18 km/s' },
-    'andijon': { temp: '22°C', desc: 'Yomg'irli', icon: '🌧️', hum: '72%', wind: '8 km/s' },
+    'andijon': { temp: '22°C', desc: "Yomg'irli", icon: '🌧️', hum: '72%', wind: '8 km/s' },
     'london': { temp: '14°C', desc: 'Tuman va shabada', icon: '🌫️', hum: '85%', wind: '22 km/s' }
 };
 

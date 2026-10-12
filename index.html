@@ -1,917 +1,300 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Front-End Darslari Portali | Fayozbek Hamidov (10X Versiya)</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --bg-dark: #090d16;
-            --bg-sidebar: #0f172a;
-            --bg-card: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #38bdf8;
-            --accent-hover: #0284c7;
-            --border: #1e293b;
-            --success: #10b981;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-main);
-            height: 100vh;
-            display: flex;
-            overflow: hidden;
-        }
-
-        /* SIDEBAR */
-        #sidebar {
-            width: 360px;
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
-
-        .brand-header {
-            padding: 18px 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .brand-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #0ea5e9, #6366f1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: white;
-            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4);
-        }
-        .brand-info h2 { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
-        .brand-info p { font-size: 12px; color: var(--accent); font-weight: 600; }
-
-        /* SEARCH & PILLS */
-        .search-box {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border);
-        }
-        .search-input-wrapper {
-            position: relative;
-        }
-        .search-input-wrapper i {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-        .search-input {
-            width: 100%;
-            padding: 10px 10px 10px 36px;
-            background: #090d16;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 13px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .search-input:focus { border-color: var(--accent); }
-
-        /* MODULE PILLS */
-        .module-pills {
-            display: flex;
-            gap: 6px;
-            padding: 8px 16px;
-            overflow-x: auto;
-            border-bottom: 1px solid var(--border);
-            background: rgba(15, 23, 42, 0.5);
-        }
-        .module-pills::-webkit-scrollbar { height: 4px; }
-        .module-pills::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
-        .pill-btn {
-            background: #1e293b;
-            color: #94a3b8;
-            border: 1px solid #334155;
-            padding: 4px 10px;
-            border-radius: 9999px;
-            font-size: 11px;
-            font-weight: 600;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .pill-btn:hover { background: #334155; color: #fff; }
-        .pill-btn.active { background: #0284c7; color: #fff; border-color: #38bdf8; }
-
-        .progress-bar-container {
-            padding: 10px 16px;
-            background: rgba(15, 23, 42, 0.4);
-            border-bottom: 1px solid var(--border);
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-        .progress-text { display: flex; justify-content: space-between; margin-bottom: 6px; }
-        .progress-track {
-            height: 6px;
-            background: #1e293b;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #10b981, #38bdf8);
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        /* MODULES & LESSONS LIST */
-        .lessons-tree {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-        }
-        .lessons-tree::-webkit-scrollbar { width: 6px; }
-        .lessons-tree::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-
-        .module-group { margin-bottom: 8px; }
-        .module-header {
-            padding: 10px 12px;
-            background: rgba(30, 41, 59, 0.5);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            user-select: none;
-            transition: background 0.2s;
-            border: 1px solid transparent;
-        }
-        .module-header:hover { background: rgba(51, 65, 85, 0.6); border-color: #334155; }
-        .module-title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
-        .module-badge {
-            background: #1e293b;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 11px;
-            color: var(--accent);
-            border: 1px solid #334155;
-        }
-        .chevron { transition: transform 0.3s; font-size: 12px; }
-        .chevron.open { transform: rotate(90deg); }
-
-        .lesson-list { list-style: none; padding-left: 8px; margin-top: 4px; display: none; }
-        .lesson-list.open { display: block; }
-        .lesson-item {
-            padding: 8px 12px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            font-size: 13px;
-            color: #cbd5e1;
-            margin-bottom: 2px;
-            transition: all 0.2s;
-        }
-        .lesson-item:hover { background: #1e293b; color: #fff; }
-        .lesson-item.active { background: #0284c7; color: #fff; font-weight: 600; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4); }
-        .lesson-item input[type="checkbox"] { cursor: pointer; accent-color: var(--success); transform: scale(1.15); }
-        .lesson-item span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-        /* SIDEBAR FOOTER STATS */
-        .sidebar-footer {
-            padding: 12px 16px;
-            border-top: 1px solid var(--border);
-            font-size: 11px;
-            color: var(--text-muted);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #090d16;
-        }
-
-        /* MAIN CONTENT AREA */
-        #main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background: var(--bg-dark);
-            overflow: hidden;
-        }
-
-        /* NAVBAR */
-        .top-navbar {
-            height: 65px;
-            background: var(--bg-sidebar);
-            border-bottom: 1px solid var(--border);
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
-        }
-        .current-lesson-info h1 { font-size: 16px; font-weight: 700; color: #ffffff; }
-        .current-lesson-info p { font-size: 12px; color: var(--accent); font-weight: 600; display: flex; align-items: center; gap: 6px; }
-
-        .actions-bar { display: flex; align-items: center; gap: 8px; }
-        .btn {
-            background: #1e293b;
-            color: #fff;
-            border: 1px solid #334155;
-            padding: 7px 13px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-        }
-        .btn:hover { background: #334155; }
-        .btn.primary { background: #0284c7; border-color: #38bdf8; }
-        .btn.primary:hover { background: #0369a1; }
-        .btn.success { background: #065f46; border-color: #10b981; color: #34d399; }
-        .btn.success:hover { background: #047857; }
-
-        /* WORKSPACE & TABS */
-        .tab-bar {
-            background: #090d16;
-            border-bottom: 1px solid var(--border);
-            padding: 0 20px;
-            display: flex;
-            gap: 4px;
-        }
-        .tab-btn {
-            padding: 10px 16px;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-        }
-        .tab-btn:hover { color: #fff; }
-        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(56, 189, 248, 0.05); }
-
-        .preview-wrapper {
-            flex: 1;
-            position: relative;
-            background: #0f172a;
-            display: flex;
-            overflow: hidden;
-        }
-        #preview-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #ffffff;
-        }
-
-        #code-viewer {
-            flex: 1;
-            display: none;
-            background: #050811;
-            color: #cdd6f4;
-            padding: 20px;
-            overflow: auto;
-            font-family: 'Fira Code', 'Consolas', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            white-space: pre-wrap;
-        }
-        #code-viewer.active { display: block; }
-
-        /* LIVE PLAYGROUND TAB */
-        #playground-view {
-            flex: 1;
-            display: none;
-            flex-direction: column;
-            background: #090d16;
-            padding: 16px;
-            gap: 12px;
-        }
-        #playground-view.active { display: flex; }
-        .playground-editor {
-            flex: 1;
-            width: 100%;
-            background: #050811;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            color: #38bdf8;
-            font-family: 'Fira Code', monospace;
-            padding: 14px;
-            font-size: 13px;
-            outline: none;
-            resize: none;
-        }
-
-        /* WELCOME & ABOUT MODAL STYLES */
-        .welcome-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(5, 8, 17, 0.88);
-            backdrop-filter: blur(12px);
-            z-index: 9999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .welcome-card {
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 20px;
-            max-width: 840px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 32px 36px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 50px rgba(56, 189, 248, 0.2);
-            position: relative;
-            animation: modalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        @keyframes modalPop {
-            from { opacity: 0; transform: scale(0.92); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .welcome-close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #1e293b;
-            border: 1px solid #334155;
-            color: #94a3b8;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .welcome-close-btn:hover { color: #fff; background: #ef4444; border-color: #ef4444; }
-
-        .welcome-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(56, 189, 248, 0.12);
-            color: #38bdf8;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 700;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            margin-bottom: 12px;
-        }
-        .welcome-title { font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 8px; letter-spacing: -0.5px; }
-        .welcome-subtitle { font-size: 14px; color: #94a3b8; line-height: 1.5; margin-bottom: 24px; }
-
-        /* AUTHOR BOX */
-        .author-box {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
-            border: 1px solid #334155;
-            border-radius: 14px;
-            padding: 20px;
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-            margin-bottom: 24px;
-        }
-        .author-avatar {
-            width: 68px;
-            height: 68px;
-            background: linear-gradient(135deg, #0ea5e9, #8b5cf6);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            color: white;
-            flex-shrink: 0;
-            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
-        }
-        .author-tag {
-            font-size: 11px;
-            font-weight: 800;
-            color: #38bdf8;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-        .author-details h3 { font-size: 18px; color: #fff; margin-bottom: 4px; }
-        .author-role { font-size: 13px; color: #34d399; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-        .author-bio { font-size: 13px; color: #cbd5e1; line-height: 1.5; font-style: italic; margin-bottom: 12px; }
-        .author-links { display: flex; gap: 10px; flex-wrap: wrap; }
-        .social-link {
-            background: #1e293b;
-            color: #94a3b8;
-            text-decoration: none;
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            border: 1px solid #334155;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-        }
-        .social-link:hover { color: #fff; background: #0284c7; border-color: #38bdf8; }
-
-        /* FEATURES GRID */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-            margin-bottom: 26px;
-        }
-        @media (max-width: 650px) {
-            .features-grid { grid-template-columns: 1fr; }
-            .author-box { flex-direction: column; text-align: center; align-items: center; }
-        }
-        .feat-card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .feat-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-        .feat-card h4 { font-size: 14px; color: #fff; margin-bottom: 3px; }
-        .feat-card p { font-size: 12px; color: #94a3b8; line-height: 1.4; }
-
-        /* WELCOME ACTION BOX */
-        .welcome-action-box {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            border-top: 1px solid #334155;
-            padding-top: 20px;
-        }
-        .welcome-cta-btn {
-            background: linear-gradient(135deg, #0284c7, #6366f1);
-            color: #fff;
-            padding: 16px 36px;
-            font-size: 16px;
-            font-weight: 700;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(2, 132, 199, 0.5);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s;
-            animation: pulseGlow 2s infinite;
-        }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.6); }
-            70% { box-shadow: 0 0 0 16px rgba(14, 165, 233, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
-        }
-        .welcome-cta-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            background: linear-gradient(135deg, #0369a1, #4f46e5);
-        }
-        .welcome-checkbox-wrap {
-            font-size: 12px;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-        .welcome-checkbox-wrap input { accent-color: #0284c7; cursor: pointer; }
-
-        /* 2-WAY SECTION SWITCHER IN SIDEBAR & NAVBAR */
-        .sidebar-section-switcher {
-            display: flex;
-            background: #090d16;
-            padding: 8px 12px;
-            gap: 6px;
-            border-bottom: 1px solid #334155;
-        }
-        .section-switch-btn {
-            flex: 1;
-            padding: 10px 8px;
-            border: 1px solid #334155;
-            background: #1e293b;
-            color: #94a3b8;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            white-space: nowrap;
-        }
-        .section-switch-btn:hover { background: #334155; color: #fff; }
-        .section-switch-btn.active#sec-lessons-btn {
-            background: linear-gradient(135deg, #0284c7, #0ea5e9);
-            color: #fff;
-            border-color: #38bdf8;
-            box-shadow: 0 2px 10px rgba(14, 165, 233, 0.4);
-        }
-        .section-switch-btn.active#sec-projects-btn {
-            background: linear-gradient(135deg, #be185d, #ec4899);
-            color: #fff;
-            border-color: #f472b6;
-            box-shadow: 0 2px 10px rgba(236, 72, 153, 0.4);
-        }
-
-        .section-top-switcher {
-            display: flex;
-            gap: 8px;
-            margin: 0 15px;
-        }
-        @media (max-width: 900px) {
-            .section-top-switcher { display: none; }
-        }
-        .top-switch-btn {
-            padding: 7px 16px;
-            border: 1px solid #334155;
-            background: #1e293b;
-            color: #94a3b8;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .top-switch-btn:hover { background: #334155; color: #fff; }
-        .top-switch-btn.active#top-sec-lessons-btn {
-            background: #0284c7;
-            color: #fff;
-            border-color: #38bdf8;
-        }
-        .top-switch-btn.active#top-sec-projects-btn {
-            background: #ec4899;
-            color: #fff;
-            border-color: #f472b6;
-        }
-
-        /* WELCOME SPLIT DOORS */
-        .welcome-split-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 22px;
-            margin: 22px 0;
-        }
-        @media (max-width: 720px) {
-            .welcome-split-grid { grid-template-columns: 1fr; }
-        }
-        .welcome-door {
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            border: 2px solid #334155;
-            border-radius: 18px;
-            padding: 24px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            text-align: left;
-        }
-        .welcome-door:hover {
-            transform: translateY(-5px);
-        }
-        .welcome-door.door-lessons:hover {
-            border-color: #38bdf8;
-            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.25);
-        }
-        .welcome-door.door-projects:hover {
-            border-color: #ec4899;
-            box-shadow: 0 15px 35px rgba(236, 72, 153, 0.25);
-        }
-
-        .door-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 14px;
-        }
-        .door-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            flex-shrink: 0;
-        }
-        .door-icon-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
-        .door-icon-pink { background: rgba(236, 72, 153, 0.15); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.3); }
-
-        .door-header h2 { font-size: 20px; font-weight: 800; color: #fff; }
-        .door-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        .door-desc {
-            font-size: 13px;
-            color: #94a3b8;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
-
-        .door-points {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 22px;
-            font-size: 13px;
-            color: #cbd5e1;
-        }
-        .door-points li { display: flex; align-items: center; gap: 8px; }
-        .door-points li i { font-size: 12px; }
-
-        .door-btn {
-            margin-top: auto;
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            font-size: 15px;
-            font-weight: 700;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .door-btn-blue {
-            background: linear-gradient(135deg, #0284c7, #38bdf8);
-            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
-        }
-        .door-btn-blue:hover { background: linear-gradient(135deg, #0369a1, #0284c7); }
-
-        .door-btn-pink {
-            background: linear-gradient(135deg, #be185d, #ec4899);
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
-        }
-        .door-btn-pink:hover { background: linear-gradient(135deg, #9d174d, #db2777); }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduMemory Pro | Frontend Dasturchilar Platformasi</title>
+  <meta name="description" content="150+ dan ortiq tayyor real frontend loyihalar, bosqichma-bosqich darslar va kodlar platformasi">
+  <meta name="theme-color" content="#0284c7">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./images/icon-192.png" type="image/png">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body>
+<body data-theme="dark">
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar">
-        <div class="brand-header" onclick="openWelcomeModal()" style="cursor: pointer;" title="Platforma va Muallif haqida ma'lumot olish uchun bosing">
-            <div class="brand-icon">
-                <i class="fa-solid fa-bolt"></i>
-            </div>
-            <div class="brand-info">
-                <h2>FRONT-END 10X PORTAL</h2>
-                <p>Muallif: Fayozbek Hamidov <i class="fa-solid fa-circle-info" style="font-size: 11px;"></i></p>
-            </div>
-        </div>
-
-        <!-- 2-WAY SECTION SWITCHER (DARSLAR / REAL LOYIHALAR) -->
-        <div class="sidebar-section-switcher">
-            <button class="section-switch-btn active" id="sec-lessons-btn" onclick="setPortalMode('lessons')">
-                <i class="fa-solid fa-graduation-cap"></i> 📚 DARSLAR (78)
-            </button>
-            <button class="section-switch-btn" id="sec-projects-btn" onclick="setPortalMode('projects')">
-                <i class="fa-solid fa-rocket"></i> 🚀 LOYIHALAR (100)
-            </button>
-        </div>
-
-        <!-- SEARCH -->
-        <div class="search-box">
-            <div class="search-input-wrapper">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="search-input" class="search-input" placeholder="Qidirish (nomi, kalit so'z bo'yicha)...">
-            </div>
-        </div>
-
-        <!-- LESSONS PILLS -->
-        <div class="module-pills" id="lessons-pills">
-            <button class="pill-btn active" onclick="filterByModule('all')">Hammasi (78)</button>
-            <button class="pill-btn" onclick="filterByModule('01. HTML')">HTML (8)</button>
-            <button class="pill-btn" onclick="filterByModule('02. CSS')">CSS (10)</button>
-            <button class="pill-btn" onclick="filterByModule('03. JS')">JS (30)</button>
-            <button class="pill-btn" onclick="filterByModule('04. Advanced JavaScript')">Adv JS (26)</button>
-            <button class="pill-btn" onclick="filterByModule('05. React')">React (4)</button>
-        </div>
-
-        <!-- PROJECTS PILLS -->
-        <div class="module-pills" id="projects-pills" style="display: none;">
-            <button class="pill-btn active" onclick="filterProjectsCategory('all')">Barcha Loyihalar (100)</button>
-            <button class="pill-btn" onclick="filterProjectsCategory('basic')">01-20 Ilovalar</button>
-            <button class="pill-btn" onclick="filterProjectsCategory('games')">21-40 O'yinlar</button>
-            <button class="pill-btn" onclick="filterProjectsCategory('ui')">41-60 CSS & UI</button>
-            <button class="pill-btn" onclick="filterProjectsCategory('sites')">61-80 Veb-Saytlar</button>
-            <button class="pill-btn" onclick="filterProjectsCategory('tools')">81-100 Asboblar</button>
-        </div>
-
-        <!-- PROGRESS -->
-        <div class="progress-bar-container">
-            <div class="progress-text">
-                <span>O'zlashtirish darajasi:</span>
-                <span id="progress-percent" style="font-weight: 700; color: #34d399;">0%</span>
-            </div>
-            <div class="progress-track">
-                <div id="progress-fill" class="progress-fill"></div>
-            </div>
-        </div>
-
-        <!-- LESSONS TREE -->
-        <div class="lessons-tree" id="lessons-tree">
-            <!-- Dynamically populated by portal.js -->
-        </div>
-
-        <!-- SIDEBAR FOOTER STATS -->
-        <div class="sidebar-footer">
-            <span><i class="fa-solid fa-book-open"></i> Jami: <strong>178 ta dars & loyiha (100 ta Loyiha!)</strong></span>
-            <span><i class="fa-solid fa-cloud-arrow-up" style="color: #38bdf8;"></i> Render Tayyor</span>
-        </div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main id="main-content">
-        <!-- TOP NAVBAR -->
-        <header class="top-navbar">
-            <div class="current-lesson-info">
-                <h1 id="lesson-title">Bosh sahifa</h1>
-                <p id="lesson-module"><i class="fa-solid fa-graduation-cap"></i> Front-End Platformasiga xush kelibsiz!</p>
-            </div>
-
-            <!-- TOP 2-WAY SECTION SWITCHER -->
-            <div class="section-top-switcher">
-                <button class="top-switch-btn active" id="top-sec-lessons-btn" onclick="setPortalMode('lessons')">
-                    <i class="fa-solid fa-graduation-cap"></i> 📚 Darslar (78)
-                </button>
-                <button class="top-switch-btn" id="top-sec-projects-btn" onclick="setPortalMode('projects')">
-                    <i class="fa-solid fa-rocket"></i> 🚀 Real Loyihalar (100)
-                </button>
-            </div>
-
-            <div class="actions-bar">
-                <button class="btn" onclick="openWelcomeModal()" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.4);" title="Sayt va Muallif haqida to'liq ma'lumot olish"><i class="fa-solid fa-circle-info"></i> Sayt & Muallif</button>
-                <button class="btn success" id="download-zip-btn" onclick="downloadCurrentLessonZip()" title="Ushbu loyiha yoki dars kodlarini ZIP holatida yuklab olish"><i class="fa-solid fa-file-zipper"></i> ZIP Yuklab Olish</button>
-                <button class="btn" id="mark-done-btn" onclick="toggleCurrentCompleted()"><i class="fa-regular fa-circle-check"></i> Tugatildi</button>
-                <button class="btn" id="prev-btn" title="Oldingi dars (←)"><i class="fa-solid fa-arrow-left"></i> Oldingi</button>
-                <button class="btn" id="next-btn" title="Keyingi dars (→)">Keyingi <i class="fa-solid fa-arrow-right"></i></button>
-                <button class="btn" id="fullscreen-btn" onclick="toggleFullscreen()" title="To'liq ekran"><i class="fa-solid fa-expand"></i></button>
-                <button class="btn primary" id="open-new-tab" title="Yangi oynada ochish"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-            </div>
-        </header>
-
-        <!-- TABS -->
-        <div class="tab-bar">
-            <button class="tab-btn active" id="tab-preview-btn"><i class="fa-solid fa-desktop"></i> Jonli Natija (Live Preview)</button>
-            <button class="tab-btn" id="tab-code-btn"><i class="fa-solid fa-code"></i> Kodni Ko'rish (Source Code)</button>
-            <button class="tab-btn" id="tab-playground-btn"><i class="fa-solid fa-flask"></i> Jonli Tahrirlash (Live Editor)</button>
-        </div>
-
-        <!-- WORKSPACE -->
-        <div class="preview-wrapper">
-            <iframe id="preview-frame" src=""></iframe>
-            <pre id="code-viewer"></pre>
-            <div id="playground-view">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="color: #94a3b8; font-size: 0.9rem; font-weight: bold;"><i class="fa-solid fa-pen-to-square"></i> Kodni Tahrirlang va Sinang:</span>
-                    <button class="btn primary" onclick="runPlaygroundCode()"><i class="fa-solid fa-play"></i> ▶️ Kodni Ishga Tushirish</button>
-                </div>
-                <textarea id="playground-editor" class="playground-editor" spellcheck="false"></textarea>
-            </div>
-        </div>
-    </main>
-
-    <!-- WELCOME / ABOUT MODAL (SPLIT INTO 2 MAIN DOORS) -->
-    <div id="welcome-modal" class="welcome-overlay">
-        <div class="welcome-card">
-            <button class="welcome-close-btn" onclick="closeWelcomeModal()" title="Yopish">&times;</button>
-            
-            <div class="welcome-badge">
-                <i class="fa-solid fa-graduation-cap"></i> O'ZBEKISTONNING 1-RAQAMLI OCHIQ FRONT-END PLATFORMASI
-            </div>
-            
-            <h1 class="welcome-title">Front-End 10X Masterclass Portali</h1>
-            <p class="welcome-subtitle">Platforma ikkita ulkan bo'limga ajratilgan: <strong>78 ta Chuqurlashtirilgan Darslar</strong> hamda <strong>100 ta To'liq Real Portfolio Loyihalari</strong>. O'zingizga kerakli bo'limni tanlang!</p>
-
-            <!-- AUTHOR SECTION -->
-            <div class="author-box">
-                <div class="author-avatar">
-                    <i class="fa-solid fa-user-tie"></i>
-                </div>
-                <div class="author-details">
-                    <div class="author-tag">SAYT EGASI VA MENTOR</div>
-                    <h3>Fayozbek Hamidov</h3>
-                    <p class="author-role"><i class="fa-solid fa-laptop-code"></i> Senior Front-End Engineer & Texnologik Mentor</p>
-                    <p class="author-bio">"Ushbu platforma O'zbekiston yoshlari zamonaviy frontend texnologiyalarini quruq nazariyasiz, 100% amaliyot, toza kod va mustaqil loyihalar orqali o'rganishlari uchun yaratildi. Darslar va 100 ta real portfolio loyihalari to'liq bepul va ochiq!"</p>
-                    <div class="author-links">
-                        <a href="https://t.me" target="_blank" class="social-link"><i class="fa-brands fa-telegram"></i> Telegram Kanal</a>
-                        <a href="https://github.com" target="_blank" class="social-link"><i class="fa-brands fa-github"></i> GitHub Profil</a>
-                        <a href="https://linkedin.com" target="_blank" class="social-link"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2 MASSIVE SPLIT ENTRANCE DOORS -->
-            <div class="welcome-split-grid">
-                <!-- DOOR 1: DARSLAR -->
-                <div class="welcome-door door-lessons" onclick="chooseSectionAndEnter('lessons')">
-                    <div class="door-header">
-                        <div class="door-icon door-icon-blue"><i class="fa-solid fa-book-open-reader"></i></div>
-                        <div>
-                            <span class="door-tag" style="color: #38bdf8;">1-BO'LIM &bull; O'QUV DASTURI</span>
-                            <h2>📚 DARSLAR (78 ta)</h2>
-                        </div>
-                    </div>
-                    <p class="door-desc">HTML, CSS, JavaScript, Advanced JS va React bo'yicha noldan professional darajagacha 10X Senior darsliklar to'plami.</p>
-                    <ul class="door-points">
-                        <li><i class="fa-solid fa-circle-check" style="color: #38bdf8;"></i> 78 ta to'liq interaktiv dars</li>
-                        <li><i class="fa-solid fa-circle-check" style="color: #38bdf8;"></i> Senior dasturchi Clean Code maslahatlari</li>
-                        <li><i class="fa-solid fa-circle-check" style="color: #38bdf8;"></i> Xotirada nima bo'ladi (Under the Hood)</li>
-                        <li><i class="fa-solid fa-circle-check" style="color: #38bdf8;"></i> Interaktiv Quizlar va Cheat Sheetlar</li>
-                    </ul>
-                    <button class="door-btn door-btn-blue">
-                        <span>Darslarni Boshlash (78 ta)</span> <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-
-                <!-- DOOR 2: REAL LOYIHALAR -->
-                <div class="welcome-door door-projects" onclick="chooseSectionAndEnter('projects')">
-                    <div class="door-header">
-                        <div class="door-icon door-icon-pink"><i class="fa-solid fa-rocket"></i></div>
-                        <div>
-                            <span class="door-tag" style="color: #ec4899;">2-BO'LIM &bull; PORTFOLIO HUB</span>
-                            <h2>🚀 REAL LOYIHALAR (100 ta)</h2>
-                        </div>
-                    </div>
-                    <p class="door-desc">Rezyume va portfolio uchun 100 ta tayyor, to'liq ishlaydigan mustaqil veb-loyihalar, o'yinlar va ilovalar to'plami.</p>
-                    <ul class="door-points">
-                        <li><i class="fa-solid fa-circle-check" style="color: #ec4899;"></i> 100 ta real amaliy frontend loyiha</li>
-                        <li><i class="fa-solid fa-circle-check" style="color: #ec4899;"></i> 1-bosishda brauzerdan ZIP yuklab olish</li>
-                        <li><i class="fa-solid fa-circle-check" style="color: #ec4899;"></i> O'yinlar, kalkulyatorlar, landing pagelar</li>
-                        <li><i class="fa-solid fa-circle-check" style="color: #ec4899;"></i> Jonli tahrirlagich va toza manba kodlari</li>
-                    </ul>
-                    <button class="door-btn door-btn-pink">
-                        <span>Real Loyihalarni Ko'rish (100 ta)</span> <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- FOOTER TOGGLE -->
-            <div class="welcome-action-box" style="border-top: none; padding-top: 10px;">
-                <div class="welcome-checkbox-wrap">
-                    <label>
-                        <input type="checkbox" id="dont-show-again-chk"> Keyingi safar avtomatik ochilmasin (doimiy yuqori menyudan ochish mumkin)
-                    </label>
-                </div>
-            </div>
-        </div>
+  <!-- TOP NAVBAR -->
+  <header class="top-navbar" role="banner">
+    <div class="brand-wrapper" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+      <div class="brand-icon" aria-hidden="true">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <div class="brand-titles">
+        <h1 data-i18n="siteTitle">EduMemory Pro</h1>
+        <p data-i18n="siteSubtitle">Frontend Dasturlash Platformasi</p>
+      </div>
     </div>
 
-    <!-- JSZip & FileSaver for 1-Click Browser ZIP Downloads -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <script src="./portal.js"></script>
+    <!-- YouTube-uslubidagi Markaziy Qidiruv -->
+    <div class="search-container" role="search">
+      <div class="search-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+        <input 
+          type="text" 
+          id="globalSearchInput" 
+          class="search-input" 
+          placeholder="Loyiha, texnologiya yoki mavzu bo'yicha qidiring... (/)" 
+          aria-label="Qidiruv" 
+          autocomplete="off"
+        >
+        <span class="search-shortcut-hint">/</span>
+        <button id="searchClearBtn" class="search-clear-btn" aria-label="Qidiruvni tozalash">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- O'ng Tomon Amallari -->
+    <div class="nav-actions">
+      <!-- 3 Tilli Tanlov -->
+      <select id="langSelect" class="lang-select" aria-label="Tilni tanlang">
+        <option value="uz">🇺🇿 O'zbek</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="en">🇬🇧 English</option>
+      </select>
+
+      <!-- Dark / Light Rejim -->
+      <button id="themeToggleBtn" class="nav-btn icon-btn" aria-label="Mavzuni almashtirish">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       WELCOME HERO SECTION
+       ======================================================== -->
+  <section class="welcome-hero" aria-label="Kirish ekrani">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-bolt"></i> <span data-i18n="heroBadge">10X FRONTEND PLATFORMA</span>
+      </div>
+      <h2 class="hero-title" data-i18n="heroTitle">
+        Dasturchilar Uchun <span>Frontend Loyihalar</span> Markazi
+      </h2>
+      <p class="hero-desc" data-i18n="heroDesc">
+        150+ dan ortiq tayyor real portfolio loyihalari, bosqichma-bosqich darslar va kodlar ombori.
+      </p>
+
+      <!-- 2 TA KATTA KARTA: DARSLAR VA TAYYOR LOYIHALAR -->
+      <div class="hero-two-cards">
+        <div class="portal-big-card lessons" id="welcomeCardLessons" role="button" tabindex="0">
+          <div class="card-top-icon">
+            <i class="fa-solid fa-book-open-reader"></i>
+          </div>
+          <div>
+            <h3 data-i18n="lessonsCardTitle">Interaktiv Darslar</h3>
+            <p data-i18n="lessonsCardDesc">Boshlang'ichdan professionalgacha ketma-ket darslar, tushuntirishlar va amaliy mashqlar.</p>
+          </div>
+          <span class="card-action-link" data-i18n="lessonsCardAction">Darslarga o'tish →</span>
+        </div>
+
+        <div class="portal-big-card projects" id="welcomeCardProjects" role="button" tabindex="0">
+          <div class="card-top-icon">
+            <i class="fa-solid fa-cubes"></i>
+          </div>
+          <div>
+            <h3 data-i18n="projectsCardTitle">Tayyor Portfolio Loyihalar</h3>
+            <p data-i18n="projectsCardDesc">Jonli ko'rish, manba kodlari va 1-bosishda ZIP qilib yuklab olish imkoniyati.</p>
+          </div>
+          <span class="card-action-link" data-i18n="projectsCardAction">Loyihalarni ko'rish →</span>
+        </div>
+      </div>
+
+      <!-- STATISTIKA BANNERI -->
+      <div class="hero-stats-bar">
+        <div class="stat-item">
+          <span id="statsProjectsCount" class="stat-number">150+</span>
+          <span class="stat-label" data-i18n="statsProjects">Real Loyihalar</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">178+</span>
+          <span class="stat-label" data-i18n="statsLessons">Interaktiv Darslar</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">25,000+</span>
+          <span class="stat-label" data-i18n="statsDownloads">Yuklab Olishlar</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">4.9 ★</span>
+          <span class="stat-label" data-i18n="statsRating">Jamoa Bahosi</span>
+        </div>
+      </div>
+
+      <!-- OXIRGI KO'RILGAN LOYIHA UCHUN "DAVOM ETTIRISH" TUGMASI -->
+      <div id="continueBanner" class="continue-banner" style="display:none;">
+        <div class="continue-info">
+          <i class="fa-solid fa-circle-play"></i>
+          <div>
+            <div class="continue-text-title" data-i18n="continueTitle">Oxirgi ko'rilgan loyiha</div>
+            <div id="continueProjectName" class="continue-text-name">Loyiha nomi</div>
+          </div>
+        </div>
+        <button id="continueBtn" class="nav-btn active" data-i18n="continueAction">Davom ettirish →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       YOUTUBE USLUBIDAGI ASOSIY PLATFORMA (KATALOG)
+       ======================================================== -->
+  <div class="platform-layout" role="main">
+    
+    <!-- CHAP KATEGORIYA PANELI -->
+    <aside class="sidebar-panel" id="sidebarPanel" role="navigation" aria-label="Kategoriyalar paneli">
+      <div class="sidebar-heading" data-i18n="categoriesHeading">Kategoriyalar</div>
+      <div id="categoryList">
+        <!-- portal.js orqali render qilinadi -->
+      </div>
+    </aside>
+
+    <!-- ASOSIY KATALOG HUDUDI -->
+    <main class="catalog-area">
+      <!-- TEPADAGI CHIP FILTRLAR -->
+      <div class="filter-chips-bar" role="toolbar" aria-label="Filtrlar">
+        <div class="chips-scroll" id="chipsScroll">
+          <!-- Darajalar -->
+          <button class="chip-btn active" data-filter-type="level" data-filter-val="all" data-i18n="allLevels">Barcha darajalar</button>
+          <button class="chip-btn" data-filter-type="level" data-filter-val="boshlang'ich" data-i18n="levelBasic">🟢 Boshlang'ich</button>
+          <button class="chip-btn" data-filter-type="level" data-filter-val="o'rta" data-i18n="levelMid">🟡 O'rta</button>
+          <button class="chip-btn" data-filter-type="level" data-filter-val="murakkab" data-i18n="levelAdv">🔴 Murakkab</button>
+          
+          <!-- Texnologiyalar -->
+          <button class="chip-btn" data-filter-type="tech" data-filter-val="all">Barcha texnologiyalar</button>
+          <button class="chip-btn" data-filter-type="tech" data-filter-val="javascript">JavaScript</button>
+          <button class="chip-btn" data-filter-type="tech" data-filter-val="canvas">Canvas</button>
+          <button class="chip-btn" data-filter-type="tech" data-filter-val="localstorage">LocalStorage</button>
+          <button class="chip-btn" data-filter-type="tech" data-filter-val="css3">CSS3</button>
+          <button class="chip-btn" data-filter-type="tech" data-filter-val="drag-drop">Drag & Drop</button>
+        </div>
+
+        <!-- Saralash Dropdown -->
+        <div class="sort-select-wrapper">
+          <select id="sortSelect" class="sort-select" aria-label="Saralash tartibi">
+            <option value="newest" data-i18n="sortNewest">Yangi loyihalar</option>
+            <option value="popular" data-i18n="sortPopular">Eng mashhur</option>
+            <option value="downloads" data-i18n="sortDownloads">Ko'p yuklangan</option>
+            <option value="alpha">Alifbo bo'yicha (A-Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- YOUTUBE-STYLE GRID KARTALARI -->
+      <section class="projects-grid" id="projectsGrid" aria-label="Loyihalar to'plami">
+        <!-- Dinamik ravishda portal.js orqali render qilinadi -->
+      </section>
+    </main>
+  </div>
+
+  <!-- ========================================================
+       LOYIHA SAHIFASI / STUDIO (PROJECT VIEW MODAL)
+       ======================================================== -->
+  <div class="studio-overlay" id="studioOverlay" role="dialog" aria-modal="true" aria-labelledby="studioTitle">
+    <!-- Studio Header -->
+    <header class="studio-header">
+      <div class="studio-title-box">
+        <button id="studioCloseBtn" class="studio-close-btn" aria-label="Yopish">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <h2 id="studioTitle">Loyiha Nomi</h2>
+      </div>
+
+      <!-- Tablar: Preview, Kod, Dars, README -->
+      <div class="studio-tabs" role="tablist">
+        <button class="studio-tab-btn active" data-tab="preview" role="tab" aria-selected="true">
+          <i class="fa-solid fa-play"></i> <span data-i18n="tabPreview">Jonli Ko'rish</span>
+        </button>
+        <button class="studio-tab-btn" data-tab="code" role="tab" aria-selected="false">
+          <i class="fa-solid fa-code"></i> <span data-i18n="tabCode">Manba Kodi</span>
+        </button>
+        <button class="studio-tab-btn" data-tab="lesson" role="tab" aria-selected="false">
+          <i class="fa-solid fa-chalkboard-user"></i> <span data-i18n="tabLesson">Dars Rejasi</span>
+        </button>
+        <button class="studio-tab-btn" data-tab="readme" role="tab" aria-selected="false">
+          <i class="fa-solid fa-book-bookmark"></i> <span data-i18n="tabReadme">Hujjatlar (README)</span>
+        </button>
+      </div>
+
+      <!-- Studio Amallari -->
+      <div class="studio-actions">
+        <!-- Viewport Switcher -->
+        <div class="device-toggle-group" role="group" aria-label="Ekran o'lchami">
+          <button class="device-btn active" data-device="desktop" title="Desktop 100%"><i class="fa-solid fa-desktop"></i></button>
+          <button class="device-btn" data-device="tablet" title="Planshet 768px"><i class="fa-solid fa-tablet-screen-button"></i></button>
+          <button class="device-btn" data-device="mobile" title="Mobil 375px"><i class="fa-solid fa-mobile-screen"></i></button>
+        </div>
+
+        <button id="studioFavBtn" class="nav-btn icon-btn" aria-label="Sevimlilarga saqlash">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <button id="studioOpenExternalBtn" class="nav-btn" data-i18n="openNewTab">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Yangi oynada
+        </button>
+        <button id="studioDownloadZipBtn" class="nav-btn active" data-i18n="downloadZip">
+          <i class="fa-solid fa-download"></i> ZIP Yuklab Olish
+        </button>
+      </div>
+    </header>
+
+    <!-- Studio Asosiy Panellari -->
+    <div class="studio-body">
+      <!-- 1. PREVIEW TAB -->
+      <div id="tabPane-preview" class="tab-pane active" role="tabpanel">
+        <div class="preview-pane-wrapper">
+          <iframe id="studioPreviewIframe" src="about:blank" title="Loyiha Jonli Ko'rinishi" sandbox="allow-scripts allow-same-origin allow-forms allow-modals"></iframe>
+        </div>
+      </div>
+
+      <!-- 2. CODE TAB (HTML/CSS/JS alohida ko'rinadi) -->
+      <div id="tabPane-code" class="tab-pane" role="tabpanel">
+        <div class="code-pane-wrapper">
+          <div class="code-subtabs">
+            <div style="display:flex; gap:8px;">
+              <button class="code-file-btn active" data-file="html">index.html</button>
+              <button class="code-file-btn" data-file="css">style.css</button>
+              <button class="code-file-btn" data-file="js">script.js</button>
+            </div>
+            <button id="studioCopyCodeBtn" class="nav-btn" data-i18n="copyCode">
+              <i class="fa-solid fa-copy"></i> Kodni nusxalash
+            </button>
+          </div>
+          <pre id="studioCodePre" class="code-display-pre"></pre>
+        </div>
+      </div>
+
+      <!-- 3. LESSON TAB (Maqsad, Qadamlar, Kod izohi, Mashq) -->
+      <div id="tabPane-lesson" class="tab-pane" role="tabpanel">
+        <div class="lesson-pane-wrapper" id="studioLessonContent">
+          <!-- portal.js orqali to'ldiriladi -->
+        </div>
+      </div>
+
+      <!-- 4. README TAB -->
+      <div id="tabPane-readme" class="tab-pane" role="tabpanel">
+        <div class="readme-pane-wrapper" id="studioReadmeContent">
+          <!-- portal.js orqali to'ldiriladi -->
+        </div>
+      </div>
+    </div>
+
+    <!-- O'XSHASH LOYIHALAR RO'YXATI -->
+    <div class="related-projects-bar">
+      <h4 data-i18n="relatedHeading">O'xshash loyihalar</h4>
+      <div class="related-list" id="relatedProjectsList">
+        <!-- portal.js orqali to'ldiriladi -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST BILDIRISHNOMA -->
+  <div id="toastMsg" class="toast-msg" role="status" aria-live="polite"></div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="./portal.js"></script>
 </body>
 </html>

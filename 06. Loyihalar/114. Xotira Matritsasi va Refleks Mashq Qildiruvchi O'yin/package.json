@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-114-xotira-matritsasi-va-refleks-mashq-qildiruvchi-oyin",
+  "version": "1.0.0",
+  "description": "Xotira Matritsasi va Refleks Mashq Qildiruvchi O'yin",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "o'yinlar",
+    "memory matrix",
+    "brain training",
+    "puzzle",
+    "reflex game"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

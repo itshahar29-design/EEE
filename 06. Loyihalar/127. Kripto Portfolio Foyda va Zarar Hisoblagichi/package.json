@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-127-kripto-portfolio-foyda-va-zarar-hisoblagichi",
+  "version": "1.0.0",
+  "description": "Kripto Portfolio Foyda va Zarar Hisoblagichi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator",
+    "crypto portfolio",
+    "profit loss",
+    "finance",
+    "calculator"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

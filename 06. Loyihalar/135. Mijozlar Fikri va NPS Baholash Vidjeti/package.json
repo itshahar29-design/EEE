@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-135-mijozlar-fikri-va-nps-baholash-vidjeti",
+  "version": "1.0.0",
+  "description": "Mijozlar Fikri va NPS Baholash Vidjeti",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "admin panel",
+    "feedback widget",
+    "nps survey",
+    "customer care",
+    "admin panel"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-140-matn-farqlarini-taqqoslovchi-va-diff-korsatuvchi-dastur",
+  "version": "1.0.0",
+  "description": "Matn Farqlarini Taqqoslovchi va Diff Ko'rsatuvchi Dastur",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "text diff",
+    "comparison",
+    "code diff",
+    "editor tools"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

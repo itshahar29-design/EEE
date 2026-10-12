@@ -1,0 +1,16 @@
+{
+  "name": "border-radius-vizual-generatori",
+  "version": "1.0.0",
+  "description": "Border-Radius Vizual Generatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "data visualization"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

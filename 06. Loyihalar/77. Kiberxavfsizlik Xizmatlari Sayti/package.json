@@ -1,0 +1,16 @@
+{
+  "name": "kiberxavfsizlik-xizmatlari-sayti",
+  "version": "1.0.0",
+  "description": "Kiberxavfsizlik Xizmatlari Sayti",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "landing"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "xarajatlar-kundaligi",
+  "version": "1.0.0",
+  "description": "Xarajatlar Kundaligi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

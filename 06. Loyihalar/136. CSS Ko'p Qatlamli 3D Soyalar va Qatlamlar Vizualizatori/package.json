@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-136-css-kop-qatlamli-3d-soyalar-va-qatlamlar-vizualizatori",
+  "version": "1.0.0",
+  "description": "CSS Ko'p Qatlamli 3D Soyalar va Qatlamlar Vizualizatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "shadow visualizer",
+    "3d layers",
+    "css generator",
+    "depth"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

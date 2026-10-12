@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-118-rangli-yopishqoq-eslatmalar-sticky-notes-doskasi",
+  "version": "1.0.0",
+  "description": "Rangli Yopishqoq Eslatmalar (Sticky Notes) Doskasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "crm/to-do",
+    "sticky notes",
+    "whiteboard",
+    "ideas",
+    "drag-drop"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

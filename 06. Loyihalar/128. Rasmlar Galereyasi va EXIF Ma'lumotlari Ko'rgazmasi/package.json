@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-128-rasmlar-galereyasi-va-exif-malumotlari-korgazmasi",
+  "version": "1.0.0",
+  "description": "Rasmlar Galereyasi va EXIF Ma'lumotlari Ko'rgazmasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio",
+    "image gallery",
+    "exif inspector",
+    "lightbox",
+    "photography"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}
