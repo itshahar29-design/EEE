@@ -66,7 +66,12 @@
           <h3 style="font-size: 1rem; font-weight: 700; color:var(--text-main);">
             <i class="fa-solid fa-graduation-cap" style="color:var(--accent);"></i> Kurs Modullari
           </h3>
-          <span id="lessonsTotalBadge" class="module-count">278 dars</span>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span id="lessonsTotalBadge" class="module-count">278 dars</span>
+            <button id="closeLessonsDrawerBtn" class="drawer-close-btn" aria-label="Yopish">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
         </div>
 
         <!-- Darslar ichidan tezkor qidiruv -->
@@ -101,14 +106,22 @@
       </div>
     </aside>
 
+    <!-- MOBILE DRAWER BACKDROP -->
+    <div id="lessonsSidebarBackdrop" class="drawer-backdrop"></div>
+
     <!-- O'ng Dars Maydoni (Workspace) -->
     <main class="lesson-workspace">
       <div class="lesson-top-bar">
-        <div class="lesson-title-area">
-          <h2 id="lessonCurrentTitle">1-dars. HTML Kirish</h2>
-          <p id="lessonCurrentModule">01. HTML5 Asoslari</p>
+        <div style="display:flex; align-items:center; gap:12px; flex:1; min-width:0;">
+          <button id="mobileLessonsToggleBtn" class="mobile-drawer-btn" aria-label="Darslar ro'yxatini ochish">
+            <i class="fa-solid fa-list-ul"></i> <span>Darslar</span>
+          </button>
+          <div class="lesson-title-area" style="min-width:0;">
+            <h2 id="lessonCurrentTitle">1-dars. HTML Kirish</h2>
+            <p id="lessonCurrentModule">01. HTML5 Asoslari</p>
+          </div>
         </div>
-        <div style="display: flex; gap: 8px; flex-wrap:wrap;">
+        <div class="lesson-top-actions" style="display: flex; gap: 8px; flex-wrap:wrap;">
           <button id="lessonCompleteBtn" class="nav-btn" style="color: var(--success);">
             <i class="fa-solid fa-circle-check"></i> <span id="lessonCompleteText">Darsni yakunlash</span>
           </button>

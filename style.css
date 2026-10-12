@@ -1406,59 +1406,466 @@ body {
   box-shadow: var(--shadow-md);
 }
 
-/* RESPONSIVE DESIGN */
-@media (max-width: 992px) {
-  .hero-two-cards {
-    grid-template-columns: 1fr;
+/* ========================================================
+   RESPONSIVE DESIGN SYSTEM & MOBILE DRAWERS
+   ======================================================== */
+
+/* Mobile Drawer Backdrop */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 17, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 1400;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.drawer-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile Drawer Buttons */
+.mobile-drawer-btn {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+.mobile-drawer-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Drawer Header inside Sidebar */
+.sidebar-mobile-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.drawer-close-btn {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.drawer-close-btn:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+/* 1. LARGE TABLETS & SMALL LAPTOPS (<= 1200px) */
+@media (max-width: 1200px) {
+  .catalog-area {
+    padding: 24px 20px;
   }
-  .sidebar-panel {
-    display: none; /* Mobile Drawer */
-  }
-  .sidebar-panel.mobile-open {
-    display: flex;
-    position: fixed;
-    top: 70px;
-    left: 0;
-    width: 280px;
-    z-index: 1500;
-    box-shadow: var(--shadow-lg);
-  }
-  .lessons-sidebar {
-    display: none;
-  }
-  .lessons-sidebar.mobile-open {
-    display: flex;
-    position: fixed;
-    top: 70px;
-    left: 0;
-    width: 300px;
-    z-index: 1500;
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
   }
 }
 
-@media (max-width: 640px) {
-  .hero-title {
-    font-size: 1.8rem;
+/* 2. TABLETS & SMALL DESKTOPS (<= 992px) */
+@media (max-width: 992px) {
+  .top-navbar {
+    padding: 0 16px;
+  }
+
+  .hero-two-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
   .hero-stats-bar {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
-  .search-shortcut-hint {
-    display: none;
+
+  /* Catalog Mobile Drawer */
+  .mobile-drawer-btn {
+    display: inline-flex;
   }
-  .main-page-nav {
+  .sidebar-mobile-header {
     display: flex;
-    overflow-x: auto;
-    gap: 4px;
-    padding: 2px;
   }
-  .page-nav-btn {
-    padding: 6px 10px;
-    font-size: 0.8rem;
-    white-space: nowrap;
+  .sidebar-panel {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 300px !important;
+    max-width: 86vw !important;
+    height: 100vh !important;
+    z-index: 1500 !important;
+    background: var(--bg-sidebar) !important;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.85) !important;
+    padding: 20px 16px !important;
+    border-right: 1px solid var(--border) !important;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .sidebar-panel.mobile-open {
+    display: flex !important;
+    transform: translateX(0) !important;
+  }
+
+  /* Lessons Mobile Drawer */
+  .lessons-page-layout {
+    height: auto;
+    min-height: calc(100vh - 70px);
+  }
+  .lessons-sidebar {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 320px !important;
+    max-width: 88vw !important;
+    height: 100vh !important;
+    z-index: 1500 !important;
+    background: var(--bg-sidebar) !important;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.85) !important;
+    padding: 18px 14px !important;
+    border-right: 1px solid var(--border) !important;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .lessons-sidebar.mobile-open {
+    display: flex !important;
+    transform: translateX(0) !important;
+  }
+  .lessons-sidebar .drawer-close-btn {
+    display: flex;
+  }
+
+  /* Studio Device Selector: Hide inside tablet/mobile */
+  .device-toggle-group {
+    display: none !important;
+  }
+}
+
+/* 3. MOBILE LANDSCAPE & PHONES (<= 768px) */
+@media (max-width: 768px) {
+  .top-navbar {
+    height: auto;
+    min-height: 60px;
+    padding: 10px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .brand-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+  .brand-titles h1 {
+    font-size: 1rem;
   }
   .brand-titles p {
     display: none;
   }
+
+  /* Main Navigation Tabs on Mobile */
+  .main-page-nav {
+    order: 3;
+    width: 100%;
+    margin-top: 4px;
+    justify-content: stretch;
+    padding: 3px;
+  }
+  .page-nav-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 7px 8px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .nav-actions {
+    gap: 6px;
+  }
+  .lang-select {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+  .nav-btn.icon-btn {
+    padding: 6px 10px;
+  }
+
+  /* Studio Modal Header on Mobile */
+  .studio-header {
+    height: auto;
+    min-height: 58px;
+    padding: 10px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .studio-title-box {
+    flex: 1;
+    min-width: 180px;
+  }
+  .studio-title-box h2 {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+  .studio-tabs {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+    gap: 4px;
+  }
+  .studio-tabs::-webkit-scrollbar {
+    height: 3px;
+  }
+  .studio-tab-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  .studio-actions {
+    gap: 6px;
+  }
+  .studio-actions .nav-btn {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+
+  #studioPreviewIframe {
+    width: 100% !important;
+    border-radius: 0;
+  }
+  .preview-pane-wrapper {
+    padding: 0;
+  }
+  .code-pane-wrapper {
+    padding: 12px;
+  }
+
+  /* Lessons Workspace on Mobile */
+  .lesson-top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+  .lesson-top-actions {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .lesson-top-actions .nav-btn {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 7px 8px;
+  }
+  .lesson-workspace-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 12px;
+    gap: 4px;
+  }
+  .lesson-tab-btn {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+  .lesson-view-pane {
+    padding: 14px 10px;
+  }
+  .lesson-preview-frame {
+    height: calc(100vh - 250px);
+    min-height: 380px;
+  }
 }
+
+/* 4. SMARTPHONES & COMPACT SCREENS (<= 640px) */
+@media (max-width: 640px) {
+  /* Catalog */
+  .catalog-area {
+    padding: 14px 10px;
+  }
+  .search-row-flex {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+  .search-row-flex .mobile-drawer-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .search-input-wrapper {
+    margin-bottom: 0 !important;
+    padding: 4px 12px;
+  }
+  .search-input {
+    font-size: 16px; /* Prevents auto-zoom on iOS Safari */
+  }
+  .search-shortcut-hint {
+    display: none;
+  }
+
+  /* Filters */
+  .filter-chips-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .chips-scroll {
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sort-select-wrapper {
+    width: 100%;
+  }
+  .sort-select {
+    width: 100%;
+  }
+
+  /* Cards Grid: Perfect 1 Column on Mobile */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card-body {
+    padding: 14px 12px;
+  }
+  .card-title {
+    font-size: 1rem;
+  }
+  .card-desc {
+    font-size: 0.82rem;
+  }
+  .card-quick-actions {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .card-action-btn {
+    padding: 8px 6px;
+    font-size: 0.78rem;
+  }
+
+  /* Welcome Hero Section */
+  .welcome-hero {
+    padding: 24px 12px 18px;
+  }
+  .hero-badge {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    margin-bottom: 12px;
+  }
+  .hero-title {
+    font-size: 1.65rem;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .hero-desc {
+    font-size: 0.92rem;
+    margin-bottom: 22px;
+  }
+  .hero-two-cards {
+    margin-bottom: 22px;
+  }
+  .portal-big-card {
+    padding: 20px 16px;
+  }
+  .card-top-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+  .portal-big-card h3 {
+    font-size: 1.2rem;
+  }
+  .portal-big-card p {
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+
+  .hero-stats-bar {
+    padding: 12px 8px;
+    gap: 8px;
+  }
+  .stat-number {
+    font-size: 1.25rem;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .continue-banner {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 14px;
+    gap: 12px;
+  }
+  #continueBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .grid-actions-bar {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin: 24px 0 16px;
+  }
+  .grid-actions-bar .nav-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* 5. EXTRA SMALL MOBILE DEVICES (<= 380px) */
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 1.45rem;
+  }
+  .hero-stats-bar {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .stat-number {
+    font-size: 1.1rem;
+  }
+  .page-nav-btn {
+    font-size: 0.74rem;
+    padding: 6px 4px;
+    gap: 4px;
+  }
+  .card-action-btn {
+    font-size: 0.72rem;
+    gap: 4px;
+  }
+}
+
 

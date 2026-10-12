@@ -69,6 +69,12 @@
     UI.lessonTheoryCard = document.getElementById('lessonTheoryCard');
     UI.lessonExerciseCard = document.getElementById('lessonExerciseCard');
     UI.toast = document.getElementById('toastMsg');
+
+    // Mobile Lessons Drawer
+    UI.mobileLessonsToggleBtn = document.getElementById('mobileLessonsToggleBtn');
+    UI.closeLessonsDrawerBtn = document.getElementById('closeLessonsDrawerBtn');
+    UI.lessonsSidebarBackdrop = document.getElementById('lessonsSidebarBackdrop');
+    UI.lessonsSidebar = document.querySelector('.lessons-sidebar');
   }
 
   async function loadLessons() {
@@ -256,6 +262,19 @@
     if (UI.lessonDownloadBtn) {
       UI.lessonDownloadBtn.onclick = () => downloadLessonZip(lesson);
     }
+
+    closeMobileLessonsSidebar();
+  }
+
+  // Mobile Lessons Drawer Helpers
+  function openMobileLessonsSidebar() {
+    if (UI.lessonsSidebar) UI.lessonsSidebar.classList.add('mobile-open');
+    if (UI.lessonsSidebarBackdrop) UI.lessonsSidebarBackdrop.classList.add('active');
+  }
+
+  function closeMobileLessonsSidebar() {
+    if (UI.lessonsSidebar) UI.lessonsSidebar.classList.remove('mobile-open');
+    if (UI.lessonsSidebarBackdrop) UI.lessonsSidebarBackdrop.classList.remove('active');
   }
 
   function setupCodeTab(lesson) {
@@ -413,6 +432,11 @@
         renderLessonsTree();
       };
     }
+
+    // Mobile Drawer Controls
+    if (UI.mobileLessonsToggleBtn) UI.mobileLessonsToggleBtn.onclick = openMobileLessonsSidebar;
+    if (UI.closeLessonsDrawerBtn) UI.closeLessonsDrawerBtn.onclick = closeMobileLessonsSidebar;
+    if (UI.lessonsSidebarBackdrop) UI.lessonsSidebarBackdrop.onclick = closeMobileLessonsSidebar;
 
     // Tabs
     document.querySelectorAll('.lesson-tab-btn').forEach(btn => {

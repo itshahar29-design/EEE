@@ -142,31 +142,44 @@
     <div id="catalog" class="platform-layout">
       <!-- CHAP KATEGORIYA PANELI -->
       <aside class="sidebar-panel" id="sidebarPanel" role="navigation" aria-label="Kategoriyalar paneli">
-        <div class="sidebar-heading" data-i18n="categoriesHeading">Kategoriyalar</div>
+        <div class="sidebar-mobile-header">
+          <div class="sidebar-heading" data-i18n="categoriesHeading">Kategoriyalar</div>
+          <button id="closeSidebarDrawerBtn" class="drawer-close-btn" aria-label="Yopish">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
         <div id="categoryList">
           <!-- portal.js orqali render qilinadi -->
         </div>
       </aside>
 
+      <!-- MOBILE DRAWER BACKDROP -->
+      <div id="sidebarBackdrop" class="drawer-backdrop"></div>
+
       <!-- ASOSIY KATALOG HUDUDI -->
       <main class="catalog-area">
         <!-- Qidiruv va Chip Filtrlar Boshqaruvi -->
         <div style="margin-bottom: 20px;">
-          <!-- YouTube Uslubidagi Qidiruv Qatori -->
-          <div class="search-input-wrapper" style="max-width: 650px; margin-bottom: 16px;">
-            <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
-            <input 
-              type="text" 
-              id="globalSearchInput" 
-              class="search-input" 
-              placeholder="Loyiha, texnologiya yoki mavzu bo'yicha qidiring... (/)" 
-              aria-label="Qidiruv" 
-              autocomplete="off"
-            >
-            <span class="search-shortcut-hint">/</span>
-            <button id="searchClearBtn" class="search-clear-btn" aria-label="Qidiruvni tozalash">
-              <i class="fa-solid fa-xmark"></i>
+          <!-- Mobil Kategoriyalar Tugmasi & YouTube Uslubidagi Qidiruv Qatori -->
+          <div class="search-row-flex" style="display:flex; align-items:center; gap:10px; max-width:650px; margin-bottom:16px;">
+            <button id="mobileCategoryToggleBtn" class="mobile-drawer-btn" aria-label="Kategoriyalar filtri">
+              <i class="fa-solid fa-layer-group"></i> <span>Kategoriyalar</span>
             </button>
+            <div class="search-input-wrapper" style="flex:1;">
+              <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+              <input 
+                type="text" 
+                id="globalSearchInput" 
+                class="search-input" 
+                placeholder="Loyiha, texnologiya yoki mavzu bo'yicha qidiring... (/)" 
+                aria-label="Qidiruv" 
+                autocomplete="off"
+              >
+              <span class="search-shortcut-hint">/</span>
+              <button id="searchClearBtn" class="search-clear-btn" aria-label="Qidiruvni tozalash">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
           </div>
 
           <!-- TEPADAGI CHIP FILTRLAR -->

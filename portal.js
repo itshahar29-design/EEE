@@ -199,6 +199,12 @@
     UI.loadMoreBtn = document.getElementById('loadMoreProjectsBtn');
     UI.showAllBtn = document.getElementById('showAllProjectsBtn');
 
+    // Mobile Sidebar Drawer
+    UI.mobileCategoryToggleBtn = document.getElementById('mobileCategoryToggleBtn');
+    UI.closeSidebarDrawerBtn = document.getElementById('closeSidebarDrawerBtn');
+    UI.sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    UI.sidebarPanel = document.getElementById('sidebarPanel');
+
     // Studio Modal
     UI.studio = document.getElementById('studioOverlay');
     UI.studioTitle = document.getElementById('studioTitle');
@@ -372,8 +378,20 @@
         App.currentCategory = item.dataset.cat;
         renderCategories();
         applyFilters();
+        closeMobileSidebar();
       };
     });
+  }
+
+  // Mobile Drawer Helpers
+  function openMobileSidebar() {
+    if (UI.sidebarPanel) UI.sidebarPanel.classList.add('mobile-open');
+    if (UI.sidebarBackdrop) UI.sidebarBackdrop.classList.add('active');
+  }
+
+  function closeMobileSidebar() {
+    if (UI.sidebarPanel) UI.sidebarPanel.classList.remove('mobile-open');
+    if (UI.sidebarBackdrop) UI.sidebarBackdrop.classList.remove('active');
   }
 
   // 7. Render Projects Grid (HAR BIR LOYIHA NIMA EKANLIGI TO'LIQ VA ANIQ KO'RINADI)
@@ -863,6 +881,11 @@
         applyFilters();
       };
     }
+
+    // Mobile Drawer Controls
+    if (UI.mobileCategoryToggleBtn) UI.mobileCategoryToggleBtn.onclick = openMobileSidebar;
+    if (UI.closeSidebarDrawerBtn) UI.closeSidebarDrawerBtn.onclick = closeMobileSidebar;
+    if (UI.sidebarBackdrop) UI.sidebarBackdrop.onclick = closeMobileSidebar;
 
     // Sort select
     if (UI.sortSelect) {
