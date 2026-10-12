@@ -1,0 +1,21 @@
+{
+  "name": "zamonaviy-arxitektura-byurosi-va-loyihalar-panoramasi",
+  "version": "1.0.0",
+  "description": "Zamonaviy Arxitektura Byurosi va Loyihalar Panoramasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "landing",
+    "architecture",
+    "urban design",
+    "blueprint",
+    "interior",
+    "landing"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

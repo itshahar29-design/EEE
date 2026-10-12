@@ -1,0 +1,21 @@
+{
+  "name": "dunyo-muzeylari-eksponatlari-api-qidiruvi-va-saralash",
+  "version": "1.0.0",
+  "description": "Dunyo Muzeylari Eksponatlari API Qidiruvi va Saralash",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "api loyihalar",
+    "museum art",
+    "metropolitan museum",
+    "artifacts",
+    "art api",
+    "culture"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

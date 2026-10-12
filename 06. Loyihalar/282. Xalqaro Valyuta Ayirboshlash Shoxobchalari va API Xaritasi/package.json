@@ -1,0 +1,21 @@
+{
+  "name": "xalqaro-valyuta-ayirboshlash-shoxobchalari-va-api-xaritasi",
+  "version": "1.0.0",
+  "description": "Xalqaro Valyuta Ayirboshlash Shoxobchalari va API Xaritasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "api loyihalar",
+    "currency exchange",
+    "branch locator",
+    "best rates",
+    "forex api",
+    "finance"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

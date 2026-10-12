@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>298. Flowchart Diagrammalar va Blok-Sxemalar Muharriri | FrontCraft Pro</title>
+  <meta name="description" content="Flowchart Diagrammalar va Blok-Sxemalar Muharriri - FrontCraft Pro platformasining interaktiv frontend loyihasi.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body data-theme="dark">
+  <header class="app-header" role="banner">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <i class="fa-solid fa-cube"></i>
+        </div>
+        <div class="brand-text">
+          <h1>Flowchart Diagrammalar va Blok-Sxemalar Muharriri</h1>
+          <p class="subtitle">FrontCraft Pro &bull; №298 Loyiha (Editor)</p>
+        </div>
+      </div>
+
+      <!-- SPA Navigatsiya -->
+      <nav class="spa-nav" role="navigation" aria-label="Bo'limlar">
+        <a href="#dashboard" class="spa-nav-link active" data-view="dashboard"><i class="fa-solid fa-gauge"></i> Asosiy</a>
+        <a href="#analytics" class="spa-nav-link" data-view="analytics"><i class="fa-solid fa-chart-pie"></i> Analitika</a>
+        <a href="#settings" class="spa-nav-link" data-view="settings"><i class="fa-solid fa-sliders"></i> Sozlamalar</a>
+      </nav>
+
+      <div class="header-actions">
+        <span class="badge level-badge" aria-label="Daraja: O'rta">O'rta</span>
+        <button id="themeToggleBtn" class="btn btn-secondary icon-btn" aria-label="Mavzuni almashtirish">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" role="main">
+    <div class="app-layout">
+      <!-- 1. Chap Boshqaruv va Kiritish Paneli -->
+      <section class="control-panel card" aria-label="Boshqaruv paneli">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-circle-plus"></i> Yangi Parametr / Yozuv</h2>
+          <span class="status-indicator online">API Ulandi</span>
+        </div>
+        
+        <div class="panel-body">
+          <form id="primaryForm" novalidate>
+            <div class="form-group">
+              <label for="itemNameInput"><i class="fa-solid fa-tag"></i> Nomi / Sarlavha:</label>
+              <input type="text" id="itemNameInput" class="form-control" placeholder="Nomini kiriting..." required minlength="3">
+              <div id="itemNameError" class="form-error-msg" role="alert"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="categoryInput"><i class="fa-solid fa-layer-group"></i> Toifa:</label>
+                <select id="categoryInput" class="form-control">
+                  <option value="Asosiy">Asosiy operatsiya</option>
+                  <option value="Marketing">Marketing / Rivojlanish</option>
+                  <option value="Texnik">Texnik ta'minot</option>
+                  <option value="Servis">Mijozlar servisi</option>
+                </select>
+              </div>
+
+              <div class="form-group flex-1">
+                <label for="amountInput"><i class="fa-solid fa-coins"></i> Miqdor / Ko'rsatkich:</label>
+                <input type="number" id="amountInput" class="form-control" placeholder="100" min="1" value="180" required>
+                <div id="amountError" class="form-error-msg" role="alert"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="priorityRange"><i class="fa-solid fa-fire"></i> Muhimlik darajasi: <span id="priorityValue" class="highlight-val">O'rta</span></label>
+              <input type="range" id="priorityRange" min="1" max="3" value="2" class="form-range">
+            </div>
+
+            <div class="button-group">
+              <button type="submit" id="submitBtn" class="btn btn-primary" aria-label="Saqlash">
+                <i class="fa-solid fa-floppy-disk"></i> Ma'lumotni Saqlash
+              </button>
+              <button type="button" id="refreshApiBtn" class="btn btn-secondary" aria-label="API yangilash">
+                <i class="fa-solid fa-arrows-rotate"></i> Yangilash
+              </button>
+              <button type="button" id="clearAllBtn" class="btn btn-danger" aria-label="Tozalash">
+                <i class="fa-solid fa-trash"></i> Tozalash
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- 2. O'ng Analitika va Interaktiv Natijalar Paneli -->
+      <section class="display-panel card" aria-label="Analitika va grafiklar paneli">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-chart-column"></i> Dinamik Trendlar va Metrikalar</h2>
+          <div class="card-tools">
+            <button id="exportCsvBtn" class="btn btn-small btn-secondary" aria-label="CSV formatda yuklab olish">
+              <i class="fa-solid fa-file-csv"></i> CSV Eksport
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <!-- Metrikalar Tablosi -->
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <span class="metric-title">Jami Yozuvlar</span>
+              <span id="totalRecordsCount" class="metric-value">0</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-title">O'rtacha Ko'rsatkich</span>
+              <span id="averageMetricValue" class="metric-value">0</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-title">Eng Yuqori Qiymat</span>
+              <span id="maxMetricValue" class="metric-value">0</span>
+            </div>
+          </div>
+
+          <!-- Dinamik SVG Grafik -->
+          <div class="chart-wrapper">
+            <div class="chart-header">
+              <h3><i class="fa-solid fa-chart-simple"></i> Taqsimot Diagrammasi</h3>
+              <span class="chart-legend"><i class="fa-solid fa-circle"></i> Jonli Ko'rsatkich</span>
+            </div>
+            <div id="svgChartContainer" class="svg-chart-container">
+              <!-- script.js orqali chiziladi -->
+            </div>
+          </div>
+
+          <!-- Qidiruv va Filtrlangan Jadval -->
+          <div class="table-container">
+            <div class="table-actions">
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="tableFilterInput" class="search-input" placeholder="Jadvaldan qidirish...">
+              </div>
+              <span id="tableResultsCount" class="results-badge">0 ta natija</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table" aria-label="Ma'lumotlar jadvali">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nomi</th>
+                    <th>Toifa</th>
+                    <th>Miqdor</th>
+                    <th>Sana</th>
+                    <th>Amallar</th>
+                  </tr>
+                </thead>
+                <tbody id="dataTableBody">
+                  <!-- script.js orqali to'ldiriladi -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 FrontCraft Pro &bull; 298. Flowchart Diagrammalar va Blok-Sxemalar Muharriri</p>
+      <div class="tech-stack-badges">
+        <span class="badge tech-badge">HTML5</span> <span class="badge tech-badge">CSS3</span> <span class="badge tech-badge">JavaScript</span> <span class="badge tech-badge">Flowchart Canvas</span> <span class="badge tech-badge">Node Connectors</span> <span class="badge tech-badge">Export PNG</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

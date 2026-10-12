@@ -1,0 +1,21 @@
+{
+  "name": "telegram-web-uslubidagi-xabarlar-stikerlar-va-ovozli-xabar-ui",
+  "version": "1.0.0",
+  "description": "Telegram Web Uslubidagi Xabarlar, Stikerlar va Ovozli Xabar UI",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "chat ui",
+    "telegram clone",
+    "messenger",
+    "voice messages",
+    "stickers",
+    "chat ui"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

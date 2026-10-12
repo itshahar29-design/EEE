@@ -1,0 +1,21 @@
+{
+  "name": "kitoblar-dokoni-audio-namuna-va-elektron-kutubxona-savdosi",
+  "version": "1.0.0",
+  "description": "Kitoblar Do'koni Audio Namuna va Elektron Kutubxona Savdosi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "e-commerce",
+    "bookstore",
+    "audiobooks",
+    "e-books",
+    "library",
+    "e-commerce"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "ipoteka-krediti-va-dastlabki-tolov-subsidiya-kalkulyatori",
+  "version": "1.0.0",
+  "description": "Ipoteka Krediti va Dastlabki To'lov Subsidiya Kalkulyatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator",
+    "mortgage",
+    "loan calculator",
+    "subsidy",
+    "amortization",
+    "calculator"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

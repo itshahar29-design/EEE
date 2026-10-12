@@ -1,0 +1,21 @@
+{
+  "name": "piksel-sanat-labirint-qidiruv-va-sarguzasht-oyini-canvas-game",
+  "version": "1.0.0",
+  "description": "Piksel San'at Labirint Qidiruv va Sarguzasht O'yini (Canvas Game)",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "o'yinlar",
+    "pixel art",
+    "maze game",
+    "canvas",
+    "adventure",
+    "retro"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

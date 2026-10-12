@@ -1,0 +1,21 @@
+{
+  "name": "uxui-dizayner-case-study-portfoliosi-va-loyihalar-vitrinasi",
+  "version": "1.0.0",
+  "description": "UX/UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio",
+    "ui ux portfolio",
+    "case study",
+    "design showcase",
+    "prototypes",
+    "portfolio"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

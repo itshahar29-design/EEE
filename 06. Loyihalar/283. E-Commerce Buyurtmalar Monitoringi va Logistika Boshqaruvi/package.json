@@ -1,0 +1,21 @@
+{
+  "name": "e-commerce-buyurtmalar-monitoringi-va-logistika-boshqaruvi",
+  "version": "1.0.0",
+  "description": "E-Commerce Buyurtmalar Monitoringi va Logistika Boshqaruvi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "dashboard",
+    "order fulfillment",
+    "dispatch",
+    "e-commerce logistics",
+    "fulfillment",
+    "dashboard"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

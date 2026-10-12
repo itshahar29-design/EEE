@@ -1,0 +1,21 @@
+{
+  "name": "avtoservis-ustaxonasi-navbat-va-ishlar-taqsimoti-doskasi",
+  "version": "1.0.0",
+  "description": "Avtoservis Ustaxonasi Navbat va Ishlar Taqsimoti Doskasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "kanban",
+    "auto repair",
+    "service queue",
+    "workshop",
+    "mechanics",
+    "kanban"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "kiberxavfsizlik-firewall-va-tarmoq-trafiki-oqimi-analitikasi",
+  "version": "1.0.0",
+  "description": "Kiberxavfsizlik Firewall va Tarmoq Trafiki Oqimi Analitikasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "dashboard",
+    "firewall",
+    "network security",
+    "traffic flow",
+    "ddos protection",
+    "dashboard"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

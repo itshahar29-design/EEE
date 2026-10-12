@@ -1,0 +1,21 @@
+{
+  "name": "avtomobil-yoqilgi-sarfi-va-sayohat-xarajatlari-kalkulyatori",
+  "version": "1.0.0",
+  "description": "Avtomobil Yoqilg'i Sarfi va Sayohat Xarajatlari Kalkulyatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator",
+    "fuel calculator",
+    "road trip",
+    "gas mileage",
+    "travel cost",
+    "calculator"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

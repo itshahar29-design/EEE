@@ -1,0 +1,21 @@
+{
+  "name": "onlayn-mebel-dokoni-xona-interyeri-vizualizatori",
+  "version": "1.0.0",
+  "description": "Onlayn Mebel Do'koni Xona Interyeri Vizualizatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "e-commerce",
+    "furniture",
+    "interior design",
+    "room planner",
+    "canvas",
+    "e-commerce"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

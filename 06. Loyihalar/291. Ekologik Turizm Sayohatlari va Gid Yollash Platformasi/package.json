@@ -1,0 +1,21 @@
+{
+  "name": "ekologik-turizm-sayohatlari-va-gid-yollash-platformasi",
+  "version": "1.0.0",
+  "description": "Ekologik Turizm Sayohatlari va Gid Yollash Platformasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "landing",
+    "eco tourism",
+    "trekking",
+    "mountain tours",
+    "guide finder",
+    "landing"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "scrum-sprint-boshqaruv-doskasi-va-burndown-diagrammasi",
+  "version": "1.0.0",
+  "description": "Scrum Sprint Boshqaruv Doskasi va Burndown Diagrammasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "kanban",
+    "scrum master",
+    "agile",
+    "sprint planning",
+    "burndown",
+    "kanban"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

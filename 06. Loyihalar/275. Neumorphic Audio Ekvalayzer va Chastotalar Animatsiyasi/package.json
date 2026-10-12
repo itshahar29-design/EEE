@@ -1,0 +1,21 @@
+{
+  "name": "neumorphic-audio-ekvalayzer-va-chastotalar-animatsiyasi",
+  "version": "1.0.0",
+  "description": "Neumorphic Audio Ekvalayzer va Chastotalar Animatsiyasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "animatsiya",
+    "audio equalizer",
+    "neumorphic",
+    "sound frequencies",
+    "presets",
+    "animation"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

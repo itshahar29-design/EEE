@@ -1,0 +1,21 @@
+{
+  "name": "discord-uslubidagi-serverlar-ovozli-kanallar-va-rollar-ui",
+  "version": "1.0.0",
+  "description": "Discord Uslubidagi Serverlar, Ovozli Kanallar va Rollar UI",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "chat ui",
+    "discord clone",
+    "community server",
+    "voice rooms",
+    "roles",
+    "chat ui"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

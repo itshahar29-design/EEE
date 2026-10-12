@@ -1,0 +1,21 @@
+{
+  "name": "css-box-shadow-gradient-va-border-radius-vizual-generator",
+  "version": "1.0.0",
+  "description": "CSS Box-Shadow, Gradient va Border-Radius Vizual Generator",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "css generator",
+    "box shadow",
+    "gradient maker",
+    "web design",
+    "editor"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "kosmik-teleskoplar-galereyasi-va-nasa-astronomiya-rasmlari-api",
+  "version": "1.0.0",
+  "description": "Kosmik Teleskoplar Galereyasi va NASA Astronomiya Rasmlari API",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "api loyihalar",
+    "astronomy",
+    "nasa api",
+    "space",
+    "cosmos",
+    "gallery"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

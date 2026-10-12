@@ -1,0 +1,21 @@
+{
+  "name": "foydali-odatlar-tracker-va-pomodoro-fokus-taymeri",
+  "version": "1.0.0",
+  "description": "Foydali Odatlar Tracker va Pomodoro Fokus Taymeri",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "crm/to-do",
+    "pomodoro",
+    "focus timer",
+    "habit tracker",
+    "productivity",
+    "time management"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

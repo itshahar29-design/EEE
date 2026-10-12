@@ -1,0 +1,21 @@
+{
+  "name": "omborxona-logistikasi-va-avtomatlashgan-robotlar-telemetriyasi",
+  "version": "1.0.0",
+  "description": "Omborxona Logistikasi va Avtomatlashgan Robotlar Telemetriyasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "dashboard",
+    "warehouse logistics",
+    "agv robotics",
+    "sensors",
+    "automation",
+    "dashboard"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

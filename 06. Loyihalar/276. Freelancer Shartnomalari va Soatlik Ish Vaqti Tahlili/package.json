@@ -1,0 +1,21 @@
+{
+  "name": "freelancer-shartnomalari-va-soatlik-ish-vaqti-tahlili",
+  "version": "1.0.0",
+  "description": "Freelancer Shartnomalari va Soatlik Ish Vaqti Tahlili",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio",
+    "freelance",
+    "time tracker",
+    "invoice",
+    "hourly rate",
+    "portfolio"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

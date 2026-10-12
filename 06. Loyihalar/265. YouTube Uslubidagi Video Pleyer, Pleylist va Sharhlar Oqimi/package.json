@@ -1,0 +1,21 @@
+{
+  "name": "youtube-uslubidagi-video-pleyer-pleylist-va-sharhlar-oqimi",
+  "version": "1.0.0",
+  "description": "YouTube Uslubidagi Video Pleyer, Pleylist va Sharhlar Oqimi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "clone ui",
+    "youtube clone",
+    "video player",
+    "playlist",
+    "comments",
+    "clone ui"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

@@ -10595,5 +10595,2255 @@
       "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
       "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
     }
+  },
+  {
+    "id": 251,
+    "slug": "real-vaqt-birja-qimmatli-qogozlar-portfeli-va-risklar-tahlili",
+    "title": "Real-Vaqt Birja Qimmatli Qog'ozlar Portfeli va Risklar Tahlili",
+    "category": "Dashboard",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Stock Portfolio",
+      "SVG Risk Matrix",
+      "LocalStorage"
+    ],
+    "tags": [
+      "Stock Market",
+      "Portfolio",
+      "Risk Analysis",
+      "Trading",
+      "Dashboard"
+    ],
+    "features": [
+      "Aktivlar (Aksiyalar, Obligatsiyalar, Kripto) bo'yicha diversifikatsiya diagrammasi",
+      "Foyda va zararlar (P&L) hisoblagichi hamda volatilite risk ko'rsatkichi",
+      "Yangi aksiyalarni qo'shish va bozor narxlari simulyatsiyasi"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 4.9,
+    "downloads": 5383,
+    "preview": "./06. Loyihalar/251. Real-Vaqt Birja Qimmatli Qog'ozlar Portfeli va Risklar Tahlili/index.html",
+    "demo": "./06. Loyihalar/251. Real-Vaqt Birja Qimmatli Qog'ozlar Portfeli va Risklar Tahlili/index.html",
+    "zip": "./zips/251-real-vaqt-birja-qimmatli-qogozlar-portfeli-va-risklar-tahlili.zip",
+    "lesson": {
+      "objective": "Real-Vaqt Birja Qimmatli Qog'ozlar Portfeli va Risklar Tahlili loyihasi orqali Dashboard doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Real-Vaqt Birja Qimmatli Qog'ozlar Portfeli va Risklar Tahlili arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 252,
+    "slug": "onlayn-mebel-dokoni-xona-interyeri-vizualizatori",
+    "title": "Onlayn Mebel Do'koni Xona Interyeri Vizualizatori",
+    "category": "E-commerce",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Canvas Room",
+      "Furniture Catalog",
+      "Store"
+    ],
+    "tags": [
+      "Furniture",
+      "Interior Design",
+      "Room Planner",
+      "Canvas",
+      "E-commerce"
+    ],
+    "features": [
+      "Xona o'lchamlari bo'yicha mebellarni (Divan, Stol, Shkaf) Canvasda joylashtirish",
+      "Tanlangan mebellarning jami narxini real vaqtda hisoblash va savatchaga o'tkazish",
+      "Xona maketini rasm (PNG) shaklida saqlash va yuklab olish"
+    ],
+    "duration": "80 daqiqa",
+    "rating": 5,
+    "downloads": 5466,
+    "preview": "./06. Loyihalar/252. Onlayn Mebel Do'koni Xona Interyeri Vizualizatori/index.html",
+    "demo": "./06. Loyihalar/252. Onlayn Mebel Do'koni Xona Interyeri Vizualizatori/index.html",
+    "zip": "./zips/252-onlayn-mebel-dokoni-xona-interyeri-vizualizatori.zip",
+    "lesson": {
+      "objective": "Onlayn Mebel Do'koni Xona Interyeri Vizualizatori loyihasi orqali E-commerce doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Onlayn Mebel Do'koni Xona Interyeri Vizualizatori arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 253,
+    "slug": "coworking-markazi-joylar-va-konferens-zal-bronlash-kalendari",
+    "title": "Coworking Markazi Joylar va Konferens Zal Bronlash Kalendari",
+    "category": "Landing",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Seat Booking",
+      "Calendar Picker",
+      "Price Calculator"
+    ],
+    "tags": [
+      "Coworking",
+      "Office Space",
+      "Desk Booking",
+      "Calendar",
+      "Landing"
+    ],
+    "features": [
+      "Open Space, Shaxsiy kabinet va Meeting Room zonalari bo'yicha joy tanlash",
+      "Soatbay va kunlik tariflar bo'yicha to'lov summasini bir zumda hisoblash",
+      "Mijoz ma'lumotlari kiritiluvchi ko'p parametrli xavfsiz bron formasi"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 5,
+    "downloads": 5549,
+    "preview": "./06. Loyihalar/253. Coworking Markazi Joylar va Konferens Zal Bronlash Kalendari/index.html",
+    "demo": "./06. Loyihalar/253. Coworking Markazi Joylar va Konferens Zal Bronlash Kalendari/index.html",
+    "zip": "./zips/253-coworking-markazi-joylar-va-konferens-zal-bronlash-kalendari.zip",
+    "lesson": {
+      "objective": "Coworking Markazi Joylar va Konferens Zal Bronlash Kalendari loyihasi orqali Landing doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Coworking Markazi Joylar va Konferens Zal Bronlash Kalendari arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 254,
+    "slug": "mikroservislar-holati-va-server-klasterlari-salomatligi-monitoringi",
+    "title": "Mikroservislar Holati va Server Klasterlari Salomatligi Monitoringi",
+    "category": "Admin panel",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Microservices",
+      "Health Check",
+      "Incident Matrix"
+    ],
+    "tags": [
+      "Microservices",
+      "DevOps",
+      "Cluster Health",
+      "Latency",
+      "Admin Panel"
+    ],
+    "features": [
+      "Klaster tugunlari (Nodes) bo'yicha CPU, RAM va Disk bandligi metrikalari",
+      "Har bir mikroservis (Auth, Payment, Notification) javob vaqti (ms) monitoringi",
+      "Nosozlik yuz berganda avtomatik qayta ishga tushirish (Restart) simulyatsiyasi"
+    ],
+    "duration": "75 daqiqa",
+    "rating": 4.8,
+    "downloads": 5632,
+    "preview": "./06. Loyihalar/254. Mikroservislar Holati va Server Klasterlari Salomatligi Monitoringi/index.html",
+    "demo": "./06. Loyihalar/254. Mikroservislar Holati va Server Klasterlari Salomatligi Monitoringi/index.html",
+    "zip": "./zips/254-mikroservislar-holati-va-server-klasterlari-salomatligi-monitoringi.zip",
+    "lesson": {
+      "objective": "Mikroservislar Holati va Server Klasterlari Salomatligi Monitoringi loyihasi orqali Admin panel doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Mikroservislar Holati va Server Klasterlari Salomatligi Monitoringi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 255,
+    "slug": "geografik-aholi-demografiyasi-va-issiqlik-xaritasi-heatmap",
+    "title": "Geografik Aholi Demografiyasi va Issiqlik Xaritasi (Heatmap)",
+    "category": "Data visualization",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "SVG Heatmap",
+      "Demographics",
+      "Filters"
+    ],
+    "tags": [
+      "Demographics",
+      "Heatmap",
+      "Population",
+      "SVG Map",
+      "Visualization"
+    ],
+    "features": [
+      "Hududlar bo'yicha aholi zichligi va yosh toifalari (Bolalar, Yoshlar, Kattalar) taqsimoti",
+      "SVG koordinatali xaritada rang intensivligi bo'yicha dinamik issiqlik xaritasi",
+      "Yillar kesimida demografik o'sish tendentsiyalarini filtrlash"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 4.8,
+    "downloads": 5715,
+    "preview": "./06. Loyihalar/255. Geografik Aholi Demografiyasi va Issiqlik Xaritasi (Heatmap)/index.html",
+    "demo": "./06. Loyihalar/255. Geografik Aholi Demografiyasi va Issiqlik Xaritasi (Heatmap)/index.html",
+    "zip": "./zips/255-geografik-aholi-demografiyasi-va-issiqlik-xaritasi-heatmap.zip",
+    "lesson": {
+      "objective": "Geografik Aholi Demografiyasi va Issiqlik Xaritasi (Heatmap) loyihasi orqali Data visualization doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Geografik Aholi Demografiyasi va Issiqlik Xaritasi (Heatmap) arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 256,
+    "slug": "piksel-sanat-labirint-qidiruv-va-sarguzasht-oyini-canvas-game",
+    "title": "Piksel San'at Labirint Qidiruv va Sarguzasht O'yini (Canvas Game)",
+    "category": "O'yinlar",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Canvas 2D",
+      "Maze Generator",
+      "Collision Detection"
+    ],
+    "tags": [
+      "Pixel Art",
+      "Maze Game",
+      "Canvas",
+      "Adventure",
+      "Retro"
+    ],
+    "features": [
+      "Algoritmik generatsiya qilingan labirint xaritasida qahramon harakati",
+      "Tanga yig'ish, dushmanlardan qochish va chiqish eshigini topish mexanikasi",
+      "Qadamlar sanagichi, qolgan vaqt va eng yaxshi natijalar jadvali"
+    ],
+    "duration": "80 daqiqa",
+    "rating": 4.9,
+    "downloads": 5798,
+    "preview": "./06. Loyihalar/256. Piksel San'at Labirint Qidiruv va Sarguzasht O'yini (Canvas Game)/index.html",
+    "demo": "./06. Loyihalar/256. Piksel San'at Labirint Qidiruv va Sarguzasht O'yini (Canvas Game)/index.html",
+    "zip": "./zips/256-piksel-sanat-labirint-qidiruv-va-sarguzasht-oyini-canvas-game.zip",
+    "lesson": {
+      "objective": "Piksel San'at Labirint Qidiruv va Sarguzasht O'yini (Canvas Game) loyihasi orqali O'yinlar doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Piksel San'at Labirint Qidiruv va Sarguzasht O'yini (Canvas Game) arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 257,
+    "slug": "svg-vektorli-grafika-tahrirlagichi-va-kod-eksporti",
+    "title": "SVG Vektorli Grafika Tahrirlagichi va Kod Eksporti",
+    "category": "Editor",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "SVG Editor",
+      "Path Drawing",
+      "Code Generator"
+    ],
+    "tags": [
+      "SVG Editor",
+      "Vector Drawing",
+      "Path Generator",
+      "Graphics",
+      "Editor"
+    ],
+    "features": [
+      "To'rtburchak, aylana, to'g'ri chiziq va erkin egri chiziqlar (Bezier) chizish",
+      "Ranglar, hoshiya qalinligi va shaffoflikni real vaqtda boshqarish",
+      "Chizilgan shaklning toza SVG kodini bir bosishda clipboardga nusxalash"
+    ],
+    "duration": "75 daqiqa",
+    "rating": 4.9,
+    "downloads": 5881,
+    "preview": "./06. Loyihalar/257. SVG Vektorli Grafika Tahrirlagichi va Kod Eksporti/index.html",
+    "demo": "./06. Loyihalar/257. SVG Vektorli Grafika Tahrirlagichi va Kod Eksporti/index.html",
+    "zip": "./zips/257-svg-vektorli-grafika-tahrirlagichi-va-kod-eksporti.zip",
+    "lesson": {
+      "objective": "SVG Vektorli Grafika Tahrirlagichi va Kod Eksporti loyihasi orqali Editor doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. SVG Vektorli Grafika Tahrirlagichi va Kod Eksporti arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 258,
+    "slug": "mahsulot-yol-xaritasi-roadmap-va-kvartal-rejalari-boshqaruvi",
+    "title": "Mahsulot Yo'l Xaritasi (Roadmap) va Kvartal Rejalari Boshqaruvi",
+    "category": "Kanban",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Product Roadmap",
+      "Drag and Drop",
+      "Timeline"
+    ],
+    "tags": [
+      "Roadmap",
+      "Product Strategy",
+      "Quarters",
+      "Agile",
+      "Kanban"
+    ],
+    "features": [
+      "Q1, Q2, Q3 va Q4 kvartallari bo'ylab strategik vazifalar taqsimoti",
+      "Vazifalarni ustunlar va ustuvorliklar bo'yicha sudrab ko'chirish (Drag & Drop)",
+      "Rivojlanish bosqichi (Tadqiqot, Ishlanma, Beta, Reliz) foiz hisoblagichi"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.9,
+    "downloads": 5964,
+    "preview": "./06. Loyihalar/258. Mahsulot Yo'l Xaritasi (Roadmap) va Kvartal Rejalari Boshqaruvi/index.html",
+    "demo": "./06. Loyihalar/258. Mahsulot Yo'l Xaritasi (Roadmap) va Kvartal Rejalari Boshqaruvi/index.html",
+    "zip": "./zips/258-mahsulot-yol-xaritasi-roadmap-va-kvartal-rejalari-boshqaruvi.zip",
+    "lesson": {
+      "objective": "Mahsulot Yo'l Xaritasi (Roadmap) va Kvartal Rejalari Boshqaruvi loyihasi orqali Kanban doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Mahsulot Yo'l Xaritasi (Roadmap) va Kvartal Rejalari Boshqaruvi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 259,
+    "slug": "dunyo-poytaxtlari-jonli-vaqt-mintaqalari-va-quyosh-chiqishi-api",
+    "title": "Dunyo Poytaxtlari Jonli Vaqt Mintaqalari va Quyosh Chiqishi API",
+    "category": "API loyihalar",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "World Clock",
+      "Timezone API",
+      "Analog Canvas"
+    ],
+    "tags": [
+      "World Time",
+      "Timezones",
+      "Sunrise Sunset",
+      "API Mock",
+      "Clocks"
+    ],
+    "features": [
+      "Toshkent, London, Nyu-York, Tokio shaharlarining real vaqtdagi analog soatlari",
+      "Quyosh chiqishi, botishi va kun uzunligi bo'yicha astronomik ko'rsatkichlar",
+      "Shahar nomi bo'yicha tezkor qidiruv va yangi poytaxtni qo'shish"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 5,
+    "downloads": 6047,
+    "preview": "./06. Loyihalar/259. Dunyo Poytaxtlari Jonli Vaqt Mintaqalari va Quyosh Chiqishi API/index.html",
+    "demo": "./06. Loyihalar/259. Dunyo Poytaxtlari Jonli Vaqt Mintaqalari va Quyosh Chiqishi API/index.html",
+    "zip": "./zips/259-dunyo-poytaxtlari-jonli-vaqt-mintaqalari-va-quyosh-chiqishi-api.zip",
+    "lesson": {
+      "objective": "Dunyo Poytaxtlari Jonli Vaqt Mintaqalari va Quyosh Chiqishi API loyihasi orqali API loyihalar doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Dunyo Poytaxtlari Jonli Vaqt Mintaqalari va Quyosh Chiqishi API arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 260,
+    "slug": "shaxsiy-byudjet-xarajatlari-va-tejamkorlik-maqsadlari-kuzatuvchisi",
+    "title": "Shaxsiy Byudjet Xarajatlari va Tejamkorlik Maqsadlari Kuzatuvchisi",
+    "category": "CRM/To-do",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Budget Tracker",
+      "Savings Goals",
+      "SVG Progress"
+    ],
+    "tags": [
+      "Budgeting",
+      "Personal Finance",
+      "Savings",
+      "Expenses",
+      "Finance"
+    ],
+    "features": [
+      "Oylik maosh, qo'shimcha daromadlar va xarajatlar toifalari bo'yicha hisob",
+      "Orzudagi xaridlar (Uy, Avtomobil, Sayohat) uchun jamg'arma foizi sanagichi",
+      "Haftalik xarajatlar limitdan oshib ketganda sariq va qizil ogohlantirish"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.8,
+    "downloads": 1830,
+    "preview": "./06. Loyihalar/260. Shaxsiy Byudjet Xarajatlari va Tejamkorlik Maqsadlari Kuzatuvchisi/index.html",
+    "demo": "./06. Loyihalar/260. Shaxsiy Byudjet Xarajatlari va Tejamkorlik Maqsadlari Kuzatuvchisi/index.html",
+    "zip": "./zips/260-shaxsiy-byudjet-xarajatlari-va-tejamkorlik-maqsadlari-kuzatuvchisi.zip",
+    "lesson": {
+      "objective": "Shaxsiy Byudjet Xarajatlari va Tejamkorlik Maqsadlari Kuzatuvchisi loyihasi orqali CRM/To-do doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Shaxsiy Byudjet Xarajatlari va Tejamkorlik Maqsadlari Kuzatuvchisi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 261,
+    "slug": "ipoteka-krediti-va-dastlabki-tolov-subsidiya-kalkulyatori",
+    "title": "Ipoteka Krediti va Dastlabki To'lov Subsidiya Kalkulyatori",
+    "category": "Calculator",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Mortgage Calculator",
+      "Amortization Table",
+      "Export"
+    ],
+    "tags": [
+      "Mortgage",
+      "Loan Calculator",
+      "Subsidy",
+      "Amortization",
+      "Calculator"
+    ],
+    "features": [
+      "Uy qiymati, dastlabki to'lov va kredit muddatiga qarab oylik to'lovni hisoblash",
+      "Davlat subsidiyasi va imtiyozli foiz stavkalarini hisobga olish rejimi",
+      "Oylar va yillar kesimidagi to'lovlar jadvali (Amortizatsiya) eksporti"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.8,
+    "downloads": 1913,
+    "preview": "./06. Loyihalar/261. Ipoteka Krediti va Dastlabki To'lov Subsidiya Kalkulyatori/index.html",
+    "demo": "./06. Loyihalar/261. Ipoteka Krediti va Dastlabki To'lov Subsidiya Kalkulyatori/index.html",
+    "zip": "./zips/261-ipoteka-krediti-va-dastlabki-tolov-subsidiya-kalkulyatori.zip",
+    "lesson": {
+      "objective": "Ipoteka Krediti va Dastlabki To'lov Subsidiya Kalkulyatori loyihasi orqali Calculator doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Ipoteka Krediti va Dastlabki To'lov Subsidiya Kalkulyatori arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 262,
+    "slug": "uxui-dizayner-case-study-portfoliosi-va-loyihalar-vitrinasi",
+    "title": "UX/UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi",
+    "category": "Portfolio",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Case Studies",
+      "Lightbox Modal",
+      "Interactive"
+    ],
+    "tags": [
+      "UI UX Portfolio",
+      "Case Study",
+      "Design Showcase",
+      "Prototypes",
+      "Portfolio"
+    ],
+    "features": [
+      "Mobil ilovalar va veb-saytlar dizayni uchun batafsil Case Study slayderi",
+      "Dizayn bosqichlari (Muammo, Tadqiqot, Wireframe, UI Yechim) vizualizatori",
+      "Katta rasm va prototiplarni to'liq ekranda ko'rsatuvchi Lightbox modali"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.9,
+    "downloads": 1996,
+    "preview": "./06. Loyihalar/262. UX/UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi/index.html",
+    "demo": "./06. Loyihalar/262. UX/UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi/index.html",
+    "zip": "./zips/262-uxui-dizayner-case-study-portfoliosi-va-loyihalar-vitrinasi.zip",
+    "lesson": {
+      "objective": "UX/UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi loyihasi orqali Portfolio doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. UX/UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 263,
+    "slug": "omborxona-logistikasi-va-avtomatlashgan-robotlar-telemetriyasi",
+    "title": "Omborxona Logistikasi va Avtomatlashgan Robotlar Telemetriyasi",
+    "category": "Dashboard",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "AGV Robots",
+      "Warehouse Grid",
+      "Sensors"
+    ],
+    "tags": [
+      "Warehouse Logistics",
+      "AGV Robotics",
+      "Sensors",
+      "Automation",
+      "Dashboard"
+    ],
+    "features": [
+      "Omborda harakatlanuvchi avtomat robotlar (AGV) akkumulyatori va tezligi nazorati",
+      "Tokchalar bo'shligi va tovarlarni yuklash/tushirish buyurtmalari oqimi",
+      "Kutilmagan to'siqlar yuzaga kelganda avariya signali va zaxira marshruti"
+    ],
+    "duration": "75 daqiqa",
+    "rating": 4.9,
+    "downloads": 2079,
+    "preview": "./06. Loyihalar/263. Omborxona Logistikasi va Avtomatlashgan Robotlar Telemetriyasi/index.html",
+    "demo": "./06. Loyihalar/263. Omborxona Logistikasi va Avtomatlashgan Robotlar Telemetriyasi/index.html",
+    "zip": "./zips/263-omborxona-logistikasi-va-avtomatlashgan-robotlar-telemetriyasi.zip",
+    "lesson": {
+      "objective": "Omborxona Logistikasi va Avtomatlashgan Robotlar Telemetriyasi loyihasi orqali Dashboard doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Omborxona Logistikasi va Avtomatlashgan Robotlar Telemetriyasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 264,
+    "slug": "telegram-web-uslubidagi-xabarlar-stikerlar-va-ovozli-xabar-ui",
+    "title": "Telegram Web Uslubidagi Xabarlar, Stikerlar va Ovozli Xabar UI",
+    "category": "Chat UI",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Messenger UI",
+      "Audio Wave",
+      "Stickers"
+    ],
+    "tags": [
+      "Telegram Clone",
+      "Messenger",
+      "Voice Messages",
+      "Stickers",
+      "Chat UI"
+    ],
+    "features": [
+      "Suhbatdoshlar ro'yxati, yozilayotgan xabarlar (typing...) animatsiyasi",
+      "Simulyatsiya qilingan ovozli xabar (Voice Note) to'lqini va pleyeri",
+      "Stikerlar va emojilar to'plami hamda xabarlarni o'chirish/tahrirlash"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 4.9,
+    "downloads": 2162,
+    "preview": "./06. Loyihalar/264. Telegram Web Uslubidagi Xabarlar, Stikerlar va Ovozli Xabar UI/index.html",
+    "demo": "./06. Loyihalar/264. Telegram Web Uslubidagi Xabarlar, Stikerlar va Ovozli Xabar UI/index.html",
+    "zip": "./zips/264-telegram-web-uslubidagi-xabarlar-stikerlar-va-ovozli-xabar-ui.zip",
+    "lesson": {
+      "objective": "Telegram Web Uslubidagi Xabarlar, Stikerlar va Ovozli Xabar UI loyihasi orqali Chat UI doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Telegram Web Uslubidagi Xabarlar, Stikerlar va Ovozli Xabar UI arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 265,
+    "slug": "youtube-uslubidagi-video-pleyer-pleylist-va-sharhlar-oqimi",
+    "title": "YouTube Uslubidagi Video Pleyer, Pleylist va Sharhlar Oqimi",
+    "category": "Clone UI",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Custom Player",
+      "Comments Engine",
+      "Playlist"
+    ],
+    "tags": [
+      "YouTube Clone",
+      "Video Player",
+      "Playlist",
+      "Comments",
+      "Clone UI"
+    ],
+    "features": [
+      "Shaxsiy video pleyer boshqaruv paneli (Play/Pause, Timeline, Ovoz, Fullscreen)",
+      "Tavsiya etilgan videolar pleylisti va avtomatik keyingi videoga o'tish",
+      "Foydalanuvchi sharhlari kiritish, like bosish va vaqt belgilari (Timestamps)"
+    ],
+    "duration": "75 daqiqa",
+    "rating": 5,
+    "downloads": 2245,
+    "preview": "./06. Loyihalar/265. YouTube Uslubidagi Video Pleyer, Pleylist va Sharhlar Oqimi/index.html",
+    "demo": "./06. Loyihalar/265. YouTube Uslubidagi Video Pleyer, Pleylist va Sharhlar Oqimi/index.html",
+    "zip": "./zips/265-youtube-uslubidagi-video-pleyer-pleylist-va-sharhlar-oqimi.zip",
+    "lesson": {
+      "objective": "YouTube Uslubidagi Video Pleyer, Pleylist va Sharhlar Oqimi loyihasi orqali Clone UI doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. YouTube Uslubidagi Video Pleyer, Pleylist va Sharhlar Oqimi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 266,
+    "slug": "moliyaviy-bozor-shamchalar-grafigi-va-bollinger-chiziqlari",
+    "title": "Moliyaviy Bozor Shamchalar Grafigi va Bollinger Chiziqlari",
+    "category": "Data visualization",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Canvas Trading",
+      "Bollinger Bands",
+      "MA Indicator"
+    ],
+    "tags": [
+      "Trading Chart",
+      "Candlestick",
+      "Bollinger Bands",
+      "Crypto",
+      "Data Viz"
+    ],
+    "features": [
+      "Canvas orqali 60 ta narx shamchalari va harakatlanuvchi o'rtacha (MA) chizig'i",
+      "Bollinger Bands diapazoni orqali o'zgaruvchanlik (volatility) chegaralari",
+      "Crosshair kursori orqali aniq sana, Open, High, Low, Close qiymatlarini ko'rish"
+    ],
+    "duration": "80 daqiqa",
+    "rating": 5,
+    "downloads": 2328,
+    "preview": "./06. Loyihalar/266. Moliyaviy Bozor Shamchalar Grafigi va Bollinger Chiziqlari/index.html",
+    "demo": "./06. Loyihalar/266. Moliyaviy Bozor Shamchalar Grafigi va Bollinger Chiziqlari/index.html",
+    "zip": "./zips/266-moliyaviy-bozor-shamchalar-grafigi-va-bollinger-chiziqlari.zip",
+    "lesson": {
+      "objective": "Moliyaviy Bozor Shamchalar Grafigi va Bollinger Chiziqlari loyihasi orqali Data visualization doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Moliyaviy Bozor Shamchalar Grafigi va Bollinger Chiziqlari arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 267,
+    "slug": "korporativ-xodimlar-kpi-va-360-daraja-baholash-tizimi",
+    "title": "Korporativ Xodimlar KPI va 360 Daraja Baholash Tizimi",
+    "category": "Admin panel",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "360 Feedback",
+      "Radar Chart",
+      "Employee Matrix"
+    ],
+    "tags": [
+      "HR Management",
+      "360 Evaluation",
+      "KPI",
+      "Radar Chart",
+      "Admin"
+    ],
+    "features": [
+      "Yetakchilik, jamoaviylik, texnik bilim va muloqot bo'yicha SVG radar grafigi",
+      "Hamkasblar va rahbarlar tomonidan anonim baho va izohlar kiritish",
+      "Yillik bonus koeffitsientini avtomatik hisoblash va eksport"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 4.8,
+    "downloads": 2411,
+    "preview": "./06. Loyihalar/267. Korporativ Xodimlar KPI va 360 Daraja Baholash Tizimi/index.html",
+    "demo": "./06. Loyihalar/267. Korporativ Xodimlar KPI va 360 Daraja Baholash Tizimi/index.html",
+    "zip": "./zips/267-korporativ-xodimlar-kpi-va-360-daraja-baholash-tizimi.zip",
+    "lesson": {
+      "objective": "Korporativ Xodimlar KPI va 360 Daraja Baholash Tizimi loyihasi orqali Admin panel doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Korporativ Xodimlar KPI va 360 Daraja Baholash Tizimi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 268,
+    "slug": "onlayn-zargarlik-dokoni-3d-brilyant-tanlovchi-va-olcham-moslashtirgich",
+    "title": "Onlayn Zargarlik Do'koni 3D Brilyant Tanlovchi va O'lcham Moslashtirgich",
+    "category": "E-commerce",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Jewelry Showcase",
+      "Ring Size Finder",
+      "Store"
+    ],
+    "tags": [
+      "Jewelry Store",
+      "Ring Sizer",
+      "Diamond Selector",
+      "Luxury",
+      "E-commerce"
+    ],
+    "features": [
+      "Brilyant qirralari (Dumaloq, Malika, Zumrad) va metall turi (Oltin, Platina) tanlovi",
+      "Barmog'ingizga mos uzuk o'lchamini topuvchi interaktiv vizual o'lchov vositasi",
+      "Karat, soflik va rang parametrlariga qarab narxni lahzada hisoblash"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 4.8,
+    "downloads": 2494,
+    "preview": "./06. Loyihalar/268. Onlayn Zargarlik Do'koni 3D Brilyant Tanlovchi va O'lcham Moslashtirgich/index.html",
+    "demo": "./06. Loyihalar/268. Onlayn Zargarlik Do'koni 3D Brilyant Tanlovchi va O'lcham Moslashtirgich/index.html",
+    "zip": "./zips/268-onlayn-zargarlik-dokoni-3d-brilyant-tanlovchi-va-olcham-moslashtirgich.zip",
+    "lesson": {
+      "objective": "Onlayn Zargarlik Do'koni 3D Brilyant Tanlovchi va O'lcham Moslashtirgich loyihasi orqali E-commerce doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Onlayn Zargarlik Do'koni 3D Brilyant Tanlovchi va O'lcham Moslashtirgich arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 269,
+    "slug": "odatlar-zanjiri-va-kunlik-intizom-gamifikatsiyasi",
+    "title": "Odatlar Zanjiri va Kunlik Intizom Gamifikatsiyasi",
+    "category": "CRM/To-do",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Habit Chain",
+      "Gamification",
+      "Streak Counter"
+    ],
+    "tags": [
+      "Habit Tracker",
+      "Streaks",
+      "Gamification",
+      "Discipline",
+      "Productivity"
+    ],
+    "features": [
+      "Har kuni odat bajarilganda 'Zanjirni uzma' (Streak) sanagichini oshirish",
+      "Tajriba ballari (XP), yangi unvonlar (Novice, Master, Legend) va nishonlar",
+      "Oylik bajarilish foizini ko'rsatuvchi interaktiv faollik kalendari"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.9,
+    "downloads": 2577,
+    "preview": "./06. Loyihalar/269. Odatlar Zanjiri va Kunlik Intizom Gamifikatsiyasi/index.html",
+    "demo": "./06. Loyihalar/269. Odatlar Zanjiri va Kunlik Intizom Gamifikatsiyasi/index.html",
+    "zip": "./zips/269-odatlar-zanjiri-va-kunlik-intizom-gamifikatsiyasi.zip",
+    "lesson": {
+      "objective": "Odatlar Zanjiri va Kunlik Intizom Gamifikatsiyasi loyihasi orqali CRM/To-do doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Odatlar Zanjiri va Kunlik Intizom Gamifikatsiyasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 270,
+    "slug": "kosmik-teleskoplar-galereyasi-va-nasa-astronomiya-rasmlari-api",
+    "title": "Kosmik Teleskoplar Galereyasi va NASA Astronomiya Rasmlari API",
+    "category": "API loyihalar",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "NASA APOD Mock",
+      "Zoomable Canvas",
+      "Favorites"
+    ],
+    "tags": [
+      "Astronomy",
+      "NASA API",
+      "Space",
+      "Cosmos",
+      "Gallery"
+    ],
+    "features": [
+      "Har kuni yangilanuvchi kosmik fotosuratlar va ilmiy tushuntirishlar",
+      "Koinot tumanliklari va galaktikalarni yaqinlashtirib (Zoom) ko'rish vositasi",
+      "Sevimli astronomik kashfiyotlarni xatcho'plarga saqlash"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.9,
+    "downloads": 2660,
+    "preview": "./06. Loyihalar/270. Kosmik Teleskoplar Galereyasi va NASA Astronomiya Rasmlari API/index.html",
+    "demo": "./06. Loyihalar/270. Kosmik Teleskoplar Galereyasi va NASA Astronomiya Rasmlari API/index.html",
+    "zip": "./zips/270-kosmik-teleskoplar-galereyasi-va-nasa-astronomiya-rasmlari-api.zip",
+    "lesson": {
+      "objective": "Kosmik Teleskoplar Galereyasi va NASA Astronomiya Rasmlari API loyihasi orqali API loyihalar doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Kosmik Teleskoplar Galereyasi va NASA Astronomiya Rasmlari API arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 271,
+    "slug": "soliqlar-va-daromad-soligi-deklaratsiyasi-hisoblagichi",
+    "title": "Soliqlar va Daromad Solig'i Deklaratsiyasi Hisoblagichi",
+    "category": "Calculator",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Tax Calculation",
+      "Brackets Matrix",
+      "Report PDF"
+    ],
+    "tags": [
+      "Tax Calculator",
+      "Income Tax",
+      "Deductions",
+      "Finance",
+      "Calculator"
+    ],
+    "features": [
+      "Yillik daromad, soliq imtiyozlari va ushlab qolinadigan summalarni hisoblash",
+      "Progressiv soliq stavkalari pog'onasi bo'yicha to'lovlar tahlili",
+      "Yakuniy hisob-kitob varaqasini chop etishga tayyorlash"
+    ],
+    "duration": "60 daqiqa",
+    "rating": 4.9,
+    "downloads": 2743,
+    "preview": "./06. Loyihalar/271. Soliqlar va Daromad Solig'i Deklaratsiyasi Hisoblagichi/index.html",
+    "demo": "./06. Loyihalar/271. Soliqlar va Daromad Solig'i Deklaratsiyasi Hisoblagichi/index.html",
+    "zip": "./zips/271-soliqlar-va-daromad-soligi-deklaratsiyasi-hisoblagichi.zip",
+    "lesson": {
+      "objective": "Soliqlar va Daromad Solig'i Deklaratsiyasi Hisoblagichi loyihasi orqali Calculator doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Soliqlar va Daromad Solig'i Deklaratsiyasi Hisoblagichi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 272,
+    "slug": "saas-mahsuloti-konversiya-landing-sahifasi-va-ab-test-elementlari",
+    "title": "SaaS Mahsuloti Konversiya Landing Sahifasi va A/B Test Elementlari",
+    "category": "Landing",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "A/B Testing UI",
+      "FAQ Accordion",
+      "Pricing Toggle"
+    ],
+    "tags": [
+      "SaaS Landing",
+      "Conversion",
+      "AB Testing",
+      "Pricing Table",
+      "Landing"
+    ],
+    "features": [
+      "Oylik va yillik 20% chegirmali narxlar rejalari almashtirgichi",
+      "Interaktiv ko'p so'raladigan savollar (Accordion) va mijozlar guvohliklari",
+      "Turli tugma sarlavhalari bo'yicha konversiya bosishlarini hisoblovchi A/B test"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 5,
+    "downloads": 2826,
+    "preview": "./06. Loyihalar/272. SaaS Mahsuloti Konversiya Landing Sahifasi va A/B Test Elementlari/index.html",
+    "demo": "./06. Loyihalar/272. SaaS Mahsuloti Konversiya Landing Sahifasi va A/B Test Elementlari/index.html",
+    "zip": "./zips/272-saas-mahsuloti-konversiya-landing-sahifasi-va-ab-test-elementlari.zip",
+    "lesson": {
+      "objective": "SaaS Mahsuloti Konversiya Landing Sahifasi va A/B Test Elementlari loyihasi orqali Landing doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. SaaS Mahsuloti Konversiya Landing Sahifasi va A/B Test Elementlari arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 273,
+    "slug": "json-formatlovchi-validator-va-daraxtsimon-koruvchi",
+    "title": "JSON Formatlovchi, Validator va Daraxtsimon Ko'ruvchi",
+    "category": "Editor",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "JSON Parser",
+      "Tree Viewer",
+      "Minifier"
+    ],
+    "tags": [
+      "JSON Formatter",
+      "Validator",
+      "Tree View",
+      "Developer Tool",
+      "Editor"
+    ],
+    "features": [
+      "Tartibsiz JSON kodini 2 yoki 4 bo'shliq bilan chiroyli formatlash",
+      "Sintaksis xatolarini qator raqami bilan birgalikda qizil bilan ko'rsatish",
+      "Daraxtsimon (Tree View) interfeysda tugunlarni ochish va yopish imkoniyati"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 5,
+    "downloads": 2909,
+    "preview": "./06. Loyihalar/273. JSON Formatlovchi, Validator va Daraxtsimon Ko'ruvchi/index.html",
+    "demo": "./06. Loyihalar/273. JSON Formatlovchi, Validator va Daraxtsimon Ko'ruvchi/index.html",
+    "zip": "./zips/273-json-formatlovchi-validator-va-daraxtsimon-koruvchi.zip",
+    "lesson": {
+      "objective": "JSON Formatlovchi, Validator va Daraxtsimon Ko'ruvchi loyihasi orqali Editor doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. JSON Formatlovchi, Validator va Daraxtsimon Ko'ruvchi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 274,
+    "slug": "roguelike-zindon-sarguzashti-va-qahramon-inventar-tizimi",
+    "title": "Roguelike Zindon Sarguzashti va Qahramon Inventar Tizimi",
+    "category": "O'yinlar",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Roguelike Canvas",
+      "Turn Based",
+      "Inventory"
+    ],
+    "tags": [
+      "Roguelike",
+      "Dungeon Crawler",
+      "Turn-based",
+      "Inventory",
+      "Games"
+    ],
+    "features": [
+      "Qadamma-qadam (Turn-based) harakatlanuvchi qahramon va zindon maxluqlari",
+      "Qilich, qalqon, sehrli ichimliklar yig'iluvchi interaktiv inventar xaltasi",
+      "Jon (HP), tajriba darajasi va zindondan qochish missiyasi"
+    ],
+    "duration": "85 daqiqa",
+    "rating": 4.8,
+    "downloads": 2992,
+    "preview": "./06. Loyihalar/274. Roguelike Zindon Sarguzashti va Qahramon Inventar Tizimi/index.html",
+    "demo": "./06. Loyihalar/274. Roguelike Zindon Sarguzashti va Qahramon Inventar Tizimi/index.html",
+    "zip": "./zips/274-roguelike-zindon-sarguzashti-va-qahramon-inventar-tizimi.zip",
+    "lesson": {
+      "objective": "Roguelike Zindon Sarguzashti va Qahramon Inventar Tizimi loyihasi orqali O'yinlar doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Roguelike Zindon Sarguzashti va Qahramon Inventar Tizimi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 275,
+    "slug": "neumorphic-audio-ekvalayzer-va-chastotalar-animatsiyasi",
+    "title": "Neumorphic Audio Ekvalayzer va Chastotalar Animatsiyasi",
+    "category": "Animatsiya",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Neumorphism",
+      "CSS Equalizer",
+      "Audio Presets"
+    ],
+    "tags": [
+      "Audio Equalizer",
+      "Neumorphic",
+      "Sound Frequencies",
+      "Presets",
+      "Animation"
+    ],
+    "features": [
+      "Bas, O'rta va Yuqori chastotalar (60Hz dan 16kHz gacha) slayderlari",
+      "Tayyor janrlar (Rock, Jazz, Pop, Electronic) sozlamalarini bir zumda yuklash",
+      "Musiqa ritmiga mos harakatlanuvchi rangli neon to'lqinlar animatsiyasi"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.8,
+    "downloads": 3075,
+    "preview": "./06. Loyihalar/275. Neumorphic Audio Ekvalayzer va Chastotalar Animatsiyasi/index.html",
+    "demo": "./06. Loyihalar/275. Neumorphic Audio Ekvalayzer va Chastotalar Animatsiyasi/index.html",
+    "zip": "./zips/275-neumorphic-audio-ekvalayzer-va-chastotalar-animatsiyasi.zip",
+    "lesson": {
+      "objective": "Neumorphic Audio Ekvalayzer va Chastotalar Animatsiyasi loyihasi orqali Animatsiya doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Neumorphic Audio Ekvalayzer va Chastotalar Animatsiyasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 276,
+    "slug": "freelancer-shartnomalari-va-soatlik-ish-vaqti-tahlili",
+    "title": "Freelancer Shartnomalari va Soatlik Ish Vaqti Tahlili",
+    "category": "Portfolio",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Time Tracker",
+      "Invoice Generator",
+      "Store"
+    ],
+    "tags": [
+      "Freelance",
+      "Time Tracker",
+      "Invoice",
+      "Hourly Rate",
+      "Portfolio"
+    ],
+    "features": [
+      "Mijozlar loyihalari bo'yicha ish vaqti taymeri (Start / Pause / Finish)",
+      "Soatlik stavkaga asoslanib avtomatik rasmiy hisob-faktura (Invoice) yaratish",
+      "Haftalik va oylik daromad hisoboti hamda CSV eksport"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 4.9,
+    "downloads": 3158,
+    "preview": "./06. Loyihalar/276. Freelancer Shartnomalari va Soatlik Ish Vaqti Tahlili/index.html",
+    "demo": "./06. Loyihalar/276. Freelancer Shartnomalari va Soatlik Ish Vaqti Tahlili/index.html",
+    "zip": "./zips/276-freelancer-shartnomalari-va-soatlik-ish-vaqti-tahlili.zip",
+    "lesson": {
+      "objective": "Freelancer Shartnomalari va Soatlik Ish Vaqti Tahlili loyihasi orqali Portfolio doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Freelancer Shartnomalari va Soatlik Ish Vaqti Tahlili arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 277,
+    "slug": "discord-uslubidagi-serverlar-ovozli-kanallar-va-rollar-ui",
+    "title": "Discord Uslubidagi Serverlar, Ovozli Kanallar va Rollar UI",
+    "category": "Chat UI",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Discord Clone",
+      "Voice Channels",
+      "Roles"
+    ],
+    "tags": [
+      "Discord Clone",
+      "Community Server",
+      "Voice Rooms",
+      "Roles",
+      "Chat UI"
+    ],
+    "features": [
+      "Serverlar piktogrammalari, matnli kanallar va ovozli xonalar tuzilishi",
+      "Ovozli xonaga ulanish simulyatsiyasi va gapirayotganda yashil halqa yonishi",
+      "Foydalanuvchilar rollari (Admin, Moderator, Member) va profiling kartasi"
+    ],
+    "duration": "75 daqiqa",
+    "rating": 4.9,
+    "downloads": 3241,
+    "preview": "./06. Loyihalar/277. Discord Uslubidagi Serverlar, Ovozli Kanallar va Rollar UI/index.html",
+    "demo": "./06. Loyihalar/277. Discord Uslubidagi Serverlar, Ovozli Kanallar va Rollar UI/index.html",
+    "zip": "./zips/277-discord-uslubidagi-serverlar-ovozli-kanallar-va-rollar-ui.zip",
+    "lesson": {
+      "objective": "Discord Uslubidagi Serverlar, Ovozli Kanallar va Rollar UI loyihasi orqali Chat UI doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Discord Uslubidagi Serverlar, Ovozli Kanallar va Rollar UI arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 278,
+    "slug": "trello-uslubidagi-dinamik-doska-teglar-va-muddatlar",
+    "title": "Trello Uslubidagi Dinamik Doska, Teglar va Muddatlar",
+    "category": "Clone UI",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Trello Clone",
+      "Kanban Board",
+      "Checklists"
+    ],
+    "tags": [
+      "Trello Clone",
+      "Kanban Board",
+      "Due Dates",
+      "Labels",
+      "Clone UI"
+    ],
+    "features": [
+      "Yangi ro'yxatlar (Lists) va kartalar qo'shish, ustunlar bo'ylab sudrash",
+      "Rangli teglar (Labels), bajarilish muddati (Due date) va kichik vazifalar ro'yxati",
+      "Kartalar ichida izoh qoldirish va arxivlash imkoniyati"
+    ],
+    "duration": "75 daqiqa",
+    "rating": 4.9,
+    "downloads": 3324,
+    "preview": "./06. Loyihalar/278. Trello Uslubidagi Dinamik Doska, Teglar va Muddatlar/index.html",
+    "demo": "./06. Loyihalar/278. Trello Uslubidagi Dinamik Doska, Teglar va Muddatlar/index.html",
+    "zip": "./zips/278-trello-uslubidagi-dinamik-doska-teglar-va-muddatlar.zip",
+    "lesson": {
+      "objective": "Trello Uslubidagi Dinamik Doska, Teglar va Muddatlar loyihasi orqali Clone UI doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Trello Uslubidagi Dinamik Doska, Teglar va Muddatlar arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 279,
+    "slug": "it-aktivlari-va-korporativ-texnika-inventarizatsiyasi",
+    "title": "IT Aktivlari va Korporativ Texnika Inventarizatsiyasi",
+    "category": "Admin panel",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "IT Asset Management",
+      "Hardware Inventory",
+      "Status"
+    ],
+    "tags": [
+      "Asset Management",
+      "Hardware",
+      "Laptops",
+      "IT Inventory",
+      "Admin"
+    ],
+    "features": [
+      "Noutbuklar, monitorlar va serverlarning seriya raqamlari bo'yicha bazasi",
+      "Texnika holati (Ishlatilmoqda, Ta'mirda, Hisobdan chiqarilgan) nazorati",
+      "Xodimlarga texnika biriktirish va qabul qilish dalolatnomasi"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 5,
+    "downloads": 3407,
+    "preview": "./06. Loyihalar/279. IT Aktivlari va Korporativ Texnika Inventarizatsiyasi/index.html",
+    "demo": "./06. Loyihalar/279. IT Aktivlari va Korporativ Texnika Inventarizatsiyasi/index.html",
+    "zip": "./zips/279-it-aktivlari-va-korporativ-texnika-inventarizatsiyasi.zip",
+    "lesson": {
+      "objective": "IT Aktivlari va Korporativ Texnika Inventarizatsiyasi loyihasi orqali Admin panel doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. IT Aktivlari va Korporativ Texnika Inventarizatsiyasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 280,
+    "slug": "global-dengiz-yuk-tashuvlari-va-portlar-tirbandligi-grafigi",
+    "title": "Global Dengiz Yuk Tashuvlari va Portlar Tirbandligi Grafigi",
+    "category": "Data visualization",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Maritime Shipping",
+      "Port Congestion",
+      "SVG Map"
+    ],
+    "tags": [
+      "Maritime Logistics",
+      "Cargo Ships",
+      "Ports",
+      "Shipping",
+      "Visualization"
+    ],
+    "features": [
+      "Yirik xalqaro portlar (Shanxay, Rotterdam, Singapur) bo'yicha kemalar soni",
+      "Tirbandlik darajasi (Past, O'rtacha, Yuqori) va kechikish kunlari jadvali",
+      "Yuk kemalarining dengiz yo'llari bo'ylab simulyatsiya qilingan trafigi"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 4.8,
+    "downloads": 3490,
+    "preview": "./06. Loyihalar/280. Global Dengiz Yuk Tashuvlari va Portlar Tirbandligi Grafigi/index.html",
+    "demo": "./06. Loyihalar/280. Global Dengiz Yuk Tashuvlari va Portlar Tirbandligi Grafigi/index.html",
+    "zip": "./zips/280-global-dengiz-yuk-tashuvlari-va-portlar-tirbandligi-grafigi.zip",
+    "lesson": {
+      "objective": "Global Dengiz Yuk Tashuvlari va Portlar Tirbandligi Grafigi loyihasi orqali Data visualization doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Global Dengiz Yuk Tashuvlari va Portlar Tirbandligi Grafigi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 281,
+    "slug": "avtoservis-ustaxonasi-navbat-va-ishlar-taqsimoti-doskasi",
+    "title": "Avtoservis Ustaxonasi Navbat va Ishlar Taqsimoti Doskasi",
+    "category": "Kanban",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Auto Repair Kanban",
+      "Mechanic Assignment",
+      "Status"
+    ],
+    "tags": [
+      "Auto Repair",
+      "Service Queue",
+      "Workshop",
+      "Mechanics",
+      "Kanban"
+    ],
+    "features": [
+      "Qabul qilindi, Diagnostika, Ehtiyot qismlar kutilmoqda, Tayyor ustunlari",
+      "Har bir avtomobilga usta (mexanik) biriktirish va ta'mirlash qiymati",
+      "Buyurtmachi telefon raqami orqali tezkor qidiruv va statusni yangilash"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.8,
+    "downloads": 3573,
+    "preview": "./06. Loyihalar/281. Avtoservis Ustaxonasi Navbat va Ishlar Taqsimoti Doskasi/index.html",
+    "demo": "./06. Loyihalar/281. Avtoservis Ustaxonasi Navbat va Ishlar Taqsimoti Doskasi/index.html",
+    "zip": "./zips/281-avtoservis-ustaxonasi-navbat-va-ishlar-taqsimoti-doskasi.zip",
+    "lesson": {
+      "objective": "Avtoservis Ustaxonasi Navbat va Ishlar Taqsimoti Doskasi loyihasi orqali Kanban doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Avtoservis Ustaxonasi Navbat va Ishlar Taqsimoti Doskasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 282,
+    "slug": "xalqaro-valyuta-ayirboshlash-shoxobchalari-va-api-xaritasi",
+    "title": "Xalqaro Valyuta Ayirboshlash Shoxobchalari va API Xaritasi",
+    "category": "API loyihalar",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Exchange Branches",
+      "Distance Sort",
+      "Rates API"
+    ],
+    "tags": [
+      "Currency Exchange",
+      "Branch Locator",
+      "Best Rates",
+      "Forex API",
+      "Finance"
+    ],
+    "features": [
+      "Eng yaxshi sotib olish va sotish kurslarini taklif qiluvchi shoxobchalar",
+      "Foydalanuvchi joylashuviga yaqin shoxobchalarni masofa (km) bo'yicha saralash",
+      "Valyutani oldindan band qilish (Rezervatsiya) va komissiyasiz hisob"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.9,
+    "downloads": 3656,
+    "preview": "./06. Loyihalar/282. Xalqaro Valyuta Ayirboshlash Shoxobchalari va API Xaritasi/index.html",
+    "demo": "./06. Loyihalar/282. Xalqaro Valyuta Ayirboshlash Shoxobchalari va API Xaritasi/index.html",
+    "zip": "./zips/282-xalqaro-valyuta-ayirboshlash-shoxobchalari-va-api-xaritasi.zip",
+    "lesson": {
+      "objective": "Xalqaro Valyuta Ayirboshlash Shoxobchalari va API Xaritasi loyihasi orqali API loyihalar doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Xalqaro Valyuta Ayirboshlash Shoxobchalari va API Xaritasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 283,
+    "slug": "e-commerce-buyurtmalar-monitoringi-va-logistika-boshqaruvi",
+    "title": "E-Commerce Buyurtmalar Monitoringi va Logistika Boshqaruvi",
+    "category": "Dashboard",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Order Tracking",
+      "Courier Dispatch",
+      "Charts"
+    ],
+    "tags": [
+      "Order Fulfillment",
+      "Dispatch",
+      "E-commerce Logistics",
+      "Fulfillment",
+      "Dashboard"
+    ],
+    "features": [
+      "Yangi tushgan buyurtmalar, qadoqlash va kuryerga topshirish oqimi",
+      "Kuryerlar bo'yicha kunlik yetkazib berish unumdorligi ko'rsatkichi",
+      "Mijoz manzili, to'lov turi va buyurtma tafsilotlari modali"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 4.9,
+    "downloads": 3739,
+    "preview": "./06. Loyihalar/283. E-Commerce Buyurtmalar Monitoringi va Logistika Boshqaruvi/index.html",
+    "demo": "./06. Loyihalar/283. E-Commerce Buyurtmalar Monitoringi va Logistika Boshqaruvi/index.html",
+    "zip": "./zips/283-e-commerce-buyurtmalar-monitoringi-va-logistika-boshqaruvi.zip",
+    "lesson": {
+      "objective": "E-Commerce Buyurtmalar Monitoringi va Logistika Boshqaruvi loyihasi orqali Dashboard doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. E-Commerce Buyurtmalar Monitoringi va Logistika Boshqaruvi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 284,
+    "slug": "avtomobil-yoqilgi-sarfi-va-sayohat-xarajatlari-kalkulyatori",
+    "title": "Avtomobil Yoqilg'i Sarfi va Sayohat Xarajatlari Kalkulyatori",
+    "category": "Calculator",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Fuel Consumption",
+      "Trip Cost",
+      "Passengers"
+    ],
+    "tags": [
+      "Fuel Calculator",
+      "Road Trip",
+      "Gas Mileage",
+      "Travel Cost",
+      "Calculator"
+    ],
+    "features": [
+      "Bosib o'tiladigan masofa, 100 km uchun yoqilg'i sarfi va benzin narxi hisobi",
+      "Yo'l xarajatini avtomobildagi yo'lovchilar soniga teng taqsimlash kalkulyatori",
+      "Turli yoqilg'i turlari (Benzin, Gaz, Elektr) bo'yicha tejash taqqoslagichi"
+    ],
+    "duration": "60 daqiqa",
+    "rating": 4.9,
+    "downloads": 3822,
+    "preview": "./06. Loyihalar/284. Avtomobil Yoqilg'i Sarfi va Sayohat Xarajatlari Kalkulyatori/index.html",
+    "demo": "./06. Loyihalar/284. Avtomobil Yoqilg'i Sarfi va Sayohat Xarajatlari Kalkulyatori/index.html",
+    "zip": "./zips/284-avtomobil-yoqilgi-sarfi-va-sayohat-xarajatlari-kalkulyatori.zip",
+    "lesson": {
+      "objective": "Avtomobil Yoqilg'i Sarfi va Sayohat Xarajatlari Kalkulyatori loyihasi orqali Calculator doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Avtomobil Yoqilg'i Sarfi va Sayohat Xarajatlari Kalkulyatori arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 285,
+    "slug": "kitoblar-dokoni-audio-namuna-va-elektron-kutubxona-savdosi",
+    "title": "Kitoblar Do'koni Audio Namuna va Elektron Kutubxona Savdosi",
+    "category": "E-commerce",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Book Store",
+      "Audio Sample",
+      "E-library"
+    ],
+    "tags": [
+      "Bookstore",
+      "Audiobooks",
+      "E-books",
+      "Library",
+      "E-commerce"
+    ],
+    "features": [
+      "Badiiy va biznes adabiyotlari katalogi, janrlar bo'yicha filtrlar",
+      "Kitobning birinchi bobini audio tinglab ko'rish interaktiv pleyeri",
+      "Elektron kitobni (PDF/EPUB) savatchaga qo'shish va chegirma kuponi"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 5,
+    "downloads": 3905,
+    "preview": "./06. Loyihalar/285. Kitoblar Do'koni Audio Namuna va Elektron Kutubxona Savdosi/index.html",
+    "demo": "./06. Loyihalar/285. Kitoblar Do'koni Audio Namuna va Elektron Kutubxona Savdosi/index.html",
+    "zip": "./zips/285-kitoblar-dokoni-audio-namuna-va-elektron-kutubxona-savdosi.zip",
+    "lesson": {
+      "objective": "Kitoblar Do'koni Audio Namuna va Elektron Kutubxona Savdosi loyihasi orqali E-commerce doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Kitoblar Do'koni Audio Namuna va Elektron Kutubxona Savdosi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 286,
+    "slug": "css-box-shadow-gradient-va-border-radius-vizual-generator",
+    "title": "CSS Box-Shadow, Gradient va Border-Radius Vizual Generator",
+    "category": "Editor",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "CSS Generator",
+      "Visual Sliders",
+      "Copy CSS"
+    ],
+    "tags": [
+      "CSS Generator",
+      "Box Shadow",
+      "Gradient Maker",
+      "Web Design",
+      "Editor"
+    ],
+    "features": [
+      "Soya siljishi, tarqalishi, xiraligi va shaffofligini slayderlarda boshqarish",
+      "Ko'p qatlamli chiziqli va radial gradientlarni real vaqtda ko'rish",
+      "Bir bosishda tayyor ishlab chiqarish sifatidagi toza CSS kodini nusxalash"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 5,
+    "downloads": 3988,
+    "preview": "./06. Loyihalar/286. CSS Box-Shadow, Gradient va Border-Radius Vizual Generator/index.html",
+    "demo": "./06. Loyihalar/286. CSS Box-Shadow, Gradient va Border-Radius Vizual Generator/index.html",
+    "zip": "./zips/286-css-box-shadow-gradient-va-border-radius-vizual-generator.zip",
+    "lesson": {
+      "objective": "CSS Box-Shadow, Gradient va Border-Radius Vizual Generator loyihasi orqali Editor doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. CSS Box-Shadow, Gradient va Border-Radius Vizual Generator arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 287,
+    "slug": "tezkor-matematik-hisoblash-va-aql-charxi-turniri",
+    "title": "Tezkor Matematik Hisoblash va Aql Charxi Turniri",
+    "category": "O'yinlar",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Math Quiz",
+      "Speed Timer",
+      "Combo Multiplier"
+    ],
+    "tags": [
+      "Mental Math",
+      "Brain Training",
+      "Speed Math",
+      "Quiz Game",
+      "Games"
+    ],
+    "features": [
+      "60 soniya ichida ketma-ket arifmetik misollarni to'g'ri topish musobaqasi",
+      "Ketma-ket to'g'ri javoblar uchun Combo ko'paytiruvchisi (x2, x3, x5 ballar)",
+      "O'yin yakunida aniqlik foizi va eng yaxshi natijalar jadvali"
+    ],
+    "duration": "60 daqiqa",
+    "rating": 4.8,
+    "downloads": 4071,
+    "preview": "./06. Loyihalar/287. Tezkor Matematik Hisoblash va Aql Charxi Turniri/index.html",
+    "demo": "./06. Loyihalar/287. Tezkor Matematik Hisoblash va Aql Charxi Turniri/index.html",
+    "zip": "./zips/287-tezkor-matematik-hisoblash-va-aql-charxi-turniri.zip",
+    "lesson": {
+      "objective": "Tezkor Matematik Hisoblash va Aql Charxi Turniri loyihasi orqali O'yinlar doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Tezkor Matematik Hisoblash va Aql Charxi Turniri arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 288,
+    "slug": "kiberxavfsizlik-firewall-va-tarmoq-trafiki-oqimi-analitikasi",
+    "title": "Kiberxavfsizlik Firewall va Tarmoq Trafiki Oqimi Analitikasi",
+    "category": "Dashboard",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Network Firewall",
+      "Traffic Flow",
+      "Threat Log"
+    ],
+    "tags": [
+      "Firewall",
+      "Network Security",
+      "Traffic Flow",
+      "DDoS Protection",
+      "Dashboard"
+    ],
+    "features": [
+      "Kiruvchi va chiquvchi tarmoq paketlari (MB/s) bo'yicha jonli SVG grafigi",
+      "Shubhali IP manzillar va bloklangan hujumlar (DDoS, Brute-force) jurnali",
+      "Firewall qoidalarini (Allow / Block / Drop) kiritish boshqaruv paneli"
+    ],
+    "duration": "75 daqiqa",
+    "rating": 4.8,
+    "downloads": 4154,
+    "preview": "./06. Loyihalar/288. Kiberxavfsizlik Firewall va Tarmoq Trafiki Oqimi Analitikasi/index.html",
+    "demo": "./06. Loyihalar/288. Kiberxavfsizlik Firewall va Tarmoq Trafiki Oqimi Analitikasi/index.html",
+    "zip": "./zips/288-kiberxavfsizlik-firewall-va-tarmoq-trafiki-oqimi-analitikasi.zip",
+    "lesson": {
+      "objective": "Kiberxavfsizlik Firewall va Tarmoq Trafiki Oqimi Analitikasi loyihasi orqali Dashboard doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Kiberxavfsizlik Firewall va Tarmoq Trafiki Oqimi Analitikasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 289,
+    "slug": "parallaks-aylanish-va-3d-kartalar-slayderi-animatsiyasi",
+    "title": "Parallaks Aylanish va 3D Kartalar Slayderi Animatsiyasi",
+    "category": "Animatsiya",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "3D Parallax",
+      "Card Carousel",
+      "Perspective"
+    ],
+    "tags": [
+      "Parallax",
+      "3D Slider",
+      "Perspective CSS",
+      "Visual Showcase",
+      "Animation"
+    ],
+    "features": [
+      "Sichqoncha kursoriga qarab 3D chuqurlik burchagi bilan aylanuvchi kartalar",
+      "Slayder orqali kartalarni silliq surish va kattalashtirish effekti",
+      "Animatsiya tezligi va yorug'lik aks etishini (Glare effect) sozlash"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.9,
+    "downloads": 4237,
+    "preview": "./06. Loyihalar/289. Parallaks Aylanish va 3D Kartalar Slayderi Animatsiyasi/index.html",
+    "demo": "./06. Loyihalar/289. Parallaks Aylanish va 3D Kartalar Slayderi Animatsiyasi/index.html",
+    "zip": "./zips/289-parallaks-aylanish-va-3d-kartalar-slayderi-animatsiyasi.zip",
+    "lesson": {
+      "objective": "Parallaks Aylanish va 3D Kartalar Slayderi Animatsiyasi loyihasi orqali Animatsiya doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Parallaks Aylanish va 3D Kartalar Slayderi Animatsiyasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 290,
+    "slug": "twitter-x-uslubidagi-qisqa-xabarlar-retvit-va-trendlar-ui",
+    "title": "Twitter / X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI",
+    "category": "Clone UI",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Twitter Clone",
+      "Character Counter",
+      "Feed"
+    ],
+    "tags": [
+      "Twitter Clone",
+      "X Feed",
+      "Retweet",
+      "Hashtags",
+      "Clone UI"
+    ],
+    "features": [
+      "280 ta belgigacha xabar kiritish va doiraviy SVG belgi sanagichi",
+      "Xabarlarga Retweet qilish, Like bosish va izoh yozish imkoniyati",
+      "Ommabop mavzular (#Trends) paneli va foydalanuvchilar qidiruvi"
+    ],
+    "duration": "75 daqiqa",
+    "rating": 4.9,
+    "downloads": 4320,
+    "preview": "./06. Loyihalar/290. Twitter / X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI/index.html",
+    "demo": "./06. Loyihalar/290. Twitter / X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI/index.html",
+    "zip": "./zips/290-twitter-x-uslubidagi-qisqa-xabarlar-retvit-va-trendlar-ui.zip",
+    "lesson": {
+      "objective": "Twitter / X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI loyihasi orqali Clone UI doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Twitter / X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 291,
+    "slug": "ekologik-turizm-sayohatlari-va-gid-yollash-platformasi",
+    "title": "Ekologik Turizm Sayohatlari va Gid Yollash Platformasi",
+    "category": "Landing",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Eco Tourism",
+      "Guide Booking",
+      "Equipment List"
+    ],
+    "tags": [
+      "Eco Tourism",
+      "Trekking",
+      "Mountain Tours",
+      "Guide Finder",
+      "Landing"
+    ],
+    "features": [
+      "Tog'li hududlar va milliy bog'lar bo'ylab piyoda sayohat yo'nalishlari",
+      "Sertifikatlangan mahalliy gidlar profili va mijozlar sharhlari",
+      "Sayohat uchun zarur anjomlar (Palatka, ryukzak) ro'yxati va buyurtma formasi"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.9,
+    "downloads": 4403,
+    "preview": "./06. Loyihalar/291. Ekologik Turizm Sayohatlari va Gid Yollash Platformasi/index.html",
+    "demo": "./06. Loyihalar/291. Ekologik Turizm Sayohatlari va Gid Yollash Platformasi/index.html",
+    "zip": "./zips/291-ekologik-turizm-sayohatlari-va-gid-yollash-platformasi.zip",
+    "lesson": {
+      "objective": "Ekologik Turizm Sayohatlari va Gid Yollash Platformasi loyihasi orqali Landing doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Ekologik Turizm Sayohatlari va Gid Yollash Platformasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 292,
+    "slug": "foydali-odatlar-tracker-va-pomodoro-fokus-taymeri",
+    "title": "Foydali Odatlar Tracker va Pomodoro Fokus Taymeri",
+    "category": "CRM/To-do",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Pomodoro Timer",
+      "Habit List",
+      "Sound Alert"
+    ],
+    "tags": [
+      "Pomodoro",
+      "Focus Timer",
+      "Habit Tracker",
+      "Productivity",
+      "Time Management"
+    ],
+    "features": [
+      "25 daqiqa ish va 5 daqiqa dam olish Pomodoro intervallari taymeri",
+      "Vaqt tugaganda ovozli signal va brauzer bildirishnomasi",
+      "Kun davomida bajarilgan fokus seanslari soni va odatlar hisoboti"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 5,
+    "downloads": 4486,
+    "preview": "./06. Loyihalar/292. Foydali Odatlar Tracker va Pomodoro Fokus Taymeri/index.html",
+    "demo": "./06. Loyihalar/292. Foydali Odatlar Tracker va Pomodoro Fokus Taymeri/index.html",
+    "zip": "./zips/292-foydali-odatlar-tracker-va-pomodoro-fokus-taymeri.zip",
+    "lesson": {
+      "objective": "Foydali Odatlar Tracker va Pomodoro Fokus Taymeri loyihasi orqali CRM/To-do doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Foydali Odatlar Tracker va Pomodoro Fokus Taymeri arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 293,
+    "slug": "regex-muntazam-ifodalar-jonli-sinovchi-va-kod-tushuntiruvchi",
+    "title": "RegEx (Muntazam Ifodalar) Jonli Sinovchi va Kod Tushuntiruvchi",
+    "category": "Editor",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Regex Tester",
+      "Highlight Match",
+      "Flags"
+    ],
+    "tags": [
+      "Regex",
+      "Regular Expression",
+      "Developer Tool",
+      "Pattern Match",
+      "Editor"
+    ],
+    "features": [
+      "Kiritilgan RegEx andozasini matn ichida bir zumda sariq rangda belgilash",
+      "Modifikatorlar (g, i, m, s) va match guruhlarini (Groups) alohida ko'rsatish",
+      "Ko'p ishlatiluvchi tayyor shablonlar (Email, Telefon, URL, Parol) kutubxonasi"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 5,
+    "downloads": 4569,
+    "preview": "./06. Loyihalar/293. RegEx (Muntazam Ifodalar) Jonli Sinovchi va Kod Tushuntiruvchi/index.html",
+    "demo": "./06. Loyihalar/293. RegEx (Muntazam Ifodalar) Jonli Sinovchi va Kod Tushuntiruvchi/index.html",
+    "zip": "./zips/293-regex-muntazam-ifodalar-jonli-sinovchi-va-kod-tushuntiruvchi.zip",
+    "lesson": {
+      "objective": "RegEx (Muntazam Ifodalar) Jonli Sinovchi va Kod Tushuntiruvchi loyihasi orqali Editor doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. RegEx (Muntazam Ifodalar) Jonli Sinovchi va Kod Tushuntiruvchi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 294,
+    "slug": "dunyo-muzeylari-eksponatlari-api-qidiruvi-va-saralash",
+    "title": "Dunyo Muzeylari Eksponatlari API Qidiruvi va Saralash",
+    "category": "API loyihalar",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Museum API",
+      "Art Gallery",
+      "Infinite Scroll"
+    ],
+    "tags": [
+      "Museum Art",
+      "Metropolitan Museum",
+      "Artifacts",
+      "Art API",
+      "Culture"
+    ],
+    "features": [
+      "San'atkorlar, asrlar va san'at yo'nalishlari (Rassomchilik, Haykaltaroshlik) bo'yicha filtr",
+      "Eksponatning yuqori aniqlikdagi tasviri va muzey inventar raqami",
+      "Eksponatlarni sevimli kolleksiyaga saqlash va yuklab olish"
+    ],
+    "duration": "70 daqiqa",
+    "rating": 4.8,
+    "downloads": 4652,
+    "preview": "./06. Loyihalar/294. Dunyo Muzeylari Eksponatlari API Qidiruvi va Saralash/index.html",
+    "demo": "./06. Loyihalar/294. Dunyo Muzeylari Eksponatlari API Qidiruvi va Saralash/index.html",
+    "zip": "./zips/294-dunyo-muzeylari-eksponatlari-api-qidiruvi-va-saralash.zip",
+    "lesson": {
+      "objective": "Dunyo Muzeylari Eksponatlari API Qidiruvi va Saralash loyihasi orqali API loyihalar doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Dunyo Muzeylari Eksponatlari API Qidiruvi va Saralash arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 295,
+    "slug": "avtokredit-sugurta-va-qayta-moliyalash-matritsasi",
+    "title": "Avtokredit, Sug'urta va Qayta Moliyalash Matritsasi",
+    "category": "Calculator",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Car Loan",
+      "Insurance KASKO",
+      "Comparison"
+    ],
+    "tags": [
+      "Auto Loan",
+      "Car Insurance",
+      "Refinancing",
+      "Calculator",
+      "Finance"
+    ],
+    "features": [
+      "Yangi yoki minilgan avtomobil uchun oylik to'lov va umumiy foizni hisoblash",
+      "Majburiy va ixtiyoriy (KASKO) sug'urta badallarini umumiy xarajatga qo'shish",
+      "Banklar shartlarini yonma-yon solishtirish va eng arzon taklifni aniqlash"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.8,
+    "downloads": 4735,
+    "preview": "./06. Loyihalar/295. Avtokredit, Sug'urta va Qayta Moliyalash Matritsasi/index.html",
+    "demo": "./06. Loyihalar/295. Avtokredit, Sug'urta va Qayta Moliyalash Matritsasi/index.html",
+    "zip": "./zips/295-avtokredit-sugurta-va-qayta-moliyalash-matritsasi.zip",
+    "lesson": {
+      "objective": "Avtokredit, Sug'urta va Qayta Moliyalash Matritsasi loyihasi orqali Calculator doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Avtokredit, Sug'urta va Qayta Moliyalash Matritsasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 296,
+    "slug": "fullstack-dasturchi-texnik-blogi-va-interaktiv-loyihalar-karta",
+    "title": "Fullstack Dasturchi Texnik Blogi va Interaktiv Loyihalar Karta",
+    "category": "Portfolio",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Developer Blog",
+      "Code Blocks",
+      "Search"
+    ],
+    "tags": [
+      "Developer Blog",
+      "Technical Writing",
+      "Case Studies",
+      "Portfolio",
+      "Web Dev"
+    ],
+    "features": [
+      "Dasturlash maqolalari, kod parchalari va arxitektura tushuntirishlari",
+      "Teglar (JavaScript, Node.js, Docker, WebGL) bo'yicha lahzali qidiruv",
+      "Maqolani baholash va muallifga fikr-mulohaza qoldirish formasi"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 4.9,
+    "downloads": 4818,
+    "preview": "./06. Loyihalar/296. Fullstack Dasturchi Texnik Blogi va Interaktiv Loyihalar Karta/index.html",
+    "demo": "./06. Loyihalar/296. Fullstack Dasturchi Texnik Blogi va Interaktiv Loyihalar Karta/index.html",
+    "zip": "./zips/296-fullstack-dasturchi-texnik-blogi-va-interaktiv-loyihalar-karta.zip",
+    "lesson": {
+      "objective": "Fullstack Dasturchi Texnik Blogi va Interaktiv Loyihalar Karta loyihasi orqali Portfolio doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Fullstack Dasturchi Texnik Blogi va Interaktiv Loyihalar Karta arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 297,
+    "slug": "restoranlar-tarmogi-filiallari-va-franshiza-boshqaruvi",
+    "title": "Restoranlar Tarmog'i Filiallari va Franshiza Boshqaruvi",
+    "category": "Admin panel",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Franchise Management",
+      "Branch Revenue",
+      "KPI"
+    ],
+    "tags": [
+      "Restaurant Chain",
+      "Franchise",
+      "Branch Sales",
+      "Inventory",
+      "Admin"
+    ],
+    "features": [
+      "Har bir filialning kunlik savdo tushumi, chek o'rtacha qiymati va mijozlar soni",
+      "Kamomad va ombor zaxiralari bo'yicha markaziy ta'minot talabnomalari",
+      "Filiallar reytingi va xodimlar maosh fondi hisoboti"
+    ],
+    "duration": "75 daqiqa",
+    "rating": 4.9,
+    "downloads": 4901,
+    "preview": "./06. Loyihalar/297. Restoranlar Tarmog'i Filiallari va Franshiza Boshqaruvi/index.html",
+    "demo": "./06. Loyihalar/297. Restoranlar Tarmog'i Filiallari va Franshiza Boshqaruvi/index.html",
+    "zip": "./zips/297-restoranlar-tarmogi-filiallari-va-franshiza-boshqaruvi.zip",
+    "lesson": {
+      "objective": "Restoranlar Tarmog'i Filiallari va Franshiza Boshqaruvi loyihasi orqali Admin panel doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Restoranlar Tarmog'i Filiallari va Franshiza Boshqaruvi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 298,
+    "slug": "flowchart-diagrammalar-va-blok-sxemalar-muharriri",
+    "title": "Flowchart Diagrammalar va Blok-Sxemalar Muharriri",
+    "category": "Editor",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Flowchart Canvas",
+      "Node Connectors",
+      "Export PNG"
+    ],
+    "tags": [
+      "Flowchart",
+      "Diagram Editor",
+      "Mind Map",
+      "Workflow",
+      "Editor"
+    ],
+    "features": [
+      "Start/End, Jarayon, Qaror (Romb) bloklarini doskaga joylashtirish",
+      "Bloklarni yo'naltiruvchi strelkalar bilan o'zaro bog'lash mexanikasi",
+      "Yaratilgan blok-sxemani rasm (PNG) yoki JSON fayl sifatida saqlash"
+    ],
+    "duration": "80 daqiqa",
+    "rating": 4.9,
+    "downloads": 4984,
+    "preview": "./06. Loyihalar/298. Flowchart Diagrammalar va Blok-Sxemalar Muharriri/index.html",
+    "demo": "./06. Loyihalar/298. Flowchart Diagrammalar va Blok-Sxemalar Muharriri/index.html",
+    "zip": "./zips/298-flowchart-diagrammalar-va-blok-sxemalar-muharriri.zip",
+    "lesson": {
+      "objective": "Flowchart Diagrammalar va Blok-Sxemalar Muharriri loyihasi orqali Editor doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Flowchart Diagrammalar va Blok-Sxemalar Muharriri arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 299,
+    "slug": "zamonaviy-arxitektura-byurosi-va-loyihalar-panoramasi",
+    "title": "Zamonaviy Arxitektura Byurosi va Loyihalar Panoramasi",
+    "category": "Landing",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Architecture Showcase",
+      "Before After Slider",
+      "Landing"
+    ],
+    "tags": [
+      "Architecture",
+      "Urban Design",
+      "Blueprint",
+      "Interior",
+      "Landing"
+    ],
+    "features": [
+      "Bino va inshootlar loyihalarining chizmalari va 3D vizualizatsiyasi",
+      "Qurilishdan oldingi va keyingi holatni ko'rsatuvchi interaktiv Before/After slayderi",
+      "Loyiha smetasini hisoblash bo'yicha maslahat so'rovnomasi"
+    ],
+    "duration": "65 daqiqa",
+    "rating": 5,
+    "downloads": 5067,
+    "preview": "./06. Loyihalar/299. Zamonaviy Arxitektura Byurosi va Loyihalar Panoramasi/index.html",
+    "demo": "./06. Loyihalar/299. Zamonaviy Arxitektura Byurosi va Loyihalar Panoramasi/index.html",
+    "zip": "./zips/299-zamonaviy-arxitektura-byurosi-va-loyihalar-panoramasi.zip",
+    "lesson": {
+      "objective": "Zamonaviy Arxitektura Byurosi va Loyihalar Panoramasi loyihasi orqali Landing doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Zamonaviy Arxitektura Byurosi va Loyihalar Panoramasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
+  },
+  {
+    "id": 300,
+    "slug": "scrum-sprint-boshqaruv-doskasi-va-burndown-diagrammasi",
+    "title": "Scrum Sprint Boshqaruv Doskasi va Burndown Diagrammasi",
+    "category": "Kanban",
+    "level": "O'rta",
+    "tech": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Scrum Board",
+      "Burndown Chart",
+      "Story Points"
+    ],
+    "tags": [
+      "Scrum Master",
+      "Agile",
+      "Sprint Planning",
+      "Burndown",
+      "Kanban"
+    ],
+    "features": [
+      "Story Pointlar bilan baholangan vazifalar, sprint muddati va mas'ullar",
+      "Kunlar kesimida qolgan vazifalarni ko'rsatuvchi haqiqiy SVG Burndown grafigi",
+      "Vazifalarni to'liq yakunlash va sprintni arxivlash boshqaruvi"
+    ],
+    "duration": "80 daqiqa",
+    "rating": 4.8,
+    "downloads": 5150,
+    "preview": "./06. Loyihalar/300. Scrum Sprint Boshqaruv Doskasi va Burndown Diagrammasi/index.html",
+    "demo": "./06. Loyihalar/300. Scrum Sprint Boshqaruv Doskasi va Burndown Diagrammasi/index.html",
+    "zip": "./zips/300-scrum-sprint-boshqaruv-doskasi-va-burndown-diagrammasi.zip",
+    "lesson": {
+      "objective": "Scrum Sprint Boshqaruv Doskasi va Burndown Diagrammasi loyihasi orqali Kanban doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
+      "steps": [
+        "1. Scrum Sprint Boshqaruv Doskasi va Burndown Diagrammasi arxitekturasi va reaktiv store modelini loyihalash",
+        "2. SPA navigatsiyasini va semantik shablonni yaratish",
+        "3. CSS o'zgaruvchilari yordamida zamonaviy dashboard stillarini yozish",
+        "4. Dinamik SVG ustunli grafik chizish algoritmini ishlab chiqish",
+        "5. Formani kiritishda real-vaqtli validatsiya va CSV eksport funksiyalarini ulash"
+      ],
+      "codeExplanation": "Ushbu loyihada Observer patterniga asoslangan reaktiv Store, asinxron ma'lumotlar oqimi (Promise/async/await) va SVG koordinatalar hisobi qo'llanilgan.",
+      "exercise": "Ushbu loyihaga yangi ma'lumotlar toifasini qo'shing va SVG grafigida ranglarni toifaga qarab dinamik o'zgaruvchi qiling."
+    }
   }
 ]

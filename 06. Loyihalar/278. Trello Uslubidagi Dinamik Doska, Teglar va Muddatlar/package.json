@@ -1,0 +1,21 @@
+{
+  "name": "trello-uslubidagi-dinamik-doska-teglar-va-muddatlar",
+  "version": "1.0.0",
+  "description": "Trello Uslubidagi Dinamik Doska, Teglar va Muddatlar",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "clone ui",
+    "trello clone",
+    "kanban board",
+    "due dates",
+    "labels",
+    "clone ui"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

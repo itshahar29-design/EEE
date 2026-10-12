@@ -1,0 +1,21 @@
+{
+  "name": "dunyo-poytaxtlari-jonli-vaqt-mintaqalari-va-quyosh-chiqishi-api",
+  "version": "1.0.0",
+  "description": "Dunyo Poytaxtlari Jonli Vaqt Mintaqalari va Quyosh Chiqishi API",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "api loyihalar",
+    "world time",
+    "timezones",
+    "sunrise sunset",
+    "api mock",
+    "clocks"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

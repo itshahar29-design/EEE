@@ -1,0 +1,21 @@
+{
+  "name": "avtokredit-sugurta-va-qayta-moliyalash-matritsasi",
+  "version": "1.0.0",
+  "description": "Avtokredit, Sug'urta va Qayta Moliyalash Matritsasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator",
+    "auto loan",
+    "car insurance",
+    "refinancing",
+    "calculator",
+    "finance"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

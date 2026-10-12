@@ -1,0 +1,21 @@
+{
+  "name": "shaxsiy-byudjet-xarajatlari-va-tejamkorlik-maqsadlari-kuzatuvchisi",
+  "version": "1.0.0",
+  "description": "Shaxsiy Byudjet Xarajatlari va Tejamkorlik Maqsadlari Kuzatuvchisi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "crm/to-do",
+    "budgeting",
+    "personal finance",
+    "savings",
+    "expenses",
+    "finance"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

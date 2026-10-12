@@ -1,0 +1,21 @@
+{
+  "name": "mikroservislar-holati-va-server-klasterlari-salomatligi-monitoringi",
+  "version": "1.0.0",
+  "description": "Mikroservislar Holati va Server Klasterlari Salomatligi Monitoringi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "admin panel",
+    "microservices",
+    "devops",
+    "cluster health",
+    "latency",
+    "admin panel"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}
