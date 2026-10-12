@@ -29,17 +29,14 @@
       </div>
     </div>
 
-    <!-- ASOSIY 3 TA SAHIFA TOGGLE NAVIGATSIYASI -->
-    <nav class="main-page-nav" role="navigation" aria-label="Sahifalar o'rtasida navigatsiya">
-      <button class="page-nav-btn active" data-page="welcome" onclick="switchPage('welcome')">
-        <i class="fa-solid fa-house"></i> <span data-i18n="navWelcome">Bosh Sahifa</span>
-      </button>
-      <button class="page-nav-btn" data-page="lessons" onclick="switchPage('lessons')">
-        <i class="fa-solid fa-graduation-cap"></i> <span data-i18n="navLessons">Darslar</span>
-      </button>
-      <button class="page-nav-btn" data-page="projects" onclick="switchPage('projects')">
-        <i class="fa-solid fa-cubes"></i> <span data-i18n="navProjects">Tayyor Loyihalar</span>
-      </button>
+    <!-- ASOSIY SAHIFALAR NAVIGATSIYASI -->
+    <nav class="main-page-nav" role="navigation" aria-label="Sahifalar">
+      <a href="./index.html#catalog" class="page-nav-btn active" style="text-decoration:none;">
+        <i class="fa-solid fa-cubes"></i> <span>Tayyor Loyihalar (200+)</span>
+      </a>
+      <a href="./lessons.html" class="page-nav-btn" style="text-decoration:none;">
+        <i class="fa-solid fa-graduation-cap"></i> <span>Interaktiv Darslar (278+)</span>
+      </a>
     </nav>
 
     <!-- O'ng Tomon Amallari -->
@@ -76,20 +73,20 @@
 
         <!-- 2 TA KATTA KARTA: DARSLAR VA TAYYOR LOYIHALAR -->
         <div class="hero-two-cards">
-          <!-- KARTA 1: DARSLARGA O'TISH -->
-          <div class="portal-big-card lessons" id="welcomeCardLessons" role="button" tabindex="0" onclick="switchPage('lessons')">
+          <!-- KARTA 1: DARSLARGA O'TISH (ALOHIDA SAHIFA) -->
+          <a href="./lessons.html" class="portal-big-card lessons" id="welcomeCardLessons" style="text-decoration:none;" role="button">
             <div class="card-top-icon">
               <i class="fa-solid fa-book-open-reader"></i>
             </div>
             <div>
               <h3 data-i18n="lessonsCardTitle">Interaktiv Darslar</h3>
-              <p data-i18n="lessonsCardDesc">Boshlang'ichdan professionalgacha ketma-ket darslar, tushuntirishlar va amaliy mashqlar.</p>
+              <p data-i18n="lessonsCardDesc">Boshlang'ichdan professionalgacha ketma-ket 278+ dars, tushuntirishlar va amaliy mashqlar.</p>
             </div>
-            <span class="card-action-link" data-i18n="lessonsCardAction">Darslarga o'tish →</span>
-          </div>
+            <span class="card-action-link" data-i18n="lessonsCardAction">Darslar Sahifasiga o'tish →</span>
+          </a>
 
           <!-- KARTA 2: TAYYOR LOYIHALARGA O'TISH -->
-          <div class="portal-big-card projects" id="welcomeCardProjects" role="button" tabindex="0" onclick="switchPage('projects')">
+          <a href="#catalog" class="portal-big-card projects" id="welcomeCardProjects" style="text-decoration:none;" role="button">
             <div class="card-top-icon">
               <i class="fa-solid fa-cubes"></i>
             </div>
@@ -98,7 +95,7 @@
               <p data-i18n="projectsCardDesc">YouTube uslubidagi katalog, jonli hover preview, to'liq kod va 1-bosishda ZIP yuklab olish.</p>
             </div>
             <span class="card-action-link" data-i18n="projectsCardAction">Loyihalarni ko'rish →</span>
-          </div>
+          </a>
         </div>
 
         <!-- STATISTIKA BANNERI -->
@@ -108,8 +105,10 @@
             <span class="stat-label" data-i18n="statsProjects">Real Loyihalar</span>
           </div>
           <div class="stat-item">
-            <span id="statsLessonsCount" class="stat-number">278+</span>
-            <span class="stat-label" data-i18n="statsLessons">Interaktiv Darslar</span>
+            <a href="./lessons.html" style="text-decoration:none; color:inherit;">
+              <span id="statsLessonsCount" class="stat-number">278+</span>
+              <span class="stat-label" data-i18n="statsLessons">Interaktiv Darslar</span>
+            </a>
           </div>
           <div class="stat-item">
             <span class="stat-number">25,000+</span>
@@ -137,90 +136,10 @@
   </div>
 
   <!-- ========================================================
-       2-SAHIFA: DARSLAR (MASTERCLASS & DARS REJASI)
+       TAYYOR LOYIHALAR KATALOGI (YOUTUBE USLUBI)
        ======================================================== -->
-  <div id="page-lessons" class="page-view" role="region" aria-label="Darslar sahifasi">
-    <div class="lessons-page-layout">
-      <!-- Chap Darslar Daraxti -->
-      <aside class="lessons-sidebar" role="navigation" aria-label="Darslar ro'yxati">
-        <div class="lessons-sidebar-header">
-          <h3 style="font-size: 1rem; font-weight: 700;"><i class="fa-solid fa-graduation-cap"></i> Kurs Modullari</h3>
-          <div class="lessons-progress-box">
-            <div style="display: flex; justify-content: space-between;">
-              <span>O'zlashtirish:</span>
-              <strong id="lessonsProgressPercent">0%</strong>
-            </div>
-            <div class="lessons-progress-track">
-              <div id="lessonsProgressBar" class="lessons-progress-fill"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lessons-tree" id="lessonsTreeContainer">
-          <!-- portal.js orqali render qilinadi -->
-        </div>
-      </aside>
-
-      <!-- O'ng Dars Maydoni -->
-      <main class="lesson-workspace">
-        <div class="lesson-top-bar">
-          <div class="lesson-title-area">
-            <h2 id="lessonCurrentTitle">Dars Nomi</h2>
-            <p id="lessonCurrentModule">01. HTML</p>
-          </div>
-          <div style="display: flex; gap: 8px;">
-            <button id="lessonCompleteBtn" class="nav-btn" style="color: var(--success);">
-              <i class="fa-solid fa-circle-check"></i> <span data-i18n="markCompleted">Darsni yakunlash</span>
-            </button>
-            <button id="lessonDownloadBtn" class="nav-btn active">
-              <i class="fa-solid fa-download"></i> ZIP Yuklab Olish
-            </button>
-          </div>
-        </div>
-
-        <!-- Dars Tablari -->
-        <div class="lesson-workspace-tabs" role="tablist">
-          <button class="lesson-tab-btn active" data-lesson-tab="preview" role="tab"><i class="fa-solid fa-play"></i> Jonli Namuna</button>
-          <button class="lesson-tab-btn" data-lesson-tab="code" role="tab"><i class="fa-solid fa-code"></i> Kod</button>
-          <button class="lesson-tab-btn" data-lesson-tab="theory" role="tab"><i class="fa-solid fa-book-open"></i> Tushuntirish</button>
-          <button class="lesson-tab-btn" data-lesson-tab="exercise" role="tab"><i class="fa-solid fa-dumbbell"></i> Mashq</button>
-        </div>
-
-        <!-- Dars Tab Panellari -->
-        <div id="lessonTab-preview" class="lesson-view-pane active">
-          <iframe id="lessonPreviewFrame" class="lesson-preview-frame" src="about:blank"></iframe>
-        </div>
-
-        <div id="lessonTab-code" class="lesson-view-pane">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px;">
-            <div class="code-file-tabs" id="lessonCodeFileTabs" style="display: flex; gap: 8px;"></div>
-            <button id="lessonCopyCodeBtn" class="nav-btn" data-i18n="copyCode">
-              <i class="fa-solid fa-copy"></i> Kodni nusxalash
-            </button>
-          </div>
-          <pre id="lessonCodeViewer" class="code-display-pre"></pre>
-        </div>
-
-        <div id="lessonTab-theory" class="lesson-view-pane">
-          <div class="lesson-section-card" id="lessonTheoryCard">
-            <!-- portal.js to'ldiradi -->
-          </div>
-        </div>
-
-        <div id="lessonTab-exercise" class="lesson-view-pane">
-          <div class="lesson-section-card" id="lessonExerciseCard">
-            <!-- portal.js to'ldiradi -->
-          </div>
-        </div>
-      </main>
-    </div>
-  </div>
-
-  <!-- ========================================================
-       3-SAHIFA: TAYYOR LOYIHALAR (YOUTUBE USLUBI)
-       ======================================================== -->
-  <div id="page-projects" class="page-view" role="region" aria-label="Tayyor loyihalar katalogi">
-    <div class="platform-layout">
+  <div id="page-projects" class="page-view active" role="region" aria-label="Tayyor loyihalar katalogi">
+    <div id="catalog" class="platform-layout">
       <!-- CHAP KATEGORIYA PANELI -->
       <aside class="sidebar-panel" id="sidebarPanel" role="navigation" aria-label="Kategoriyalar paneli">
         <div class="sidebar-heading" data-i18n="categoriesHeading">Kategoriyalar</div>
@@ -284,6 +203,16 @@
         <section class="projects-grid" id="projectsGrid" aria-label="Loyihalar to'plami">
           <!-- Dinamik ravishda portal.js orqali render qilinadi -->
         </section>
+
+        <!-- BARCHASINI KO'RSATISH VA YUKLASH TUGMALARI -->
+        <div class="grid-actions-bar" id="gridActionsBar">
+          <button id="loadMoreProjectsBtn" class="nav-btn">
+            <i class="fa-solid fa-chevron-down"></i> Yana 24 ta yuklash
+          </button>
+          <button id="showAllProjectsBtn" class="nav-btn active">
+            <i class="fa-solid fa-list-check"></i> Barcha loyihalarni ko'rsatish (200 ta)
+          </button>
+        </div>
       </main>
     </div>
   </div>

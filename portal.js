@@ -1,7 +1,6 @@
 /**
- * FrontCraft Pro Platform - Main Engine
- * 3 Distinct Pages: Welcome Screen, Interactive Lessons, YouTube-Style Projects
- * Real-time Studio, JSZip downloads, i18n & PWA Offline Support
+ * FrontCraft Pro Platform - Main Projects Engine
+ * YouTube-style catalog, rich project cards, Studio modal, JSZip downloads & PWA
  */
 
 (function () {
@@ -11,17 +10,14 @@
   const I18N = {
     uz: {
       siteTitle: "FrontCraft Pro",
-      siteSubtitle: "Frontend Dasturlash Platformasi",
-      navWelcome: "Bosh Sahifa",
-      navLessons: "Darslar",
-      navProjects: "Tayyor Loyihalar",
-      searchPlaceholder: "Loyiha, texnologiya yoki mavzu bo'yicha qidiring... (/)",
+      siteSubtitle: "Frontend Dasturchilar Platformasi",
+      searchPlaceholder: "Loyiha, texnologiya yoki vazifasi bo'yicha qidiring... (/)",
       heroBadge: "10X FRONTEND PLATFORMA",
       heroTitle: "Dasturchilar Uchun <span>Frontend Loyihalar</span> Markazi",
       heroDesc: "200+ dan ortiq tayyor real portfolio loyihalari, bosqichma-bosqich darslar va kodlar ombori.",
       lessonsCardTitle: "Interaktiv Darslar",
-      lessonsCardDesc: "Boshlang'ichdan professionalgacha ketma-ket darslar, tushuntirishlar va amaliy mashqlar.",
-      lessonsCardAction: "Darslarga o'tish →",
+      lessonsCardDesc: "Boshlang'ichdan professionalgacha ketma-ket 278+ dars, tushuntirishlar va amaliy mashqlar.",
+      lessonsCardAction: "Darslar Sahifasiga o'tish →",
       projectsCardTitle: "Tayyor Portfolio Loyihalar",
       projectsCardDesc: "YouTube uslubidagi katalog, jonli hover preview, to'liq kod va 1-bosishda ZIP yuklab olish.",
       projectsCardAction: "Loyihalarni ko'rish →",
@@ -49,19 +45,21 @@
       copyCode: "Kodni nusxalash",
       downloadZip: "ZIP Yuklab Olish",
       openNewTab: "Yangi oynada",
-      markCompleted: "Darsni yakunlash",
+      markCompleted: "O'zlashtirildi deb belgilash",
       completedBadge: "O'zlashtirildi",
       relatedHeading: "O'xshash loyihalar",
       toastCopied: "Kod clipboardga nusxalandi!",
-      toastCompleted: "Tabriklaymiz! Dars muvaffaqiyatli yakunlandi. 🎉",
-      emptyProjects: "Mos keluvchi loyihalar topilmadi"
+      toastCompleted: "Loyiha muvaffaqiyatli yakunlandi! 🎉",
+      emptyProjects: "Mos keluvchi loyihalar topilmadi",
+      quickView: "Jonli Ko'rish",
+      quickZip: "ZIP Yuklash",
+      loadMore: "Yana 24 ta yuklash",
+      showAll: "Barcha loyihalarni birdaniga ko'rsatish (200 ta)",
+      allLoaded: "Barcha loyihalar ko'rsatilmoqda"
     },
     ru: {
       siteTitle: "FrontCraft Pro",
       siteSubtitle: "Платформа фронтенд разработки",
-      navWelcome: "Главная",
-      navLessons: "Уроки",
-      navProjects: "Готовые Проекты",
       searchPlaceholder: "Поиск проекта, технологии или темы... (/)",
       heroBadge: "10X ФРОНТЕНД ПЛАТФОРМА",
       heroTitle: "Центр <span>Фронтенд Проектов</span> Для Разработчиков",
@@ -96,19 +94,21 @@
       copyCode: "Копировать код",
       downloadZip: "Скачать ZIP",
       openNewTab: "В новой вкладке",
-      markCompleted: "Завершить урок",
+      markCompleted: "Отметить освоенным",
       completedBadge: "Освоено",
       relatedHeading: "Похожие проекты",
       toastCopied: "Код скопирован в буфер обмена!",
-      toastCompleted: "Поздравляем! Урок успешно завершён. 🎉",
-      emptyProjects: "Подходящих проектов не найдено"
+      toastCompleted: "Проект успешно завершён! 🎉",
+      emptyProjects: "Подходящих проектов не найдено",
+      quickView: "Живой Просмотр",
+      quickZip: "Скачать ZIP",
+      loadMore: "Загрузить ещё 24",
+      showAll: "Показать все проекты (200 шт)",
+      allLoaded: "Все проекты показаны"
     },
     en: {
       siteTitle: "FrontCraft Pro",
       siteSubtitle: "Frontend Developer Platform",
-      navWelcome: "Home",
-      navLessons: "Lessons",
-      navProjects: "Projects",
       searchPlaceholder: "Search projects, technologies or tags... (/)",
       heroBadge: "10X FRONTEND PLATFORM",
       heroTitle: "<span>Frontend Projects</span> Hub for Developers",
@@ -147,8 +147,13 @@
       completedBadge: "Completed",
       relatedHeading: "Related projects",
       toastCopied: "Code copied to clipboard!",
-      toastCompleted: "Congratulations! Lesson marked as completed. 🎉",
-      emptyProjects: "No matching projects found"
+      toastCompleted: "Project marked as completed! 🎉",
+      emptyProjects: "No matching projects found",
+      quickView: "Live Preview",
+      quickZip: "Download ZIP",
+      loadMore: "Load 24 more",
+      showAll: "Show all projects (200 items)",
+      allLoaded: "All projects displayed"
     }
   };
 
@@ -156,9 +161,7 @@
   const App = {
     lang: localStorage.getItem('frontcraft_lang') || 'uz',
     theme: localStorage.getItem('frontcraft_theme') || 'dark',
-    currentPage: 'welcome',
     projects: [],
-    lessons: [],
     filteredProjects: [],
     currentCategory: 'all',
     currentLevel: 'all',
@@ -169,11 +172,8 @@
     history: JSON.parse(localStorage.getItem('frontcraft_history') || '[]'),
     completedLessons: JSON.parse(localStorage.getItem('frontcraft_completed_lessons') || '[]'),
     activeProject: null,
-    activeLesson: null,
     activeCodeTab: 'html',
-    activeLessonTab: 'preview',
-    activeLessonFile: null,
-    loadedCount: 18,
+    loadedCount: 24,
     activeViewport: 'desktop'
   };
 
@@ -181,7 +181,6 @@
   const UI = {};
 
   function initUI() {
-    // Nav & Search
     UI.searchInput = document.getElementById('globalSearchInput');
     UI.searchClearBtn = document.getElementById('searchClearBtn');
     UI.projectsGrid = document.getElementById('projectsGrid');
@@ -194,25 +193,11 @@
     UI.continueBanner = document.getElementById('continueBanner');
     UI.continueProjectName = document.getElementById('continueProjectName');
     UI.continueBtn = document.getElementById('continueBtn');
-
-    // Stats
     UI.statsProjectsCount = document.getElementById('statsProjectsCount');
     UI.statsLessonsCount = document.getElementById('statsLessonsCount');
 
-    // Lessons Page
-    UI.lessonsTreeContainer = document.getElementById('lessonsTreeContainer');
-    UI.lessonsProgressPercent = document.getElementById('lessonsProgressPercent');
-    UI.lessonsProgressBar = document.getElementById('lessonsProgressBar');
-    UI.lessonCurrentTitle = document.getElementById('lessonCurrentTitle');
-    UI.lessonCurrentModule = document.getElementById('lessonCurrentModule');
-    UI.lessonCompleteBtn = document.getElementById('lessonCompleteBtn');
-    UI.lessonDownloadBtn = document.getElementById('lessonDownloadBtn');
-    UI.lessonPreviewFrame = document.getElementById('lessonPreviewFrame');
-    UI.lessonCodeFileTabs = document.getElementById('lessonCodeFileTabs');
-    UI.lessonCodeViewer = document.getElementById('lessonCodeViewer');
-    UI.lessonCopyCodeBtn = document.getElementById('lessonCopyCodeBtn');
-    UI.lessonTheoryCard = document.getElementById('lessonTheoryCard');
-    UI.lessonExerciseCard = document.getElementById('lessonExerciseCard');
+    UI.loadMoreBtn = document.getElementById('loadMoreProjectsBtn');
+    UI.showAllBtn = document.getElementById('showAllProjectsBtn');
 
     // Studio Modal
     UI.studio = document.getElementById('studioOverlay');
@@ -230,80 +215,24 @@
     UI.favStudioBtn = document.getElementById('studioFavBtn');
   }
 
-  // 3. 3-PAGE SWITCHER ENGINE
-  function switchPage(page) {
-    if (!['welcome', 'lessons', 'projects'].includes(page)) {
-      page = 'welcome';
-    }
-
-    App.currentPage = page;
-
-    // Toggle active class on views
-    document.querySelectorAll('.page-view').forEach(view => {
-      view.classList.toggle('active', view.id === `page-${page}`);
-    });
-
-    // Toggle active class on navbar buttons
-    document.querySelectorAll('.page-nav-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.page === page);
-    });
-
-    // Hash sync without full jump
-    if (window.location.hash !== `#${page}`) {
-      window.history.replaceState(null, '', `#${page}`);
-    }
-
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Page-specific initialization
-    if (page === 'lessons') {
-      renderLessonsTree();
-      if (!App.activeLesson && App.lessons.length > 0) {
-        selectLesson(App.lessons[0]);
-      }
-    } else if (page === 'projects') {
-      applyFilters();
-    }
-  }
-
-  // Expose switchPage globally for inline HTML onclick attributes
-  window.switchPage = switchPage;
-
-  // 4. Data Fetching
+  // 3. Data Fetching
   async function loadData() {
     try {
-      const [projRes, lessRes] = await Promise.all([
-        fetch('./data/projects.json'),
-        fetch('./data/lessons.json')
-      ]);
-
-      if (projRes.ok) {
-        App.projects = await projRes.json();
-      }
-      if (lessRes.ok) {
-        App.lessons = await lessRes.json();
+      const res = await fetch('./data/projects.json');
+      if (res.ok) {
+        App.projects = await res.json();
       }
     } catch (e) {
-      console.warn('Ma\'lumotlarni yuklashda ogohlantirish:', e);
+      console.warn('projects.json yuklashda xatolik:', e);
     }
 
     renderStats();
     renderCategories();
     applyFilters();
-    renderLessonsTree();
     updateContinueBanner();
-
-    // Check initial hash route
-    const hash = window.location.hash.replace('#', '');
-    if (['welcome', 'lessons', 'projects'].includes(hash)) {
-      switchPage(hash);
-    } else {
-      switchPage('welcome');
-    }
   }
 
-  // 5. Fuzzy Search (Levenshtein + Token matching)
+  // 4. Fuzzy Search (Levenshtein + Token matching)
   function levenshtein(a, b) {
     if (a.length === 0) return b.length;
     if (b.length === 0) return a.length;
@@ -342,7 +271,7 @@
     return false;
   }
 
-  // 6. Filter & Sort for Projects
+  // 5. Filter & Sort
   function applyFilters() {
     let list = [...App.projects];
 
@@ -372,8 +301,9 @@
       list = list.filter(p => {
         return matchesFuzzy(p.title, q) ||
                matchesFuzzy(p.category, q) ||
-               p.tags.some(tag => matchesFuzzy(tag, q)) ||
-               p.tech.some(tech => matchesFuzzy(tech, q));
+               (p.features && p.features.some(f => matchesFuzzy(f, q))) ||
+               (p.tags && p.tags.some(tag => matchesFuzzy(tag, q))) ||
+               (p.tech && p.tech.some(tech => matchesFuzzy(tech, q)));
       });
     }
 
@@ -389,11 +319,11 @@
     }
 
     App.filteredProjects = list;
-    App.loadedCount = 18;
+    App.loadedCount = Math.min(24, list.length);
     renderGrid();
   }
 
-  // 7. Render Categories in Sidebar
+  // 6. Render Categories in Sidebar
   function renderCategories() {
     if (!UI.categoryList) return;
 
@@ -446,10 +376,11 @@
     });
   }
 
-  // 8. Render Projects Grid (YouTube-Style with Hover Live Preview)
+  // 7. Render Projects Grid (HAR BIR LOYIHA NIMA EKANLIGI TO'LIQ VA ANIQ KO'RINADI)
   function renderGrid() {
     if (!UI.projectsGrid) return;
 
+    const totalFiltered = App.filteredProjects.length;
     const visibleList = App.filteredProjects.slice(0, App.loadedCount);
 
     if (visibleList.length === 0) {
@@ -460,6 +391,8 @@
           <p style="color:var(--text-muted); margin-top:8px;">Boshqa kalit so'z yoki filtrlar orqali qidirib ko'ring.</p>
         </div>
       `;
+      if (UI.loadMoreBtn) UI.loadMoreBtn.style.display = 'none';
+      if (UI.showAllBtn) UI.showAllBtn.style.display = 'none';
       return;
     }
 
@@ -467,6 +400,16 @@
       const isFav = App.favorites.includes(p.id);
       const isCompleted = App.completedLessons.includes(p.id);
       const levelClass = p.level.toLowerCase().includes('bosh') ? 'boshlangich' : (p.level.toLowerCase().includes('o\'rta') ? 'orta' : 'murakkab');
+
+      // Nima ekanligi (Aniq tavsif)
+      const desc = p.lesson && p.lesson.objective ? p.lesson.objective : (p.features ? p.features.join('. ') : `${p.title} loyihasi.`);
+
+      // 3 ta real funksiya
+      const features = (p.features && p.features.length > 0) ? p.features.slice(0, 3) : [
+        "To'liq moslashuvchan responsive interfeys",
+        "Interaktiv hodisalar va foydalanuvchi harakatlari",
+        "DOM va brauzer ma'lumotlar boshqaruvi"
+      ];
 
       return `
         <article class="project-card" data-id="${p.id}" tabindex="0" role="button" aria-label="${p.title}">
@@ -486,25 +429,51 @@
           </div>
 
           <div class="card-body">
-            <h3 class="card-title">${p.title}</h3>
-            
+            <!-- Nomi va Raqami -->
+            <h3 class="card-title">${p.id}. ${p.title}</h3>
+
+            <!-- NIMA EKANLIGI (TUSHUNARLI TAVSIF) -->
+            <p class="card-desc" title="${desc}">${desc}</p>
+
+            <!-- 3 TA REAL FUNKSIYASI -->
+            <div class="card-features-box">
+              ${features.map(f => `
+                <div class="card-feature-item" title="${f}">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>${f}</span>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Texnologiyalar -->
             <div class="card-tech-tags">
-              ${p.tech.slice(0, 3).map(t => `<span class="tech-tag">${t}</span>`).join('')}
+              ${p.tech.slice(0, 4).map(t => `<span class="tech-tag">${t}</span>`).join('')}
               ${isCompleted ? `<span class="tech-tag" style="background:rgba(16,185,129,0.15); color:#10b981;"><i class="fa-solid fa-check"></i> ${I18N[App.lang].completedBadge}</span>` : ''}
             </div>
 
+            <!-- TEZKOR AMALLAR TUGMALARI -->
+            <div class="card-quick-actions">
+              <button class="card-action-btn view-btn" data-view-id="${p.id}">
+                <i class="fa-solid fa-play"></i> ${I18N[App.lang].quickView}
+              </button>
+              <button class="card-action-btn download-btn" data-dl-id="${p.id}">
+                <i class="fa-solid fa-download"></i> ${I18N[App.lang].quickZip}
+              </button>
+            </div>
+
+            <!-- Reyting va Yuklashlar -->
             <div class="card-meta-row">
               <span class="card-rating">
                 <i class="fa-solid fa-star"></i> ${p.rating}
               </span>
-              <span><i class="fa-solid fa-download"></i> ${p.downloads}</span>
+              <span><i class="fa-solid fa-download"></i> ${p.downloads} yuklash</span>
             </div>
           </div>
         </article>
       `;
     }).join('');
 
-    // Attach card event listeners (Hover preview + Click open studio)
+    // Attach card event listeners
     UI.projectsGrid.querySelectorAll('.project-card').forEach(card => {
       const id = parseInt(card.dataset.id, 10);
       const iframe = card.querySelector('.card-hover-iframe');
@@ -524,9 +493,9 @@
         if (hoverTimeout) clearTimeout(hoverTimeout);
       };
 
-      // Click opens Project Studio
+      // Card click opens Project Studio
       card.onclick = (e) => {
-        if (e.target.closest('.card-fav-btn')) return;
+        if (e.target.closest('.card-fav-btn') || e.target.closest('.card-action-btn')) return;
         openStudio(id);
       };
 
@@ -534,6 +503,24 @@
       card.onkeydown = (e) => {
         if (e.key === 'Enter') openStudio(id);
       };
+
+      // Action buttons
+      const viewBtn = card.querySelector('.view-btn');
+      if (viewBtn) {
+        viewBtn.onclick = (e) => {
+          e.stopPropagation();
+          openStudio(id);
+        };
+      }
+
+      const dlBtn = card.querySelector('.download-btn');
+      if (dlBtn) {
+        dlBtn.onclick = (e) => {
+          e.stopPropagation();
+          const target = App.projects.find(x => x.id === id);
+          if (target) downloadProjectZip(target);
+        };
+      }
     });
 
     // Attach heart button toggles
@@ -544,12 +531,25 @@
         toggleFavorite(id);
       };
     });
+
+    // Update Load More & Show All Buttons
+    if (UI.loadMoreBtn && UI.showAllBtn) {
+      if (App.loadedCount >= totalFiltered) {
+        UI.loadMoreBtn.style.display = 'none';
+        UI.showAllBtn.textContent = `✓ ${I18N[App.lang].allLoaded} (${totalFiltered} ta)`;
+        UI.showAllBtn.disabled = true;
+      } else {
+        UI.loadMoreBtn.style.display = 'inline-flex';
+        UI.showAllBtn.style.display = 'inline-flex';
+        UI.showAllBtn.textContent = `${I18N[App.lang].showAll}`;
+        UI.showAllBtn.disabled = false;
+      }
+    }
   }
 
-  // 9. Infinite Scroll
+  // 8. Infinite Scroll
   window.addEventListener('scroll', () => {
-    if (App.currentPage !== 'projects') return;
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 600) {
       if (App.loadedCount < App.filteredProjects.length) {
         App.loadedCount += 12;
         renderGrid();
@@ -557,7 +557,7 @@
     }
   });
 
-  // 10. Open Project Studio Modal
+  // 9. Open Project Studio Modal
   async function openStudio(id) {
     const p = App.projects.find(item => item.id === id);
     if (!p) return;
@@ -580,7 +580,7 @@
       const isCompleted = App.completedLessons.includes(p.id);
       UI.studioLessonContent.innerHTML = `
         <div class="lesson-section-card">
-          <h3><i class="fa-solid fa-bullseye"></i> 1. Dars Maqsadi</h3>
+          <h3><i class="fa-solid fa-bullseye"></i> 1. Loyiha Maqsadi & Arxitekturasi</h3>
           <p>${p.lesson ? p.lesson.objective : p.title + ' loyihasi'}</p>
         </div>
 
@@ -593,12 +593,12 @@
 
         <div class="lesson-section-card">
           <h3><i class="fa-solid fa-code"></i> 3. Chuqur Kod Tahlili (Under The Hood)</h3>
-          <p>${p.lesson ? p.lesson.codeExplanation : 'Standart kod tuzilmasi'}</p>
+          <p>${p.lesson ? p.lesson.codeExplanation : 'Standart toza kod tuzilmasi.'}</p>
         </div>
 
         <div class="lesson-section-card">
           <h3><i class="fa-solid fa-dumbbell"></i> 4. Amaliy Mustahkamlash Mashqi</h3>
-          <p>${p.lesson ? p.lesson.exercise : 'Mashqni bajaring'}</p>
+          <p>${p.lesson ? p.lesson.exercise : 'Loyihaga yangi xususiyat qo\'shing va sinab ko\'ring.'}</p>
         </div>
 
         <div class="lesson-complete-action">
@@ -634,7 +634,7 @@
     App.activeProject = null;
   }
 
-  // 11. Load Source Code for Studio
+  // 10. Load Source Code for Studio
   async function loadSourceCode(p, fileType) {
     if (!UI.studioCodePre) return;
     UI.studioCodePre.textContent = 'Kod yuklanmoqda...';
@@ -672,7 +672,7 @@
     }
   }
 
-  // 12. Studio Tabs Switching
+  // 11. Studio Tabs Switching
   function switchStudioTab(tab) {
     document.querySelectorAll('.studio-tab-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.tab === tab);
@@ -683,7 +683,7 @@
     });
   }
 
-  // 13. Studio Viewport Switcher
+  // 12. Studio Viewport Switcher
   function setViewport(view) {
     App.activeViewport = view;
     document.querySelectorAll('.device-btn').forEach(btn => {
@@ -696,24 +696,19 @@
     else if (view === 'mobile') UI.studioPreviewIframe.classList.add('mobile-view');
   }
 
-  // 14. Download Project as ZIP using JSZip
+  // 13. Download Project as ZIP using JSZip
   async function downloadProjectZip(p) {
     if (!p) return;
-    const btn = UI.downloadZipBtn;
-    const origHtml = btn ? btn.innerHTML : '';
-    if (btn) {
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Tayyorlanmoqda...';
-      btn.disabled = true;
-    }
+    showToast(`⏳ ${p.title} ZIP tayyorlanmoqda...`);
 
     try {
       if (typeof JSZip === 'undefined') {
-        alert("JSZip yuklanmadi. Sahifani yangilang.");
+        alert("JSZip kutubxonasi topilmadi. Sahifani yangilang.");
         return;
       }
 
       const zip = new JSZip();
-      const folderName = `${p.id}-${p.slug || 'project'}`;
+      const folderName = `${p.id}-${p.slug || 'loyiha'}`;
       const folder = zip.folder(folderName);
       const dir = p.demo ? p.demo.replace('/index.html', '') : '';
 
@@ -749,15 +744,10 @@
       showToast(`📦 ${p.title} ZIP yuklab olindi!`);
     } catch (err) {
       alert("ZIP yaratishda xatolik: " + err.message);
-    } finally {
-      if (btn) {
-        btn.innerHTML = origHtml;
-        btn.disabled = false;
-      }
     }
   }
 
-  // 15. Related Projects Recommendation
+  // 14. Related Projects Recommendation
   function renderRelatedProjects(currentProject) {
     if (!UI.relatedProjectsList) return;
     const related = App.projects
@@ -778,7 +768,7 @@
     });
   }
 
-  // 16. Favorites & History
+  // 15. Favorites & History
   function toggleFavorite(id) {
     const idx = App.favorites.indexOf(id);
     if (idx > -1) {
@@ -817,12 +807,10 @@
     }
     localStorage.setItem('frontcraft_completed_lessons', JSON.stringify(App.completedLessons));
     renderGrid();
-    renderLessonsTree();
     if (App.activeProject) openStudio(App.activeProject.id);
-    if (App.activeLesson && App.activeLesson.id === id) selectLesson(App.activeLesson);
   }
 
-  // 17. Continue Learning Banner
+  // 16. Continue Learning Banner
   function updateContinueBanner() {
     if (!UI.continueBanner) return;
     if (App.history.length > 0) {
@@ -832,10 +820,7 @@
         if (UI.continueProjectName) UI.continueProjectName.textContent = p.title;
         UI.continueBanner.style.display = 'flex';
         if (UI.continueBtn) {
-          UI.continueBtn.onclick = () => {
-            switchPage('projects');
-            openStudio(p.id);
-          };
+          UI.continueBtn.onclick = () => openStudio(p.id);
         }
         return;
       }
@@ -843,286 +828,13 @@
     UI.continueBanner.style.display = 'none';
   }
 
-  // 18. Stats Rendering
+  // 17. Stats Rendering
   function renderStats() {
     if (UI.statsProjectsCount) UI.statsProjectsCount.textContent = App.projects.length + '+';
-    if (UI.statsLessonsCount) UI.statsLessonsCount.textContent = App.lessons.length + '+';
+    if (UI.statsLessonsCount) UI.statsLessonsCount.textContent = '278+';
   }
 
-  // =========================================================================
-  // 19. PAGE 2: INTERACTIVE LESSONS CURRICULUM & WORKSPACE LOGIC
-  // =========================================================================
-
-  function renderLessonsTree() {
-    if (!UI.lessonsTreeContainer || App.lessons.length === 0) return;
-
-    // Calculate progress
-    const total = App.lessons.length;
-    const completedCount = App.completedLessons.length;
-    const percent = Math.min(100, Math.round((completedCount / total) * 100)) || 0;
-
-    if (UI.lessonsProgressPercent) UI.lessonsProgressPercent.textContent = `${percent}%`;
-    if (UI.lessonsProgressBar) UI.lessonsProgressBar.style.width = `${percent}%`;
-
-    // Group lessons by module
-    const groups = {};
-    App.lessons.forEach(lesson => {
-      const mod = lesson.module || 'Boshqa';
-      if (!groups[mod]) {
-        groups[mod] = {
-          title: lesson.moduleName || mod,
-          icon: lesson.moduleIcon || 'fa-folder',
-          color: lesson.moduleColor || '#38bdf8',
-          items: []
-        };
-      }
-      groups[mod].items.push(lesson);
-    });
-
-    const moduleKeys = Object.keys(groups);
-
-    UI.lessonsTreeContainer.innerHTML = moduleKeys.map((modKey, mIdx) => {
-      const g = groups[modKey];
-      const isFirst = mIdx === 0;
-
-      return `
-        <div class="module-group" data-module="${modKey}">
-          <div class="module-header" role="button" tabindex="0" onclick="this.nextElementSibling.classList.toggle('hidden')">
-            <div class="module-header-left">
-              <i class="fa-solid ${g.icon}" style="color: ${g.color};"></i>
-              <span>${g.title}</span>
-            </div>
-            <span class="module-count">${g.items.length} dars</span>
-          </div>
-          <ul class="module-lessons-list ${isFirst ? '' : ''}">
-            ${g.items.map(les => {
-              const isComp = App.completedLessons.includes(les.id);
-              const isActive = App.activeLesson && App.activeLesson.id === les.id;
-              return `
-                <li class="lesson-nav-item ${isActive ? 'active' : ''} ${isComp ? 'completed' : ''}" data-lesson-id="${les.id}">
-                  <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:230px;">
-                    ${les.rawTitle || les.title}
-                  </span>
-                  ${isComp ? '<i class="fa-solid fa-circle-check" style="color:var(--success);"></i>' : '<i class="fa-regular fa-circle" style="opacity:0.4; font-size:0.8rem;"></i>'}
-                </li>
-              `;
-            }).join('')}
-          </ul>
-        </div>
-      `;
-    }).join('');
-
-    // Attach click handlers to lesson items
-    UI.lessonsTreeContainer.querySelectorAll('.lesson-nav-item').forEach(item => {
-      item.onclick = () => {
-        const id = parseInt(item.dataset.lessonId, 10);
-        const target = App.lessons.find(l => l.id === id);
-        if (target) selectLesson(target);
-      };
-    });
-  }
-
-  function selectLesson(lesson) {
-    if (!lesson) return;
-    App.activeLesson = lesson;
-
-    // Update active highlight in tree
-    if (UI.lessonsTreeContainer) {
-      UI.lessonsTreeContainer.querySelectorAll('.lesson-nav-item').forEach(el => {
-        el.classList.toggle('active', parseInt(el.dataset.lessonId, 10) === lesson.id);
-      });
-    }
-
-    // Top Bar Info
-    if (UI.lessonCurrentTitle) UI.lessonCurrentTitle.textContent = lesson.title;
-    if (UI.lessonCurrentModule) UI.lessonCurrentModule.textContent = lesson.moduleName || lesson.module;
-
-    // Completion Button State
-    const isCompleted = App.completedLessons.includes(lesson.id);
-    if (UI.lessonCompleteBtn) {
-      UI.lessonCompleteBtn.innerHTML = `
-        <i class="fa-solid fa-circle-check"></i>
-        <span>${isCompleted ? I18N[App.lang].completedBadge : I18N[App.lang].markCompleted}</span>
-      `;
-      UI.lessonCompleteBtn.classList.toggle('active', isCompleted);
-      UI.lessonCompleteBtn.onclick = () => {
-        toggleLessonCompleted(lesson.id);
-      };
-    }
-
-    // Live Preview Frame
-    if (UI.lessonPreviewFrame) {
-      UI.lessonPreviewFrame.src = lesson.demo || 'about:blank';
-    }
-
-    // Theory Tab Content
-    if (UI.lessonTheoryCard) {
-      UI.lessonTheoryCard.innerHTML = `
-        <h3><i class="fa-solid fa-bullseye"></i> 1. Dars Maqsadi</h3>
-        <p>${lesson.objective || 'Mavzuni to\'liq o\'rganish va amaliyotda qo\'llash.'}</p>
-        
-        <h3 style="margin-top:20px;"><i class="fa-solid fa-list-ol"></i> 2. Amalga Oshirish Qadamlari</h3>
-        <ul class="lesson-steps-list">
-          ${lesson.steps ? lesson.steps.map(s => `<li class="lesson-step-item">${s}</li>`).join('') : ''}
-        </ul>
-
-        <h3 style="margin-top:20px;"><i class="fa-solid fa-code"></i> 3. Chuqur Kod Tahlili (Under The Hood)</h3>
-        <p>${lesson.codeExplanation || 'Kod arxitekturasi va standartlari.'}</p>
-      `;
-    }
-
-    // Exercise Tab Content
-    if (UI.lessonExerciseCard) {
-      UI.lessonExerciseCard.innerHTML = `
-        <h3><i class="fa-solid fa-dumbbell"></i> 4. Amaliy Mustahkamlash Mashqi</h3>
-        <p>${lesson.exercise || 'Dars kodiga o\'zgartirish kiriting va mustaqil ravishda sinab ko\'ring.'}</p>
-        <div style="margin-top:20px; padding:16px; background:var(--bg-card); border-radius:8px; border-left:3px solid var(--accent);">
-          <strong>💡 Maslahat:</strong>
-          <p style="margin-top:6px; font-size:0.9rem; color:var(--text-muted);">
-            Kod tabiga o'ting, kodni nusxalang va o'zgartirishlar kiritib yangi funksiyalar qo'shing.
-          </p>
-        </div>
-      `;
-    }
-
-    // Code Tab Setup with Files
-    setupLessonCodeTab(lesson);
-
-    // ZIP Download Button for this lesson
-    if (UI.lessonDownloadBtn) {
-      UI.lessonDownloadBtn.onclick = () => downloadLessonZip(lesson);
-    }
-  }
-
-  function setupLessonCodeTab(lesson) {
-    if (!UI.lessonCodeFileTabs || !UI.lessonCodeViewer) return;
-
-    const files = lesson.files && lesson.files.length > 0 ? lesson.files : [
-      { name: 'index.html', relPath: `${lesson.folderPath}/index.html` }
-    ];
-
-    App.activeLessonFile = files[0];
-
-    UI.lessonCodeFileTabs.innerHTML = files.map((f, idx) => `
-      <button class="code-file-btn ${idx === 0 ? 'active' : ''}" data-path="${f.relPath}">
-        ${f.name}
-      </button>
-    `).join('');
-
-    UI.lessonCodeFileTabs.querySelectorAll('.code-file-btn').forEach(btn => {
-      btn.onclick = () => {
-        UI.lessonCodeFileTabs.querySelectorAll('.code-file-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        fetchLessonCode(btn.dataset.path);
-      };
-    });
-
-    if (files.length > 0) {
-      fetchLessonCode(files[0].relPath);
-    }
-
-    if (UI.lessonCopyCodeBtn) {
-      UI.lessonCopyCodeBtn.onclick = () => {
-        if (UI.lessonCodeViewer && navigator.clipboard) {
-          navigator.clipboard.writeText(UI.lessonCodeViewer.textContent).then(() => {
-            showToast(I18N[App.lang].toastCopied);
-          });
-        }
-      };
-    }
-  }
-
-  async function fetchLessonCode(path) {
-    if (!UI.lessonCodeViewer) return;
-    UI.lessonCodeViewer.textContent = 'Kod yuklanmoqda...';
-
-    try {
-      const res = await fetch(path);
-      if (res.ok) {
-        const text = await res.text();
-        UI.lessonCodeViewer.textContent = text;
-      } else {
-        UI.lessonCodeViewer.textContent = `// Fayl mavjud emas yoki yuklanmadi: ${path}`;
-      }
-    } catch (e) {
-      UI.lessonCodeViewer.textContent = `// Xatolik: ${e.message}`;
-    }
-  }
-
-  async function downloadLessonZip(lesson) {
-    if (!lesson) return;
-    const btn = UI.lessonDownloadBtn;
-    const origHtml = btn ? btn.innerHTML : '';
-    if (btn) {
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Tayyorlanmoqda...';
-      btn.disabled = true;
-    }
-
-    try {
-      if (typeof JSZip === 'undefined') {
-        alert("JSZip yuklanmadi.");
-        return;
-      }
-
-      const zip = new JSZip();
-      const folderName = `dars-${lesson.id}-${lesson.title.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
-      const folder = zip.folder(folderName);
-
-      const files = lesson.files && lesson.files.length > 0 ? lesson.files : [
-        { name: 'index.html', relPath: `${lesson.folderPath}/index.html` }
-      ];
-
-      for (const f of files) {
-        try {
-          const res = await fetch(f.relPath);
-          if (res.ok) {
-            const blob = await res.blob();
-            folder.file(f.name, blob);
-          }
-        } catch (e) {
-          console.warn('Dars fayli yuklanmadi:', f.name, e);
-        }
-      }
-
-      const zipBlob = await zip.generateAsync({ type: 'blob' });
-      const fileName = `${folderName}.zip`;
-
-      if (typeof saveAs === 'function') {
-        saveAs(zipBlob, fileName);
-      } else {
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(zipBlob);
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-      }
-
-      showToast(`📦 ${lesson.title} ZIP yuklab olindi!`);
-    } catch (e) {
-      alert("ZIP yaratishda xato: " + e.message);
-    } finally {
-      if (btn) {
-        btn.innerHTML = origHtml;
-        btn.disabled = false;
-      }
-    }
-  }
-
-  // Lesson tabs switching
-  function switchLessonTab(tab) {
-    App.activeLessonTab = tab;
-    document.querySelectorAll('.lesson-tab-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.lessonTab === tab);
-    });
-
-    document.querySelectorAll('.lesson-view-pane').forEach(pane => {
-      pane.classList.toggle('active', pane.id === `lessonTab-${tab}`);
-    });
-  }
-
-  // 20. Toast Message Notification
+  // 18. Toast Message Notification
   function showToast(msg) {
     if (!UI.toast) return;
     UI.toast.textContent = msg;
@@ -1130,7 +842,7 @@
     setTimeout(() => UI.toast.classList.remove('show'), 2800);
   }
 
-  // 21. Event Listeners Setup
+  // 19. Event Listeners Setup
   function setupEvents() {
     // Search input
     if (UI.searchInput) {
@@ -1176,6 +888,21 @@
       };
     });
 
+    // Load More & Show All Buttons
+    if (UI.loadMoreBtn) {
+      UI.loadMoreBtn.onclick = () => {
+        App.loadedCount += 24;
+        renderGrid();
+      };
+    }
+
+    if (UI.showAllBtn) {
+      UI.showAllBtn.onclick = () => {
+        App.loadedCount = App.filteredProjects.length;
+        renderGrid();
+      };
+    }
+
     // Theme Toggle
     if (UI.themeToggleBtn) {
       UI.themeToggleBtn.onclick = () => {
@@ -1194,7 +921,7 @@
         localStorage.setItem('frontcraft_lang', App.lang);
         updateLanguageUI();
         renderCategories();
-        if (App.activeLesson) selectLesson(App.activeLesson);
+        applyFilters();
       };
     }
 
@@ -1202,13 +929,6 @@
     document.querySelectorAll('.studio-tab-btn').forEach(btn => {
       btn.onclick = () => {
         switchStudioTab(btn.dataset.tab);
-      };
-    });
-
-    // Lesson Tabs
-    document.querySelectorAll('.lesson-tab-btn').forEach(btn => {
-      btn.onclick = () => {
-        switchLessonTab(btn.dataset.lessonTab);
       };
     });
 
@@ -1266,7 +986,8 @@
     window.addEventListener('keydown', (e) => {
       if (e.key === '/' && document.activeElement !== UI.searchInput) {
         e.preventDefault();
-        switchPage('projects');
+        const catalogEl = document.getElementById('catalog');
+        if (catalogEl) catalogEl.scrollIntoView({ behavior: 'smooth' });
         if (UI.searchInput) {
           UI.searchInput.focus();
           UI.searchInput.select();
@@ -1275,17 +996,9 @@
         closeStudio();
       }
     });
-
-    // Hash change event listener for browser back/forward buttons
-    window.addEventListener('hashchange', () => {
-      const page = window.location.hash.replace('#', '');
-      if (['welcome', 'lessons', 'projects'].includes(page)) {
-        switchPage(page);
-      }
-    });
   }
 
-  // 22. Update Language Strings in DOM
+  // 20. Update Language Strings in DOM
   function updateLanguageUI() {
     const dict = I18N[App.lang];
     if (UI.searchInput) UI.searchInput.placeholder = dict.searchPlaceholder;
@@ -1295,7 +1008,7 @@
     });
   }
 
-  // 23. Service Worker Registration for PWA Offline Capability
+  // 21. Service Worker Registration for PWA Offline Capability
   function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js').catch(err => {
