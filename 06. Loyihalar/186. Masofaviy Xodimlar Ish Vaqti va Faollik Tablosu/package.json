@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-186-masofaviy-xodimlar-ish-vaqti-va-faollik-tablosu",
+  "version": "1.0.0",
+  "description": "Masofaviy Xodimlar Ish Vaqti va Faollik Tablosu",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "admin panel",
+    "remote work",
+    "time clock",
+    "employee timesheet",
+    "productivity"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

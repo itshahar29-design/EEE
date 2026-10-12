@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onlayn Anonim Fikrlar Qutisi va Hissiyotlar Analitikasi | EduMemory Pro Platforma</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body data-theme="dark">
+  <!-- SPA Sarlavha Paneli -->
+  <header class="app-header" role="banner">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <div class="brand-text">
+          <h1>Onlayn Anonim Fikrlar Qutisi va Hissiyotlar Analitikasi</h1>
+          <p class="subtitle">EduMemory Frontend Platformasi &bull; №195 Loyiha (O'rta Daraja)</p>
+        </div>
+      </div>
+
+      <!-- SPA Hash Navigatsiya Tablari -->
+      <nav class="spa-nav" role="navigation" aria-label="SPA Navigatsiya">
+        <a href="#dashboard" class="spa-nav-link active" data-view="dashboard"><i class="fa-solid fa-gauge"></i> Asosiy</a>
+        <a href="#analytics" class="spa-nav-link" data-view="analytics"><i class="fa-solid fa-chart-pie"></i> Analitika</a>
+        <a href="#settings" class="spa-nav-link" data-view="settings"><i class="fa-solid fa-sliders"></i> Sozlamalar</a>
+      </nav>
+
+      <div class="header-actions">
+        <span class="badge level-badge" aria-label="Daraja: O'rta">O'rta</span>
+        <button id="themeToggleBtn" class="btn btn-secondary icon-btn" aria-label="Yorug'lik rejimini almashtirish">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" role="main">
+    <div class="app-layout">
+      <!-- 1. Chap Boshqaruv va Kiritish Paneli -->
+      <section class="control-panel card" aria-label="Boshqaruv paneli">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-circle-plus"></i> Yangi Yozuv / Parametr</h2>
+          <span class="status-indicator online">API Ulandi</span>
+        </div>
+        
+        <div class="panel-body">
+          <form id="primaryForm" novalidate>
+            <div class="form-group">
+              <label for="itemNameInput"><i class="fa-solid fa-tag"></i> Nomi / Sarlavha:</label>
+              <input type="text" id="itemNameInput" class="form-control" placeholder="Nomini kiriting..." required minlength="3">
+              <div id="itemNameError" class="form-error-msg" role="alert"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="categoryInput"><i class="fa-solid fa-layer-group"></i> Toifa:</label>
+                <select id="categoryInput" class="form-control">
+                  <option value="asosiy">Asosiy operatsiya</option>
+                  <option value="marketing">Marketing / Reklama</option>
+                  <option value="texnik">Texnik ta'minot</option>
+                  <option value="xizmat">Xizmatlar</option>
+                </select>
+              </div>
+
+              <div class="form-group flex-1">
+                <label for="amountInput"><i class="fa-solid fa-coins"></i> Miqdor / Ko'rsatkich:</label>
+                <input type="number" id="amountInput" class="form-control" placeholder="100" min="1" value="150" required>
+                <div id="amountError" class="form-error-msg" role="alert"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="priorityRange"><i class="fa-solid fa-fire"></i> Muhimlik darajasi: <span id="priorityValue" class="highlight-val">O'rta</span></label>
+              <input type="range" id="priorityRange" min="1" max="3" value="2" class="form-range">
+            </div>
+
+            <div class="button-group">
+              <button type="submit" id="submitBtn" class="btn btn-primary" aria-label="Saqlash">
+                <i class="fa-solid fa-floppy-disk"></i> Ma'lumotni Saqlash
+              </button>
+              <button type="button" id="refreshApiBtn" class="btn btn-secondary" aria-label="API yangilash">
+                <i class="fa-solid fa-arrows-rotate"></i> Yangilash
+              </button>
+              <button type="button" id="clearAllBtn" class="btn btn-danger" aria-label="Tozalash">
+                <i class="fa-solid fa-trash"></i> Tozalash
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- 2. O'ng Analitika va Interaktiv Natijalar Paneli -->
+      <section class="display-panel card" aria-label="Analitika va grafiklar paneli">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-chart-column"></i> Dinamik Trendlar va Metrikalar</h2>
+          <div class="card-tools">
+            <button id="exportCsvBtn" class="btn btn-small btn-secondary" aria-label="CSV formatda yuklab olish">
+              <i class="fa-solid fa-file-csv"></i> CSV Eksport
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <!-- Metrikalar Tablosi -->
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <span class="metric-title">Jami Yozuvlar</span>
+              <span id="totalRecordsCount" class="metric-value">0</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-title">O'rtacha Ko'rsatkich</span>
+              <span id="averageMetricValue" class="metric-value">0</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-title">Faollik Darajasi</span>
+              <span id="systemStatusBadge" class="metric-value success">98.5%</span>
+            </div>
+          </div>
+
+          <!-- Interaktiv SVG / Canvas Grafik Hududi -->
+          <div class="chart-wrapper" id="chartArea" role="region" aria-label="Dinamik grafik">
+            <svg id="dynamicSvgChart" class="svg-chart" viewBox="0 0 500 160" preserveAspectRatio="none">
+              <!-- Dinamik ravishda chiziladi -->
+            </svg>
+          </div>
+
+          <!-- Ro'yxat Jadvali -->
+          <div class="table-container">
+            <div class="table-header-row">
+              <h3><i class="fa-solid fa-table-list"></i> Ma'lumotlar Reestri</h3>
+              <input type="text" id="tableFilterInput" class="form-control filter-input" placeholder="Tezkor qidiruv..." aria-label="Reestrda qidiruv">
+            </div>
+
+            <ul id="dataTableList" class="data-items-list" role="list">
+              <li class="empty-list-item">Ma'lumotlar yuklanmoqda yoki mavjud emas.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <p>&copy; 2026 EduMemory. Professional Frontend Dasturlash Platformasi (№195 Loyiha).</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

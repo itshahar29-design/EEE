@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-179-mahsulotlar-taqqoslagich-va-xususiyatlar-matritsasi",
+  "version": "1.0.0",
+  "description": "Mahsulotlar Taqqoslagich va Xususiyatlar Matritsasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "e-commerce",
+    "product comparison",
+    "specs matrix",
+    "e-commerce",
+    "differences"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

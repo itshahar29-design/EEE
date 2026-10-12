@@ -1,0 +1,21 @@
+{
+  "name": "edumemory-project-158-loyiha-boshqaruvi-va-sprint-vazifalar-taqsimoti",
+  "version": "1.0.0",
+  "description": "Loyiha Boshqaruvi va Sprint Vazifalar Taqsimoti",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "kanban",
+    "project management",
+    "sprint",
+    "kanban",
+    "agile",
+    "drag-drop"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

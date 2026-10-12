@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-190-talim-kurslari-dars-jadvali-va-xonalar-bandligi",
+  "version": "1.0.0",
+  "description": "Ta'lim Kurslari Dars Jadvali va Xonalar Bandligi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "dashboard",
+    "schedule grid",
+    "timetable",
+    "classrooms",
+    "education management"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

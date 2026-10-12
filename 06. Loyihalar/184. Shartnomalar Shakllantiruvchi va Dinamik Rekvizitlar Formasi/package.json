@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-184-shartnomalar-shakllantiruvchi-va-dinamik-rekvizitlar-formasi",
+  "version": "1.0.0",
+  "description": "Shartnomalar Shakllantiruvchi va Dinamik Rekvizitlar Formasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "contract generator",
+    "legal template",
+    "document form",
+    "print pdf"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

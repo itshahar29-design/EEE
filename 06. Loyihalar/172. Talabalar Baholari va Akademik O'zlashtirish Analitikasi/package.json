@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-172-talabalar-baholari-va-akademik-ozlashtirish-analitikasi",
+  "version": "1.0.0",
+  "description": "Talabalar Baholari va Akademik O'zlashtirish Analitikasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "data visualization",
+    "gradebook",
+    "gpa analytics",
+    "student performance",
+    "charts"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

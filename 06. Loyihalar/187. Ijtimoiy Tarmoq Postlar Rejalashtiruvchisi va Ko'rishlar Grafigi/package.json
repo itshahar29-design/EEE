@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-187-ijtimoiy-tarmoq-postlar-rejalashtiruvchisi-va-korishlar-grafigi",
+  "version": "1.0.0",
+  "description": "Ijtimoiy Tarmoq Postlar Rejalashtiruvchisi va Ko'rishlar Grafigi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "crm/to-do",
+    "social media scheduler",
+    "content calendar",
+    "engagement",
+    "analytics"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

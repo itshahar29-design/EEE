@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-169-tibbiy-qabullarni-rejalashtirish-va-vrachlar-jadvali",
+  "version": "1.0.0",
+  "description": "Tibbiy Qabullarni Rejalashtirish va Vrachlar Jadvali",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "dashboard",
+    "doctor booking",
+    "medical appointments",
+    "calendar",
+    "healthcare"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

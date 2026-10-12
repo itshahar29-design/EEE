@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-159-jonli-chat-xabarlar-oqimi-va-foydalanuvchilar-holati",
+  "version": "1.0.0",
+  "description": "Jonli Chat Xabarlar Oqimi va Foydalanuvchilar Holati",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "chat ui",
+    "chat app",
+    "messenger",
+    "real-time ui",
+    "typing indicator"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-194-restoran-taomnomasi-tahrirlagichi-va-narxlar-boshqaruvi",
+  "version": "1.0.0",
+  "description": "Restoran Taomnomasi Tahrirlagichi va Narxlar Boshqaruvi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "admin panel",
+    "restaurant menu builder",
+    "dish editor",
+    "pricing admin",
+    "food items"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

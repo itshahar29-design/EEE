@@ -1,0 +1,21 @@
+{
+  "name": "edumemory-project-154-admin-foydalanuvchilar-roli-va-ruxsatlar-matritsasi",
+  "version": "1.0.0",
+  "description": "Admin Foydalanuvchilar Roli va Ruxsatlar Matritsasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "admin panel",
+    "admin panel",
+    "rbac",
+    "roles",
+    "permissions",
+    "security"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

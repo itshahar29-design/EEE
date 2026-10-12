@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-163-ob-havo-radari-va-7-kunlik-harorat-grafigi",
+  "version": "1.0.0",
+  "description": "Ob-havo Radari va 7 Kunlik Harorat Grafigi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "api loyihalar",
+    "weather radar",
+    "temperature graph",
+    "forecast",
+    "canvas line chart"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

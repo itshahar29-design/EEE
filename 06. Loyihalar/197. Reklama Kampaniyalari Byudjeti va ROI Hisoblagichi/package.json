@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-197-reklama-kampaniyalari-byudjeti-va-roi-hisoblagichi",
+  "version": "1.0.0",
+  "description": "Reklama Kampaniyalari Byudjeti va ROI Hisoblagichi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "dashboard",
+    "ad campaigns",
+    "marketing roi",
+    "cpc / cpa calculator",
+    "funnel"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

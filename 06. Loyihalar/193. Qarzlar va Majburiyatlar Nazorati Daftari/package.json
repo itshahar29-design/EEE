@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-193-qarzlar-va-majburiyatlar-nazorati-daftari",
+  "version": "1.0.0",
+  "description": "Qarzlar va Majburiyatlar Nazorati Daftari",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator",
+    "debt tracker",
+    "snowball calculator",
+    "financial freedom",
+    "liabilities"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

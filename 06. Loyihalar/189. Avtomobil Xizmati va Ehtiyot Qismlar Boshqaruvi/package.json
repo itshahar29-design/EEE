@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-189-avtomobil-xizmati-va-ehtiyot-qismlar-boshqaruvi",
+  "version": "1.0.0",
+  "description": "Avtomobil Xizmati va Ehtiyot Qismlar Boshqaruvi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "admin panel",
+    "auto service",
+    "mechanic garage",
+    "parts inventory",
+    "repair orders"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

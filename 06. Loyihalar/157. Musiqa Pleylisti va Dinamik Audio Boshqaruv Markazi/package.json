@@ -1,0 +1,21 @@
+{
+  "name": "edumemory-project-157-musiqa-pleylisti-va-dinamik-audio-boshqaruv-markazi",
+  "version": "1.0.0",
+  "description": "Musiqa Pleylisti va Dinamik Audio Boshqaruv Markazi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "animatsiya",
+    "music player",
+    "audio api",
+    "equalizer",
+    "playlist",
+    "interactive ui"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

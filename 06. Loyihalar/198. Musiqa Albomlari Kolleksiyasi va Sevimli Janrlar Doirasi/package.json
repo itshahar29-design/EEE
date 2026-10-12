@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-198-musiqa-albomlari-kolleksiyasi-va-sevimli-janrlar-doirasi",
+  "version": "1.0.0",
+  "description": "Musiqa Albomlari Kolleksiyasi va Sevimli Janrlar Doirasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "portfolio",
+    "music collection",
+    "discography",
+    "vinyl / digital",
+    "album explorer"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}

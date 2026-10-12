@@ -1,0 +1,20 @@
+{
+  "name": "edumemory-project-185-yuk-tashish-logistikasi-va-yetkazib-berish-bosqichlari",
+  "version": "1.0.0",
+  "description": "Yuk Tashish Logistikasi va Yetkazib Berish Bosqichlari",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "dashboard",
+    "logistics",
+    "package tracker",
+    "shipment timeline",
+    "delivery"
+  ],
+  "author": "EduMemory",
+  "license": "MIT"
+}
