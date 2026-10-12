@@ -173,7 +173,7 @@
     completedLessons: JSON.parse(localStorage.getItem('frontcraft_completed_lessons') || '[]'),
     activeProject: null,
     activeCodeTab: 'html',
-    loadedCount: 24,
+    loadedCount: 200,
     activeViewport: 'desktop'
   };
 
@@ -325,7 +325,7 @@
     }
 
     App.filteredProjects = list;
-    App.loadedCount = Math.min(24, list.length);
+    App.loadedCount = list.length; // Barcha loyihalar to'liq ko'rinadi (200 ta loyiha)
     renderGrid();
   }
 
@@ -394,6 +394,72 @@
     if (UI.sidebarBackdrop) UI.sidebarBackdrop.classList.remove('active');
   }
 
+  // 6.5. Get Smart Descriptive Metadata for Every Project
+  function getProjectMeta(p) {
+    const title = p.title || '';
+    let desc = '';
+    let f1 = '', f2 = '', f3 = '';
+
+    if (/portfolio/i.test(title)) {
+      desc = "Shaxsiy rezyume, tajriba va loyihalarni ko'rsatuvchi zamonaviy portfolio vitrinasi.";
+      f1 = "To'liq moslashuvchan responsive grid dizayn";
+      f2 = "Loyihalar kartalari va bog'lanish formasi";
+      f3 = "Ko'nikmalar va yutuqlar interaktiv vizuali";
+    } else if (/do'kon|e-commerce|magazin|dokon/i.test(title)) {
+      desc = "Mahsulotlar katalogi, savatcha va buyurtmani hisoblovchi interaktiv do'kon ilovasi.";
+      f1 = "Savatchaga qo'shish va miqdorini boshqarish";
+      f2 = "Jami narxni hisoblash va chegirma kodi";
+      f3 = "LocalStorage orqali savatchani xotirada saqlash";
+    } else if (/kalkulyator|calculator|hisobla/i.test(title)) {
+      desc = "Matematik va moliyaviy amallarni tezkor va aniq bajaruvchi interaktiv kalkulyator.";
+      f1 = "Asosiy arifmetik va foiz hisoblash amallari";
+      f2 = "Klaviatura yordamida kiritishni qo'llab-quvvatlash";
+      f3 = "Amallar tarixini ko'rish va tozalash";
+    } else if (/ob-havo|weather/i.test(title)) {
+      desc = "Shaharlar bo'yicha jonli ob-havo harorati, namlik va prognozni ko'rsatuvchi ilova.";
+      f1 = "Shahar bo'yicha tezkor qidiruv va ma'lumot olish";
+      f2 = "Haftalik prognoz va ob-havo holati belgilari";
+      f3 = "Selsiy va Farengeyt birliklarini almashtirish";
+    } else if (/o'yin|game|tic-tac-toe|iloncha|qushcha|2048|ping-pong|ball|mole/i.test(title)) {
+      desc = "Fikrni charxlovchi, ballar hisobini yurituvchi qiziqarli interaktiv brauzer o'yini.";
+      f1 = "Klaviatura yoki sensor orqali qulay boshqaruv";
+      f2 = "Jonli ballar sanagichi va eng yuqori rekord";
+      f3 = "Qayta boshlash va g'alaba/mag'lubiyat effektlari";
+    } else if (/generator|parol|qr kod|rang|shakl|box-shadow|border-radius|clip-path/i.test(title)) {
+      desc = "Kiritilgan parametrlarga qarab kerakli kod, rang yoki faylni tezkor yaratuvchi generator.";
+      f1 = "Turli parametrlar va slayderlar orqali sozlash";
+      f2 = "Bir bosishda natijani clipboardga nusxalash";
+      f3 = "Jonli oldindan ko'rish va tarixni yuritish";
+    } else if (/taymer|soat|pomodoro|budilnik/i.test(title)) {
+      desc = "Vaqtni unumli boshqarish, fokuslanish va aniq vaqtni o'lchovchi interaktiv vosita.";
+      f1 = "Boshlash, to'xtatish va qayta nolga tushirish";
+      f2 = "Vaqt tugaganda bildirishnoma va tovush signali";
+      f3 = "Fokus va dam olish intervallarini avtomatlashtirish";
+    } else if (/kanban|to-do|reja|eslatma|boshqar|odatlar/i.test(title)) {
+      desc = "Vazifalar, ish rejalari va eslatmalarni tizimli boshqaruvchi unumdorlik doskasi.";
+      f1 = "Vazifalarni qo'shish, tahrirlash va o'chirish";
+      f2 = "Ustunlar bo'yicha saralash va holatini o'zgartirish";
+      f3 = "Brauzer xotirasida (LocalStorage) doimiy saqlash";
+    } else if (/dashboard|admin|statistika|tahlil/i.test(title)) {
+      desc = "Biznes ko'rsatkichlari, tahliliy grafiklar va ma'lumotlar monitoringi boshqaruv paneli.";
+      f1 = "Vizual diagrammalar va ko'rsatkichlar kartalari";
+      f2 = "Vaqt oralig'i bo'yicha saralash va qidiruv";
+      f3 = "Moslashuvchan yon menyu va qorong'u rejim";
+    } else if (/landing|sayt|agentlik|restoran|klinika|kurs|turizm|fitnes/i.test(title)) {
+      desc = "Zamonaviy biznes, xizmatlar yoki loyihalar uchun mo'ljallangan to'liq veb-sahifa.";
+      f1 = "Mijozlarni jalb qiluvchi zamonaviy Hero bloki";
+      f2 = "Interaktiv xizmatlar, narxlar jadvali va menyu";
+      f3 = "Buyurtma berish va aloqa formasi integratsiyasi";
+    } else {
+      desc = p.lesson && p.lesson.objective ? p.lesson.objective : `${title} — zamonaviy frontend texnologiyalarida yaratilgan mustaqil amaliy loyiha.`;
+      f1 = "To'liq moslashuvchan responsive interfeys";
+      f2 = "Foydalanuvchi harakatlariga tezkor hodisalar javobi";
+      f3 = "Toza arxitektura va mustaqil ishga tushirish";
+    }
+
+    return { desc, features: [f1, f2, f3] };
+  }
+
   // 7. Render Projects Grid (HAR BIR LOYIHA NIMA EKANLIGI TO'LIQ VA ANIQ KO'RINADI)
   function renderGrid() {
     if (!UI.projectsGrid) return;
@@ -419,15 +485,8 @@
       const isCompleted = App.completedLessons.includes(p.id);
       const levelClass = p.level.toLowerCase().includes('bosh') ? 'boshlangich' : (p.level.toLowerCase().includes('o\'rta') ? 'orta' : 'murakkab');
 
-      // Nima ekanligi (Aniq tavsif)
-      const desc = p.lesson && p.lesson.objective ? p.lesson.objective : (p.features ? p.features.join('. ') : `${p.title} loyihasi.`);
-
-      // 3 ta real funksiya
-      const features = (p.features && p.features.length > 0) ? p.features.slice(0, 3) : [
-        "To'liq moslashuvchan responsive interfeys",
-        "Interaktiv hodisalar va foydalanuvchi harakatlari",
-        "DOM va brauzer ma'lumotlar boshqaruvi"
-      ];
+      // Har bir loyiha nima ekanligi va 3 ta funksiyasi
+      const meta = getProjectMeta(p);
 
       return `
         <article class="project-card" data-id="${p.id}" tabindex="0" role="button" aria-label="${p.title}">
@@ -451,11 +510,18 @@
             <h3 class="card-title">${p.id}. ${p.title}</h3>
 
             <!-- NIMA EKANLIGI (TUSHUNARLI TAVSIF) -->
-            <p class="card-desc" title="${desc}">${desc}</p>
+            <div class="card-desc-badge">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Vazifasi:</span>
+            </div>
+            <p class="card-desc" title="${meta.desc}">${meta.desc}</p>
 
             <!-- 3 TA REAL FUNKSIYASI -->
+            <div class="card-features-heading">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> 3 ta asosiy funksiyasi:
+            </div>
             <div class="card-features-box">
-              ${features.map(f => `
+              ${meta.features.map(f => `
                 <div class="card-feature-item" title="${f}">
                   <i class="fa-solid fa-circle-check"></i>
                   <span>${f}</span>
