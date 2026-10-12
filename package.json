@@ -1,21 +1,22 @@
 {
-  "name": "maxfiy-frontend-masterclass",
-  "version": "1.0.0",
-  "description": "Front-End Masterclass Darslari va 10x Real Loyihalar Portali",
+  "name": "edumemory-pro",
+  "version": "2.0.0",
+  "description": "EduMemory Pro - Frontend Dasturchilar Platformasi (200+ Real Loyihalar va Darslar)",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "validate": "node scripts/validate.js",
+    "build:zips": "node scripts/build-zips.js"
   },
   "keywords": [
     "frontend",
-    "html",
-    "css",
+    "html5",
+    "css3",
     "javascript",
-    "react",
     "portfolio",
-    "uzbek",
+    "edumemory",
     "education"
   ],
-  "author": "Fayozbek Hamidov",
+  "author": "EduMemory",
   "license": "MIT"
 }

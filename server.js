@@ -90,9 +90,10 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`=======================================================`);
-  console.log(`🚀 FRONT-END 10X PORTAL SERVER ISHGATUSHIRILDI!`);
-  console.log(`🌐 Manzil: http://localhost:${PORT}`);
-  console.log(`📚 Jami Darslar va Loyihalar: 178 ta (100 ta Real Loyiha)`);
-  console.log(`🛠️ Render.com porti: ${PORT}`);
+  console.log(`🚀 EDUMEMORY PRO - FRONTEND PLATFORMA SERVERI ISHGA TUSHDI!`);
+  console.log(`🌐 Mahalliy manzil: http://localhost:${PORT}`);
+  console.log(`🌐 Render domeni: https://edumemory-pro.onrender.com`);
+  console.log(`📚 Jami Loyihalar: 200 ta (Real Portfolio Loyihalari)`);
+  console.log(`🛠️ Server porti: ${PORT}`);
   console.log(`=======================================================`);
 });
