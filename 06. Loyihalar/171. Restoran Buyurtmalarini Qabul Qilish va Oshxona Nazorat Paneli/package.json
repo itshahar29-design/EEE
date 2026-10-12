@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-171-restoran-buyurtmalarini-qabul-qilish-va-oshxona-nazorat-paneli",
+  "name": "frontcraft-project-171-restoran-buyurtmalarini-qabul-qilish-va-oshxona-nazorat-paneli",
   "version": "1.0.0",
   "description": "Restoran Buyurtmalarini Qabul Qilish va Oshxona Nazorat Paneli",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "orders management",
     "food"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

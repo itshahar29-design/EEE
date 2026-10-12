@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-188-kochmas-mulk-narxlarini-baholash-va-ipoteka-taqqoslagich",
+  "name": "frontcraft-project-188-kochmas-mulk-narxlarini-baholash-va-ipoteka-taqqoslagich",
   "version": "1.0.0",
   "description": "Ko'chmas Mulk Narxlarini Baholash va Ipoteka Taqqoslagich",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "down payment",
     "calculator"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-165-mahsulotlar-katalogi-va-jonli-savdo-qidiruv-tizimi",
+  "name": "frontcraft-project-165-mahsulotlar-katalogi-va-jonli-savdo-qidiruv-tizimi",
   "version": "1.0.0",
   "description": "Mahsulotlar Katalogi va Jonli Savdo Qidiruv Tizimi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "pagination",
     "e-commerce"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

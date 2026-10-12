@@ -1,5 +1,5 @@
 /**
- * Minimalist Ovoz Ekvayzeri va Tovush Sintezatori - EduMemory Pro Platformasi
+ * Minimalist Ovoz Ekvayzeri va Tovush Sintezatori - FrontCraft Pro Platformasi
  * Loyiha ID: 111 | Kategoriya: Animatsiya
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_111_state';
+  const STORAGE_KEY = 'frontcraft_project_111_state';
 
   const state = {
     inputVal: '',

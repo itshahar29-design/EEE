@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-179-mahsulotlar-taqqoslagich-va-xususiyatlar-matritsasi",
+  "name": "frontcraft-project-179-mahsulotlar-taqqoslagich-va-xususiyatlar-matritsasi",
   "version": "1.0.0",
   "description": "Mahsulotlar Taqqoslagich va Xususiyatlar Matritsasi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "e-commerce",
     "differences"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-151-fintech-balans-boshqaruvi-va-oylik-tranzaksiyalar-grafigi",
+  "name": "frontcraft-project-151-fintech-balans-boshqaruvi-va-oylik-tranzaksiyalar-grafigi",
   "version": "1.0.0",
   "description": "FinTech Balans Boshqaruvi va Oylik Tranzaksiyalar Grafigi",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "svg chart",
     "state"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

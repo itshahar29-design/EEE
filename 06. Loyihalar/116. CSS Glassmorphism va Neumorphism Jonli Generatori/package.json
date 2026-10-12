@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-116-css-glassmorphism-va-neumorphism-jonli-generatori",
+  "name": "frontcraft-project-116-css-glassmorphism-va-neumorphism-jonli-generatori",
   "version": "1.0.0",
   "description": "CSS Glassmorphism va Neumorphism Jonli Generatori",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "css generator",
     "ui design"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

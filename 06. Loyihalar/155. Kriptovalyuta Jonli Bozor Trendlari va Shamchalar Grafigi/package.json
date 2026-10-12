@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-155-kriptovalyuta-jonli-bozor-trendlari-va-shamchalar-grafigi",
+  "name": "frontcraft-project-155-kriptovalyuta-jonli-bozor-trendlari-va-shamchalar-grafigi",
   "version": "1.0.0",
   "description": "Kriptovalyuta Jonli Bozor Trendlari va Shamchalar Grafigi",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "trading",
     "analytics"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

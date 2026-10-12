@@ -1,5 +1,5 @@
 /**
- * Tibbiy Qabullarni Rejalashtirish va Vrachlar Jadvali - EduMemory Pro Platformasi
+ * Tibbiy Qabullarni Rejalashtirish va Vrachlar Jadvali - FrontCraft Pro Platformasi
  * Loyiha ID: 169 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_169_store';
+  const STORAGE_KEY = 'frontcraft_project_169_store';
 
   const Store = {
     state: {

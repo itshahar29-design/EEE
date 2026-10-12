@@ -1,5 +1,5 @@
 /**
- * Kitobxonlar Jamiyati va Reyting Taqsimoti - EduMemory Pro Platformasi
+ * Kitobxonlar Jamiyati va Reyting Taqsimoti - FrontCraft Pro Platformasi
  * Loyiha ID: 183 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_183_store';
+  const STORAGE_KEY = 'frontcraft_project_183_store';
 
   const Store = {
     state: {

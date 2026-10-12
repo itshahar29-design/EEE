@@ -1,5 +1,5 @@
 /**
- * Xotira Matritsasi va Refleks Mashq Qildiruvchi O'yin - EduMemory Pro Platformasi
+ * Xotira Matritsasi va Refleks Mashq Qildiruvchi O'yin - FrontCraft Pro Platformasi
  * Loyiha ID: 114 | Kategoriya: O'yinlar
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_114_state';
+  const STORAGE_KEY = 'frontcraft_project_114_state';
 
   const state = {
     inputVal: '',

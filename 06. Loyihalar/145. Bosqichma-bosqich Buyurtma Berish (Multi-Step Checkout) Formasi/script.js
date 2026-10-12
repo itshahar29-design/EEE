@@ -1,5 +1,5 @@
 /**
- * Bosqichma-bosqich Buyurtma Berish (Multi-Step Checkout) Formasi - EduMemory Pro Platformasi
+ * Bosqichma-bosqich Buyurtma Berish (Multi-Step Checkout) Formasi - FrontCraft Pro Platformasi
  * Loyiha ID: 145 | Kategoriya: E-commerce
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_145_state';
+  const STORAGE_KEY = 'frontcraft_project_145_state';
 
   const state = {
     inputVal: '',

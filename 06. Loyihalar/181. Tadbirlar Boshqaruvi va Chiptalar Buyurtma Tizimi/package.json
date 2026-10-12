@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-181-tadbirlar-boshqaruvi-va-chiptalar-buyurtma-tizimi",
+  "name": "frontcraft-project-181-tadbirlar-boshqaruvi-va-chiptalar-buyurtma-tizimi",
   "version": "1.0.0",
   "description": "Tadbirlar Boshqaruvi va Chiptalar Buyurtma Tizimi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "concert",
     "booking system"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-194-restoran-taomnomasi-tahrirlagichi-va-narxlar-boshqaruvi",
+  "name": "frontcraft-project-194-restoran-taomnomasi-tahrirlagichi-va-narxlar-boshqaruvi",
   "version": "1.0.0",
   "description": "Restoran Taomnomasi Tahrirlagichi va Narxlar Boshqaruvi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "pricing admin",
     "food items"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

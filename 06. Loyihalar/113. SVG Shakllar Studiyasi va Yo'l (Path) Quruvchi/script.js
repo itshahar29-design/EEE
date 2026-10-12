@@ -1,5 +1,5 @@
 /**
- * SVG Shakllar Studiyasi va Yo'l (Path) Quruvchi - EduMemory Pro Platformasi
+ * SVG Shakllar Studiyasi va Yo'l (Path) Quruvchi - FrontCraft Pro Platformasi
  * Loyiha ID: 113 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_113_state';
+  const STORAGE_KEY = 'frontcraft_project_113_state';
 
   const state = {
     inputVal: '',

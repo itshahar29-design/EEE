@@ -1,5 +1,5 @@
 /**
- * RegEx Qoliplar Sinov Qumloqchasi va Mosliklarni Ajratgich - EduMemory Pro Platformasi
+ * RegEx Qoliplar Sinov Qumloqchasi va Mosliklarni Ajratgich - FrontCraft Pro Platformasi
  * Loyiha ID: 120 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_120_state';
+  const STORAGE_KEY = 'frontcraft_project_120_state';
 
   const state = {
     inputVal: '',

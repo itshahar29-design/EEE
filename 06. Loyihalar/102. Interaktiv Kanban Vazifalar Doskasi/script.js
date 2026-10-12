@@ -1,5 +1,5 @@
 /**
- * Interaktiv Kanban Vazifalar Doskasi - EduMemory Pro Platformasi
+ * Interaktiv Kanban Vazifalar Doskasi - FrontCraft Pro Platformasi
  * Loyiha ID: 102 | Kategoriya: Kanban
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_102_state';
+  const STORAGE_KEY = 'frontcraft_project_102_state';
 
   const state = {
     inputVal: '',

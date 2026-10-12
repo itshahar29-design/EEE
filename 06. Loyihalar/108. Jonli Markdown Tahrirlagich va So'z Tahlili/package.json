@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-108-jonli-markdown-tahrirlagich-va-soz-tahlili",
+  "name": "frontcraft-project-108-jonli-markdown-tahrirlagich-va-soz-tahlili",
   "version": "1.0.0",
   "description": "Jonli Markdown Tahrirlagich va So'z Tahlili",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "live preview",
     "word counter"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

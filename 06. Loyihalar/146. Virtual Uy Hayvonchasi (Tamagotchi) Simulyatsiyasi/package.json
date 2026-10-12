@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-146-virtual-uy-hayvonchasi-tamagotchi-simulyatsiyasi",
+  "name": "frontcraft-project-146-virtual-uy-hayvonchasi-tamagotchi-simulyatsiyasi",
   "version": "1.0.0",
   "description": "Virtual Uy Hayvonchasi (Tamagotchi) Simulyatsiyasi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "simulation",
     "interactive game"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

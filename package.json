@@ -1,7 +1,7 @@
 {
-  "name": "edumemory-pro",
+  "name": "frontcraft-pro",
   "version": "2.0.0",
-  "description": "EduMemory Pro - Frontend Dasturchilar Platformasi (200+ Real Loyihalar va Darslar)",
+  "description": "FrontCraft Pro - Frontend Dasturchilar Platformasi (200+ Real Loyihalar va Darslar)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -14,9 +14,9 @@
     "css3",
     "javascript",
     "portfolio",
-    "edumemory",
+    "frontcraft",
     "education"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

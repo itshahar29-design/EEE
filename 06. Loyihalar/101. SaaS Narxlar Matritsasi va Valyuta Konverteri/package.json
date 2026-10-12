@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-101-saas-narxlar-matritsasi-va-valyuta-konverteri",
+  "name": "frontcraft-project-101-saas-narxlar-matritsasi-va-valyuta-konverteri",
   "version": "1.0.0",
   "description": "SaaS Narxlar Matritsasi va Valyuta Konverteri",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "saas",
     "responsive"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

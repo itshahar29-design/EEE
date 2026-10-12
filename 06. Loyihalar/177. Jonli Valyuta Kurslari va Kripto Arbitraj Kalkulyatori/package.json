@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-177-jonli-valyuta-kurslari-va-kripto-arbitraj-kalkulyatori",
+  "name": "frontcraft-project-177-jonli-valyuta-kurslari-va-kripto-arbitraj-kalkulyatori",
   "version": "1.0.0",
   "description": "Jonli Valyuta Kurslari va Kripto Arbitraj Kalkulyatori",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "profit spread",
     "calculator"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

@@ -1,5 +1,5 @@
 /**
- * Internet Do'kon Chegirma Kuponlari va Savdo Hisoblagichi - EduMemory Pro Platformasi
+ * Internet Do'kon Chegirma Kuponlari va Savdo Hisoblagichi - FrontCraft Pro Platformasi
  * Loyiha ID: 173 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_173_store';
+  const STORAGE_KEY = 'frontcraft_project_173_store';
 
   const Store = {
     state: {

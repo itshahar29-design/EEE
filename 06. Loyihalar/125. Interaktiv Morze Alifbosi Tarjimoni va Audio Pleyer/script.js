@@ -1,5 +1,5 @@
 /**
- * Interaktiv Morze Alifbosi Tarjimoni va Audio Pleyer - EduMemory Pro Platformasi
+ * Interaktiv Morze Alifbosi Tarjimoni va Audio Pleyer - FrontCraft Pro Platformasi
  * Loyiha ID: 125 | Kategoriya: API loyihalar
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_125_state';
+  const STORAGE_KEY = 'frontcraft_project_125_state';
 
   const state = {
     inputVal: '',

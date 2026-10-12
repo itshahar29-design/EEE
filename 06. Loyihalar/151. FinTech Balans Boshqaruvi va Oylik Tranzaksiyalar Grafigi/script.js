@@ -1,5 +1,5 @@
 /**
- * FinTech Balans Boshqaruvi va Oylik Tranzaksiyalar Grafigi - EduMemory Pro Platformasi
+ * FinTech Balans Boshqaruvi va Oylik Tranzaksiyalar Grafigi - FrontCraft Pro Platformasi
  * Loyiha ID: 151 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_151_store';
+  const STORAGE_KEY = 'frontcraft_project_151_store';
 
   const Store = {
     state: {

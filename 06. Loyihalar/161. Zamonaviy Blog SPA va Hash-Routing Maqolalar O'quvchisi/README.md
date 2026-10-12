@@ -1,7 +1,7 @@
 # Zamonaviy Blog SPA va Hash-Routing Maqolalar O'quvchisi
 
 ## 📌 Umumiy Tavsif
-Ushbu loyiha **EduMemory Pro Frontend Platformasi**ning **№161** raqamli amaliy portfolio loyihasidir.
+Ushbu loyiha **FrontCraft Pro Frontend Platformasi**ning **№161** raqamli amaliy portfolio loyihasidir.
 
 - **Kategoriya:** Clone UI
 - **Daraja:** O'rta (Intermediate)
@@ -26,4 +26,4 @@ Ushbu loyiha **EduMemory Pro Frontend Platformasi**ning **№161** raqamli amali
 3. Barcha funksiyalar to'liq avtonom va mahalliy (offline) ishlaydi.
 
 ---
-&copy; 2026 EduMemory. Frontend Masterclass.
+&copy; 2026 FrontCraft. Frontend Masterclass.

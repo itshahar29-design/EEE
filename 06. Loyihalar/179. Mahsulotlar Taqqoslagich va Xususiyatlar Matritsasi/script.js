@@ -1,5 +1,5 @@
 /**
- * Mahsulotlar Taqqoslagich va Xususiyatlar Matritsasi - EduMemory Pro Platformasi
+ * Mahsulotlar Taqqoslagich va Xususiyatlar Matritsasi - FrontCraft Pro Platformasi
  * Loyiha ID: 179 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_179_store';
+  const STORAGE_KEY = 'frontcraft_project_179_store';
 
   const Store = {
     state: {

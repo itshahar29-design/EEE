@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-159-jonli-chat-xabarlar-oqimi-va-foydalanuvchilar-holati",
+  "name": "frontcraft-project-159-jonli-chat-xabarlar-oqimi-va-foydalanuvchilar-holati",
   "version": "1.0.0",
   "description": "Jonli Chat Xabarlar Oqimi va Foydalanuvchilar Holati",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "real-time ui",
     "typing indicator"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

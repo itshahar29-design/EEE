@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-166-interaktiv-sorovnoma-va-ovozlar-taqsimoti-dinamikasi",
+  "name": "frontcraft-project-166-interaktiv-sorovnoma-va-ovozlar-taqsimoti-dinamikasi",
   "version": "1.0.0",
   "description": "Interaktiv So'rovnoma va Ovozlar Taqsimoti Dinamikasi",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "surveys",
     "dashboard"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

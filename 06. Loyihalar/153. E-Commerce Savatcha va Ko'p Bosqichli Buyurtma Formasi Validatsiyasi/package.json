@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-153-e-commerce-savatcha-va-kop-bosqichli-buyurtma-formasi-validatsiyasi",
+  "name": "frontcraft-project-153-e-commerce-savatcha-va-kop-bosqichli-buyurtma-formasi-validatsiyasi",
   "version": "1.0.0",
   "description": "E-Commerce Savatcha va Ko'p Bosqichli Buyurtma Formasi Validatsiyasi",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "validation",
     "cart"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

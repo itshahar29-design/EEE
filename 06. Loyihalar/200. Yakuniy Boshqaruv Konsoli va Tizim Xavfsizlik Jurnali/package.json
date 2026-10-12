@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-200-yakuniy-boshqaruv-konsoli-va-tizim-xavfsizlik-jurnali",
+  "name": "frontcraft-project-200-yakuniy-boshqaruv-konsoli-va-tizim-xavfsizlik-jurnali",
   "version": "1.0.0",
   "description": "Yakuniy Boshqaruv Konsoli va Tizim Xavfsizlik Jurnali",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "ip tracker",
     "admin hub"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

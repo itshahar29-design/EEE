@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-195-onlayn-anonim-fikrlar-qutisi-va-hissiyotlar-analitikasi",
+  "name": "frontcraft-project-195-onlayn-anonim-fikrlar-qutisi-va-hissiyotlar-analitikasi",
   "version": "1.0.0",
   "description": "Onlayn Anonim Fikrlar Qutisi va Hissiyotlar Analitikasi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "sentiment analysis",
     "community"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

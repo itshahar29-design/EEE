@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-135-mijozlar-fikri-va-nps-baholash-vidjeti",
+  "name": "frontcraft-project-135-mijozlar-fikri-va-nps-baholash-vidjeti",
   "version": "1.0.0",
   "description": "Mijozlar Fikri va NPS Baholash Vidjeti",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "customer care",
     "admin panel"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

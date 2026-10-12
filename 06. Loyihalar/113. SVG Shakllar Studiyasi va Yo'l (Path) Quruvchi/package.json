@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-113-svg-shakllar-studiyasi-va-yol-path-quruvchi",
+  "name": "frontcraft-project-113-svg-shakllar-studiyasi-va-yol-path-quruvchi",
   "version": "1.0.0",
   "description": "SVG Shakllar Studiyasi va Yo'l (Path) Quruvchi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "vector graphics",
     "web design"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

@@ -1,5 +1,5 @@
 /**
- * E-Commerce Mahsulotlar Filtr va Ko'p Mezonli Qidiruv To'ri - EduMemory Pro Platformasi
+ * E-Commerce Mahsulotlar Filtr va Ko'p Mezonli Qidiruv To'ri - FrontCraft Pro Platformasi
  * Loyiha ID: 122 | Kategoriya: E-commerce
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_122_state';
+  const STORAGE_KEY = 'frontcraft_project_122_state';
 
   const state = {
     inputVal: '',

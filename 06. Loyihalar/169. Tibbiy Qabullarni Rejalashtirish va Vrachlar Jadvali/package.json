@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-169-tibbiy-qabullarni-rejalashtirish-va-vrachlar-jadvali",
+  "name": "frontcraft-project-169-tibbiy-qabullarni-rejalashtirish-va-vrachlar-jadvali",
   "version": "1.0.0",
   "description": "Tibbiy Qabullarni Rejalashtirish va Vrachlar Jadvali",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "calendar",
     "healthcare"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

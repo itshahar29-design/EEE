@@ -1,5 +1,5 @@
 /**
- * Ko'chmas Mulk Narxlarini Baholash va Ipoteka Taqqoslagich - EduMemory Pro Platformasi
+ * Ko'chmas Mulk Narxlarini Baholash va Ipoteka Taqqoslagich - FrontCraft Pro Platformasi
  * Loyiha ID: 188 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_188_store';
+  const STORAGE_KEY = 'frontcraft_project_188_store';
 
   const Store = {
     state: {

@@ -1,5 +1,5 @@
 /**
- * Valyuta Ayirboshlash Tarixi va Kurs Dinamikasi Grafigi - EduMemory Pro Platformasi
+ * Valyuta Ayirboshlash Tarixi va Kurs Dinamikasi Grafigi - FrontCraft Pro Platformasi
  * Loyiha ID: 167 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_167_store';
+  const STORAGE_KEY = 'frontcraft_project_167_store';
 
   const Store = {
     state: {

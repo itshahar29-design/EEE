@@ -1,5 +1,5 @@
 /**
- * Kunlik Kayfiyat Kundaligi va Emotsiyalar Dinamikasi - EduMemory Pro Platformasi
+ * Kunlik Kayfiyat Kundaligi va Emotsiyalar Dinamikasi - FrontCraft Pro Platformasi
  * Loyiha ID: 123 | Kategoriya: Dashboard
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_123_state';
+  const STORAGE_KEY = 'frontcraft_project_123_state';
 
   const state = {
     inputVal: '',

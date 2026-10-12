@@ -1,5 +1,5 @@
 /**
- * Onlayn Savdo Bo'yicha Boshqaruv Hisoboti va KPI Ko'rsatkichlari - EduMemory Pro Platformasi
+ * Onlayn Savdo Bo'yicha Boshqaruv Hisoboti va KPI Ko'rsatkichlari - FrontCraft Pro Platformasi
  * Loyiha ID: 191 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_191_store';
+  const STORAGE_KEY = 'frontcraft_project_191_store';
 
   const Store = {
     state: {

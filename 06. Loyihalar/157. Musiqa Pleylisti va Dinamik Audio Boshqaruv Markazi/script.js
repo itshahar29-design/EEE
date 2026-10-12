@@ -1,5 +1,5 @@
 /**
- * Musiqa Pleylisti va Dinamik Audio Boshqaruv Markazi - EduMemory Pro Platformasi
+ * Musiqa Pleylisti va Dinamik Audio Boshqaruv Markazi - FrontCraft Pro Platformasi
  * Loyiha ID: 157 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_157_store';
+  const STORAGE_KEY = 'frontcraft_project_157_store';
 
   const Store = {
     state: {

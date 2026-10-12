@@ -1,5 +1,5 @@
 /**
- * Ijtimoiy Tarmoq Postlar Rejalashtiruvchisi va Ko'rishlar Grafigi - EduMemory Pro Platformasi
+ * Ijtimoiy Tarmoq Postlar Rejalashtiruvchisi va Ko'rishlar Grafigi - FrontCraft Pro Platformasi
  * Loyiha ID: 187 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_187_store';
+  const STORAGE_KEY = 'frontcraft_project_187_store';
 
   const Store = {
     state: {

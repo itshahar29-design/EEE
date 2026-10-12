@@ -1,5 +1,5 @@
 /**
- * E-Pochta Shabloni Tahrirlagichi va Jonli HTML Eksport - EduMemory Pro Platformasi
+ * E-Pochta Shabloni Tahrirlagichi va Jonli HTML Eksport - FrontCraft Pro Platformasi
  * Loyiha ID: 178 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_178_store';
+  const STORAGE_KEY = 'frontcraft_project_178_store';
 
   const Store = {
     state: {

@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-152-spa-ish-qidirish-portali-va-filtrlangan-routing",
+  "name": "frontcraft-project-152-spa-ish-qidirish-portali-va-filtrlangan-routing",
   "version": "1.0.0",
   "description": "SPA Ish Qidirish Portali va Filtrlangan Routing",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "career",
     "async"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

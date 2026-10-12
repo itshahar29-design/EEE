@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-134-mini-elektron-jadval-va-matematik-formulalar-hisoblagich",
+  "name": "frontcraft-project-134-mini-elektron-jadval-va-matematik-formulalar-hisoblagich",
   "version": "1.0.0",
   "description": "Mini Elektron Jadval va Matematik Formulalar Hisoblagich",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "excel clone",
     "calculator"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

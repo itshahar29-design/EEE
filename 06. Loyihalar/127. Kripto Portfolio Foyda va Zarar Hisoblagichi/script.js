@@ -1,5 +1,5 @@
 /**
- * Kripto Portfolio Foyda va Zarar Hisoblagichi - EduMemory Pro Platformasi
+ * Kripto Portfolio Foyda va Zarar Hisoblagichi - FrontCraft Pro Platformasi
  * Loyiha ID: 127 | Kategoriya: Calculator
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_127_state';
+  const STORAGE_KEY = 'frontcraft_project_127_state';
 
   const state = {
     inputVal: '',

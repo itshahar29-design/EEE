@@ -488,7 +488,7 @@ function generateProjectFiles(p) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${p.title} | EduMemory Pro Platforma</title>
+  <title>${p.title} | FrontCraft Pro Platforma</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -502,7 +502,7 @@ function generateProjectFiles(p) {
         </div>
         <div class="brand-text">
           <h1>${p.title}</h1>
-          <p class="subtitle">EduMemory Frontend Platformasi &bull; №${p.id} Loyiha (O'rta Daraja)</p>
+          <p class="subtitle">FrontCraft Frontend Platformasi &bull; №${p.id} Loyiha (O'rta Daraja)</p>
         </div>
       </div>
 
@@ -629,7 +629,7 @@ function generateProjectFiles(p) {
   </main>
 
   <footer class="app-footer" role="contentinfo">
-    <p>&copy; 2026 EduMemory. Professional Frontend Dasturlash Platformasi (№${p.id} Loyiha).</p>
+    <p>&copy; 2026 FrontCraft. Professional Frontend Dasturlash Platformasi (№${p.id} Loyiha).</p>
   </footer>
 
   <script src="script.js"></script>
@@ -1104,7 +1104,7 @@ body {
 
   // 3. Robust JavaScript (130+ lines, SPA router, Mock API, Reactive Store, Form validation, SVG chart)
   const jsContent = `/**
- * ${p.title} - EduMemory Pro Platformasi
+ * ${p.title} - FrontCraft Pro Platformasi
  * Loyiha ID: ${p.id} | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -1113,7 +1113,7 @@ body {
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_${p.id}_store';
+  const STORAGE_KEY = 'frontcraft_project_${p.id}_store';
 
   const Store = {
     state: {
@@ -1466,7 +1466,7 @@ body {
   const readmeContent = `# ${p.title}
 
 ## 📌 Umumiy Tavsif
-Ushbu loyiha **EduMemory Pro Frontend Platformasi**ning **№${p.id}** raqamli amaliy portfolio loyihasidir.
+Ushbu loyiha **FrontCraft Pro Frontend Platformasi**ning **№${p.id}** raqamli amaliy portfolio loyihasidir.
 
 - **Kategoriya:** ${p.category}
 - **Daraja:** O'rta (Intermediate)
@@ -1484,25 +1484,25 @@ ${p.tech.map(t => `- ${t}`).join('\n')}
 3. Barcha funksiyalar to'liq avtonom va mahalliy (offline) ishlaydi.
 
 ---
-&copy; 2026 EduMemory. Frontend Masterclass.
+&copy; 2026 FrontCraft. Frontend Masterclass.
 `;
 
   // 5. package.json
   const pkgContent = JSON.stringify({
-    name: `edumemory-project-${p.id}-${slug}`,
+    name: `frontcraft-project-${p.id}-${slug}`,
     version: "1.0.0",
     description: p.title,
     main: "index.html",
     scripts: { "start": "npx serve ." },
     keywords: ["frontend", "javascript", p.category.toLowerCase(), ...p.tags.map(t => t.toLowerCase())],
-    author: "EduMemory",
+    author: "FrontCraft",
     license: "MIT"
   }, null, 2);
 
   // 6. LICENSE
   const licenseContent = `MIT License
 
-Copyright (c) 2026 EduMemory Frontend Platform
+Copyright (c) 2026 FrontCraft Frontend Platform
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.`;
 

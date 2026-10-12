@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-174-onlayn-test-sinovlari-va-natijalar-matritsasi",
+  "name": "frontcraft-project-174-onlayn-test-sinovlari-va-natijalar-matritsasi",
   "version": "1.0.0",
   "description": "Onlayn Test Sinovlari va Natijalar Matritsasi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "timer",
     "quiz matrix"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

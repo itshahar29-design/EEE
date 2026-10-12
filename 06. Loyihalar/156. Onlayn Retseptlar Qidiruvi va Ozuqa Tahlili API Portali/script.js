@@ -1,5 +1,5 @@
 /**
- * Onlayn Retseptlar Qidiruvi va Ozuqa Tahlili API Portali - EduMemory Pro Platformasi
+ * Onlayn Retseptlar Qidiruvi va Ozuqa Tahlili API Portali - FrontCraft Pro Platformasi
  * Loyiha ID: 156 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_156_store';
+  const STORAGE_KEY = 'frontcraft_project_156_store';
 
   const Store = {
     state: {

@@ -1,5 +1,5 @@
 /**
- * Frilanser Invoys va Hisob-Faktura Generatori - EduMemory Pro Platformasi
+ * Frilanser Invoys va Hisob-Faktura Generatori - FrontCraft Pro Platformasi
  * Loyiha ID: 150 | Kategoriya: CRM/To-do
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_150_state';
+  const STORAGE_KEY = 'frontcraft_project_150_state';
 
   const state = {
     inputVal: '',

@@ -1,5 +1,5 @@
 /**
- * Piksel Art Studiyasi va Sprite Eksporti - EduMemory Pro Platformasi
+ * Piksel Art Studiyasi va Sprite Eksporti - FrontCraft Pro Platformasi
  * Loyiha ID: 106 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_106_state';
+  const STORAGE_KEY = 'frontcraft_project_106_state';
 
   const state = {
     inputVal: '',

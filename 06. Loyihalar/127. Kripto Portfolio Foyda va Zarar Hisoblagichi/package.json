@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-127-kripto-portfolio-foyda-va-zarar-hisoblagichi",
+  "name": "frontcraft-project-127-kripto-portfolio-foyda-va-zarar-hisoblagichi",
   "version": "1.0.0",
   "description": "Kripto Portfolio Foyda va Zarar Hisoblagichi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "finance",
     "calculator"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

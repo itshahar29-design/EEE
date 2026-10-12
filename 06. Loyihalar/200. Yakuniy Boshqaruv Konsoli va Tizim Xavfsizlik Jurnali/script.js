@@ -1,5 +1,5 @@
 /**
- * Yakuniy Boshqaruv Konsoli va Tizim Xavfsizlik Jurnali - EduMemory Pro Platformasi
+ * Yakuniy Boshqaruv Konsoli va Tizim Xavfsizlik Jurnali - FrontCraft Pro Platformasi
  * Loyiha ID: 200 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_200_store';
+  const STORAGE_KEY = 'frontcraft_project_200_store';
 
   const Store = {
     state: {

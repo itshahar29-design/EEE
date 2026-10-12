@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-158-loyiha-boshqaruvi-va-sprint-vazifalar-taqsimoti",
+  "name": "frontcraft-project-158-loyiha-boshqaruvi-va-sprint-vazifalar-taqsimoti",
   "version": "1.0.0",
   "description": "Loyiha Boshqaruvi va Sprint Vazifalar Taqsimoti",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "agile",
     "drag-drop"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

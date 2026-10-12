@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-136-css-kop-qatlamli-3d-soyalar-va-qatlamlar-vizualizatori",
+  "name": "frontcraft-project-136-css-kop-qatlamli-3d-soyalar-va-qatlamlar-vizualizatori",
   "version": "1.0.0",
   "description": "CSS Ko'p Qatlamli 3D Soyalar va Qatlamlar Vizualizatori",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "css generator",
     "depth"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

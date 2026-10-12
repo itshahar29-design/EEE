@@ -1,5 +1,5 @@
 /**
- * Tezkor Viktorina Bellashuvi va Jonli Hisoblagich - EduMemory Pro Platformasi
+ * Tezkor Viktorina Bellashuvi va Jonli Hisoblagich - FrontCraft Pro Platformasi
  * Loyiha ID: 129 | Kategoriya: O'yinlar
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_129_state';
+  const STORAGE_KEY = 'frontcraft_project_129_state';
 
   const state = {
     inputVal: '',

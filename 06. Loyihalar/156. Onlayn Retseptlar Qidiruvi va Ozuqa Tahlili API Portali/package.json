@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-156-onlayn-retseptlar-qidiruvi-va-ozuqa-tahlili-api-portali",
+  "name": "frontcraft-project-156-onlayn-retseptlar-qidiruvi-va-ozuqa-tahlili-api-portali",
   "version": "1.0.0",
   "description": "Onlayn Retseptlar Qidiruvi va Ozuqa Tahlili API Portali",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "api fetch",
     "cooking"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

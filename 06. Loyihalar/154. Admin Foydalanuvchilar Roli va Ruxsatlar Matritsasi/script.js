@@ -1,5 +1,5 @@
 /**
- * Admin Foydalanuvchilar Roli va Ruxsatlar Matritsasi - EduMemory Pro Platformasi
+ * Admin Foydalanuvchilar Roli va Ruxsatlar Matritsasi - FrontCraft Pro Platformasi
  * Loyiha ID: 154 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_154_store';
+  const STORAGE_KEY = 'frontcraft_project_154_store';
 
   const Store = {
     state: {

@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-184-shartnomalar-shakllantiruvchi-va-dinamik-rekvizitlar-formasi",
+  "name": "frontcraft-project-184-shartnomalar-shakllantiruvchi-va-dinamik-rekvizitlar-formasi",
   "version": "1.0.0",
   "description": "Shartnomalar Shakllantiruvchi va Dinamik Rekvizitlar Formasi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "document form",
     "print pdf"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

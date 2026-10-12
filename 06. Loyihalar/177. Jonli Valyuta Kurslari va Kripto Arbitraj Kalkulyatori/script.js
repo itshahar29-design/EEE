@@ -1,5 +1,5 @@
 /**
- * Jonli Valyuta Kurslari va Kripto Arbitraj Kalkulyatori - EduMemory Pro Platformasi
+ * Jonli Valyuta Kurslari va Kripto Arbitraj Kalkulyatori - FrontCraft Pro Platformasi
  * Loyiha ID: 177 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_177_store';
+  const STORAGE_KEY = 'frontcraft_project_177_store';
 
   const Store = {
     state: {

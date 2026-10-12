@@ -1,5 +1,5 @@
 /**
- * Aqlli Veb-Xatcho'plar va Teglar Menejeri - EduMemory Pro Platformasi
+ * Aqlli Veb-Xatcho'plar va Teglar Menejeri - FrontCraft Pro Platformasi
  * Loyiha ID: 115 | Kategoriya: CRM/To-do
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_115_state';
+  const STORAGE_KEY = 'frontcraft_project_115_state';
 
   const state = {
     inputVal: '',

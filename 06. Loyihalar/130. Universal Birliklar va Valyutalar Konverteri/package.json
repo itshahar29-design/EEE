@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-130-universal-birliklar-va-valyutalar-konverteri",
+  "name": "frontcraft-project-130-universal-birliklar-va-valyutalar-konverteri",
   "version": "1.0.0",
   "description": "Universal Birliklar va Valyutalar Konverteri",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "weight",
     "temperature"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

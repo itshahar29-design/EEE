@@ -1,5 +1,5 @@
 /**
- * Xavfsiz Parollar Ombori va Kuch Auditoti - EduMemory Pro Platformasi
+ * Xavfsiz Parollar Ombori va Kuch Auditoti - FrontCraft Pro Platformasi
  * Loyiha ID: 119 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_119_state';
+  const STORAGE_KEY = 'frontcraft_project_119_state';
 
   const state = {
     inputVal: '',

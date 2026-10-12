@@ -1,5 +1,5 @@
 /**
- * Dinamik Formalar Quruvchi va JSON Sxema Eksporti - EduMemory Pro Platformasi
+ * Dinamik Formalar Quruvchi va JSON Sxema Eksporti - FrontCraft Pro Platformasi
  * Loyiha ID: 124 | Kategoriya: Admin panel
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_124_state';
+  const STORAGE_KEY = 'frontcraft_project_124_state';
 
   const state = {
     inputVal: '',

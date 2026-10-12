@@ -1,5 +1,5 @@
 /**
- * CSS Gradiyent To'ri (Mesh Gradient) va Fon Generatori - EduMemory Pro Platformasi
+ * CSS Gradiyent To'ri (Mesh Gradient) va Fon Generatori - FrontCraft Pro Platformasi
  * Loyiha ID: 126 | Kategoriya: Animatsiya
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_126_state';
+  const STORAGE_KEY = 'frontcraft_project_126_state';
 
   const state = {
     inputVal: '',

@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-138-interaktiv-kimyoviy-elementlar-davriy-jadvali",
+  "name": "frontcraft-project-138-interaktiv-kimyoviy-elementlar-davriy-jadvali",
   "version": "1.0.0",
   "description": "Interaktiv Kimyoviy Elementlar Davriy Jadvali",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "education",
     "interactive guide"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

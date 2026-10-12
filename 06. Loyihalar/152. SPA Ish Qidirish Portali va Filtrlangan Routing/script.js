@@ -1,5 +1,5 @@
 /**
- * SPA Ish Qidirish Portali va Filtrlangan Routing - EduMemory Pro Platformasi
+ * SPA Ish Qidirish Portali va Filtrlangan Routing - FrontCraft Pro Platformasi
  * Loyiha ID: 152 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_152_store';
+  const STORAGE_KEY = 'frontcraft_project_152_store';
 
   const Store = {
     state: {

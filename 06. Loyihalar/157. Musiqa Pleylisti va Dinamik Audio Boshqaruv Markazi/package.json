@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-157-musiqa-pleylisti-va-dinamik-audio-boshqaruv-markazi",
+  "name": "frontcraft-project-157-musiqa-pleylisti-va-dinamik-audio-boshqaruv-markazi",
   "version": "1.0.0",
   "description": "Musiqa Pleylisti va Dinamik Audio Boshqaruv Markazi",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "playlist",
     "interactive ui"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

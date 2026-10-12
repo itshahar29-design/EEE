@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-183-kitobxonlar-jamiyati-va-reyting-taqsimoti",
+  "name": "frontcraft-project-183-kitobxonlar-jamiyati-va-reyting-taqsimoti",
   "version": "1.0.0",
   "description": "Kitobxonlar Jamiyati va Reyting Taqsimoti",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "book shelf",
     "ratings"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

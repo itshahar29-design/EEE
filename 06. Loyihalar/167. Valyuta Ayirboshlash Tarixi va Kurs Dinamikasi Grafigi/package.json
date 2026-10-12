@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-167-valyuta-ayirboshlash-tarixi-va-kurs-dinamikasi-grafigi",
+  "name": "frontcraft-project-167-valyuta-ayirboshlash-tarixi-va-kurs-dinamikasi-grafigi",
   "version": "1.0.0",
   "description": "Valyuta Ayirboshlash Tarixi va Kurs Dinamikasi Grafigi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "forex",
     "canvas chart"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

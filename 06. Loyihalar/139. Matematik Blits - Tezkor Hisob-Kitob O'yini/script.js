@@ -1,5 +1,5 @@
 /**
- * Matematik Blits: Tezkor Hisob-Kitob O'yini - EduMemory Pro Platformasi
+ * Matematik Blits: Tezkor Hisob-Kitob O'yini - FrontCraft Pro Platformasi
  * Loyiha ID: 139 | Kategoriya: O'yinlar
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_139_state';
+  const STORAGE_KEY = 'frontcraft_project_139_state';
 
   const state = {
     inputVal: '',

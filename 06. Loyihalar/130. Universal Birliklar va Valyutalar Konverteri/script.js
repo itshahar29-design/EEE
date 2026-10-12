@@ -1,5 +1,5 @@
 /**
- * Universal Birliklar va Valyutalar Konverteri - EduMemory Pro Platformasi
+ * Universal Birliklar va Valyutalar Konverteri - FrontCraft Pro Platformasi
  * Loyiha ID: 130 | Kategoriya: Calculator
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_130_state';
+  const STORAGE_KEY = 'frontcraft_project_130_state';
 
   const state = {
     inputVal: '',

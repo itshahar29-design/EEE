@@ -1,5 +1,5 @@
 /**
- * Interaktiv Kimyoviy Elementlar Davriy Jadvali - EduMemory Pro Platformasi
+ * Interaktiv Kimyoviy Elementlar Davriy Jadvali - FrontCraft Pro Platformasi
  * Loyiha ID: 138 | Kategoriya: Data visualization
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_138_state';
+  const STORAGE_KEY = 'frontcraft_project_138_state';
 
   const state = {
     inputVal: '',

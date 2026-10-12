@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-164-foydalanuvchi-royxatdan-otish-va-kengaytirilgan-xavfsizlik-validatsiyasi",
+  "name": "frontcraft-project-164-foydalanuvchi-royxatdan-otish-va-kengaytirilgan-xavfsizlik-validatsiyasi",
   "version": "1.0.0",
   "description": "Foydalanuvchi Ro'yxatdan O'tish va Kengaytirilgan Xavfsizlik Validatsiyasi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "password security",
     "tooltips"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

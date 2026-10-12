@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-106-piksel-art-studiyasi-va-sprite-eksporti",
+  "name": "frontcraft-project-106-piksel-art-studiyasi-va-sprite-eksporti",
   "version": "1.0.0",
   "description": "Piksel Art Studiyasi va Sprite Eksporti",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "sprites",
     "graphic design"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

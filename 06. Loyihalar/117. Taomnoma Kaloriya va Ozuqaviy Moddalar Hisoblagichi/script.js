@@ -1,5 +1,5 @@
 /**
- * Taomnoma Kaloriya va Ozuqaviy Moddalar Hisoblagichi - EduMemory Pro Platformasi
+ * Taomnoma Kaloriya va Ozuqaviy Moddalar Hisoblagichi - FrontCraft Pro Platformasi
  * Loyiha ID: 117 | Kategoriya: Calculator
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_117_state';
+  const STORAGE_KEY = 'frontcraft_project_117_state';
 
   const state = {
     inputVal: '',

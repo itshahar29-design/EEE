@@ -1,5 +1,5 @@
-// Service Worker for EduMemory Pro PWA
-const CACHE_NAME = 'edumemory-cache-v1';
+// Service Worker for FrontCraft Pro PWA
+const CACHE_NAME = 'frontcraft-cache-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

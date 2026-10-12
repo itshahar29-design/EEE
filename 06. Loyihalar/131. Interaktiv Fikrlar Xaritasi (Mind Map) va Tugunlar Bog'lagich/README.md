@@ -1,7 +1,7 @@
 # Interaktiv Fikrlar Xaritasi (Mind Map) va Tugunlar Bog'lagich
 
 ## 📌 Umumiy Tavsif
-Ushbu loyiha **EduMemory Pro Frontend Platformasi**ning **№131** raqamli amaliy portfolio loyihasidir.
+Ushbu loyiha **FrontCraft Pro Frontend Platformasi**ning **№131** raqamli amaliy portfolio loyihasidir.
 
 - **Kategoriya:** Data visualization
 - **Daraja:** Boshlang'ich (Foundation)
@@ -25,4 +25,4 @@ Ushbu loyiha **EduMemory Pro Frontend Platformasi**ning **№131** raqamli amali
 3. Barcha funksiyalar to'liq avtonom va mahalliy (offline) ishlaydi.
 
 ---
-&copy; 2026 EduMemory. Frontend Masterclass.
+&copy; 2026 FrontCraft. Frontend Masterclass.

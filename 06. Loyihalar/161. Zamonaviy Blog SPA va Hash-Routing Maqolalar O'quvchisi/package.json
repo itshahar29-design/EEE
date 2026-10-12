@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-161-zamonaviy-blog-spa-va-hash-routing-maqolalar-oquvchisi",
+  "name": "frontcraft-project-161-zamonaviy-blog-spa-va-hash-routing-maqolalar-oquvchisi",
   "version": "1.0.0",
   "description": "Zamonaviy Blog SPA va Hash-Routing Maqolalar O'quvchisi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "article reader",
     "reading time"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

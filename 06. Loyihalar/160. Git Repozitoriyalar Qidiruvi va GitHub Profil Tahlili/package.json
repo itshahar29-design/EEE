@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-160-git-repozitoriyalar-qidiruvi-va-github-profil-tahlili",
+  "name": "frontcraft-project-160-git-repozitoriyalar-qidiruvi-va-github-profil-tahlili",
   "version": "1.0.0",
   "description": "Git Repozitoriyalar Qidiruvi va GitHub Profil Tahlili",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "repo explorer",
     "developer tools"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

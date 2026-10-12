@@ -1,5 +1,5 @@
 /**
- * Aqlli Xarajatlarni Bo'lish va Hisob-Kitob Kalkulyatori - EduMemory Pro Platformasi
+ * Aqlli Xarajatlarni Bo'lish va Hisob-Kitob Kalkulyatori - FrontCraft Pro Platformasi
  * Loyiha ID: 104 | Kategoriya: Calculator
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_104_state';
+  const STORAGE_KEY = 'frontcraft_project_104_state';
 
   const state = {
     inputVal: '',

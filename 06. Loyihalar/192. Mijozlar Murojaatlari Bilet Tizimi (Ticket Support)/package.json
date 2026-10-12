@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-192-mijozlar-murojaatlari-bilet-tizimi-ticket-support",
+  "name": "frontcraft-project-192-mijozlar-murojaatlari-bilet-tizimi-ticket-support",
   "version": "1.0.0",
   "description": "Mijozlar Murojaatlari Bilet Tizimi (Ticket Support)",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "sla status",
     "issue tracker"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

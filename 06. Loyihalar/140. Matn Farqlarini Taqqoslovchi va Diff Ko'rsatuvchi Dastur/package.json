@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-140-matn-farqlarini-taqqoslovchi-va-diff-korsatuvchi-dastur",
+  "name": "frontcraft-project-140-matn-farqlarini-taqqoslovchi-va-diff-korsatuvchi-dastur",
   "version": "1.0.0",
   "description": "Matn Farqlarini Taqqoslovchi va Diff Ko'rsatuvchi Dastur",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "code diff",
     "editor tools"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-144-interaktiv-shaxmat-soati-va-musobaqa-taymeri",
+  "name": "frontcraft-project-144-interaktiv-shaxmat-soati-va-musobaqa-taymeri",
   "version": "1.0.0",
   "description": "Interaktiv Shaxmat Soati va Musobaqa Taymeri",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "board games",
     "speed chess"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

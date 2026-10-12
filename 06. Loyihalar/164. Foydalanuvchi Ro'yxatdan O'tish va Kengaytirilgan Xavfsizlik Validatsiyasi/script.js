@@ -1,5 +1,5 @@
 /**
- * Foydalanuvchi Ro'yxatdan O'tish va Kengaytirilgan Xavfsizlik Validatsiyasi - EduMemory Pro Platformasi
+ * Foydalanuvchi Ro'yxatdan O'tish va Kengaytirilgan Xavfsizlik Validatsiyasi - FrontCraft Pro Platformasi
  * Loyiha ID: 164 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_164_store';
+  const STORAGE_KEY = 'frontcraft_project_164_store';
 
   const Store = {
     state: {

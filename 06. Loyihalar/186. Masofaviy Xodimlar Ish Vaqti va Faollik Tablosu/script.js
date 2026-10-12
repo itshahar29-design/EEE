@@ -1,5 +1,5 @@
 /**
- * Masofaviy Xodimlar Ish Vaqti va Faollik Tablosu - EduMemory Pro Platformasi
+ * Masofaviy Xodimlar Ish Vaqti va Faollik Tablosu - FrontCraft Pro Platformasi
  * Loyiha ID: 186 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_186_store';
+  const STORAGE_KEY = 'frontcraft_project_186_store';
 
   const Store = {
     state: {

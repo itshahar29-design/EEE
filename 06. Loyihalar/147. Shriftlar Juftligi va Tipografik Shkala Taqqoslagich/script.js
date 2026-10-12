@@ -1,5 +1,5 @@
 /**
- * Shriftlar Juftligi va Tipografik Shkala Taqqoslagich - EduMemory Pro Platformasi
+ * Shriftlar Juftligi va Tipografik Shkala Taqqoslagich - FrontCraft Pro Platformasi
  * Loyiha ID: 147 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_147_state';
+  const STORAGE_KEY = 'frontcraft_project_147_state';
 
   const state = {
     inputVal: '',

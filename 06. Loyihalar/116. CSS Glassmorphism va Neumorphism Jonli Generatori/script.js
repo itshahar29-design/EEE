@@ -1,5 +1,5 @@
 /**
- * CSS Glassmorphism va Neumorphism Jonli Generatori - EduMemory Pro Platformasi
+ * CSS Glassmorphism va Neumorphism Jonli Generatori - FrontCraft Pro Platformasi
  * Loyiha ID: 116 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_116_state';
+  const STORAGE_KEY = 'frontcraft_project_116_state';
 
   const state = {
     inputVal: '',

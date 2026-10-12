@@ -1,5 +1,5 @@
 /**
- * Pomodoro Diqqat Taymeri va Tinchlantiruvchi Ovozlar - EduMemory Pro Platformasi
+ * Pomodoro Diqqat Taymeri va Tinchlantiruvchi Ovozlar - FrontCraft Pro Platformasi
  * Loyiha ID: 121 | Kategoriya: CRM/To-do
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_121_state';
+  const STORAGE_KEY = 'frontcraft_project_121_state';
 
   const state = {
     inputVal: '',

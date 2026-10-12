@@ -1,5 +1,5 @@
 /**
- * Ob-havo Karta Vidjeti va Dinamik Yomg'ir/Quyosh Canvas Effekti - EduMemory Pro Platformasi
+ * Ob-havo Karta Vidjeti va Dinamik Yomg'ir/Quyosh Canvas Effekti - FrontCraft Pro Platformasi
  * Loyiha ID: 141 | Kategoriya: API loyihalar
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_141_state';
+  const STORAGE_KEY = 'frontcraft_project_141_state';
 
   const state = {
     inputVal: '',

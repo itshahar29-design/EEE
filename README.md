@@ -3,7 +3,7 @@
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/itshahar29-design/e)
 
 > **🌐 Jonli Platforma Havolasi:**  
-> 👉 **[https://edumemory-pro.onrender.com](https://edumemory-pro.onrender.com)**
+> 👉 **[https://frontcraft-pro.onrender.com](https://frontcraft-pro.onrender.com)**
 
 O'zbek tilidagi eng mukammal, ochiq va interaktiv **Frontend Loyihalar & Masterclass Platformasi** (200 ta to'liq real portfolio loyihalari va 178 ta chuqur darslar).
 
@@ -46,17 +46,17 @@ Yuqoridagi **"Deploy to Render"** tugmasini yoki quyidagi havolani bosing:
 👉 **[https://render.com/deploy?repo=https://github.com/itshahar29-design/e](https://render.com/deploy?repo=https://github.com/itshahar29-design/e)**
 
 Render avtomatik ravishda `render.yaml` sozlamalarini o'qib, chiroyli havola bilan saytni ishga tushiradi:
-🌐 **[https://edumemory-pro.onrender.com](https://edumemory-pro.onrender.com)**
+🌐 **[https://frontcraft-pro.onrender.com](https://frontcraft-pro.onrender.com)**
 
 ### Qo'lda Joylash Sozlamalari:
 1. [render.com](https://render.com) ga kiring va **"New Web Service"** ni tanlang.
 2. **`itshahar29-design/e`** omborini tanlang.
 3. Sozlamalar:
-   - **Name**: `edumemory-pro`
+   - **Name**: `frontcraft-pro`
    - **Runtime**: `Node`
    - **Build Command**: (bo'sh qoldiring yoki `npm install`)
    - **Start Command**: `node server.js`
-4. **"Deploy Web Service"** tugmasini bosing! Saytingiz `https://edumemory-pro.onrender.com` manzilida ishlaydi.
+4. **"Deploy Web Service"** tugmasini bosing! Saytingiz `https://frontcraft-pro.onrender.com` manzilida ishlaydi.
 
 ---
 
@@ -77,4 +77,4 @@ node scripts/build-zips.js
 ```
 
 ---
-&copy; 2026 EduMemory Pro. Barcha huquqlar himoyalangan.
+&copy; 2026 FrontCraft Pro. Barcha huquqlar himoyalangan.

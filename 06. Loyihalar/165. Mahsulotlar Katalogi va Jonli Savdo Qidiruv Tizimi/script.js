@@ -1,5 +1,5 @@
 /**
- * Mahsulotlar Katalogi va Jonli Savdo Qidiruv Tizimi - EduMemory Pro Platformasi
+ * Mahsulotlar Katalogi va Jonli Savdo Qidiruv Tizimi - FrontCraft Pro Platformasi
  * Loyiha ID: 165 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_165_store';
+  const STORAGE_KEY = 'frontcraft_project_165_store';
 
   const Store = {
     state: {

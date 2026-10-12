@@ -1,5 +1,5 @@
 /**
- * Do'kon Ombori Qoldiqlari va Kam Qolgan Mahsulotlar Signali - EduMemory Pro Platformasi
+ * Do'kon Ombori Qoldiqlari va Kam Qolgan Mahsulotlar Signali - FrontCraft Pro Platformasi
  * Loyiha ID: 196 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_196_store';
+  const STORAGE_KEY = 'frontcraft_project_196_store';
 
   const Store = {
     state: {

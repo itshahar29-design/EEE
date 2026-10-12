@@ -92,7 +92,7 @@ server.listen(PORT, () => {
   console.log(`=======================================================`);
   console.log(`🚀 EDUMEMORY PRO - FRONTEND PLATFORMA SERVERI ISHGA TUSHDI!`);
   console.log(`🌐 Mahalliy manzil: http://localhost:${PORT}`);
-  console.log(`🌐 Render domeni: https://edumemory-pro.onrender.com`);
+  console.log(`🌐 Render domeni: https://frontcraft-pro.onrender.com`);
   console.log(`📚 Jami Loyihalar: 200 ta (Real Portfolio Loyihalari)`);
   console.log(`🛠️ Server porti: ${PORT}`);
   console.log(`=======================================================`);

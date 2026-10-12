@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-123-kunlik-kayfiyat-kundaligi-va-emotsiyalar-dinamikasi",
+  "name": "frontcraft-project-123-kunlik-kayfiyat-kundaligi-va-emotsiyalar-dinamikasi",
   "version": "1.0.0",
   "description": "Kunlik Kayfiyat Kundaligi va Emotsiyalar Dinamikasi",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "mental health",
     "dashboard"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

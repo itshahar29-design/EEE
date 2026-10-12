@@ -1,5 +1,5 @@
 /**
- * Onlayn Lug'at va So'zlar Boyligi Tahlili - EduMemory Pro Platformasi
+ * Onlayn Lug'at va So'zlar Boyligi Tahlili - FrontCraft Pro Platformasi
  * Loyiha ID: 182 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_182_store';
+  const STORAGE_KEY = 'frontcraft_project_182_store';
 
   const Store = {
     state: {

@@ -1,5 +1,5 @@
 /**
- * Mijozlar Murojaatlari Bilet Tizimi (Ticket Support) - EduMemory Pro Platformasi
+ * Mijozlar Murojaatlari Bilet Tizimi (Ticket Support) - FrontCraft Pro Platformasi
  * Loyiha ID: 192 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_192_store';
+  const STORAGE_KEY = 'frontcraft_project_192_store';
 
   const Store = {
     state: {

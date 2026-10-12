@@ -1,5 +1,5 @@
 /**
- * Shartnomalar Shakllantiruvchi va Dinamik Rekvizitlar Formasi - EduMemory Pro Platformasi
+ * Shartnomalar Shakllantiruvchi va Dinamik Rekvizitlar Formasi - FrontCraft Pro Platformasi
  * Loyiha ID: 184 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_184_store';
+  const STORAGE_KEY = 'frontcraft_project_184_store';
 
   const Store = {
     state: {

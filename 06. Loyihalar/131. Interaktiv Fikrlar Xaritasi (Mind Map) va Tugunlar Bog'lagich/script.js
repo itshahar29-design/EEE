@@ -1,5 +1,5 @@
 /**
- * Interaktiv Fikrlar Xaritasi (Mind Map) va Tugunlar Bog'lagich - EduMemory Pro Platformasi
+ * Interaktiv Fikrlar Xaritasi (Mind Map) va Tugunlar Bog'lagich - FrontCraft Pro Platformasi
  * Loyiha ID: 131 | Kategoriya: Data visualization
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_131_state';
+  const STORAGE_KEY = 'frontcraft_project_131_state';
 
   const state = {
     inputVal: '',

@@ -1,5 +1,5 @@
 /**
- * Ovoz Balandligi va To'lqinlar Spektrogrammasi - EduMemory Pro Platformasi
+ * Ovoz Balandligi va To'lqinlar Spektrogrammasi - FrontCraft Pro Platformasi
  * Loyiha ID: 132 | Kategoriya: Animatsiya
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_132_state';
+  const STORAGE_KEY = 'frontcraft_project_132_state';
 
   const state = {
     inputVal: '',

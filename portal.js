@@ -1,5 +1,5 @@
 /**
- * EduMemory Pro Platform - Main Engine
+ * FrontCraft Pro Platform - Main Engine
  * YouTube-style catalog, interactive studio, lessons, i18n & PWA
  */
 
@@ -9,7 +9,7 @@
   // 1. i18n Tarjimalar lug'ati (UZ, RU, EN)
   const I18N = {
     uz: {
-      siteTitle: "EduMemory Pro",
+      siteTitle: "FrontCraft Pro",
       siteSubtitle: "Frontend Dasturlash Platformasi",
       searchPlaceholder: "Loyiha, texnologiya yoki mavzu bo'yicha qidiring... (/)",
       heroBadge: "10X FRONTEND PLATFORMA",
@@ -52,7 +52,7 @@
       toastCompleted: "Tabriklaymiz! Dars muvaffaqiyatli yakunlandi."
     },
     ru: {
-      siteTitle: "EduMemory Pro",
+      siteTitle: "FrontCraft Pro",
       siteSubtitle: "Платформа фронтенд разработки",
       searchPlaceholder: "Поиск проекта, технологии или темы... (/)",
       heroBadge: "10X ФРОНТЕНД ПЛАТФОРМА",
@@ -95,7 +95,7 @@
       toastCompleted: "Поздравляем! Урок успешно завершён."
     },
     en: {
-      siteTitle: "EduMemory Pro",
+      siteTitle: "FrontCraft Pro",
       siteSubtitle: "Frontend Developer Platform",
       searchPlaceholder: "Search projects, technologies or tags... (/)",
       heroBadge: "10X FRONTEND PLATFORM",
@@ -141,8 +141,8 @@
 
   // 2. Global State
   const App = {
-    lang: localStorage.getItem('edumemory_lang') || 'uz',
-    theme: localStorage.getItem('edumemory_theme') || 'dark',
+    lang: localStorage.getItem('frontcraft_lang') || 'uz',
+    theme: localStorage.getItem('frontcraft_theme') || 'dark',
     projects: [],
     filteredProjects: [],
     currentCategory: 'all',
@@ -150,9 +150,9 @@
     currentTech: 'all',
     searchQuery: '',
     sortBy: 'newest',
-    favorites: JSON.parse(localStorage.getItem('edumemory_favorites') || '[]'),
-    history: JSON.parse(localStorage.getItem('edumemory_history') || '[]'),
-    completedLessons: JSON.parse(localStorage.getItem('edumemory_completed') || '[]'),
+    favorites: JSON.parse(localStorage.getItem('frontcraft_favorites') || '[]'),
+    history: JSON.parse(localStorage.getItem('frontcraft_history') || '[]'),
+    completedLessons: JSON.parse(localStorage.getItem('frontcraft_completed') || '[]'),
     activeProject: null,
     activeCodeTab: 'html',
     loadedCount: 18,
@@ -693,7 +693,7 @@
     } else {
       App.favorites.push(id);
     }
-    localStorage.setItem('edumemory_favorites', JSON.stringify(App.favorites));
+    localStorage.setItem('frontcraft_favorites', JSON.stringify(App.favorites));
     renderCategories();
     renderGrid();
     updateStudioFavBtn();
@@ -710,7 +710,7 @@
     App.history = App.history.filter(hId => hId !== id);
     App.history.unshift(id);
     if (App.history.length > 30) App.history.pop();
-    localStorage.setItem('edumemory_history', JSON.stringify(App.history));
+    localStorage.setItem('frontcraft_history', JSON.stringify(App.history));
     updateContinueBanner();
   }
 
@@ -722,7 +722,7 @@
       App.completedLessons.push(id);
       showToast(I18N[App.lang].toastCompleted);
     }
-    localStorage.setItem('edumemory_completed', JSON.stringify(App.completedLessons));
+    localStorage.setItem('frontcraft_completed', JSON.stringify(App.completedLessons));
     renderGrid();
     if (App.activeProject) openStudio(App.activeProject.id);
   }
@@ -810,7 +810,7 @@
       UI.themeToggleBtn.onclick = () => {
         App.theme = App.theme === 'dark' ? 'light' : 'dark';
         document.body.setAttribute('data-theme', App.theme);
-        localStorage.setItem('edumemory_theme', App.theme);
+        localStorage.setItem('frontcraft_theme', App.theme);
         UI.themeToggleBtn.innerHTML = App.theme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
       };
     }
@@ -820,7 +820,7 @@
       UI.langSelect.value = App.lang;
       UI.langSelect.onchange = (e) => {
         App.lang = e.target.value;
-        localStorage.setItem('edumemory_lang', App.lang);
+        localStorage.setItem('frontcraft_lang', App.lang);
         updateLanguageUI();
         renderCategories();
       };

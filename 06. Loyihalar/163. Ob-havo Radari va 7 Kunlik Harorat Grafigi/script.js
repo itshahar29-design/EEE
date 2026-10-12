@@ -1,5 +1,5 @@
 /**
- * Ob-havo Radari va 7 Kunlik Harorat Grafigi - EduMemory Pro Platformasi
+ * Ob-havo Radari va 7 Kunlik Harorat Grafigi - FrontCraft Pro Platformasi
  * Loyiha ID: 163 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_163_store';
+  const STORAGE_KEY = 'frontcraft_project_163_store';
 
   const Store = {
     state: {

@@ -1,5 +1,5 @@
 /**
- * Ta'lim Kurslari Dars Jadvali va Xonalar Bandligi - EduMemory Pro Platformasi
+ * Ta'lim Kurslari Dars Jadvali va Xonalar Bandligi - FrontCraft Pro Platformasi
  * Loyiha ID: 190 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_190_store';
+  const STORAGE_KEY = 'frontcraft_project_190_store';
 
   const Store = {
     state: {

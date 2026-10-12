@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-107-spaced-repetition-fleshkartalar-ilovasi",
+  "name": "frontcraft-project-107-spaced-repetition-fleshkartalar-ilovasi",
   "version": "1.0.0",
   "description": "Spaced Repetition Fleshkartalar Ilovasi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "memory",
     "education"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

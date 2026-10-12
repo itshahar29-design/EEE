@@ -1,5 +1,5 @@
 /**
- * Zamonaviy Rang Palitralari va Kontrast Tekshirgich - EduMemory Pro Platformasi
+ * Zamonaviy Rang Palitralari va Kontrast Tekshirgich - FrontCraft Pro Platformasi
  * Loyiha ID: 109 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_109_state';
+  const STORAGE_KEY = 'frontcraft_project_109_state';
 
   const state = {
     inputVal: '',

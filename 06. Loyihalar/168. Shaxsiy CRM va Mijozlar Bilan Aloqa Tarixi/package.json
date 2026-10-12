@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-168-shaxsiy-crm-va-mijozlar-bilan-aloqa-tarixi",
+  "name": "frontcraft-project-168-shaxsiy-crm-va-mijozlar-bilan-aloqa-tarixi",
   "version": "1.0.0",
   "description": "Shaxsiy CRM va Mijozlar Bilan Aloqa Tarixi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "leads pipeline",
     "contacts"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

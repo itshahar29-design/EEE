@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-154-admin-foydalanuvchilar-roli-va-ruxsatlar-matritsasi",
+  "name": "frontcraft-project-154-admin-foydalanuvchilar-roli-va-ruxsatlar-matritsasi",
   "version": "1.0.0",
   "description": "Admin Foydalanuvchilar Roli va Ruxsatlar Matritsasi",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "permissions",
     "security"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

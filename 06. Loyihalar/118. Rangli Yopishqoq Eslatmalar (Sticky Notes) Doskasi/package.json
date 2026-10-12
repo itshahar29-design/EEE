@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-118-rangli-yopishqoq-eslatmalar-sticky-notes-doskasi",
+  "name": "frontcraft-project-118-rangli-yopishqoq-eslatmalar-sticky-notes-doskasi",
   "version": "1.0.0",
   "description": "Rangli Yopishqoq Eslatmalar (Sticky Notes) Doskasi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "ideas",
     "drag-drop"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

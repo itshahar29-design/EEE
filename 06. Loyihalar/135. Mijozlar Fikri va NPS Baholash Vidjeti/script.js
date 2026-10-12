@@ -1,5 +1,5 @@
 /**
- * Mijozlar Fikri va NPS Baholash Vidjeti - EduMemory Pro Platformasi
+ * Mijozlar Fikri va NPS Baholash Vidjeti - FrontCraft Pro Platformasi
  * Loyiha ID: 135 | Kategoriya: Admin panel
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_135_state';
+  const STORAGE_KEY = 'frontcraft_project_135_state';
 
   const state = {
     inputVal: '',

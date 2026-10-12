@@ -1,5 +1,5 @@
 /**
- * Ipoteka va Kredit To'lovlari Amortizatsiyasi Jadvali - EduMemory Pro Platformasi
+ * Ipoteka va Kredit To'lovlari Amortizatsiyasi Jadvali - FrontCraft Pro Platformasi
  * Loyiha ID: 143 | Kategoriya: Calculator
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_143_state';
+  const STORAGE_KEY = 'frontcraft_project_143_state';
 
   const state = {
     inputVal: '',

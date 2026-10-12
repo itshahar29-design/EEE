@@ -1,5 +1,5 @@
 /**
- * CSS Ko'p Qatlamli 3D Soyalar va Qatlamlar Vizualizatori - EduMemory Pro Platformasi
+ * CSS Ko'p Qatlamli 3D Soyalar va Qatlamlar Vizualizatori - FrontCraft Pro Platformasi
  * Loyiha ID: 136 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_136_state';
+  const STORAGE_KEY = 'frontcraft_project_136_state';
 
   const state = {
     inputVal: '',

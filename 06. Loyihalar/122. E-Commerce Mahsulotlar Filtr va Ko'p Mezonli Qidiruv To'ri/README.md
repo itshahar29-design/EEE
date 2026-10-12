@@ -1,7 +1,7 @@
 # E-Commerce Mahsulotlar Filtr va Ko'p Mezonli Qidiruv To'ri
 
 ## 📌 Umumiy Tavsif
-Ushbu loyiha **EduMemory Pro Frontend Platformasi**ning **№122** raqamli amaliy portfolio loyihasidir.
+Ushbu loyiha **FrontCraft Pro Frontend Platformasi**ning **№122** raqamli amaliy portfolio loyihasidir.
 
 - **Kategoriya:** E-commerce
 - **Daraja:** Boshlang'ich (Foundation)
@@ -25,4 +25,4 @@ Ushbu loyiha **EduMemory Pro Frontend Platformasi**ning **№122** raqamli amali
 3. Barcha funksiyalar to'liq avtonom va mahalliy (offline) ishlaydi.
 
 ---
-&copy; 2026 EduMemory. Frontend Masterclass.
+&copy; 2026 FrontCraft. Frontend Masterclass.

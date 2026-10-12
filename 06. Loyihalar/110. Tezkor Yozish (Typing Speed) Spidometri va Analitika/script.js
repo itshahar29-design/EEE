@@ -1,5 +1,5 @@
 /**
- * Tezkor Yozish (Typing Speed) Spidometri va Analitika - EduMemory Pro Platformasi
+ * Tezkor Yozish (Typing Speed) Spidometri va Analitika - FrontCraft Pro Platformasi
  * Loyiha ID: 110 | Kategoriya: O'yinlar
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_110_state';
+  const STORAGE_KEY = 'frontcraft_project_110_state';
 
   const state = {
     inputVal: '',

@@ -1,5 +1,5 @@
 /**
- * SaaS Narxlar Matritsasi va Valyuta Konverteri - EduMemory Pro Platformasi
+ * SaaS Narxlar Matritsasi va Valyuta Konverteri - FrontCraft Pro Platformasi
  * Loyiha ID: 101 | Kategoriya: Calculator
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_101_state';
+  const STORAGE_KEY = 'frontcraft_project_101_state';
 
   const state = {
     inputVal: '',

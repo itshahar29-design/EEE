@@ -1,5 +1,5 @@
 /**
- * Markdown Jadvallar Generatori va CSV Konverteri - EduMemory Pro Platformasi
+ * Markdown Jadvallar Generatori va CSV Konverteri - FrontCraft Pro Platformasi
  * Loyiha ID: 149 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_149_state';
+  const STORAGE_KEY = 'frontcraft_project_149_state';
 
   const state = {
     inputVal: '',

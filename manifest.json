@@ -1,6 +1,6 @@
 {
-  "name": "EduMemory Pro - Frontend Platformasi",
-  "short_name": "EduMemory",
+  "name": "FrontCraft Pro - Frontend Platformasi",
+  "short_name": "FrontCraft",
   "description": "Dasturchilar uchun professional frontend loyihalar va darslar platformasi",
   "start_url": "./index.html",
   "display": "standalone",

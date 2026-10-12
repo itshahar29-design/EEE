@@ -1,5 +1,5 @@
 /**
- * Aqlli Shaxsiy Byudjet va Xarajatlar Doiraviy Diagrammasi - EduMemory Pro Platformasi
+ * Aqlli Shaxsiy Byudjet va Xarajatlar Doiraviy Diagrammasi - FrontCraft Pro Platformasi
  * Loyiha ID: 162 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_162_store';
+  const STORAGE_KEY = 'frontcraft_project_162_store';
 
   const Store = {
     state: {

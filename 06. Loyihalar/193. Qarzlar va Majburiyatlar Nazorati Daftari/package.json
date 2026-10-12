@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-193-qarzlar-va-majburiyatlar-nazorati-daftari",
+  "name": "frontcraft-project-193-qarzlar-va-majburiyatlar-nazorati-daftari",
   "version": "1.0.0",
   "description": "Qarzlar va Majburiyatlar Nazorati Daftari",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "financial freedom",
     "liabilities"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

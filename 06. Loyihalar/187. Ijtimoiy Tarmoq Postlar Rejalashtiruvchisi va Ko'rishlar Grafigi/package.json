@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-187-ijtimoiy-tarmoq-postlar-rejalashtiruvchisi-va-korishlar-grafigi",
+  "name": "frontcraft-project-187-ijtimoiy-tarmoq-postlar-rejalashtiruvchisi-va-korishlar-grafigi",
   "version": "1.0.0",
   "description": "Ijtimoiy Tarmoq Postlar Rejalashtiruvchisi va Ko'rishlar Grafigi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "engagement",
     "analytics"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

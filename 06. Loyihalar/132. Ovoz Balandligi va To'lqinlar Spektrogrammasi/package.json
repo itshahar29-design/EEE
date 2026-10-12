@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-132-ovoz-balandligi-va-tolqinlar-spektrogrammasi",
+  "name": "frontcraft-project-132-ovoz-balandligi-va-tolqinlar-spektrogrammasi",
   "version": "1.0.0",
   "description": "Ovoz Balandligi va To'lqinlar Spektrogrammasi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "canvas",
     "audio"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

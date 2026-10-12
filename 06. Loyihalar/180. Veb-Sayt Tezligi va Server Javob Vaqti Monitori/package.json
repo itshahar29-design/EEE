@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-180-veb-sayt-tezligi-va-server-javob-vaqti-monitori",
+  "name": "frontcraft-project-180-veb-sayt-tezligi-va-server-javob-vaqti-monitori",
   "version": "1.0.0",
   "description": "Veb-Sayt Tezligi va Server Javob Vaqti Monitori",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "uptime",
     "admin tools"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

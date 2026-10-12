@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-182-onlayn-lugat-va-sozlar-boyligi-tahlili",
+  "name": "frontcraft-project-182-onlayn-lugat-va-sozlar-boyligi-tahlili",
   "version": "1.0.0",
   "description": "Onlayn Lug'at va So'zlar Boyligi Tahlili",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "pronunciation",
     "search"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

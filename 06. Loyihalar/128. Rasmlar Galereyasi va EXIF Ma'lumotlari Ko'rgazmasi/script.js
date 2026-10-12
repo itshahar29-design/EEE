@@ -1,5 +1,5 @@
 /**
- * Rasmlar Galereyasi va EXIF Ma'lumotlari Ko'rgazmasi - EduMemory Pro Platformasi
+ * Rasmlar Galereyasi va EXIF Ma'lumotlari Ko'rgazmasi - FrontCraft Pro Platformasi
  * Loyiha ID: 128 | Kategoriya: Portfolio
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_128_state';
+  const STORAGE_KEY = 'frontcraft_project_128_state';
 
   const state = {
     inputVal: '',

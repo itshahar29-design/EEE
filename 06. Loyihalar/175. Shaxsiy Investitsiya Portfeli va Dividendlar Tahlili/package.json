@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-175-shaxsiy-investitsiya-portfeli-va-dividendlar-tahlili",
+  "name": "frontcraft-project-175-shaxsiy-investitsiya-portfeli-va-dividendlar-tahlili",
   "version": "1.0.0",
   "description": "Shaxsiy Investitsiya Portfeli va Dividendlar Tahlili",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "portfolio",
     "asset allocation"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

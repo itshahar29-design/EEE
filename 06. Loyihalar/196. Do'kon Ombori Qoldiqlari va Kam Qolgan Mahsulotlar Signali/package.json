@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-196-dokon-ombori-qoldiqlari-va-kam-qolgan-mahsulotlar-signali",
+  "name": "frontcraft-project-196-dokon-ombori-qoldiqlari-va-kam-qolgan-mahsulotlar-signali",
   "version": "1.0.0",
   "description": "Do'kon Ombori Qoldiqlari va Kam Qolgan Mahsulotlar Signali",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "low stock warning",
     "supply chain"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

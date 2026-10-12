@@ -1,5 +1,5 @@
 /**
- * Muhim Sanalar Teskari Sanoq (Countdown) Markazi - EduMemory Pro Platformasi
+ * Muhim Sanalar Teskari Sanoq (Countdown) Markazi - FrontCraft Pro Platformasi
  * Loyiha ID: 137 | Kategoriya: CRM/To-do
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_137_state';
+  const STORAGE_KEY = 'frontcraft_project_137_state';
 
   const state = {
     inputVal: '',

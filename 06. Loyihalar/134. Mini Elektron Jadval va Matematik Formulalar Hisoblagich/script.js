@@ -1,5 +1,5 @@
 /**
- * Mini Elektron Jadval va Matematik Formulalar Hisoblagich - EduMemory Pro Platformasi
+ * Mini Elektron Jadval va Matematik Formulalar Hisoblagich - FrontCraft Pro Platformasi
  * Loyiha ID: 134 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_134_state';
+  const STORAGE_KEY = 'frontcraft_project_134_state';
 
   const state = {
     inputVal: '',

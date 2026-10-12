@@ -1,5 +1,5 @@
 /**
- * Jonli Markdown Tahrirlagich va So'z Tahlili - EduMemory Pro Platformasi
+ * Jonli Markdown Tahrirlagich va So'z Tahlili - FrontCraft Pro Platformasi
  * Loyiha ID: 108 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_108_state';
+  const STORAGE_KEY = 'frontcraft_project_108_state';
 
   const state = {
     inputVal: '',

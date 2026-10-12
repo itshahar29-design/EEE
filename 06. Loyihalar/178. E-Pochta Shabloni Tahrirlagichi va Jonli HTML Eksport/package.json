@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-178-e-pochta-shabloni-tahrirlagichi-va-jonli-html-eksport",
+  "name": "frontcraft-project-178-e-pochta-shabloni-tahrirlagichi-va-jonli-html-eksport",
   "version": "1.0.0",
   "description": "E-Pochta Shabloni Tahrirlagichi va Jonli HTML Eksport",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "newsletter",
     "responsive email"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

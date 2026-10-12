@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: edumemory-pro
+    name: frontcraft-pro
     env: node
     plan: free
-    buildCommand: echo "EduMemory Pro platformasi tayyor."
+    buildCommand: echo "FrontCraft Pro platformasi tayyor."
     startCommand: node server.js
     envVars:
       - key: NODE_ENV

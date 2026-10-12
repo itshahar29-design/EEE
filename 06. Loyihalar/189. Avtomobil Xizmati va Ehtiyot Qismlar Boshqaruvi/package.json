@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-189-avtomobil-xizmati-va-ehtiyot-qismlar-boshqaruvi",
+  "name": "frontcraft-project-189-avtomobil-xizmati-va-ehtiyot-qismlar-boshqaruvi",
   "version": "1.0.0",
   "description": "Avtomobil Xizmati va Ehtiyot Qismlar Boshqaruvi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "parts inventory",
     "repair orders"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

@@ -1,7 +1,7 @@
 # Rangli Yopishqoq Eslatmalar (Sticky Notes) Doskasi
 
 ## 📌 Umumiy Tavsif
-Ushbu loyiha **EduMemory Pro Frontend Platformasi**ning **№118** raqamli amaliy portfolio loyihasidir.
+Ushbu loyiha **FrontCraft Pro Frontend Platformasi**ning **№118** raqamli amaliy portfolio loyihasidir.
 
 - **Kategoriya:** CRM/To-do
 - **Daraja:** Boshlang'ich (Foundation)
@@ -25,4 +25,4 @@ Ushbu loyiha **EduMemory Pro Frontend Platformasi**ning **№118** raqamli amali
 3. Barcha funksiyalar to'liq avtonom va mahalliy (offline) ishlaydi.
 
 ---
-&copy; 2026 EduMemory. Frontend Masterclass.
+&copy; 2026 FrontCraft. Frontend Masterclass.

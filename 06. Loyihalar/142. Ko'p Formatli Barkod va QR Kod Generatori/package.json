@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-142-kop-formatli-barkod-va-qr-kod-generatori",
+  "name": "frontcraft-project-142-kop-formatli-barkod-va-qr-kod-generatori",
   "version": "1.0.0",
   "description": "Ko'p Formatli Barkod va QR Kod Generatori",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "scanner tools",
     "utilities"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

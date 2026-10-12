@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-141-ob-havo-karta-vidjeti-va-dinamik-yomgirquyosh-canvas-effekti",
+  "name": "frontcraft-project-141-ob-havo-karta-vidjeti-va-dinamik-yomgirquyosh-canvas-effekti",
   "version": "1.0.0",
   "description": "Ob-havo Karta Vidjeti va Dinamik Yomg'ir/Quyosh Canvas Effekti",
   "main": "index.html",
@@ -16,6 +16,6 @@
     "snow",
     "interactive ui"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

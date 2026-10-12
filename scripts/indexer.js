@@ -75,7 +75,7 @@ function runIndexer() {
     // Ensure LICENSE, package.json, README.md exist
     const licensePath = path.join(folderPath, 'LICENSE');
     if (!fs.existsSync(licensePath)) {
-      fs.writeFileSync(licensePath, `MIT License\n\nCopyright (c) 2026 EduMemory Frontend Platform\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software.`);
+      fs.writeFileSync(licensePath, `MIT License\n\nCopyright (c) 2026 FrontCraft Frontend Platform\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software.`);
     }
 
     const pkgPath = path.join(folderPath, 'package.json');
@@ -87,7 +87,7 @@ function runIndexer() {
         main: "index.html",
         scripts: { "start": "npx serve ." },
         keywords: ["frontend", "javascript", category.toLowerCase()],
-        author: "EduMemory",
+        author: "FrontCraft",
         license: "MIT"
       }, null, 2));
     }

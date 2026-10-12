@@ -1,5 +1,5 @@
 /**
- * Avtomobil Xizmati va Ehtiyot Qismlar Boshqaruvi - EduMemory Pro Platformasi
+ * Avtomobil Xizmati va Ehtiyot Qismlar Boshqaruvi - FrontCraft Pro Platformasi
  * Loyiha ID: 189 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_189_store';
+  const STORAGE_KEY = 'frontcraft_project_189_store';
 
   const Store = {
     state: {

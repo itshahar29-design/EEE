@@ -1,5 +1,5 @@
 /**
- * Interaktiv Shaxmat Soati va Musobaqa Taymeri - EduMemory Pro Platformasi
+ * Interaktiv Shaxmat Soati va Musobaqa Taymeri - FrontCraft Pro Platformasi
  * Loyiha ID: 144 | Kategoriya: O'yinlar
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_144_state';
+  const STORAGE_KEY = 'frontcraft_project_144_state';
 
   const state = {
     inputVal: '',

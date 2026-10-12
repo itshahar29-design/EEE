@@ -8,7 +8,7 @@ const PROJECTS_JSON = path.join(ROOT_DIR, 'data', 'projects.json');
 
 function validate() {
   console.log('==================================================');
-  console.log('🔍 EDUMEMORY FRONTEND PLATFORMA - LOYIHALAR TEKSHIRUVI');
+  console.log('🔍 FRONTCRAFT PRO PLATFORMA - LOYIHALAR TEKSHIRUVI');
   console.log('==================================================\n');
 
   if (!fs.existsSync(PROJECTS_JSON)) {

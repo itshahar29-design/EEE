@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-109-zamonaviy-rang-palitralari-va-kontrast-tekshirgich",
+  "name": "frontcraft-project-109-zamonaviy-rang-palitralari-va-kontrast-tekshirgich",
   "version": "1.0.0",
   "description": "Zamonaviy Rang Palitralari va Kontrast Tekshirgich",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "contrast",
     "accessibility"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

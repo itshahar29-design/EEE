@@ -1,5 +1,5 @@
 /**
- * Restoran Taomnomasi Tahrirlagichi va Narxlar Boshqaruvi - EduMemory Pro Platformasi
+ * Restoran Taomnomasi Tahrirlagichi va Narxlar Boshqaruvi - FrontCraft Pro Platformasi
  * Loyiha ID: 194 | Daraja: O'rta (Intermediate)
  * Xususiyatlar: SPA Routing, Asinxron API, Reaktiv State, SVG Grafik, Validatsiya
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   // 1. REAKTIV STATE STORE (Centralized State Management)
-  const STORAGE_KEY = 'edumemory_project_194_store';
+  const STORAGE_KEY = 'frontcraft_project_194_store';
 
   const Store = {
     state: {

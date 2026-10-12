@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-103-kod-parchalari-ombori-va-sintaksis-kolleksiyasi",
+  "name": "frontcraft-project-103-kod-parchalari-ombori-va-sintaksis-kolleksiyasi",
   "version": "1.0.0",
   "description": "Kod Parchalari Ombori va Sintaksis Kolleksiyasi",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "syntax",
     "developer tools"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

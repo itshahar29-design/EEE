@@ -1,5 +1,5 @@
 /**
- * Ko'p Formatli Barkod va QR Kod Generatori - EduMemory Pro Platformasi
+ * Ko'p Formatli Barkod va QR Kod Generatori - FrontCraft Pro Platformasi
  * Loyiha ID: 142 | Kategoriya: Editor
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_142_state';
+  const STORAGE_KEY = 'frontcraft_project_142_state';
 
   const state = {
     inputVal: '',

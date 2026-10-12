@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-121-pomodoro-diqqat-taymeri-va-tinchlantiruvchi-ovozlar",
+  "name": "frontcraft-project-121-pomodoro-diqqat-taymeri-va-tinchlantiruvchi-ovozlar",
   "version": "1.0.0",
   "description": "Pomodoro Diqqat Taymeri va Tinchlantiruvchi Ovozlar",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "productivity",
     "ambient sounds"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }

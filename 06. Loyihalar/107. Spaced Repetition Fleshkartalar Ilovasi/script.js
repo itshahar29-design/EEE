@@ -1,5 +1,5 @@
 /**
- * Spaced Repetition Fleshkartalar Ilovasi - EduMemory Pro Platformasi
+ * Spaced Repetition Fleshkartalar Ilovasi - FrontCraft Pro Platformasi
  * Loyiha ID: 107 | Kategoriya: CRM/To-do
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_107_state';
+  const STORAGE_KEY = 'frontcraft_project_107_state';
 
   const state = {
     inputVal: '',

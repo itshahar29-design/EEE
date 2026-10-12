@@ -1,5 +1,5 @@
 /**
- * Interaktiv Qarorlar Qabul Qiluvchi Omad G'ildiragi - EduMemory Pro Platformasi
+ * Interaktiv Qarorlar Qabul Qiluvchi Omad G'ildiragi - FrontCraft Pro Platformasi
  * Loyiha ID: 148 | Kategoriya: O'yinlar
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   // 1. Dastur Holati (State Management)
-  const STORAGE_KEY = 'edumemory_project_148_state';
+  const STORAGE_KEY = 'frontcraft_project_148_state';
 
   const state = {
     inputVal: '',

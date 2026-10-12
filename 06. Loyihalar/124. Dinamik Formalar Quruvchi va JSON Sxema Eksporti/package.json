@@ -1,5 +1,5 @@
 {
-  "name": "edumemory-project-124-dinamik-formalar-quruvchi-va-json-sxema-eksporti",
+  "name": "frontcraft-project-124-dinamik-formalar-quruvchi-va-json-sxema-eksporti",
   "version": "1.0.0",
   "description": "Dinamik Formalar Quruvchi va JSON Sxema Eksporti",
   "main": "index.html",
@@ -15,6 +15,6 @@
     "admin panel",
     "dynamic fields"
   ],
-  "author": "EduMemory",
+  "author": "FrontCraft",
   "license": "MIT"
 }
