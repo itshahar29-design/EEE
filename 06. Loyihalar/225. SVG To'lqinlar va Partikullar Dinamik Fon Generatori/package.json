@@ -1,0 +1,21 @@
+{
+  "name": "svg-tolqinlar-va-partikullar-dinamik-fon-generatori",
+  "version": "1.0.0",
+  "description": "SVG To'lqinlar va Partikullar Dinamik Fon Generatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "animatsiya",
+    "wave generator",
+    "particles",
+    "backgrounds",
+    "svg path",
+    "animation"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

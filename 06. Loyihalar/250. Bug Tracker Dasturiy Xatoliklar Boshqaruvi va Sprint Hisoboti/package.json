@@ -1,0 +1,21 @@
+{
+  "name": "bug-tracker-dasturiy-xatoliklar-boshqaruvi-va-sprint-hisoboti",
+  "version": "1.0.0",
+  "description": "Bug Tracker Dasturiy Xatoliklar Boshqaruvi va Sprint Hisoboti",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "kanban",
+    "bug tracker",
+    "qa testing",
+    "issue management",
+    "kanban",
+    "sprint"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

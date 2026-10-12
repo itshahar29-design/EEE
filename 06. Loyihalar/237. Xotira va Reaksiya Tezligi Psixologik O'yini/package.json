@@ -1,0 +1,21 @@
+{
+  "name": "xotira-va-reaksiya-tezligi-psixologik-oyini",
+  "version": "1.0.0",
+  "description": "Xotira va Reaksiya Tezligi Psixologik O'yini",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "o'yinlar",
+    "memory game",
+    "reaction speed",
+    "brain training",
+    "cards flip",
+    "games"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

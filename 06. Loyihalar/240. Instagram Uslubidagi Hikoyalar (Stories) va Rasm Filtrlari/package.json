@@ -1,0 +1,21 @@
+{
+  "name": "instagram-uslubidagi-hikoyalar-stories-va-rasm-filtrlari",
+  "version": "1.0.0",
+  "description": "Instagram Uslubidagi Hikoyalar (Stories) va Rasm Filtrlari",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "clone ui",
+    "instagram clone",
+    "stories",
+    "photo filters",
+    "social media",
+    "clone ui"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

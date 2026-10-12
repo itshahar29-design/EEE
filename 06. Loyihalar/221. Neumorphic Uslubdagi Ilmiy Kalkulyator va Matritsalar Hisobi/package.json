@@ -1,0 +1,21 @@
+{
+  "name": "neumorphic-uslubdagi-ilmiy-kalkulyator-va-matritsalar-hisobi",
+  "version": "1.0.0",
+  "description": "Neumorphic Uslubdagi Ilmiy Kalkulyator va Matritsalar Hisobi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator",
+    "scientific calculator",
+    "trigonometry",
+    "neumorphism",
+    "math",
+    "calculator"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

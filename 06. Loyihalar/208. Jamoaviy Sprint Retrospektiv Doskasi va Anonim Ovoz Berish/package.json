@@ -1,0 +1,21 @@
+{
+  "name": "jamoaviy-sprint-retrospektiv-doskasi-va-anonim-ovoz-berish",
+  "version": "1.0.0",
+  "description": "Jamoaviy Sprint Retrospektiv Doskasi va Anonim Ovoz Berish",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "kanban",
+    "retrospective",
+    "agile",
+    "scrum",
+    "voting",
+    "kanban"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

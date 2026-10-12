@@ -1,0 +1,21 @@
+{
+  "name": "dasturiy-kod-snippetlari-kutubxonasi-va-sintaksis-ranglovchi",
+  "version": "1.0.0",
+  "description": "Dasturiy Kod Snippetlari Kutubxonasi va Sintaksis Ranglovchi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "code snippets",
+    "syntax highlight",
+    "developer tools",
+    "library",
+    "code"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

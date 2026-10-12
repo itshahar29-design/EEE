@@ -1,0 +1,21 @@
+{
+  "name": "xalqaro-valyutalar-arbitraji-va-jonli-konvertatsiya-valyuta-kurslari",
+  "version": "1.0.0",
+  "description": "Xalqaro Valyutalar Arbitraji va Jonli Konvertatsiya Valyuta Kurslari",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator",
+    "currency",
+    "exchange",
+    "forex",
+    "arbitrage",
+    "calculator"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

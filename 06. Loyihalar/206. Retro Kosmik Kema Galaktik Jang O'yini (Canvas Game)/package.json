@@ -1,0 +1,21 @@
+{
+  "name": "retro-kosmik-kema-galaktik-jang-oyini-canvas-game",
+  "version": "1.0.0",
+  "description": "Retro Kosmik Kema Galaktik Jang O'yini (Canvas Game)",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "o'yinlar",
+    "arcade game",
+    "space shooter",
+    "canvas",
+    "game loop",
+    "retro"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

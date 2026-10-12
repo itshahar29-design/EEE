@@ -1,0 +1,21 @@
+{
+  "name": "spotify-uslubidagi-musiqa-oqimi-va-audio-tolqinlar-ekvalayzeri",
+  "version": "1.0.0",
+  "description": "Spotify Uslubidagi Musiqa Oqimi va Audio To'lqinlar Ekvalayzeri",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "clone ui",
+    "spotify clone",
+    "music streaming",
+    "equalizer",
+    "audio player",
+    "clone ui"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

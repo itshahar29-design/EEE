@@ -1,0 +1,21 @@
+{
+  "name": "finans-omonat-foizlari-va-murakkab-foiz-investitsiya-hisoblagichi",
+  "version": "1.0.0",
+  "description": "Finans Omonat Foizlari va Murakkab Foiz Investitsiya Hisoblagichi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "calculator",
+    "investment",
+    "compound interest",
+    "deposit calculator",
+    "finance",
+    "growth"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

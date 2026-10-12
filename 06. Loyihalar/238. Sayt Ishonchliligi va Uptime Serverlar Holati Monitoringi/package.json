@@ -1,0 +1,21 @@
+{
+  "name": "sayt-ishonchliligi-va-uptime-serverlar-holati-monitoringi",
+  "version": "1.0.0",
+  "description": "Sayt Ishonchliligi va Uptime Serverlar Holati Monitoringi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "dashboard",
+    "uptime monitor",
+    "status page",
+    "server health",
+    "ping",
+    "dashboard"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

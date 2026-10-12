@@ -173,7 +173,7 @@
     completedLessons: JSON.parse(localStorage.getItem('frontcraft_completed_lessons') || '[]'),
     activeProject: null,
     activeCodeTab: 'html',
-    loadedCount: 200,
+    loadedCount: 1000,
     activeViewport: 'desktop'
   };
 

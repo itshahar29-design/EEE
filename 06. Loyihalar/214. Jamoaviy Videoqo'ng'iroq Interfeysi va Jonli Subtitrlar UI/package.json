@@ -1,0 +1,21 @@
+{
+  "name": "jamoaviy-videoqongiroq-interfeysi-va-jonli-subtitrlar-ui",
+  "version": "1.0.0",
+  "description": "Jamoaviy Videoqo'ng'iroq Interfeysi va Jonli Subtitrlar UI",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "chat ui",
+    "video call",
+    "conference",
+    "webrtc ui",
+    "meeting",
+    "subtitles"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

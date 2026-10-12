@@ -1,0 +1,21 @@
+{
+  "name": "notion-uslubidagi-blokli-eslatmalar-va-drag-drop-tizimi",
+  "version": "1.0.0",
+  "description": "Notion Uslubidagi Blokli Eslatmalar va Drag-Drop Tizimi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "clone ui",
+    "notion clone",
+    "block editor",
+    "rich notes",
+    "drag-drop",
+    "clone ui"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

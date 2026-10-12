@@ -1,0 +1,21 @@
+{
+  "name": "logistika-yuk-tashuvlar-xaritasi-va-gps-marshrut-simulyatori",
+  "version": "1.0.0",
+  "description": "Logistika Yuk Tashuvlar Xaritasi va GPS Marshrut Simulyatori",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "data visualization",
+    "logistics",
+    "fleet tracking",
+    "gps routes",
+    "delivery",
+    "visualization"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

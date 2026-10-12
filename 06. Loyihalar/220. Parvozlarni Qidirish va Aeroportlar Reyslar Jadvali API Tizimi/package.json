@@ -1,0 +1,21 @@
+{
+  "name": "parvozlarni-qidirish-va-aeroportlar-reyslar-jadvali-api-tizimi",
+  "version": "1.0.0",
+  "description": "Parvozlarni Qidirish va Aeroportlar Reyslar Jadvali API Tizimi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "api loyihalar",
+    "flights",
+    "airport",
+    "aviation",
+    "travel",
+    "api schedule"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

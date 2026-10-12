@@ -1,0 +1,21 @@
+{
+  "name": "jamoaviy-mijozlar-bazasi-crm-va-savdo-voronkasi",
+  "version": "1.0.0",
+  "description": "Jamoaviy Mijozlar Bazasi (CRM) va Savdo Voronkasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "admin panel",
+    "sales crm",
+    "leads",
+    "funnel chart",
+    "customer base",
+    "admin"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

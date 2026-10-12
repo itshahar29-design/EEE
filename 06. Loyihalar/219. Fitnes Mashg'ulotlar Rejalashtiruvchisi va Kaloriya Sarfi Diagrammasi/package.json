@@ -1,0 +1,21 @@
+{
+  "name": "fitnes-mashgulotlar-rejalashtiruvchisi-va-kaloriya-sarfi-diagrammasi",
+  "version": "1.0.0",
+  "description": "Fitnes Mashg'ulotlar Rejalashtiruvchisi va Kaloriya Sarfi Diagrammasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "crm/to-do",
+    "fitness",
+    "workout",
+    "calories",
+    "habit tracker",
+    "health"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

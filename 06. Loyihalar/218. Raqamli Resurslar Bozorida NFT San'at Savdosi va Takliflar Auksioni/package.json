@@ -1,0 +1,21 @@
+{
+  "name": "raqamli-resurslar-bozorida-nft-sanat-savdosi-va-takliflar-auksioni",
+  "version": "1.0.0",
+  "description": "Raqamli Resurslar Bozorida NFT San'at Savdosi va Takliflar Auksioni",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "e-commerce",
+    "nft marketplace",
+    "auction",
+    "bidding",
+    "digital art",
+    "crypto"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

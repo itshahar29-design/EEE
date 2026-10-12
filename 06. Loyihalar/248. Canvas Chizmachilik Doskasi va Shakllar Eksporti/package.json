@@ -1,0 +1,21 @@
+{
+  "name": "canvas-chizmachilik-doskasi-va-shakllar-eksporti",
+  "version": "1.0.0",
+  "description": "Canvas Chizmachilik Doskasi va Shakllar Eksporti",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "editor",
+    "drawing board",
+    "canvas",
+    "sketchpad",
+    "export png",
+    "art tool"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}
