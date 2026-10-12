@@ -236,6 +236,15 @@
     renderCategories();
     applyFilters();
     updateContinueBanner();
+
+    // Agar URL da ?id= parametri kelsa, avtomatik Studio ochish
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const pid = urlParams.get('id');
+      if (pid) {
+        setTimeout(() => openStudio(parseInt(pid, 10)), 350);
+      }
+    } catch (_) {}
   }
 
   // 4. Fuzzy Search (Levenshtein + Token matching)

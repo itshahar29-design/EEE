@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tayyor Portfolio Loyihalari (200+) | FrontCraft Pro</title>
+  <meta name="description" content="200+ dan ortiq tayyor real frontend portfolio loyihalari, jonli hover preview, to'liq kod va ZIP yuklab olish">
+  <meta name="theme-color" content="#0284c7">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./images/icon-192.png" type="image/png">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body data-theme="dark">
+
+  <!-- TOP NAVBAR -->
+  <header class="top-navbar" role="banner">
+    <a href="./index.html" class="brand-wrapper" style="text-decoration:none;">
+      <div class="brand-icon" aria-hidden="true">
+        <i class="fa-solid fa-code"></i>
+      </div>
+      <div class="brand-titles">
+        <h1 data-i18n="siteTitle">FrontCraft Pro</h1>
+        <p data-i18n="siteSubtitle">Tayyor Loyihalar Markazi</p>
+      </div>
+    </a>
+
+    <!-- ASOSIY 3 TA SAHIFA NAVIGATSIYASI -->
+    <nav class="main-page-nav" role="navigation" aria-label="Sahifalar">
+      <a href="./index.html" class="page-nav-btn" style="text-decoration:none;">
+        <i class="fa-solid fa-house"></i> <span>Bosh Sahifa</span>
+      </a>
+      <a href="./projects.html" class="page-nav-btn active" style="text-decoration:none;">
+        <i class="fa-solid fa-cubes"></i> <span>Tayyor Loyihalar (200+)</span>
+      </a>
+      <a href="./lessons.html" class="page-nav-btn" style="text-decoration:none;">
+        <i class="fa-solid fa-graduation-cap"></i> <span>Interaktiv Darslar (278+)</span>
+      </a>
+    </nav>
+
+    <!-- O'ng Tomon Amallari -->
+    <div class="nav-actions">
+      <!-- 3 Tilli Tanlov -->
+      <select id="langSelect" class="lang-select" aria-label="Tilni tanlang">
+        <option value="uz">🇺🇿 O'zbek</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="en">🇬🇧 English</option>
+      </select>
+
+      <!-- Dark / Light Rejim -->
+      <button id="themeToggleBtn" class="nav-btn icon-btn" aria-label="Mavzuni almashtirish">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       TAYYOR LOYIHALAR KATALOGI (YOUTUBE USLUBI)
+       ======================================================== -->
+  <div id="page-projects" class="page-view active" role="region" aria-label="Tayyor loyihalar katalogi">
+    <div id="catalog" class="platform-layout">
+      <!-- CHAP KATEGORIYA PANELI -->
+      <aside class="sidebar-panel" id="sidebarPanel" role="navigation" aria-label="Kategoriyalar paneli">
+        <div class="sidebar-mobile-header">
+          <div class="sidebar-heading" data-i18n="categoriesHeading">Kategoriyalar</div>
+          <button id="closeSidebarDrawerBtn" class="drawer-close-btn" aria-label="Yopish">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div id="categoryList">
+          <!-- portal.js orqali render qilinadi -->
+        </div>
+      </aside>
+
+      <!-- MOBILE DRAWER BACKDROP -->
+      <div id="sidebarBackdrop" class="drawer-backdrop"></div>
+
+      <!-- ASOSIY KATALOG HUDUDI -->
+      <main class="catalog-area">
+        <!-- Qidiruv va Chip Filtrlar Boshqaruvi -->
+        <div style="margin-bottom: 20px;">
+          <!-- Mobil Kategoriyalar Tugmasi & YouTube Uslubidagi Qidiruv Qatori -->
+          <div class="search-row-flex" style="display:flex; align-items:center; gap:10px; max-width:650px; margin-bottom:16px;">
+            <button id="mobileCategoryToggleBtn" class="mobile-drawer-btn" aria-label="Kategoriyalar filtri">
+              <i class="fa-solid fa-layer-group"></i> <span>Kategoriyalar</span>
+            </button>
+            <div class="search-input-wrapper" style="flex:1;">
+              <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+              <input 
+                type="text" 
+                id="globalSearchInput" 
+                class="search-input" 
+                placeholder="Loyiha, texnologiya yoki mavzu bo'yicha qidiring... (/)" 
+                aria-label="Qidiruv" 
+                autocomplete="off"
+              >
+              <span class="search-shortcut-hint">/</span>
+              <button id="searchClearBtn" class="search-clear-btn" aria-label="Qidiruvni tozalash">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- TEPADAGI CHIP FILTRLAR -->
+          <div class="filter-chips-bar" role="toolbar" aria-label="Filtrlar">
+            <div class="chips-scroll" id="chipsScroll">
+              <!-- Darajalar -->
+              <button class="chip-btn active" data-filter-type="level" data-filter-val="all" data-i18n="allLevels">Barcha darajalar</button>
+              <button class="chip-btn" data-filter-type="level" data-filter-val="boshlang'ich" data-i18n="levelBasic">🟢 Boshlang'ich</button>
+              <button class="chip-btn" data-filter-type="level" data-filter-val="o'rta" data-i18n="levelMid">🟡 O'rta</button>
+              <button class="chip-btn" data-filter-type="level" data-filter-val="murakkab" data-i18n="levelAdv">🔴 Murakkab</button>
+              
+              <!-- Texnologiyalar -->
+              <button class="chip-btn" data-filter-type="tech" data-filter-val="all">Barcha texnologiyalar</button>
+              <button class="chip-btn" data-filter-type="tech" data-filter-val="javascript">JavaScript</button>
+              <button class="chip-btn" data-filter-type="tech" data-filter-val="canvas">Canvas</button>
+              <button class="chip-btn" data-filter-type="tech" data-filter-val="localstorage">LocalStorage</button>
+              <button class="chip-btn" data-filter-type="tech" data-filter-val="css3">CSS3</button>
+              <button class="chip-btn" data-filter-type="tech" data-filter-val="drag-drop">Drag & Drop</button>
+            </div>
+
+            <!-- Saralash Dropdown -->
+            <div class="sort-select-wrapper">
+              <select id="sortSelect" class="sort-select" aria-label="Saralash tartibi">
+                <option value="newest" data-i18n="sortNewest">Yangi loyihalar</option>
+                <option value="popular" data-i18n="sortPopular">Eng mashhur</option>
+                <option value="downloads" data-i18n="sortDownloads">Ko'p yuklangan</option>
+                <option value="alpha">Alifbo bo'yicha (A-Z)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- YOUTUBE-STYLE GRID KARTALARI -->
+        <section class="projects-grid" id="projectsGrid" aria-label="Loyihalar to'plami">
+          <!-- Dinamik ravishda portal.js orqali render qilinadi -->
+        </section>
+
+        <!-- BARCHASINI KO'RSATISH VA YUKLASH TUGMALARI -->
+        <div class="grid-actions-bar" id="gridActionsBar">
+          <button id="loadMoreProjectsBtn" class="nav-btn">
+            <i class="fa-solid fa-chevron-down"></i> Yana 24 ta yuklash
+          </button>
+          <button id="showAllProjectsBtn" class="nav-btn active">
+            <i class="fa-solid fa-list-check"></i> Barcha loyihalarni ko'rsatish (200 ta)
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       LOYIHA STUDIYASI (STUDIO MODAL)
+       ======================================================== -->
+  <div class="studio-overlay" id="studioOverlay" role="dialog" aria-modal="true" aria-labelledby="studioTitle">
+    <!-- Studio Header -->
+    <header class="studio-header">
+      <div class="studio-title-box">
+        <button id="studioCloseBtn" class="studio-close-btn" aria-label="Yopish">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <h2 id="studioTitle">Loyiha Nomi</h2>
+      </div>
+
+      <!-- Tablar: Preview, Kod, Dars, README -->
+      <div class="studio-tabs" role="tablist">
+        <button class="studio-tab-btn active" data-tab="preview" role="tab" aria-selected="true">
+          <i class="fa-solid fa-play"></i> <span data-i18n="tabPreview">Jonli Ko'rish</span>
+        </button>
+        <button class="studio-tab-btn" data-tab="code" role="tab" aria-selected="false">
+          <i class="fa-solid fa-code"></i> <span data-i18n="tabCode">Manba Kodi</span>
+        </button>
+        <button class="studio-tab-btn" data-tab="lesson" role="tab" aria-selected="false">
+          <i class="fa-solid fa-chalkboard-user"></i> <span data-i18n="tabLesson">Dars Rejasi</span>
+        </button>
+        <button class="studio-tab-btn" data-tab="readme" role="tab" aria-selected="false">
+          <i class="fa-solid fa-book-bookmark"></i> <span data-i18n="tabReadme">Hujjatlar (README)</span>
+        </button>
+      </div>
+
+      <!-- Studio Amallari -->
+      <div class="studio-actions">
+        <!-- Viewport Switcher -->
+        <div class="device-toggle-group" role="group" aria-label="Ekran o'lchami">
+          <button class="device-btn active" data-device="desktop" title="Desktop 100%"><i class="fa-solid fa-desktop"></i></button>
+          <button class="device-btn" data-device="tablet" title="Planshet 768px"><i class="fa-solid fa-tablet-screen-button"></i></button>
+          <button class="device-btn" data-device="mobile" title="Mobil 375px"><i class="fa-solid fa-mobile-screen"></i></button>
+        </div>
+
+        <button id="studioFavBtn" class="nav-btn icon-btn" aria-label="Sevimlilarga saqlash">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <button id="studioOpenExternalBtn" class="nav-btn" data-i18n="openNewTab">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Yangi oynada
+        </button>
+        <button id="studioDownloadZipBtn" class="nav-btn active" data-i18n="downloadZip">
+          <i class="fa-solid fa-download"></i> ZIP Yuklab Olish
+        </button>
+      </div>
+    </header>
+
+    <!-- Studio Asosiy Panellari -->
+    <div class="studio-body">
+      <!-- 1. PREVIEW TAB -->
+      <div id="tabPane-preview" class="tab-pane active" role="tabpanel">
+        <div class="preview-pane-wrapper">
+          <iframe id="studioPreviewIframe" src="about:blank" title="Loyiha Jonli Ko'rinishi" sandbox="allow-scripts allow-same-origin allow-forms allow-modals"></iframe>
+        </div>
+      </div>
+
+      <!-- 2. CODE TAB (HTML/CSS/JS alohida ko'rinadi) -->
+      <div id="tabPane-code" class="tab-pane" role="tabpanel">
+        <div class="code-pane-wrapper">
+          <div class="code-subtabs">
+            <div style="display:flex; gap:8px;">
+              <button class="code-file-btn active" data-file="html">index.html</button>
+              <button class="code-file-btn" data-file="css">style.css</button>
+              <button class="code-file-btn" data-file="js">script.js</button>
+            </div>
+            <button id="studioCopyCodeBtn" class="nav-btn" data-i18n="copyCode">
+              <i class="fa-solid fa-copy"></i> Kodni nusxalash
+            </button>
+          </div>
+          <pre id="studioCodePre" class="code-display-pre"></pre>
+        </div>
+      </div>
+
+      <!-- 3. LESSON TAB -->
+      <div id="tabPane-lesson" class="tab-pane" role="tabpanel">
+        <div class="lesson-pane-wrapper" id="studioLessonContent">
+          <!-- portal.js orqali to'ldiriladi -->
+        </div>
+      </div>
+
+      <!-- 4. README TAB -->
+      <div id="tabPane-readme" class="tab-pane" role="tabpanel">
+        <div class="readme-pane-wrapper" id="studioReadmeContent">
+          <!-- portal.js orqali to'ldiriladi -->
+        </div>
+      </div>
+    </div>
+
+    <!-- O'XSHASH LOYIHALAR RO'YXATI -->
+    <div class="related-projects-bar">
+      <h4 data-i18n="relatedHeading">O'xshash loyihalar</h4>
+      <div class="related-list" id="relatedProjectsList">
+        <!-- portal.js orqali to'ldiriladi -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST BILDIRISHNOMA -->
+  <div id="toastMsg" class="toast-msg" role="status" aria-live="polite"></div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="./portal.js"></script>
+</body>
+</html>
