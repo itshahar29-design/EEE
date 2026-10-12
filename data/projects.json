@@ -9384,7 +9384,7 @@
   {
     "id": 224,
     "slug": "minomyot-tower-defense-strategik-mini-oyini",
-    "title": "Minomyot / Tower Defense Strategik Mini O'yini",
+    "title": "Minomyot va Tower Defense Strategik Mini O'yini",
     "category": "O'yinlar",
     "level": "O'rta",
     "tech": [
@@ -9410,8 +9410,8 @@
     "duration": "85 daqiqa",
     "rating": 4.9,
     "downloads": 3536,
-    "preview": "./06. Loyihalar/224. Minomyot / Tower Defense Strategik Mini O'yini/index.html",
-    "demo": "./06. Loyihalar/224. Minomyot / Tower Defense Strategik Mini O'yini/index.html",
+    "preview": "./06. Loyihalar/224. Minomyot va Tower Defense Strategik Mini O'yini/index.html",
+    "demo": "./06. Loyihalar/224. Minomyot va Tower Defense Strategik Mini O'yini/index.html",
     "zip": "./zips/224-minomyot-tower-defense-strategik-mini-oyini.zip",
     "lesson": {
       "objective": "Minomyot / Tower Defense Strategik Mini O'yini loyihasi orqali O'yinlar doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
@@ -11094,7 +11094,7 @@
   {
     "id": 262,
     "slug": "uxui-dizayner-case-study-portfoliosi-va-loyihalar-vitrinasi",
-    "title": "UX/UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi",
+    "title": "UX-UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi",
     "category": "Portfolio",
     "level": "O'rta",
     "tech": [
@@ -11120,8 +11120,8 @@
     "duration": "65 daqiqa",
     "rating": 4.9,
     "downloads": 1996,
-    "preview": "./06. Loyihalar/262. UX/UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi/index.html",
-    "demo": "./06. Loyihalar/262. UX/UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi/index.html",
+    "preview": "./06. Loyihalar/262. UX-UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi/index.html",
+    "demo": "./06. Loyihalar/262. UX-UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi/index.html",
     "zip": "./zips/262-uxui-dizayner-case-study-portfoliosi-va-loyihalar-vitrinasi.zip",
     "lesson": {
       "objective": "UX/UI Dizayner Case-Study Portfoliosi va Loyihalar Vitrinasi loyihasi orqali Portfolio doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
@@ -11544,7 +11544,7 @@
   {
     "id": 272,
     "slug": "saas-mahsuloti-konversiya-landing-sahifasi-va-ab-test-elementlari",
-    "title": "SaaS Mahsuloti Konversiya Landing Sahifasi va A/B Test Elementlari",
+    "title": "SaaS Mahsuloti Konversiya Landing Sahifasi va AB Test Elementlari",
     "category": "Landing",
     "level": "O'rta",
     "tech": [
@@ -11570,8 +11570,8 @@
     "duration": "65 daqiqa",
     "rating": 5,
     "downloads": 2826,
-    "preview": "./06. Loyihalar/272. SaaS Mahsuloti Konversiya Landing Sahifasi va A/B Test Elementlari/index.html",
-    "demo": "./06. Loyihalar/272. SaaS Mahsuloti Konversiya Landing Sahifasi va A/B Test Elementlari/index.html",
+    "preview": "./06. Loyihalar/272. SaaS Mahsuloti Konversiya Landing Sahifasi va AB Test Elementlari/index.html",
+    "demo": "./06. Loyihalar/272. SaaS Mahsuloti Konversiya Landing Sahifasi va AB Test Elementlari/index.html",
     "zip": "./zips/272-saas-mahsuloti-konversiya-landing-sahifasi-va-ab-test-elementlari.zip",
     "lesson": {
       "objective": "SaaS Mahsuloti Konversiya Landing Sahifasi va A/B Test Elementlari loyihasi orqali Landing doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",
@@ -12354,7 +12354,7 @@
   {
     "id": 290,
     "slug": "twitter-x-uslubidagi-qisqa-xabarlar-retvit-va-trendlar-ui",
-    "title": "Twitter / X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI",
+    "title": "Twitter va X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI",
     "category": "Clone UI",
     "level": "O'rta",
     "tech": [
@@ -12380,8 +12380,8 @@
     "duration": "75 daqiqa",
     "rating": 4.9,
     "downloads": 4320,
-    "preview": "./06. Loyihalar/290. Twitter / X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI/index.html",
-    "demo": "./06. Loyihalar/290. Twitter / X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI/index.html",
+    "preview": "./06. Loyihalar/290. Twitter va X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI/index.html",
+    "demo": "./06. Loyihalar/290. Twitter va X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI/index.html",
     "zip": "./zips/290-twitter-x-uslubidagi-qisqa-xabarlar-retvit-va-trendlar-ui.zip",
     "lesson": {
       "objective": "Twitter / X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI loyihasi orqali Clone UI doirasidagi asinxron API bilan ishlash, reaktiv state boshqaruvi va dinamik SVG grafiklar chizishni o'zlashtirish.",

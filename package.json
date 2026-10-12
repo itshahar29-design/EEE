@@ -1,10 +1,11 @@
 {
   "name": "frontcraft-pro",
   "version": "2.0.0",
-  "description": "FrontCraft Pro - Frontend Dasturchilar Platformasi (200+ Real Loyihalar va Darslar)",
+  "description": "FrontCraft Pro - Frontend Dasturchilar Platformasi (300+ Real Loyihalar va Darslar)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "build": "node scripts/validate.js",
     "validate": "node scripts/validate.js",
     "build:zips": "node scripts/build-zips.js"
   },

@@ -1,0 +1,21 @@
+{
+  "name": "minomyot-tower-defense-strategik-mini-oyini",
+  "version": "1.0.0",
+  "description": "Minomyot / Tower Defense Strategik Mini O'yini",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "o'yinlar",
+    "tower defense",
+    "strategy game",
+    "canvas",
+    "enemies",
+    "game loop"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "twitter-x-uslubidagi-qisqa-xabarlar-retvit-va-trendlar-ui",
+  "version": "1.0.0",
+  "description": "Twitter / X Uslubidagi Qisqa Xabarlar, Retvit va Trendlar UI",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "frontend",
+    "javascript",
+    "clone ui",
+    "twitter clone",
+    "x feed",
+    "retweet",
+    "hashtags",
+    "clone ui"
+  ],
+  "author": "FrontCraft Pro",
+  "license": "MIT"
+}
