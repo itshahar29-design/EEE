@@ -30,38 +30,116 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-24 selection:bg-blue-200">
 
-  <!-- TOP APP BAR -->
-  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
-    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-sm font-bold text-lg">
-          65
-        </div>
-        <div>
-          <h1 class="text-base font-bold leading-tight text-slate-900 flex items-center gap-1.5">
-            EduMemory
-            <span class="text-[10px] font-semibold uppercase tracking-wider bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">v1.0</span>
-          </h1>
-          <p class="text-xs text-slate-500" id="schoolSubtitle">65-umumiy o'rta ta'lim maktabi</p>
-        </div>
+  <!-- ================= 1. XAVFSIZLIK: PIN-KOD EKRANI (LOCKSCREEN) ================= -->
+  <div id="pinScreen" class="fixed inset-0 z-50 bg-slate-900 text-white flex flex-col items-center justify-between p-6 select-none transition-all duration-300">
+    <div class="w-full flex justify-end">
+      <span class="text-[11px] text-slate-400 font-mono bg-slate-800 px-2.5 py-1 rounded-full border border-slate-700">
+        EduMemory Guard
+      </span>
+    </div>
+
+    <!-- Markaziy qism: Logo va PIN nuqtalari -->
+    <div class="text-center max-w-xs w-full">
+      <div class="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg text-2xl font-black">
+        65
+      </div>
+      <h2 class="text-xl font-bold tracking-tight text-white">EduMemory</h2>
+      <p class="text-xs text-slate-400 mt-1">O‘qituvchilar paneli — 4 xonali PIN-kodni kiriting</p>
+
+      <!-- 4 ta PIN nuqtasi -->
+      <div id="pinDots" class="flex justify-center gap-4 my-6">
+        <span class="pin-dot w-4 h-4 rounded-full border-2 border-slate-500 transition-all duration-200"></span>
+        <span class="pin-dot w-4 h-4 rounded-full border-2 border-slate-500 transition-all duration-200"></span>
+        <span class="pin-dot w-4 h-4 rounded-full border-2 border-slate-500 transition-all duration-200"></span>
+        <span class="pin-dot w-4 h-4 rounded-full border-2 border-slate-500 transition-all duration-200"></span>
       </div>
 
-      <!-- Sana tanlash -->
-      <div class="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1.5 rounded-xl border border-slate-200/80">
-        <i class="fa-regular fa-calendar text-blue-600 text-xs"></i>
-        <input 
-          type="date" 
-          id="datePicker" 
-          class="bg-transparent text-xs font-semibold text-slate-700 focus:outline-none cursor-pointer"
-        />
+      <div id="pinError" class="text-rose-400 text-xs font-semibold h-4 mb-2 opacity-0 transition-opacity">
+        PIN-kod noto‘g‘ri!
       </div>
     </div>
 
-    <!-- Sinf tanlash paneli -->
-    <div class="max-w-3xl mx-auto px-4 pb-3">
-      <div class="flex items-center justify-between mb-1.5">
-        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Sinfni tanlang:</span>
-        <button id="refreshBtn" class="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+    <!-- Raqamli klaviatura (Keypad) -->
+    <div class="max-w-xs w-full mb-4">
+      <div class="grid grid-cols-3 gap-3">
+        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="1">1</button>
+        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="2">2</button>
+        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="3">3</button>
+
+        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="4">4</button>
+        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="5">5</button>
+        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="6">6</button>
+
+        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="7">7</button>
+        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="8">8</button>
+        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="9">9</button>
+
+        <button type="button" id="pinClearBtn" class="h-14 rounded-2xl bg-slate-800/50 hover:bg-slate-800 text-xs font-semibold text-slate-400 active:scale-95 transition flex items-center justify-center">Tozalash</button>
+        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="0">0</button>
+        <button type="button" id="pinBackspaceBtn" class="h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95 transition flex items-center justify-center"><i class="fa-solid fa-delete-left text-lg"></i></button>
+      </div>
+      <p class="text-center text-[11px] text-slate-500 mt-4">Standart PIN-kod: <b>6565</b></p>
+    </div>
+  </div>
+
+  <!-- ================= 2. TOP APP BAR VA MENYU ================= -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-3xl mx-auto px-4 py-2.5 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-xs font-bold text-base">
+          65
+        </div>
+        <div>
+          <h1 class="text-sm font-bold leading-tight text-slate-900 flex items-center gap-1.5">
+            EduMemory
+            <span class="text-[9px] font-semibold uppercase tracking-wider bg-blue-100 text-blue-700 px-1 py-0.2 rounded">v2.0</span>
+          </h1>
+          <p class="text-[11px] text-slate-500" id="schoolSubtitle">65-umumiy o'rta ta'lim maktabi</p>
+        </div>
+      </div>
+
+      <!-- O'ng tomondagi tugmalar: Sana va Qulflash -->
+      <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1 bg-slate-100 px-2 py-1.5 rounded-xl border border-slate-200/80">
+          <i class="fa-regular fa-calendar text-blue-600 text-xs"></i>
+          <input 
+            type="date" 
+            id="datePicker" 
+            class="bg-transparent text-xs font-semibold text-slate-700 focus:outline-none cursor-pointer"
+          />
+        </div>
+
+        <button 
+          id="lockAppBtn" 
+          class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs transition" 
+          title="Tizimni qulflash"
+        >
+          <i class="fa-solid fa-lock"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- BOSHQARUV USKUNALARI (CRUD, EXCEL IMPORT & EXPORT) -->
+    <div class="max-w-3xl mx-auto px-4 py-1.5 border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+      <button id="openAddClassBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
+        <i class="fa-solid fa-plus text-[10px] text-blue-600"></i> Yangi sinf
+      </button>
+      <button id="openAddStudentBtn" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200/60 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
+        <i class="fa-solid fa-user-plus text-[10px]"></i> Yangi o‘quvchi
+      </button>
+      <button id="openExcelImportBtn" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200/60 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
+        <i class="fa-solid fa-file-excel text-[10px]"></i> Excel Import
+      </button>
+      <button id="openExcelExportBtn" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200/60 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
+        <i class="fa-solid fa-file-arrow-down text-[10px]"></i> Oylik Jurnal (Export)
+      </button>
+    </div>
+
+    <!-- SINF TANLASH TABS -->
+    <div class="max-w-3xl mx-auto px-4 pb-2.5 pt-1">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Sinfni tanlang:</span>
+        <button id="refreshBtn" class="text-[11px] text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
           <i class="fa-solid fa-rotate-right"></i> Yangilash
         </button>
       </div>
@@ -71,12 +149,12 @@
     </div>
   </header>
 
-  <!-- ASOSIY KONTENT -->
-  <main class="max-w-3xl mx-auto px-4 pt-4">
+  <!-- ================= 3. ASOSIY KONTENT ================= -->
+  <main class="max-w-3xl mx-auto px-4 pt-3">
 
     <!-- STATISTIKA BLOKI -->
-    <section class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs mb-4">
-      <div class="flex items-center justify-between mb-3">
+    <section class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs mb-3.5">
+      <div class="flex items-center justify-between mb-2.5">
         <h2 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
           <span id="currentClassName" class="text-blue-600">Sinf</span> davomati ko‘rsatkichi
         </h2>
@@ -105,8 +183,8 @@
         </div>
       </div>
 
-      <!-- Telegram ulanish holati qisqacha -->
-      <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+      <!-- Telegram ulanish ko'rsatkichi -->
+      <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
         <div class="flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
           <span>Ulangan ota-onalar: <b id="statLinkedParents" class="text-emerald-700">0</b></span>
@@ -158,7 +236,7 @@
 
   </main>
 
-  <!-- PASTKI SUZUVCHI TUGMA (SAQLASH) -->
+  <!-- ================= 4. PASTKI SUZUVCHI TUGMA ================= -->
   <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 shadow-lg">
     <div class="max-w-3xl mx-auto flex items-center justify-between gap-3">
       <div class="text-xs">
@@ -177,43 +255,154 @@
     </div>
   </div>
 
-  <!-- MODAL: OTA-ONA TELEFON RAQAMINI TAHRIRLASH -->
-  <div id="phoneModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl transform transition-all">
+  <!-- ================= 5. MODALLAR ================= -->
+
+  <!-- MODAL: YANGI SINF QO'SHISH -->
+  <div id="addClassModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl">
       <div class="flex items-center justify-between mb-3">
-        <h3 class="font-bold text-slate-900 text-base">Ota-ona telefon raqami</h3>
-        <button id="closePhoneModalBtn" class="text-slate-400 hover:text-slate-600 p-1">
+        <h3 class="font-bold text-slate-900 text-base">Yangi sinf ochish</h3>
+        <button class="close-modal-btn text-slate-400 hover:text-slate-600 p-1" data-modal="addClassModal">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
-      <p class="text-xs text-slate-600 mb-3" id="phoneModalStudentName">
-        O‘quvchi: <b>...</b>
-      </p>
       <div class="mb-4">
-        <label class="block text-[11px] font-semibold text-slate-600 mb-1">
-          Ota-ona telefon raqamini kiriting:
-        </label>
-        <div class="relative">
-          <i class="fa-solid fa-phone absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-          <input 
-            type="tel" 
-            id="modalPhoneInput" 
-            placeholder="+998 90 123 45 67"
-            class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3 py-2.5 text-xs text-slate-900 font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <p class="text-[10px] text-slate-400 mt-1">
-          Ota-ona botda raqamini tasdiqlaganda avtomatik ulanadi.
-        </p>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Sinf nomi:</label>
+        <input 
+          type="text" 
+          id="newClassNameInput" 
+          placeholder="Masalan: 9-V, 8-A, 11-B"
+          class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       </div>
-      <div class="flex gap-2">
-        <button 
-          id="savePhoneBtn" 
-          class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
-        >
-          <i class="fa-solid fa-check"></i> Saqlash
+      <button 
+        id="saveNewClassBtn" 
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl text-xs transition active:scale-95 flex items-center justify-center gap-1.5"
+      >
+        <i class="fa-solid fa-check"></i> Sinfni saqlash
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: YANGI / TAHRIRLASH O'QUVCHI -->
+  <div id="studentFormModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl">
+      <div class="flex items-center justify-between mb-3">
+        <h3 id="studentModalTitle" class="font-bold text-slate-900 text-base">O‘quvchi qo‘shish</h3>
+        <button class="close-modal-btn text-slate-400 hover:text-slate-600 p-1" data-modal="studentFormModal">
+          <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
+      <input type="hidden" id="editStudentId" value="">
+      <div class="space-y-3 mb-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">F.I.SH (To‘liq ism):</label>
+          <input 
+            type="text" 
+            id="studentFullNameInput" 
+            placeholder="Aliyev Ali Valijon o‘g‘li"
+            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Sinf:</label>
+          <select 
+            id="studentClassSelect" 
+            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <!-- Sinflar JS orqali to'ldiriladi -->
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Ota-ona telefon raqami:</label>
+          <input 
+            type="tel" 
+            id="studentPhoneInput" 
+            placeholder="+998 90 123 45 67"
+            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+      <button 
+        id="saveStudentFormBtn" 
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl text-xs transition active:scale-95 flex items-center justify-center gap-1.5"
+      >
+        <i class="fa-solid fa-check"></i> Saqlash
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: EXCEL IMPORT -->
+  <div id="excelImportModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="font-bold text-slate-900 text-base">Excel orqali ommaviy yuklash</h3>
+        <button class="close-modal-btn text-slate-400 hover:text-slate-600 p-1" data-modal="excelImportModal">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <p class="text-xs text-slate-600 mb-3">
+        Excel faylingizda <b>[Sinf, O‘quvchi F.I.SH, Ota-ona telefoni]</b> ustunlari bo‘lishi lozim.
+      </p>
+
+      <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center bg-slate-50 mb-3 hover:bg-slate-100 transition cursor-pointer" id="dropZone">
+        <i class="fa-solid fa-cloud-arrow-up text-2xl text-blue-500 mb-2"></i>
+        <p class="text-xs text-slate-600 font-medium" id="fileNameLabel">.xlsx yoki .xls faylni tanlang</p>
+        <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" />
+      </div>
+
+      <div class="bg-amber-50 border border-amber-200/80 rounded-xl p-2.5 mb-4 text-[11px] text-amber-800">
+        💡 Exceldagi yangi sinflar avtomatik ochiladi va o‘quvchilar darhol bazaga biriktiriladi.
+      </div>
+
+      <button 
+        id="submitExcelImportBtn" 
+        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-xs transition active:scale-95 flex items-center justify-center gap-1.5"
+      >
+        <i class="fa-solid fa-upload"></i> Faylni yuklash
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: EXCEL EXPORT (OYLIK DAVOMAT JURNALI) -->
+  <div id="excelExportModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="font-bold text-slate-900 text-base">Oylik Davomat Jurnali (Excel)</h3>
+        <button class="close-modal-btn text-slate-400 hover:text-slate-600 p-1" data-modal="excelExportModal">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <p class="text-xs text-slate-600 mb-3">
+        Oy va sinfni tanlang, tizim 1 oylik to‘liq davomat jadvalini tayyor Excel fayl qilib beradi.
+      </p>
+
+      <div class="space-y-3 mb-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Sinf:</label>
+          <select 
+            id="exportClassSelect" 
+            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <!-- Sinflar to'ldiriladi -->
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Oy:</label>
+          <input 
+            type="month" 
+            id="exportMonthInput" 
+            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <button 
+        id="submitExcelExportBtn" 
+        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl text-xs transition active:scale-95 flex items-center justify-center gap-1.5"
+      >
+        <i class="fa-solid fa-download"></i> Excelni yuklab olish
+      </button>
     </div>
   </div>
 
