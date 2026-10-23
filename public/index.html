@@ -17,13 +17,7 @@
         extend: {
           colors: {
             primary: '#2563eb',
-            'primary-dark': '#1d4ed8',
-            tgBg: 'var(--tg-theme-bg-color, #f8fafc)',
-            tgSecBg: 'var(--tg-theme-secondary-bg-color, #ffffff)',
-            tgText: 'var(--tg-theme-text-color, #0f172a)',
-            tgHint: 'var(--tg-theme-hint-color, #64748b)',
-            tgBtn: 'var(--tg-theme-button-color, #2563eb)',
-            tgBtnText: 'var(--tg-theme-button-text-color, #ffffff)'
+            'primary-dark': '#1d4ed8'
           }
         }
       }
@@ -36,7 +30,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-24 selection:bg-blue-200">
 
-  <!-- ================= TOP APP BAR ================= -->
+  <!-- TOP APP BAR -->
   <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
     <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -48,7 +42,7 @@
             EduMemory
             <span class="text-[10px] font-semibold uppercase tracking-wider bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">v1.0</span>
           </h1>
-          <p class="text-xs text-slate-500" id="schoolSubtitle">65-maktab davomat tizimi</p>
+          <p class="text-xs text-slate-500" id="schoolSubtitle">65-umumiy o'rta ta'lim maktabi</p>
         </div>
       </div>
 
@@ -63,7 +57,7 @@
       </div>
     </div>
 
-    <!-- Sinf tanlash gorizontal paneli -->
+    <!-- Sinf tanlash paneli -->
     <div class="max-w-3xl mx-auto px-4 pb-3">
       <div class="flex items-center justify-between mb-1.5">
         <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Sinfni tanlang:</span>
@@ -72,27 +66,20 @@
         </button>
       </div>
       <div id="classesList" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-        <!-- Sinflar tugmalari JS orqali qo'shiladi -->
-        <div class="animate-pulse flex gap-2">
-          <div class="h-9 w-16 bg-slate-200 rounded-xl"></div>
-          <div class="h-9 w-16 bg-slate-200 rounded-xl"></div>
-          <div class="h-9 w-16 bg-slate-200 rounded-xl"></div>
-        </div>
+        <!-- Sinflar ro'yxati -->
       </div>
     </div>
   </header>
 
-  <!-- ================= ASOSIY KONTENT ================= -->
+  <!-- ASOSIY KONTENT -->
   <main class="max-w-3xl mx-auto px-4 pt-4">
 
     <!-- STATISTIKA BLOKI -->
     <section class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs mb-4">
       <div class="flex items-center justify-between mb-3">
-        <div class="flex items-center gap-2">
-          <h2 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
-            <span id="currentClassName" class="text-blue-600">Sinf</span> davomati ko‘rsatkichi
-          </h2>
-        </div>
+        <h2 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+          <span id="currentClassName" class="text-blue-600">Sinf</span> davomati ko‘rsatkichi
+        </h2>
         <span id="totalStudentsBadge" class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full">
           0 o‘quvchi
         </span>
@@ -118,6 +105,18 @@
         </div>
       </div>
 
+      <!-- Telegram ulanish holati qisqacha -->
+      <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Ulangan ota-onalar: <b id="statLinkedParents" class="text-emerald-700">0</b></span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          <span>Kutilmoqda: <b id="statPendingParents" class="text-amber-700">0</b></span>
+        </div>
+      </div>
+
       <!-- Tezkor amallar -->
       <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
         <button 
@@ -136,14 +135,14 @@
       </div>
     </section>
 
-    <!-- QIDIRUV VA FILTR -->
+    <!-- QIDIRUV -->
     <div class="flex items-center gap-2 mb-3">
       <div class="relative flex-1">
         <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
         <input 
           type="text" 
           id="searchInput" 
-          placeholder="O‘quvchi ism-familiyasi..."
+          placeholder="O‘quvchi ism-familiyasi yoki telefon raqami..."
           class="w-full bg-white border border-slate-200 rounded-xl pl-8 pr-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
         />
       </div>
@@ -151,7 +150,6 @@
 
     <!-- O'QUVCHILAR RO'YXATI -->
     <section id="studentsContainer" class="space-y-2.5">
-      <!-- O'quvchilar ro'yxati JS orqali render qilinadi -->
       <div class="text-center py-12 text-slate-400 text-sm">
         <i class="fa-solid fa-spinner fa-spin text-2xl mb-2 text-blue-500"></i>
         <p>Ma'lumotlar yuklanmoqda...</p>
@@ -160,7 +158,7 @@
 
   </main>
 
-  <!-- ================= PASTKI SUZUVCHI TUGMA (SAQLASH) ================= -->
+  <!-- PASTKI SUZUVCHI TUGMA (SAQLASH) -->
   <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 shadow-lg">
     <div class="max-w-3xl mx-auto flex items-center justify-between gap-3">
       <div class="text-xs">
@@ -179,45 +177,47 @@
     </div>
   </div>
 
-  <!-- ================= MODAL: OTA-ONA HAVOLASI ================= -->
-  <div id="linkModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+  <!-- MODAL: OTA-ONA TELEFON RAQAMINI TAHRIRLASH -->
+  <div id="phoneModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl transform transition-all">
       <div class="flex items-center justify-between mb-3">
-        <h3 class="font-bold text-slate-900 text-base">Ota-onani biriktirish</h3>
-        <button id="closeModalBtn" class="text-slate-400 hover:text-slate-600 p-1">
+        <h3 class="font-bold text-slate-900 text-base">Ota-ona telefon raqami</h3>
+        <button id="closePhoneModalBtn" class="text-slate-400 hover:text-slate-600 p-1">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
-      <p class="text-xs text-slate-600 mb-3" id="modalStudentName">
+      <p class="text-xs text-slate-600 mb-3" id="phoneModalStudentName">
         O‘quvchi: <b>...</b>
       </p>
-      <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 mb-4">
-        <p class="text-[11px] text-slate-500 mb-1 font-medium">Ota-ona uchun shaxsiy Telegram havola:</p>
-        <input 
-          type="text" 
-          id="modalDeepLinkInput" 
-          readonly 
-          class="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs text-blue-700 font-mono select-all focus:outline-none"
-        />
+      <div class="mb-4">
+        <label class="block text-[11px] font-semibold text-slate-600 mb-1">
+          Ota-ona telefon raqamini kiriting:
+        </label>
+        <div class="relative">
+          <i class="fa-solid fa-phone absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input 
+            type="tel" 
+            id="modalPhoneInput" 
+            placeholder="+998 90 123 45 67"
+            class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3 py-2.5 text-xs text-slate-900 font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <p class="text-[10px] text-slate-400 mt-1">
+          Ota-ona botda raqamini tasdiqlaganda avtomatik ulanadi.
+        </p>
       </div>
       <div class="flex gap-2">
         <button 
-          id="copyLinkBtn" 
+          id="savePhoneBtn" 
           class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
         >
-          <i class="fa-regular fa-copy"></i> Havoladan nusxa olish
-        </button>
-        <button 
-          id="shareLinkBtn" 
-          class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
-        >
-          <i class="fa-solid fa-share-nodes"></i>
+          <i class="fa-solid fa-check"></i> Saqlash
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ================= TOAST NOTIFICATION ================= -->
+  <!-- TOAST NOTIFICATION -->
   <div 
     id="toast" 
     class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 text-white text-xs font-semibold py-2.5 px-4 rounded-full shadow-lg backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none translate-y-[-20px] flex items-center gap-2"

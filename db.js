@@ -6,14 +6,13 @@ const dbPath = path.join(__dirname, 'edumemory.db');
 let db;
 let isNodeSqlite = false;
 
-// 1. better-sqlite3 ni yuklashga urinib ko'rish, agar mavjud bo'lmasa Node.js ning o'rnatilgan node:sqlite modulidan foydalanish
+// 1. better-sqlite3 ni yuklashga urinish, aks holda Node.js ning o'rnatilgan node:sqlite modulidan foydalanish
 try {
   const Database = require('better-sqlite3');
   db = new Database(dbPath);
   db.pragma('journal_mode = WAL');
   db.pragma('foreign_keys = ON');
 } catch (err) {
-  // Node 22+ da o'rnatilgan node:sqlite moduli
   try {
     const { DatabaseSync } = require('node:sqlite');
     db = new DatabaseSync(dbPath);
@@ -27,7 +26,7 @@ try {
 }
 
 /**
- * Har ikkala drayver uchun universal tranzaksiya o'rami (Transaction Wrapper)
+ * Universal tranzaksiya o'rami (Transaction Wrapper)
  */
 function runTransaction(fn) {
   if (!isNodeSqlite && typeof db.transaction === 'function') {
@@ -47,7 +46,34 @@ function runTransaction(fn) {
 }
 
 /**
- * Jadvallarni yaratish va dastlabki test ma'lumotlarini (seed) kiritish
+ * Telefon raqamni oxirgi 9 ta raqam bo'yicha normalizatsiya qilish
+ * Masalan:
+ * "+998 90 123 45 67" -> "901234567"
+ * "998901234567"      -> "901234567"
+ * "901234567"         -> "901234567"
+ */
+function normalizePhone(raw) {
+  if (!raw) return '';
+  const digits = String(raw).replace(/\D/g, '');
+  if (digits.length >= 9) {
+    return digits.slice(-9);
+  }
+  return digits;
+}
+
+/**
+ * Telefon raqamni chiroyli ko'rinishda formatlash (+998 (90) 123-45-67)
+ */
+function formatPhone(raw) {
+  const norm = normalizePhone(raw);
+  if (norm.length === 9) {
+    return `+998 (${norm.slice(0, 2)}) ${norm.slice(2, 5)}-${norm.slice(5, 7)}-${norm.slice(7, 9)}`;
+  }
+  return raw || '';
+}
+
+/**
+ * Jadvallarni yaratish va migratsiyalarni tekshirish
  */
 function initDatabase() {
   // 1. classes jadvali
@@ -66,9 +92,29 @@ function initDatabase() {
       class_id INTEGER NOT NULL,
       parent_chat_id INTEGER DEFAULT NULL,
       parent_phone TEXT,
+      parent_phone_norm TEXT,
       FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
     );
   `);
+
+  // parent_phone_norm ustuni mavjudligini tekshirish va bo'lmasa qo'shish (migratsiya)
+  try {
+    const cols = db.prepare('PRAGMA table_info(students)').all();
+    const hasNormCol = cols.some((c) => c.name === 'parent_phone_norm');
+    if (!hasNormCol) {
+      db.exec('ALTER TABLE students ADD COLUMN parent_phone_norm TEXT;');
+      // Mavjud raqamlarni normalizatsiya qilish
+      const allStudents = db.prepare('SELECT id, parent_phone FROM students').all();
+      const updateStmt = db.prepare('UPDATE students SET parent_phone_norm = ? WHERE id = ?');
+      for (const s of allStudents) {
+        if (s.parent_phone) {
+          updateStmt.run(normalizePhone(s.parent_phone), s.id);
+        }
+      }
+    }
+  } catch (e) {
+    // PRAGMA table_info ehtimoliy xatoliklarini e'tiborsiz qoldirish
+  }
 
   // 3. attendance jadvali
   db.exec(`
@@ -89,12 +135,13 @@ function initDatabase() {
   // Indekslar
   db.exec(`
     CREATE INDEX IF NOT EXISTS idx_students_class ON students(class_id);
+    CREATE INDEX IF NOT EXISTS idx_students_phone_norm ON students(parent_phone_norm);
+    CREATE INDEX IF NOT EXISTS idx_students_parent_chat ON students(parent_chat_id);
     CREATE INDEX IF NOT EXISTS idx_attendance_date ON attendance(date);
     CREATE INDEX IF NOT EXISTS idx_attendance_student_date ON attendance(student_id, date);
-    CREATE INDEX IF NOT EXISTS idx_students_parent_chat ON students(parent_chat_id);
   `);
 
-  // Test ma'lumotlarini (seed data) kiritish
+  // Boshlang'ich test ma'lumotlarini kiritish
   seedInitialData();
 }
 
@@ -104,14 +151,14 @@ function initDatabase() {
 function seedInitialData() {
   const countRow = db.prepare('SELECT COUNT(*) as count FROM classes').get();
   if (countRow && countRow.count > 0) {
-    return; // Ma'lumotlar allaqachon mavjud
+    return;
   }
 
   console.log('🌱 Baza bo‘sh. 65-maktab uchun dastlabki ma\'lumotlar (seed) kiritilmoqda...');
 
   const insertClass = db.prepare('INSERT INTO classes (name) VALUES (?)');
   const insertStudent = db.prepare(
-    'INSERT INTO students (full_name, class_id, parent_phone) VALUES (?, ?, ?)'
+    'INSERT INTO students (full_name, class_id, parent_phone, parent_phone_norm) VALUES (?, ?, ?, ?)'
   );
 
   const seedTransaction = runTransaction(() => {
@@ -119,7 +166,7 @@ function seedInitialData() {
     const class9ARes = insertClass.run('9-A');
     const class9A = Number(class9ARes.lastInsertRowid);
     const students9A = [
-      ['Aliyev Jasur Rustam o‘g‘li', '+998901234501'],
+      ['Aliyev Jasur Rustam o‘g‘li', '+998901234501'], // 1-oila
       ['Karimova Madina Dilshod qizi', '+998901234502'],
       ['Sobirov Azizbek Bobur o‘g‘li', '+998901234503'],
       ['Toshmatova Nilufar Shuhrat qizi', '+998901234504'],
@@ -129,7 +176,7 @@ function seedInitialData() {
       ['Qodirova Zarina Jamshid qizi', '+998901234508']
     ];
     for (const [name, phone] of students9A) {
-      insertStudent.run(name, class9A, phone);
+      insertStudent.run(name, class9A, phone, normalizePhone(phone));
     }
 
     // 9-B sinfi
@@ -144,14 +191,14 @@ function seedInitialData() {
       ['Mirzayeva Sevara Baxtiyor qizi', '+998911234506']
     ];
     for (const [name, phone] of students9B) {
-      insertStudent.run(name, class9B, phone);
+      insertStudent.run(name, class9B, phone, normalizePhone(phone));
     }
 
     // 10-A sinfi
     const class10ARes = insertClass.run('10-A');
     const class10A = Number(class10ARes.lastInsertRowid);
     const students10A = [
-      ['Ahmadov Behruz Farrux o‘g‘li', '+998931234501'],
+      ['Aliyeva Zarina Rustam qizi', '+998901234501'], // Jasurning singlisi (bir xil ota-ona raqami!)
       ['Mahmudova Feruza Odil qizi', '+998931234502'],
       ['G‘aniyev Sardor Botir o‘g‘li', '+998931234503'],
       ['Fayzullayeva Sevinch Xurshid qizi', '+998931234504'],
@@ -159,7 +206,7 @@ function seedInitialData() {
       ['Nazarova Mohira Shuhrat qizi', '+998931234506']
     ];
     for (const [name, phone] of students10A) {
-      insertStudent.run(name, class10A, phone);
+      insertStudent.run(name, class10A, phone, normalizePhone(phone));
     }
 
     // 11-A sinfi
@@ -173,7 +220,7 @@ function seedInitialData() {
       ['Rustamov Umidjon Faxriddin o‘g‘li', '+998971234505']
     ];
     for (const [name, phone] of students11A) {
-      insertStudent.run(name, class11A, phone);
+      insertStudent.run(name, class11A, phone, normalizePhone(phone));
     }
   });
 
@@ -181,9 +228,6 @@ function seedInitialData() {
   console.log('✅ 65-maktab ma\'lumotlari muvaffaqiyatli kiritildi!');
 }
 
-/**
- * Barcha sinflar ro'yxatini olish
- */
 function getAllClasses() {
   const stmt = db.prepare(`
     SELECT c.id, c.name, COUNT(s.id) AS student_count
@@ -195,15 +239,12 @@ function getAllClasses() {
   return stmt.all();
 }
 
-/**
- * Sinf haqida ma'lumot
- */
 function getClassById(classId) {
   return db.prepare('SELECT * FROM classes WHERE id = ?').get(classId);
 }
 
 /**
- * Sinfdagi o'quvchilar va ularning berilgan sanadagi davomati
+ * Sinf o'quvchilari va ularning davomati + profil ulanish holati
  */
 function getStudentsWithAttendance(classId, date) {
   const stmt = db.prepare(`
@@ -214,11 +255,16 @@ function getStudentsWithAttendance(classId, date) {
       c.name AS class_name,
       s.parent_chat_id,
       s.parent_phone,
+      s.parent_phone_norm,
       a.id AS attendance_id,
       a.status,
       a.reason,
       a.notified,
-      CASE WHEN s.parent_chat_id IS NOT NULL THEN 1 ELSE 0 END AS is_parent_linked
+      CASE 
+        WHEN s.parent_chat_id IS NOT NULL THEN 'linked'
+        WHEN s.parent_phone_norm IS NOT NULL AND s.parent_phone_norm != '' THEN 'pending'
+        ELSE 'no_phone'
+      END AS parent_status
     FROM students s
     JOIN classes c ON s.class_id = c.id
     LEFT JOIN attendance a ON s.id = a.student_id AND a.date = ?
@@ -229,7 +275,87 @@ function getStudentsWithAttendance(classId, date) {
 }
 
 /**
- * Davomatni to'plam (batch) tarzida saqlash (Upsert)
+ * Telefon raqami orqali ota-onani barcha farzandlariga avtomatik biriktirish
+ * Bitta raqamga bir nechta bola (aka-singillar) birikishi mumkin
+ */
+function linkParentByPhone(rawPhone, parentChatId) {
+  const normPhone = normalizePhone(rawPhone);
+  if (!normPhone || normPhone.length < 9) {
+    return [];
+  }
+
+  // 1. Shu telefon raqamiga tegishli barcha o'quvchilarni yangilash
+  const updateStmt = db.prepare(`
+    UPDATE students 
+    SET parent_chat_id = ? 
+    WHERE parent_phone_norm = ?
+  `);
+  updateStmt.run(parentChatId, normPhone);
+
+  // 2. Biriktirilgan barcha o'quvchilar ro'yxatini qaytarish
+  const selectStmt = db.prepare(`
+    SELECT s.id, s.full_name, s.class_id, c.name AS class_name, s.parent_phone
+    FROM students s
+    JOIN classes c ON s.class_id = c.id
+    WHERE s.parent_phone_norm = ?
+    ORDER BY s.full_name ASC
+  `);
+  return selectStmt.all(normPhone);
+}
+
+/**
+ * O'quvchining ota-onasi telefon raqamini yangilash (O'qituvchi Mini App orqali o'zgartirganda)
+ */
+function updateStudentParentPhone(studentId, newPhone) {
+  const normPhone = normalizePhone(newPhone);
+
+  // Agar ushbu yangi raqam boshqa bolada allaqachon Telegram chat_id ga ega bo'lsa, avtomatik biriktiramiz!
+  let existingChatId = null;
+  if (normPhone) {
+    const existing = db.prepare(`
+      SELECT parent_chat_id 
+      FROM students 
+      WHERE parent_phone_norm = ? AND parent_chat_id IS NOT NULL 
+      LIMIT 1
+    `).get(normPhone);
+    if (existing) {
+      existingChatId = existing.parent_chat_id;
+    }
+  }
+
+  const stmt = db.prepare(`
+    UPDATE students 
+    SET 
+      parent_phone = ?,
+      parent_phone_norm = ?,
+      parent_chat_id = ?
+    WHERE id = ?
+  `);
+  stmt.run(newPhone || null, normPhone || null, existingChatId, studentId);
+
+  return getStudentById(studentId);
+}
+
+/**
+ * O'quvchi ma'lumotlarini ID bo'yicha olish
+ */
+function getStudentById(studentId) {
+  const stmt = db.prepare(`
+    SELECT s.*, c.name AS class_name,
+      CASE 
+        WHEN s.parent_chat_id IS NOT NULL THEN 'linked'
+        WHEN s.parent_phone_norm IS NOT NULL AND s.parent_phone_norm != '' THEN 'pending'
+        ELSE 'no_phone'
+      END AS parent_status
+    FROM students s
+    JOIN classes c ON s.class_id = c.id
+    WHERE s.id = ?
+  `);
+  return stmt.get(studentId);
+}
+
+/**
+ * Davomatni to'plam tarzida saqlash (Upsert)
  */
 function saveAttendanceBatch(records, date) {
   const upsertStmt = db.prepare(`
@@ -261,36 +387,7 @@ function saveAttendanceBatch(records, date) {
 }
 
 /**
- * O'quvchi ma'lumotlarini ID bo'yicha olish
- */
-function getStudentById(studentId) {
-  const stmt = db.prepare(`
-    SELECT s.*, c.name AS class_name
-    FROM students s
-    JOIN classes c ON s.class_id = c.id
-    WHERE s.id = ?
-  `);
-  return stmt.get(studentId);
-}
-
-/**
- * Ota-ona chat_id sini o'quvchiga biriktirish (Deep link orqali)
- */
-function linkParentToStudent(studentId, parentChatId) {
-  const updateStmt = db.prepare(`
-    UPDATE students 
-    SET parent_chat_id = ? 
-    WHERE id = ?
-  `);
-  const result = updateStmt.run(parentChatId, studentId);
-  if (result.changes > 0) {
-    return getStudentById(studentId);
-  }
-  return null;
-}
-
-/**
- * Ota-onaga biriktirilgan o'quvchilar ro'yxati va bugungi davomati
+ * Telegram Chat ID orqali ota-onaga biriktirilgan barcha o'quvchilar va bugungi davomati
  */
 function getStudentsByParentChatId(parentChatId, date) {
   const stmt = db.prepare(`
@@ -314,7 +411,7 @@ function getStudentsByParentChatId(parentChatId, date) {
 }
 
 /**
- * Xabarnoma yuborilishi kerak bo'lgan davomat yozuvlarini olish
+ * Xabarnoma yuborilishi kerak bo'lgan davomat yozuvlarini olish (faqat Telegram profili ulanganlarga)
  */
 function getPendingNotifications(date, classId = null) {
   let query = `
@@ -348,9 +445,6 @@ function getPendingNotifications(date, classId = null) {
   return stmt.all(...params);
 }
 
-/**
- * Yuborilgan xabarlarni notified = 1 qilib belgilash
- */
 function markAttendanceAsNotified(attendanceIds) {
   if (!attendanceIds || attendanceIds.length === 0) return;
   const placeholders = attendanceIds.map(() => '?').join(',');
@@ -362,9 +456,6 @@ function markAttendanceAsNotified(attendanceIds) {
   return stmt.run(...attendanceIds);
 }
 
-/**
- * Sana bo'yicha umumiy statistika
- */
 function getAttendanceStats(date, classId = null) {
   let query = `
     SELECT 
@@ -374,7 +465,8 @@ function getAttendanceStats(date, classId = null) {
       SUM(CASE WHEN a.status = 'kelmadi' THEN 1 ELSE 0 END) AS kelmadi,
       SUM(CASE WHEN a.status = 'kechikdi' THEN 1 ELSE 0 END) AS kechikdi,
       SUM(CASE WHEN a.status = 'sababli' THEN 1 ELSE 0 END) AS sababli,
-      SUM(CASE WHEN s.parent_chat_id IS NOT NULL THEN 1 ELSE 0 END) AS parents_linked
+      SUM(CASE WHEN s.parent_chat_id IS NOT NULL THEN 1 ELSE 0 END) AS parents_linked,
+      SUM(CASE WHEN s.parent_chat_id IS NULL AND s.parent_phone_norm IS NOT NULL THEN 1 ELSE 0 END) AS parents_pending
     FROM students s
     LEFT JOIN attendance a ON s.id = a.student_id AND a.date = ?
   `;
@@ -393,22 +485,25 @@ function getAttendanceStats(date, classId = null) {
     kechikdi: Number(result.kechikdi || 0),
     sababli: Number(result.sababli || 0),
     unmarked: Number(result.total_students || 0) - Number(result.marked_students || 0),
-    parents_linked: Number(result.parents_linked || 0)
+    parents_linked: Number(result.parents_linked || 0),
+    parents_pending: Number(result.parents_pending || 0)
   };
 }
 
-// Baza ishga tushirish
 initDatabase();
 
 module.exports = {
   db,
+  normalizePhone,
+  formatPhone,
   getAllClasses,
   getClassById,
   getStudentsWithAttendance,
-  saveAttendanceBatch,
+  linkParentByPhone,
+  updateStudentParentPhone,
   getStudentById,
-  linkParentToStudent,
   getStudentsByParentChatId,
+  saveAttendanceBatch,
   getPendingNotifications,
   markAttendanceAsNotified,
   getAttendanceStats
