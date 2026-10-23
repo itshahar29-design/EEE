@@ -9,7 +9,8 @@ const db = require('./db.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const BOT_TOKEN = process.env.BOT_TOKEN;
+const BOT_TOKEN = process.env.BOT_TOKEN || '8831381677:AAHZfOhKQspNYVKAtI9OkrbsmcDhDPib6Yw';
+const WEBAPP_URL = process.env.WEBAPP_URL || 'https://eee-w2yj.onrender.com';
 const SCHOOL_NAME = process.env.SCHOOL_NAME || "65-umumiy o'rta ta'lim maktabi";
 const TEACHER_PIN = process.env.TEACHER_PIN || '6565';
 const ADMIN_PIN = process.env.ADMIN_PIN || '9900';
@@ -76,6 +77,21 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
     bot.telegram.getMe().then((me) => {
       botUsername = me.username;
       console.log(`🤖 Telegram Bot faol: @${botUsername}`);
+
+      bot.telegram.setChatMenuButton({
+        menu_button: {
+          type: 'web_app',
+          text: 'EduMemory',
+          web_app: { url: WEBAPP_URL }
+        }
+      }).catch((e) => console.warn('setChatMenuButton xatosi:', e.message));
+
+      bot.telegram.setMyCommands([
+        { command: 'start', description: 'Tizimni ishga tushirish / Yangilash' },
+        { command: 'holat', description: 'Bugungi davomat ko‘rsatkichi' },
+        { command: 'admin', description: 'Boshqaruv paneli' },
+        { command: 'yordam', description: 'Qo‘llanma va yordam' }
+      ]).catch((e) => console.warn('setMyCommands xatosi:', e.message));
     }).catch((err) => {
       console.warn('⚠️ Bot getMe xatosi:', err.message);
     });
@@ -441,15 +457,31 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
 
     // D. Admin buyrug'i
     bot.command('admin', async (ctx) => {
-      const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
-      const staff = await db.getStaffByChatId(ctx.chat.id);
+      const chatId = ctx.chat.id;
+      const text = (ctx.message.text || '').trim();
+      const webAppUrl = process.env.WEBAPP_URL || WEBAPP_URL;
+
+      // Agar /admin 9900 deb yozilsa, profilni darhol Bosh Admin sifatida biriktirish
+      if (text.includes('9900')) {
+        await db.linkStaffByPhone(ADMIN_PHONE, chatId);
+        return ctx.replyWithHTML(
+          `👑 <b>Tabriklaymiz! Siz Bosh Administrator sifatida tizimga muvaffaqiyatli ulandingiz.</b>\n\n` +
+          `Sizga barcha boshqaruv tugmalari faollashtirildi:`,
+          {
+            reply_markup: getAdminKeyboard(webAppUrl)
+          }
+        );
+      }
+
+      const staff = await db.getStaffByChatId(chatId);
       const keyboard = staff && staff.role === 'admin' 
         ? getAdminKeyboard(webAppUrl) 
         : (staff ? getTeacherKeyboard(webAppUrl, staff.class_id, staff.class_name) : getUnverifiedKeyboard());
 
       return ctx.replyWithHTML(
         `👨‍🏫 <b>EduMemory — 9-sinflar Davomat Tizimi</b>\n\n` +
-        `Davomat kiritish (08:00 - 13:30) yoki nazorat qilish uchun pastdagi tugmani bosing:`,
+        `Davomat kiritish (08:00 - 13:30) yoki nazorat qilish uchun pastdagi tugmani bosing:` +
+        (!staff ? `\n\n<i>Maslahat: Bosh Admin sifatida darhol ulanish uchun <code>/admin 9900</code> buyrug‘ini yuboring.</i>` : ''),
         {
           reply_markup: keyboard
         }
