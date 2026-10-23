@@ -106,9 +106,8 @@ function getTashkentTimeParts() {
   const dateStr = `${year}-${month}-${day}`;
   const timeStr = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
   
-  // Toshkent kunduzi bo'yicha hafta kunini hisoblash (0 = Yakshanba, 1 = Dushanba, ..., 6 = Shanba)
   const d = new Date(`${dateStr}T12:00:00+05:00`);
-  const dayOfWeek = d.getDay();
+  const dayOfWeek = d.getDay(); // 0 = Yakshanba, 1..6 = Dushanba-Shanba
 
   return {
     year,
@@ -131,14 +130,12 @@ function getTodayString() {
  * Qat'iy vaqt rejimi (Time-Lock):
  * Davomat faqat dars vaqtida — soat 08:00 dan 13:30 gacha (Asia/Tashkent) kiritilishi va tahrirlanishi mumkin.
  * Soat 13:30 da tizim bugungi kun davomatini avtomatik "MUZLATADI" (FREEZE).
- * Yakshanba kunlari davomat kiritish man etiladi.
  */
 function checkAttendanceWindow(targetDate = null) {
   const t = getTashkentTimeParts();
   const todayStr = t.dateStr;
   const checkDate = targetDate || todayStr;
 
-  // Faqat bugungi kun davomati ochiladi
   if (checkDate !== todayStr) {
     return {
       allowed: false,
@@ -160,7 +157,6 @@ function checkAttendanceWindow(targetDate = null) {
     };
   }
 
-  // 08:00 dan 13:30 gacha
   const currentMinutes = t.hour * 60 + t.minute;
   const startMinutes = 8 * 60; // 08:00 -> 480 daqiqa
   const endMinutes = 13 * 60 + 30; // 13:30 -> 810 daqiqa
@@ -195,7 +191,7 @@ function checkAttendanceWindow(targetDate = null) {
 }
 
 /**
- * Telefon raqamini normalizatsiya qilish (oxirgi 9 ta raqam: masalan, 901234567)
+ * Telefon raqamini normalizatsiya qilish (oxirgi 9 ta raqam: masalan, 996893228)
  */
 function normalizePhone(raw) {
   if (!raw) return '';
@@ -207,7 +203,7 @@ function normalizePhone(raw) {
 }
 
 /**
- * Telefon raqamini chiroyli formatlash (+998 (90) 123-45-67)
+ * Telefon raqamini chiroyli formatlash (+998 (99) 689-32-28)
  */
 function formatPhone(raw) {
   const norm = normalizePhone(raw);
@@ -217,11 +213,12 @@ function formatPhone(raw) {
   return raw || '';
 }
 
-/**
- * 3. MA'LUMOTLAR BAZASINI INITSIALIZATSIYA QILISH
- */
+let initDbPromise = null;
 async function initDatabase() {
-  if (hasPostgres) {
+  if (initDbPromise) return initDbPromise;
+  initDbPromise = (async () => {
+    if (hasPostgres) {
+
     await pgPool.query(`
       CREATE TABLE IF NOT EXISTS classes (
         id SERIAL PRIMARY KEY,
@@ -249,7 +246,6 @@ async function initDatabase() {
         UNIQUE(student_id, date)
       );
 
-      -- Takroriy xabarlarning oldini oluvchi nazorat jadvali
       CREATE TABLE IF NOT EXISTS daily_dispatches (
         id SERIAL PRIMARY KEY,
         date VARCHAR(10) UNIQUE NOT NULL,
@@ -260,10 +256,22 @@ async function initDatabase() {
         status VARCHAR(20) NOT NULL
       );
 
+      -- Xodimlar (Admin va O'qituvchilar) jadvali
+      CREATE TABLE IF NOT EXISTS staff (
+        id SERIAL PRIMARY KEY,
+        full_name VARCHAR(255) NOT NULL,
+        phone VARCHAR(50),
+        phone_norm VARCHAR(20) UNIQUE NOT NULL,
+        role VARCHAR(30) NOT NULL, -- 'admin', 'teacher'
+        class_id INTEGER REFERENCES classes(id) ON DELETE SET NULL,
+        chat_id BIGINT DEFAULT NULL
+      );
+
       CREATE INDEX IF NOT EXISTS idx_pg_students_class ON students(class_id);
       CREATE INDEX IF NOT EXISTS idx_pg_students_phone_norm ON students(parent_phone_norm);
       CREATE INDEX IF NOT EXISTS idx_pg_attendance_date ON attendance(date);
       CREATE INDEX IF NOT EXISTS idx_pg_daily_dispatches_date ON daily_dispatches(date);
+      CREATE INDEX IF NOT EXISTS idx_pg_staff_phone_norm ON staff(phone_norm);
     `);
   } else {
     sqliteDb.exec(`
@@ -295,7 +303,6 @@ async function initDatabase() {
         FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
       );
 
-      -- Takroriy xabarlarning oldini oluvchi nazorat jadvali
       CREATE TABLE IF NOT EXISTS daily_dispatches (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         date TEXT UNIQUE NOT NULL,
@@ -306,63 +313,151 @@ async function initDatabase() {
         status TEXT NOT NULL
       );
 
+      -- Xodimlar (Admin va O'qituvchilar) jadvali
+      CREATE TABLE IF NOT EXISTS staff (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        full_name TEXT NOT NULL,
+        phone TEXT,
+        phone_norm TEXT UNIQUE NOT NULL,
+        role TEXT NOT NULL,
+        class_id INTEGER DEFAULT NULL,
+        chat_id INTEGER DEFAULT NULL,
+        FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE SET NULL
+      );
+
       CREATE INDEX IF NOT EXISTS idx_sqlite_students_class ON students(class_id);
       CREATE INDEX IF NOT EXISTS idx_sqlite_students_phone_norm ON students(parent_phone_norm);
       CREATE INDEX IF NOT EXISTS idx_sqlite_attendance_date ON attendance(date);
       CREATE INDEX IF NOT EXISTS idx_sqlite_daily_dispatches_date ON daily_dispatches(date);
+      CREATE INDEX IF NOT EXISTS idx_sqlite_staff_phone_norm ON staff(phone_norm);
     `);
   }
 
-  // Boshlang'ich test ma'lumotlari (agar bo'sh bo'lsa)
-  await seedInitialData();
+  // 100% PRODUCTION TOZALASH: Faqat 9-A va 9-B qoldiriladi, barcha soxta test ma'lumotlar o'chiriladi
+  await cleanAndSetupProduction();
+  })();
+  return initDbPromise;
 }
 
-async function seedInitialData() {
-  const existingClass = await queryOne('SELECT id FROM classes LIMIT 1');
-  if (existingClass) return;
+/**
+ * Haqiqiy ishchi holat (Production setup)
+ */
+async function cleanAndSetupProduction() {
+  console.log('🧹 Production holatiga o‘tkazilmoqda: faqat 9-A va 9-B sinflari sozlanmoqda...');
 
-  console.log('🌱 Baza bo‘sh. 65-maktab uchun boshlang‘ich ma‘lumotlar kiritilmoqda...');
+  // 1. 9-A va 9-B dan boshqa har qanday sinflar va ularning o'quvchilarini o'chirish
+  await execute(`DELETE FROM classes WHERE name NOT IN ('9-A', '9-B')`);
 
-  const classes = ['9-A', '9-B', '10-A', '11-A'];
-  for (const name of classes) {
-    await execute('INSERT INTO classes (name) VALUES (?)', [name]);
+  // 2. 9-A va 9-B sinflarini bazaga kiritish (agar yo'q bo'lsa)
+  for (const className of ['9-A', '9-B']) {
+    const existing = await queryOne('SELECT id FROM classes WHERE name = ?', [className]);
+    if (!existing) {
+      await execute('INSERT INTO classes (name) VALUES (?)', [className]);
+    }
   }
 
+  // 3. Test/soxta o'quvchilarni butunlay tozalash (faqat real o'quvchilar kiritiladi)
+  const mockCheck = await queryOne(
+    `SELECT COUNT(*) as cnt FROM students WHERE full_name LIKE '%Abdullayev%' OR full_name LIKE '%Baxromova%' OR full_name LIKE '%Karimov%'`
+  );
+  if (mockCheck && Number(mockCheck.cnt) > 0) {
+    console.log('🗑️ Sinov tariqasidagi barcha soxta test o‘quvchilar tozalanmoqda...');
+    await execute('DELETE FROM attendance');
+    await execute('DELETE FROM students');
+  }
+
+  // 4. Bosh Admin va Sinf rahbarlarini staff jadvaliga biriktirish
   const cls9A = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-A']);
   const cls9B = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-B']);
-  const cls10A = await queryOne('SELECT id FROM classes WHERE name = ?', ['10-A']);
 
-  const sampleStudents = [
-    { name: 'Abdullayev Anvar Ikrom o‘g‘li', class_id: cls9A.id, phone: '+998901234567' },
-    { name: 'Baxromova Dilnoza Sanjar qizi', class_id: cls9A.id, phone: '+998901234568' },
-    { name: 'Karimov Jasur Bobur o‘g‘li', class_id: cls9A.id, phone: '+998901234569' },
-    { name: 'Normatova Shahnoza Otabek qizi', class_id: cls9A.id, phone: '+998901234570' },
-    { name: 'Rustamov Sardor Ulug‘bek o‘g‘li', class_id: cls9A.id, phone: '+998901234571' },
-    { name: 'Tursunov Bekzod Akmal o‘g‘li', class_id: cls9B.id, phone: '+998901234572' },
-    { name: 'Xamidova Madina Ilhom qizi', class_id: cls9B.id, phone: '+998901234573' },
-    { name: 'Yusupov Doniyor Nodir o‘g‘li', class_id: cls9B.id, phone: '+998901234574' },
-    { name: 'Zokirov Eldor Mansur o‘g‘li', class_id: cls10A.id, phone: '+998901234575' }
-  ];
+  const adminPhone = process.env.ADMIN_PHONE || '+998996893228';
+  const adminNorm = normalizePhone(adminPhone) || '996893228';
 
-  for (const s of sampleStudents) {
-    const norm = normalizePhone(s.phone);
+  // Bosh Adminni kiritish yoki yangilash
+  const existingAdmin = await queryOne('SELECT id FROM staff WHERE phone_norm = ?', [adminNorm]);
+  if (!existingAdmin) {
     await execute(
-      'INSERT INTO students (full_name, class_id, parent_phone, parent_phone_norm) VALUES (?, ?, ?, ?)',
-      [s.name, s.class_id, s.phone, norm]
+      'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
+      ['Bosh Administrator', adminPhone, adminNorm, 'admin', null]
+    );
+  } else {
+    await execute(
+      'UPDATE staff SET full_name = ?, phone = ?, role = ? WHERE phone_norm = ?',
+      ['Bosh Administrator', adminPhone, 'admin', adminNorm]
     );
   }
 
-  console.log('✅ Boshlang‘ich ma‘lumotlar muvaffaqiyatli yuklandi.');
+  // 9-A va 9-B sinf rahbarlari yozuvlari
+  const teacher9A = await queryOne('SELECT id FROM staff WHERE phone_norm = ?', ['teacher_9a']);
+  if (!teacher9A) {
+    await execute(
+      'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
+      ['9-A Sinf Rahbari', '', 'teacher_9a', 'teacher', cls9A.id]
+    );
+  }
+
+  const teacher9B = await queryOne('SELECT id FROM staff WHERE phone_norm = ?', ['teacher_9b']);
+  if (!teacher9B) {
+    await execute(
+      'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
+      ['9-B Sinf Rahbari', '', 'teacher_9b', 'teacher', cls9B.id]
+    );
+  }
+
+  console.log('✅ 9-A va 9-B sinflari hamda Bosh Admin (+998996893228) sozlandi.');
 }
 
 // ==========================================
-// 4. SINFLAR BOSHQARUVI (CRUD)
+// 4. STAFF (ADMIN VA SINF RAHBARLARI) BOSHQARUVI
+// ==========================================
+async function getStaffByPhone(rawPhone) {
+  const norm = normalizePhone(rawPhone);
+  if (!norm) return null;
+  const sql = `
+    SELECT s.*, c.name as class_name 
+    FROM staff s 
+    LEFT JOIN classes c ON s.class_id = c.id 
+    WHERE s.phone_norm = ? 
+    LIMIT 1
+  `;
+  return await queryOne(sql, [norm]);
+}
+
+async function linkStaffByPhone(rawPhone, chatId) {
+  const norm = normalizePhone(rawPhone);
+  if (!norm) return null;
+  await execute('UPDATE staff SET chat_id = ? WHERE phone_norm = ?', [chatId, norm]);
+  return await getStaffByPhone(rawPhone);
+}
+
+async function getAdminChatIds() {
+  const rows = await queryAll(`SELECT chat_id FROM staff WHERE role = 'admin' AND chat_id IS NOT NULL`);
+  const ids = rows.map(r => r.chat_id);
+  if (process.env.ADMIN_CHAT_ID && !ids.includes(Number(process.env.ADMIN_CHAT_ID))) {
+    ids.push(Number(process.env.ADMIN_CHAT_ID));
+  }
+  return ids;
+}
+
+async function getAllStaff() {
+  const sql = `
+    SELECT s.id, s.full_name, s.phone, s.phone_norm, s.role, s.class_id, s.chat_id, c.name as class_name
+    FROM staff s
+    LEFT JOIN classes c ON s.class_id = c.id
+    ORDER BY s.role ASC, s.id ASC
+  `;
+  return await queryAll(sql);
+}
+
+// ==========================================
+// 5. SINFLAR BOSHQARUVI (FAQAT 9-A VA 9-B)
 // ==========================================
 async function getAllClasses() {
   const sql = `
     SELECT c.id, c.name, COUNT(s.id) as student_count
     FROM classes c
     LEFT JOIN students s ON s.class_id = c.id
+    WHERE c.name IN ('9-A', '9-B')
     GROUP BY c.id, c.name
     ORDER BY c.name ASC
   `;
@@ -382,21 +477,8 @@ async function getClassByName(name) {
   return await queryOne('SELECT * FROM classes WHERE LOWER(TRIM(name)) = LOWER(TRIM(?))', [name]);
 }
 
-async function createClass(name) {
-  const trimmed = String(name).trim();
-  const existing = await getClassByName(trimmed);
-  if (existing) return existing;
-
-  const res = await execute('INSERT INTO classes (name) VALUES (?)', [trimmed]);
-  return await getClassByName(trimmed);
-}
-
-async function deleteClass(classId) {
-  return await execute('DELETE FROM classes WHERE id = ?', [classId]);
-}
-
 // ==========================================
-// 5. O'QUVCHILAR BOSHQARUVI (CRUD)
+// 6. O'QUVCHILAR BOSHQARUVI (CRUD)
 // ==========================================
 async function getStudentsWithAttendance(classId, date) {
   const sql = `
@@ -436,7 +518,7 @@ async function getStudentById(studentId) {
 async function createStudent({ full_name, class_id, parent_phone }) {
   const norm = normalizePhone(parent_phone);
   
-  // Agar ushbu telefon raqam bilan avval boshqa farzand orqali profil ulangan bo'lsa, chat_id ni avtomat biriktiramiz
+  // Agar ushbu telefon raqam orqali ota-onaning chat_id si mavjud bo'lsa, avtomatik biriktiriladi
   let existingChatId = null;
   if (norm) {
     const matched = await queryOne(
@@ -513,7 +595,7 @@ async function updateStudentParentPhone(studentId, rawPhone) {
 }
 
 // ==========================================
-// 6. TELEGRAM KONTAKT VA PROFIL BIRIKTIRISH
+// 7. TELEGRAM KONTAKT VA PROFIL BIRIKTIRISH
 // ==========================================
 async function linkParentByPhone(rawPhone, chatId) {
   const norm = normalizePhone(rawPhone);
@@ -523,7 +605,7 @@ async function linkParentByPhone(rawPhone, chatId) {
     `SELECT s.id, s.full_name, c.name as class_name 
      FROM students s 
      JOIN classes c ON s.class_id = c.id 
-     WHERE s.parent_phone_norm = ?`,
+     WHERE s.parent_phone_norm = ? AND c.name IN ('9-A', '9-B')`,
     [norm]
   );
 
@@ -545,17 +627,16 @@ async function getStudentsByParentChatId(chatId, date) {
     FROM students s
     JOIN classes c ON s.class_id = c.id
     LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
-    WHERE s.parent_chat_id = ?
+    WHERE s.parent_chat_id = ? AND c.name IN ('9-A', '9-B')
     ORDER BY s.full_name ASC
   `;
   return await queryAll(sql, [date, chatId]);
 }
 
 // ==========================================
-// 7. DAVOMATNI SAQLASH (TIME-LOCK BILAN)
+// 8. DAVOMATNI SAQLASH (TIME-LOCK 08:00 - 13:30)
 // ==========================================
 async function saveAttendanceBatch(records, date) {
-  // 1. Qat'iy vaqt tekshiruvi: 08:00 - 13:30
   const windowCheck = checkAttendanceWindow(date);
   if (!windowCheck.allowed) {
     const err = new Error(windowCheck.reason);
@@ -590,12 +671,8 @@ async function saveAttendanceBatch(records, date) {
 }
 
 // ==========================================
-// 8. CRON VA AVTOMAT DISPATCH (DAILY_DISPATCHES)
+// 9. CRON VA AVTOMAT DISPATCH (DAILY_DISPATCHES)
 // ==========================================
-
-/**
- * Ushbu sana uchun xabarlar allaqachon yuborilganmi?
- */
 async function isDailyDispatched(date) {
   const row = await queryOne(
     `SELECT * FROM daily_dispatches WHERE date = ? AND status = 'completed'`,
@@ -604,9 +681,6 @@ async function isDailyDispatched(date) {
   return Boolean(row);
 }
 
-/**
- * Kunlik xabarnoma hisobotini saqlash
- */
 async function recordDailyDispatch({ date, total_sent, total_failed, unmarked_classes, status }) {
   const unmarkedStr = Array.isArray(unmarked_classes) ? unmarked_classes.join(', ') : (unmarked_classes || '');
   const now = new Date().toISOString();
@@ -633,9 +707,6 @@ async function recordDailyDispatch({ date, total_sent, total_failed, unmarked_cl
   }
 }
 
-/**
- * Bugun davomati umuman kiritilmagan sinflarni topish
- */
 async function getUnmarkedClassesToday(date) {
   const sql = `
     SELECT 
@@ -646,6 +717,7 @@ async function getUnmarkedClassesToday(date) {
     FROM classes c
     LEFT JOIN students s ON s.class_id = c.id
     LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
+    WHERE c.name IN ('9-A', '9-B')
     GROUP BY c.id, c.name
     HAVING marked_count = 0 AND student_count > 0
     ORDER BY c.name ASC
@@ -659,9 +731,6 @@ async function getUnmarkedClassesToday(date) {
   }));
 }
 
-/**
- * Direktor / Zavuch uchun barcha sinflarning bugungi davomat nazorati xulosasi
- */
 async function getClassAttendanceSummary(date) {
   const sql = `
     SELECT 
@@ -673,6 +742,7 @@ async function getClassAttendanceSummary(date) {
     FROM classes c
     LEFT JOIN students s ON s.class_id = c.id
     LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
+    WHERE c.name IN ('9-A', '9-B')
     GROUP BY c.id, c.name
     ORDER BY c.name ASC
   `;
@@ -697,13 +767,6 @@ async function getClassAttendanceSummary(date) {
   });
 }
 
-/**
- * Avtomat xabarnoma jo'natish uchun tayyor o'quvchilar ro'yxati
- * Faqat:
- * 1. O'quvchi davomati belgilangan (unmarked emas)
- * 2. Ota-onasi Telegramda ro'yxatdan o'tgan (parent_chat_id mavjud)
- * 3. Hali bugungi kun uchun xabar bormagan (notified = 0)
- */
 async function getPendingNotifications(date) {
   const sql = `
     SELECT 
@@ -723,6 +786,7 @@ async function getPendingNotifications(date) {
       AND a.notified = 0 
       AND a.status IS NOT NULL
       AND s.parent_chat_id IS NOT NULL
+      AND c.name IN ('9-A', '9-B')
     ORDER BY c.name ASC, s.full_name ASC
   `;
   return await queryAll(sql, [date]);
@@ -746,7 +810,7 @@ async function markAttendanceAsNotified(attendanceIds) {
 }
 
 // ==========================================
-// 9. STATISTIKA VA EXCEL OYLIK JURNAL
+// 10. STATISTIKA VA EXCEL OYLIK JURNAL
 // ==========================================
 async function getAttendanceStats(date, classId = null) {
   let sql = `
@@ -760,11 +824,13 @@ async function getAttendanceStats(date, classId = null) {
       COUNT(CASE WHEN s.parent_chat_id IS NOT NULL THEN 1 END) as parents_linked,
       COUNT(CASE WHEN s.parent_chat_id IS NULL AND s.parent_phone IS NOT NULL AND s.parent_phone != '' THEN 1 END) as parents_pending
     FROM students s
+    JOIN classes c ON s.class_id = c.id
     LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
+    WHERE c.name IN ('9-A', '9-B')
   `;
   const params = [date];
   if (classId) {
-    sql += ' WHERE s.class_id = ?';
+    sql += ' AND s.class_id = ?';
     params.push(classId);
   }
 
@@ -806,7 +872,6 @@ async function getMonthAttendanceForExport(classId, yearMonth) {
   };
 }
 
-// Dasturni ishga tushirishda bazani tekshirish
 initDatabase().catch((e) => console.error('initDatabase error:', e));
 
 module.exports = {
@@ -817,11 +882,13 @@ module.exports = {
   normalizePhone,
   formatPhone,
   initDatabase,
+  getStaffByPhone,
+  linkStaffByPhone,
+  getAdminChatIds,
+  getAllStaff,
   getAllClasses,
   getClassById,
   getClassByName,
-  createClass,
-  deleteClass,
   getStudentsWithAttendance,
   getStudentById,
   createStudent,
@@ -838,5 +905,6 @@ module.exports = {
   getPendingNotifications,
   markAttendanceAsNotified,
   getAttendanceStats,
-  getMonthAttendanceForExport
+  getMonthAttendanceForExport,
+  execute
 };
