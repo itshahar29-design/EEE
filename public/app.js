@@ -1,7 +1,9 @@
 /**
  * EduMemory — 65-maktab Davomat Tizimi
- * Frontend: 9-A va 9-B sinflari uchun to'liq Production boshqaruvi
- * Qat'iy Time-Lock (13:30 dedlayn), Telefon orqali kontakt integratsiyasi
+ * Frontend: PIN-kodlarsiz, Telegram WebApp / Avtomatik Rol aniqlash
+ * 1. O'qituvchi Menyusi: Faqat o'z biriktirilgan sinfi (9-A yoki 9-B)
+ * 2. Admin Menyusi: Barcha sinflar (9-A, 9-B), Ma'muriyat nazorati va O'quvchilar CRUD
+ * Qat'iy Time-Lock: 08:00 - 13:30 (13:30 muzlatiladi)
  */
 
 // ==========================================
@@ -57,8 +59,10 @@ const state = {
   botUsername: '',
   schoolName: "65-umumiy o'rta ta'lim maktabi",
   searchQuery: '',
-  enteredPin: '',
-  userRole: localStorage.getItem('edumemory_role') || 'teacher', // 'teacher' yoki 'admin'
+  userRole: 'teacher', // 'teacher' yoki 'admin'
+  teacherClassId: null,
+  teacherClassName: null,
+  userName: '',
   isFrozen: false,
   freezeReason: null,
   selectedExcelFile: null
@@ -67,28 +71,28 @@ const state = {
 // ==========================================
 // 3. DOM ELEMENTLARI
 // ==========================================
-// PIN Lockscreen
-const pinScreen = document.getElementById('pinScreen');
-const pinDots = document.querySelectorAll('.pin-dot');
-const pinError = document.getElementById('pinError');
-const pinClearBtn = document.getElementById('pinClearBtn');
-const pinBackspaceBtn = document.getElementById('pinBackspaceBtn');
-const pinKeys = document.querySelectorAll('.pin-key');
-const lockAppBtn = document.getElementById('lockAppBtn');
 const roleBadge = document.getElementById('roleBadge');
+const schoolSubtitleEl = document.getElementById('schoolSubtitle');
+const datePicker = document.getElementById('datePicker');
+const refreshBtn = document.getElementById('refreshBtn');
 
-// Muzlatish holati banneri
+// Admin bloklari (Faqat Adminga ko'rinadi)
+const adminToolbar = document.getElementById('adminToolbar');
+const classSwitcherSection = document.getElementById('classSwitcherSection');
+const classesList = document.getElementById('classesList');
+const openAddStudentBtn = document.getElementById('openAddStudentBtn');
+const openAdminSummaryBtn = document.getElementById('openAdminSummaryBtn');
+const openExcelImportBtn = document.getElementById('openExcelImportBtn');
+const openExcelExportBtn = document.getElementById('openExcelExportBtn');
+
+// Muzlatish holati banneri (Time-Lock)
 const freezeBanner = document.getElementById('freezeBanner');
 const freezeBannerText = document.getElementById('freezeBannerText');
 
-// Asosiy boshqaruv
-const datePicker = document.getElementById('datePicker');
-const classesList = document.getElementById('classesList');
-const refreshBtn = document.getElementById('refreshBtn');
+// Asosiy kontent
 const studentsContainer = document.getElementById('studentsContainer');
 const currentClassNameEl = document.getElementById('currentClassName');
 const totalStudentsBadge = document.getElementById('totalStudentsBadge');
-const schoolSubtitleEl = document.getElementById('schoolSubtitle');
 const searchInput = document.getElementById('searchInput');
 
 // Statistika
@@ -105,12 +109,6 @@ const totalCountEl = document.getElementById('totalCount');
 const markAllPresentBtn = document.getElementById('markAllPresentBtn');
 const saveAttendanceBtn = document.getElementById('saveAttendanceBtn');
 const saveBtnText = document.getElementById('saveBtnText');
-
-// Ma'muriyat va CRUD tugmalari
-const openAdminSummaryBtn = document.getElementById('openAdminSummaryBtn');
-const openAddStudentBtn = document.getElementById('openAddStudentBtn');
-const openExcelImportBtn = document.getElementById('openExcelImportBtn');
-const openExcelExportBtn = document.getElementById('openExcelExportBtn');
 
 // Modallar
 const adminSummaryModal = document.getElementById('adminSummaryModal');
@@ -171,151 +169,85 @@ function showToast(message, type = 'success') {
 }
 
 // ==========================================
-// 4. PIN-KOD VA ROLLAR BOSHQARUVI
+// 4. AVTOMATIK ROL VA FOYDALANUVCHI ANIQLASH (PIN-KODSIZ)
 // ==========================================
-const PIN_STORAGE_KEY = 'edumemory_pin_verified';
-const ROLE_STORAGE_KEY = 'edumemory_role';
-
-function applyRoleUI() {
-  if (!roleBadge) return;
-  if (state.userRole === 'admin') {
-    roleBadge.textContent = '👑 Bosh Admin';
-    roleBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200';
-    document.querySelectorAll('.admin-only').forEach((el) => el.classList.remove('hidden'));
-    if (openAdminSummaryBtn) openAdminSummaryBtn.classList.remove('hidden');
-  } else {
-    roleBadge.textContent = '👨‍🏫 Sinf Rahbari';
-    roleBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200';
-    document.querySelectorAll('.admin-only').forEach((el) => el.classList.add('hidden'));
-    if (openAdminSummaryBtn) openAdminSummaryBtn.classList.add('hidden');
-  }
-}
-
-function checkPinAuth() {
-  const isVerified = localStorage.getItem(PIN_STORAGE_KEY) === 'true';
-  if (isVerified) {
-    if (pinScreen) pinScreen.classList.add('hidden');
-    applyRoleUI();
-  } else {
-    if (pinScreen) pinScreen.classList.remove('hidden');
-    resetPin();
-  }
-}
-
-function updatePinDotsUI() {
-  pinDots.forEach((dot, index) => {
-    if (index < state.enteredPin.length) {
-      dot.classList.add('active', 'bg-blue-500', 'border-blue-500');
-    } else {
-      dot.classList.remove('active', 'bg-blue-500', 'border-blue-500');
-    }
-  });
-}
-
-function resetPin() {
-  state.enteredPin = '';
-  updatePinDotsUI();
-  if (pinError) {
-    pinError.classList.remove('opacity-100');
-    pinError.classList.add('opacity-0');
-  }
-}
-
-async function verifyEnteredPin() {
-  if (state.enteredPin.length !== 4) return;
+async function resolveAuthAndRole() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramRole = urlParams.get('role');
+  const paramClassId = urlParams.get('classId');
+  const paramClassName = urlParams.get('class');
+  const paramUserId = urlParams.get('userId');
+  const tgUserId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
+  const userId = paramUserId || tgUserId || '';
 
   try {
-    const res = await fetch('/api/verify-pin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ pin: state.enteredPin })
-    });
+    const query = new URLSearchParams({
+      userId: String(userId),
+      role: paramRole || '',
+      classId: paramClassId || '',
+      class: paramClassName || ''
+    }).toString();
 
+    const res = await fetch(`/api/auth/me?${query}`);
     const data = await res.json();
-    if (res.ok && data.success) {
-      triggerHaptic('success');
-      localStorage.setItem(PIN_STORAGE_KEY, 'true');
-      localStorage.setItem(ROLE_STORAGE_KEY, data.role || 'teacher');
+
+    if (data.success) {
       state.userRole = data.role || 'teacher';
-
-      if (pinScreen) pinScreen.classList.add('hidden');
-      resetPin();
-      applyRoleUI();
-
-      showToast(data.message || 'Tizimga muvaffaqiyatli kirdingiz.');
-
-      if (state.classes.length === 0) {
-        await initAppData();
-      }
-    } else {
-      throw new Error(data.error || 'PIN-kod noto‘g‘ri!');
+      state.teacherClassId = data.classId ? parseInt(data.classId, 10) : null;
+      state.teacherClassName = data.className || null;
+      state.userName = data.fullName || '';
     }
   } catch (err) {
-    triggerHaptic('error');
-    if (pinError) {
-      pinError.textContent = err.message || 'PIN-kod noto‘g‘ri!';
-      pinError.classList.remove('opacity-0');
-      pinError.classList.add('opacity-100');
+    console.warn('Avtomatik auth tekshiruvida xatolik:', err);
+    // URL orqali fallback
+    if (paramRole === 'admin') {
+      state.userRole = 'admin';
+    } else if (paramRole === 'teacher' || paramClassId || paramClassName) {
+      state.userRole = 'teacher';
+      state.teacherClassName = paramClassName || '9-A';
+    } else {
+      state.userRole = 'admin';
+    }
+  }
+
+  applyRoleUI();
+}
+
+function applyRoleUI() {
+  const isAdmin = state.userRole === 'admin';
+
+  if (isAdmin) {
+    // 👑 BOSH ADMINISTRATOR REJIMI:
+    if (roleBadge) {
+      roleBadge.textContent = '👑 Bosh Administrator';
+      roleBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200';
+    }
+    if (schoolSubtitleEl) {
+      schoolSubtitleEl.textContent = '65-maktab — Ma‘muriyat Boshqaruv Paneli';
     }
 
-    const dotsContainer = document.getElementById('pinDots');
-    if (dotsContainer) {
-      dotsContainer.classList.add('shake');
-      setTimeout(() => dotsContainer.classList.remove('shake'), 400);
+    // Admin uskunalarini ko'rsatish
+    if (adminToolbar) adminToolbar.classList.remove('hidden');
+    if (classSwitcherSection) classSwitcherSection.classList.remove('hidden');
+  } else {
+    // 👨‍🏫 O'QITUVCHI REJIMI (FAQAT BIRIKTIRILGAN SINF):
+    const currentClass = state.teacherClassName || state.currentClassName || '9-A';
+    if (roleBadge) {
+      roleBadge.textContent = `👨‍🏫 ${currentClass} Sinf Rahbari`;
+      roleBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200';
+    }
+    if (schoolSubtitleEl) {
+      schoolSubtitleEl.textContent = `65-maktab — ${currentClass} sinf davomati`;
     }
 
-    setTimeout(() => {
-      resetPin();
-    }, 600);
+    // Boshqa sinflar va admin panellarini yashirish (Maksimal sodda interfeys)
+    if (adminToolbar) adminToolbar.classList.add('hidden');
+    if (classSwitcherSection) classSwitcherSection.classList.add('hidden');
   }
 }
 
-pinKeys.forEach((key) => {
-  key.onclick = () => {
-    if (state.enteredPin.length < 4) {
-      triggerHaptic('light');
-      state.enteredPin += key.getAttribute('data-val');
-      updatePinDotsUI();
-      if (pinError) pinError.classList.add('opacity-0');
-
-      if (state.enteredPin.length === 4) {
-        verifyEnteredPin();
-      }
-    }
-  };
-});
-
-if (pinBackspaceBtn) {
-  pinBackspaceBtn.onclick = () => {
-    if (state.enteredPin.length > 0) {
-      triggerHaptic('light');
-      state.enteredPin = state.enteredPin.slice(0, -1);
-      updatePinDotsUI();
-      if (pinError) pinError.classList.add('opacity-0');
-    }
-  };
-}
-
-if (pinClearBtn) {
-  pinClearBtn.onclick = () => {
-    triggerHaptic('light');
-    resetPin();
-  };
-}
-
-if (lockAppBtn) {
-  lockAppBtn.onclick = () => {
-    triggerHaptic('light');
-    localStorage.removeItem(PIN_STORAGE_KEY);
-    localStorage.removeItem(ROLE_STORAGE_KEY);
-    resetPin();
-    if (pinScreen) pinScreen.classList.remove('hidden');
-    showToast('Tizim qulflandi', 'info');
-  };
-}
-
 // ==========================================
-// 5. TIME-LOCK (MUZLATISH) VA CONFIG YUKLASH
+// 5. TIME-LOCK (MUZLATISH: 13:30 DEDLAYN)
 // ==========================================
 function updateFreezeUI() {
   if (state.isFrozen) {
@@ -361,9 +293,8 @@ async function fetchConfig() {
     const res = await fetch('/api/config');
     const data = await res.json();
 
-    if (data.schoolName && schoolSubtitleEl) {
+    if (data.schoolName) {
       state.schoolName = data.schoolName;
-      schoolSubtitleEl.textContent = `${data.schoolName} — 9-sinflar davomati`;
     }
     if (data.botUsername) {
       state.botUsername = data.botUsername;
@@ -382,7 +313,7 @@ async function fetchConfig() {
 }
 
 // ==========================================
-// 6. SINF TANLASH TABS (FAQAT 9-A VA 9-B)
+// 6. SINFLAR VA ROLGA KO'RA TANLASH
 // ==========================================
 async function fetchClasses() {
   try {
@@ -390,17 +321,33 @@ async function fetchClasses() {
     const result = await res.json();
 
     if (!result.success || !result.data || result.data.length === 0) {
-      if (classesList) classesList.innerHTML = '<span class="text-xs text-slate-400">9-A va 9-B sinflari topilmadi</span>';
+      if (classesList) classesList.innerHTML = '<span class="text-xs text-slate-400">Sinflar topilmadi</span>';
       state.classes = [];
       return;
     }
 
     state.classes = result.data;
-    renderClassesTabs();
 
-    const currentStillExists = state.classes.some((c) => c.id === state.currentClassId);
-    if (!state.currentClassId || !currentStillExists) {
-      selectClass(state.classes[0].id, state.classes[0].name);
+    // Rolga ko'ra boshlang'ich sinfni tanlash:
+    if (state.userRole === 'teacher') {
+      // O'qituvchiga faqat uning sinfi ochiladi
+      let teacherTarget = null;
+      if (state.teacherClassId) {
+        teacherTarget = state.classes.find(c => c.id === state.teacherClassId);
+      } else if (state.teacherClassName) {
+        teacherTarget = state.classes.find(c => c.name.toLowerCase() === state.teacherClassName.toLowerCase());
+      }
+      if (!teacherTarget) {
+        teacherTarget = state.classes[0]; // Fallback (9-A)
+      }
+      selectClass(teacherTarget.id, teacherTarget.name);
+    } else {
+      // Adminga ikkala sinf (9-A va 9-B) ko'rsatiladi
+      renderClassesTabs();
+      const currentStillExists = state.classes.some((c) => c.id === state.currentClassId);
+      if (!state.currentClassId || !currentStillExists) {
+        selectClass(state.classes[0].id, state.classes[0].name);
+      }
     }
   } catch (err) {
     showToast('Sinflarni yuklab bo‘lmadi', 'error');
@@ -408,7 +355,7 @@ async function fetchClasses() {
 }
 
 function renderClassesTabs() {
-  if (!classesList) return;
+  if (!classesList || state.userRole === 'teacher') return;
   classesList.innerHTML = '';
 
   state.classes.forEach((cls) => {
@@ -446,6 +393,7 @@ function selectClass(classId, className) {
   state.currentClassId = classId;
   state.currentClassName = className;
   if (currentClassNameEl) currentClassNameEl.textContent = className;
+  applyRoleUI();
   renderClassesTabs();
   fetchStudents();
 }
@@ -517,27 +465,31 @@ function renderStudentsList() {
   if (totalStudentsBadge) totalStudentsBadge.textContent = `${state.students.length} o‘quvchi`;
   if (totalCountEl) totalCountEl.textContent = state.students.length;
 
+  const isAdmin = state.userRole === 'admin';
+  const isFrozen = state.isFrozen;
+
   if (filteredStudents.length === 0) {
     studentsContainer.innerHTML = `
       <div class="text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300 p-6">
         <i class="fa-regular fa-folder-open text-3xl text-slate-300 mb-2"></i>
         <p class="text-xs text-slate-600 font-semibold mb-3">
-          ${query ? 'Qidiruv bo‘yicha o‘quvchi topilmadi' : `"${state.currentClassName}" sinfida hozircha haqiqiy o‘quvchilar kiritilmagan.`}
+          ${query ? 'Qidiruv bo‘yicha o‘quvchi topilmadi' : `"${state.currentClassName}" sinfida hozircha o‘quvchilar mavjud emas.`}
         </p>
-        <button 
-          type="button" 
-          onclick="openAddStudentModal()" 
-          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 transition shadow-xs active:scale-95"
-        >
-          <i class="fa-solid fa-user-plus text-[10px]"></i> + Birinchi o‘quvchini qo‘shish
-        </button>
+        ${isAdmin ? `
+          <button 
+            type="button" 
+            onclick="openAddStudentModal()" 
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 transition shadow-xs active:scale-95"
+          >
+            <i class="fa-solid fa-user-plus text-[10px]"></i> + Birinchi o‘quvchini qo‘shish
+          </button>
+        ` : ''}
       </div>
     `;
     return;
   }
 
   studentsContainer.innerHTML = '';
-  const isFrozen = state.isFrozen;
 
   filteredStudents.forEach((student, index) => {
     const currentAtt = state.attendanceMap[student.id] || { status: null, reason: '' };
@@ -549,13 +501,13 @@ function renderStudentsList() {
     let statusBadgeHtml = '';
     if (student.parent_status === 'linked') {
       statusBadgeHtml = `
-        <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/70 shrink-0" title="Telegram xabarlari ulandi">
+        <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/70 shrink-0" title="Telegram xabarlari ulandi">
           <i class="fa-solid fa-circle text-[6px] text-emerald-500"></i> Ulangan
         </span>
       `;
     } else if (student.parent_status === 'pending') {
       statusBadgeHtml = `
-        <span class="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200/70 shrink-0" title="Botda kontakt yuborishi kutilmoqda">
+        <span class="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/70 shrink-0" title="Botda kontakt yuborishi kutilmoqda">
           <i class="fa-solid fa-clock text-[8px] text-amber-500"></i> Kutilmoqda
         </span>
       `;
@@ -570,6 +522,33 @@ function renderStudentsList() {
     const showReason = currentAtt.status === 'kechikdi' || currentAtt.status === 'sababli';
     const disabledAttr = isFrozen ? 'disabled' : '';
     const disabledClass = isFrozen ? 'cursor-not-allowed opacity-80' : '';
+
+    // Admin tahrirlash va o'chirish tugmalari (Faqat adminga ko'rinadi)
+    let adminButtonsHtml = '';
+    if (isAdmin) {
+      adminButtonsHtml = `
+        <button 
+          type="button" 
+          class="edit-student-btn w-6 h-6 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-500 flex items-center justify-center text-[10px] transition"
+          data-id="${student.id}"
+          data-name="${escapeQuotes(student.full_name)}"
+          data-class-id="${student.class_id}"
+          data-phone="${student.parent_phone || ''}"
+          title="O‘quvchini tahrirlash"
+        >
+          <i class="fa-solid fa-gear"></i>
+        </button>
+        <button 
+          type="button" 
+          class="delete-student-btn w-6 h-6 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-500 flex items-center justify-center text-[10px] transition"
+          data-id="${student.id}"
+          data-name="${escapeQuotes(student.full_name)}"
+          title="O‘quvchini o‘chirish"
+        >
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      `;
+    }
 
     card.innerHTML = `
       <div class="flex items-start justify-between gap-2 mb-2">
@@ -601,27 +580,7 @@ function renderStudentsList() {
 
         <div class="flex items-center gap-1.5 shrink-0">
           ${statusBadgeHtml}
-          <!-- O'quvchini tahrirlash / o'chirish -->
-          <button 
-            type="button" 
-            class="edit-student-btn w-6 h-6 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-500 flex items-center justify-center text-[10px] transition"
-            data-id="${student.id}"
-            data-name="${escapeQuotes(student.full_name)}"
-            data-class-id="${student.class_id}"
-            data-phone="${student.parent_phone || ''}"
-            title="O‘quvchini tahrirlash"
-          >
-            <i class="fa-solid fa-gear"></i>
-          </button>
-          <button 
-            type="button" 
-            class="delete-student-btn w-6 h-6 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-500 flex items-center justify-center text-[10px] transition"
-            data-id="${student.id}"
-            data-name="${escapeQuotes(student.full_name)}"
-            title="O‘quvchini o‘chirish"
-          >
-            <i class="fa-solid fa-trash-can"></i>
-          </button>
+          ${adminButtonsHtml}
         </div>
       </div>
 
@@ -776,7 +735,7 @@ function attachStudentCardListeners() {
     };
   });
 
-  // To'liq tahrirlash (Ism, sinf, telefon)
+  // To'liq tahrirlash (Ism, sinf, telefon) - Admin uchun
   const editButtons = studentsContainer.querySelectorAll('.edit-student-btn');
   editButtons.forEach((btn) => {
     btn.onclick = () => {
@@ -788,7 +747,7 @@ function attachStudentCardListeners() {
     };
   });
 
-  // O'chirish
+  // O'chirish - Admin uchun
   const deleteButtons = studentsContainer.querySelectorAll('.delete-student-btn');
   deleteButtons.forEach((btn) => {
     btn.onclick = async () => {
@@ -1044,7 +1003,7 @@ if (openAdminSummaryBtn) {
 
       if (summaryDispatchStatus) {
         if (data.isDispatched) {
-          summaryDispatchStatus.innerHTML = '<span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check"></i> Bugungi xabarnoma ota-onalarga yuborilgan va qulflangan</span>';
+          summaryDispatchStatus.innerHTML = '<span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check"></i> Bugungi hisobot ota-onalarga yuborilgan va qulflangan</span>';
         } else {
           summaryDispatchStatus.innerHTML = '<span class="text-slate-500"><i class="fa-solid fa-clock"></i> Soat 14:00 da avtomat yuboriladi</span>';
         }
@@ -1056,7 +1015,7 @@ if (openAdminSummaryBtn) {
 }
 
 // ==========================================
-// 9. O'QUVCHI CRUD BOSHQARUVI
+// 9. O'QUVCHI CRUD BOSHQARUVI (ADMIN)
 // ==========================================
 function populateClassDropdown(selectEl, selectedId = null) {
   if (!selectEl) return;
@@ -1194,7 +1153,7 @@ async function deleteStudentAction(id, name) {
 }
 
 // ==========================================
-// 10. EXCEL IMPORT (OMMAVIY YUKLASH)
+// 10. EXCEL IMPORT (OMMAVIY YUKLASH - ADMIN)
 // ==========================================
 if (openExcelImportBtn) {
   openExcelImportBtn.onclick = () => {
@@ -1281,7 +1240,7 @@ if (submitExcelImportBtn) {
 }
 
 // ==========================================
-// 11. EXCEL EXPORT (OYLIK DAVOMAT JURNALI)
+// 11. EXCEL EXPORT (OYLIK DAVOMAT JURNALI - ADMIN)
 // ==========================================
 if (openExcelExportBtn) {
   openExcelExportBtn.onclick = () => {
@@ -1371,14 +1330,10 @@ if (searchInput) {
 }
 
 // ==========================================
-// 14. INIT
+// 14. INITALIZATSIYA
 // ==========================================
-async function initAppData() {
-  await fetchConfig();
-  await fetchClasses();
-}
-
 (async function init() {
-  checkPinAuth();
-  await initAppData();
+  await fetchConfig();
+  await resolveAuthAndRole();
+  await fetchClasses();
 })();

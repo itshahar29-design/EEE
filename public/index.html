@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>EduMemory — 65-maktab (9-A va 9-B Davomati)</title>
+  <title>EduMemory — 65-maktab Davomat Tizimi</title>
 
   <!-- Telegram Web App SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -30,63 +30,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-24 selection:bg-blue-200">
 
-  <!-- ================= 1. XAVFSIZLIK: PIN-KOD EKRANI (LOCKSCREEN) ================= -->
-  <div id="pinScreen" class="fixed inset-0 z-50 bg-slate-900 text-white flex flex-col items-center justify-between p-6 select-none transition-all duration-300">
-    <div class="w-full flex justify-between items-center">
-      <span class="text-[11px] text-slate-400 font-mono bg-slate-800 px-2.5 py-1 rounded-full border border-slate-700 flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span> 65-maktab 9-sinflar
-      </span>
-      <span class="text-[11px] text-slate-400 font-mono">Toshkent (UTC+5)</span>
-    </div>
-
-    <!-- Markaziy qism: Logo va PIN nuqtalari -->
-    <div class="text-center max-w-xs w-full">
-      <div class="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg text-2xl font-black">
-        65
-      </div>
-      <h2 class="text-xl font-bold tracking-tight text-white">EduMemory</h2>
-      <p class="text-xs text-slate-400 mt-1">O‘qituvchi (6565) yoki Bosh Admin (9900) PIN-kodini kiriting</p>
-
-      <!-- 4 ta PIN nuqtasi -->
-      <div id="pinDots" class="flex justify-center gap-4 my-6">
-        <span class="pin-dot w-4 h-4 rounded-full border-2 border-slate-500 transition-all duration-200"></span>
-        <span class="pin-dot w-4 h-4 rounded-full border-2 border-slate-500 transition-all duration-200"></span>
-        <span class="pin-dot w-4 h-4 rounded-full border-2 border-slate-500 transition-all duration-200"></span>
-        <span class="pin-dot w-4 h-4 rounded-full border-2 border-slate-500 transition-all duration-200"></span>
-      </div>
-
-      <div id="pinError" class="text-rose-400 text-xs font-semibold h-4 mb-2 opacity-0 transition-opacity">
-        PIN-kod noto‘g‘ri!
-      </div>
-    </div>
-
-    <!-- Raqamli klaviatura (Keypad) -->
-    <div class="max-w-xs w-full mb-4">
-      <div class="grid grid-cols-3 gap-3">
-        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="1">1</button>
-        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="2">2</button>
-        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="3">3</button>
-
-        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="4">4</button>
-        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="5">5</button>
-        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="6">6</button>
-
-        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="7">7</button>
-        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="8">8</button>
-        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="9">9</button>
-
-        <button type="button" id="pinClearBtn" class="h-14 rounded-2xl bg-slate-800/50 hover:bg-slate-800 text-xs font-semibold text-slate-400 active:scale-95 transition flex items-center justify-center">Tozalash</button>
-        <button type="button" class="pin-key h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-xl font-bold transition flex items-center justify-center" data-val="0">0</button>
-        <button type="button" id="pinBackspaceBtn" class="h-14 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95 transition flex items-center justify-center"><i class="fa-solid fa-delete-left text-lg"></i></button>
-      </div>
-      <div class="flex justify-between items-center text-[11px] text-slate-400 mt-4 px-1">
-        <span>👨‍🏫 O‘qituvchi: <b>6565</b></span>
-        <span>👑 Bosh Admin: <b>9900</b></span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= 2. TOP APP BAR VA MENYU ================= -->
+  <!-- ================= 1. TOP APP BAR ================= -->
   <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
     <div class="max-w-3xl mx-auto px-4 py-2.5 flex items-center justify-between">
       <div class="flex items-center gap-2.5">
@@ -97,14 +41,14 @@
           <div class="flex items-center gap-1.5">
             <h1 class="text-sm font-bold leading-tight text-slate-900">EduMemory</h1>
             <span id="roleBadge" class="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-              O‘qituvchi
+              Sinf Rahbari
             </span>
           </div>
-          <p class="text-[11px] text-slate-500" id="schoolSubtitle">65-maktab — 9-sinflar davomati</p>
+          <p class="text-[11px] text-slate-500" id="schoolSubtitle">65-maktab davomat tizimi</p>
         </div>
       </div>
 
-      <!-- Sana va Qulflash -->
+      <!-- Sana va Yangilash -->
       <div class="flex items-center gap-1.5">
         <div class="flex items-center gap-1 bg-slate-100 px-2 py-1.5 rounded-xl border border-slate-200/80">
           <i class="fa-regular fa-calendar text-blue-600 text-xs"></i>
@@ -116,17 +60,17 @@
         </div>
 
         <button 
-          id="lockAppBtn" 
-          class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs transition" 
-          title="Tizimni qulflash"
+          id="refreshBtn" 
+          class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-blue-600 flex items-center justify-center text-xs transition" 
+          title="Yangilash"
         >
-          <i class="fa-solid fa-lock"></i>
+          <i class="fa-solid fa-rotate-right"></i>
         </button>
       </div>
     </div>
 
-    <!-- BOSHQARUV USKUNALARI (O'QUVCHI QO'SHISH, MONITORING, EXCEL) -->
-    <div class="max-w-3xl mx-auto px-4 py-1.5 border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+    <!-- ADMIN BOSHQARUV USKUNALARI (FAQAT BOSH ADMIN KO'RADI) -->
+    <div id="adminToolbar" class="hidden max-w-3xl mx-auto px-4 py-1.5 border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
       <button id="openAddStudentBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shrink-0 transition shadow-xs active:scale-95">
         <i class="fa-solid fa-user-plus text-[10px]"></i> + O‘quvchi qo‘shish
       </button>
@@ -135,22 +79,19 @@
         <i class="fa-solid fa-chart-pie text-[10px]"></i> Nazorat (Monitoring)
       </button>
 
-      <button id="openExcelImportBtn" class="admin-only bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200/60 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
+      <button id="openExcelImportBtn" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200/60 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
         <i class="fa-solid fa-file-excel text-[10px]"></i> Excel Import
       </button>
 
-      <button id="openExcelExportBtn" class="admin-only bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
+      <button id="openExcelExportBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
         <i class="fa-solid fa-file-arrow-down text-[10px]"></i> Oylik Jurnal
       </button>
     </div>
 
-    <!-- SINF TANLASH TABS: FAQAT 9-A VA 9-B -->
-    <div class="max-w-3xl mx-auto px-4 pb-2.5 pt-1">
+    <!-- SINF TANLASH TABS: FAQAT ADMIN REJIMIDA CHIQADI -->
+    <div id="classSwitcherSection" class="hidden max-w-3xl mx-auto px-4 pb-2.5 pt-1 border-t border-slate-100">
       <div class="flex items-center justify-between mb-1">
         <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Sinfni tanlang:</span>
-        <button id="refreshBtn" class="text-[11px] text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
-          <i class="fa-solid fa-rotate-right"></i> Yangilash
-        </button>
       </div>
       <div id="classesList" class="grid grid-cols-2 gap-2 py-1">
         <!-- 9-A va 9-B sinf tugmalari -->
@@ -158,10 +99,10 @@
     </div>
   </header>
 
-  <!-- ================= 3. ASOSIY KONTENT ================= -->
+  <!-- ================= 2. ASOSIY KONTENT ================= -->
   <main class="max-w-3xl mx-auto px-4 pt-3">
 
-    <!-- MUZLATILGAN HOLAT BANNERI (FREEZE BANNER) -->
+    <!-- MUZLATILGAN HOLAT BANNERI (FREEZE BANNER: 13:30 DEDLAYN) -->
     <div id="freezeBanner" class="hidden mb-3 p-3 bg-amber-50 border border-amber-300 rounded-2xl flex items-center gap-3 text-amber-900 shadow-xs">
       <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 text-base shadow-xs font-bold">
         <i class="fa-solid fa-lock"></i>
@@ -229,7 +170,7 @@
           <i class="fa-solid fa-check-double"></i> Barchasini "Keldi" qilish
         </button>
         <div class="text-[11px] text-slate-500 font-medium px-2 py-1 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center gap-1">
-          <i class="fa-solid fa-clock text-blue-500"></i> Avtomat xabarnoma: <b>14:00 da</b>
+          <i class="fa-solid fa-clock text-blue-500"></i> Avtomat hisobot: <b>14:00 da</b>
         </div>
       </div>
     </section>
@@ -257,7 +198,7 @@
 
   </main>
 
-  <!-- ================= 4. PASTKI SUZUVCHI TUGMA ================= -->
+  <!-- ================= 3. PASTKI SUZUVCHI TUGMA ================= -->
   <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 shadow-lg">
     <div class="max-w-3xl mx-auto flex items-center justify-between gap-3">
       <div class="text-xs">
@@ -276,7 +217,7 @@
     </div>
   </div>
 
-  <!-- ================= 5. MODALLAR ================= -->
+  <!-- ================= 4. MODALLAR ================= -->
 
   <!-- MODAL: MA'MURIYAT NAZORATI (MONITORING) -->
   <div id="adminSummaryModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
@@ -363,7 +304,7 @@
             placeholder="+998 90 123 45 67"
             class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p class="text-[10px] text-slate-400 mt-1">Ota-ona Telegramda botga kontakt yuborganda ushbu raqam bilan avtomat ulanadi.</p>
+          <p class="text-[10px] text-slate-400 mt-1">Ota-ona Telegram botda kontakt yuborganda ushbu raqam bilan avtomat bog‘lanadi.</p>
         </div>
       </div>
       <button 

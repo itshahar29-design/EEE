@@ -106,12 +106,26 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       };
     }
 
-    // 3. Bosh Admin va O'qituvchilar uchun
-    function getStaffKeyboard(webAppUrl) {
+    // 3. O'qituvchi uchun (faqat o'z biriktirilgan sinfi)
+    function getTeacherKeyboard(webAppUrl, classId, className) {
+      const url = `${webAppUrl}?role=teacher&classId=${classId || ''}&class=${encodeURIComponent(className || '')}`;
       return {
         keyboard: [
-          [{ text: '📝 Davomatni ochish', web_app: { url: webAppUrl } }],
-          [{ text: '📊 Bugungi holat' }, { text: 'ℹ️ Yordam' }]
+          [{ text: '📝 Mening sinfim davomati', web_app: { url } }],
+          [{ text: 'ℹ️ Yordam' }]
+        ],
+        resize_keyboard: true,
+        one_time_keyboard: false
+      };
+    }
+
+    // 4. Bosh Administrator uchun (barcha sinflar va monitoring)
+    function getAdminKeyboard(webAppUrl) {
+      const url = `${webAppUrl}?role=admin`;
+      return {
+        keyboard: [
+          [{ text: '👑 Boshqaruv paneli (Barcha sinflar)', web_app: { url } }],
+          [{ text: '📊 Bugungi monitoring' }, { text: 'ℹ️ Yordam' }]
         ],
         resize_keyboard: true,
         one_time_keyboard: false
@@ -130,19 +144,22 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
         // 1. Bosh Admin yoki Sinf rahbari tekshiruvi
         const staff = await db.getStaffByChatId(chatId);
         if (staff) {
-          const isBoss = staff.role === 'admin';
-          const greeting = isBoss
-            ? `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
+          if (staff.role === 'admin') {
+            return ctx.replyWithHTML(
+              `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
               `Siz <b>9-A</b> va <b>9-B</b> sinflari davomat tizimini to‘liq nazorat qilish va boshqarish huquqiga egasiz.\n\n` +
-              `👇 Quyidagi menyu orqali boshqaruv amallarini bajaring:`
-            : `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staff.full_name)}!</b>\n\n` +
+              `👇 Quyidagi menyu orqali boshqaruv paneli yoki bugungi monitoringni oching:`,
+              { reply_markup: getAdminKeyboard(webAppUrl) }
+            );
+          } else {
+            return ctx.replyWithHTML(
+              `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staff.full_name)}!</b>\n\n` +
               `Siz <b>${escapeHtml(staff.class_name || '9-sinf')}</b> rahbari sifatida tizimga ulangansiz.\n` +
               `Dars kunlari soat 08:00 dan 13:30 gacha o‘z sinfingiz davomatini kiritishingiz mumkin.\n\n` +
-              `👇 Davomatni ochish uchun pastdagi tugmani bosing:`;
-
-          return ctx.replyWithHTML(greeting, {
-            reply_markup: getStaffKeyboard(webAppUrl)
-          });
+              `👇 Quyidagi tugma orqali faqat o‘z sinfingiz davomatini oching:`,
+              { reply_markup: getTeacherKeyboard(webAppUrl, staff.class_id, staff.class_name) }
+            );
+          }
         }
 
         // 2. Raqami tasdiqlangan Ota-ona tekshiruvi
@@ -198,20 +215,23 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
         if (staffMember) {
           await db.linkStaffByPhone(rawPhone, chatId);
 
-          const isBoss = staffMember.role === 'admin';
-          const welcome = isBoss
-            ? `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
+          if (staffMember.role === 'admin') {
+            return ctx.replyWithHTML(
+              `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
               `Sizning Telegram profilingiz tizimga muvaffaqiyatli biriktirildi.\n` +
               `Siz <b>9-A</b> va <b>9-B</b> sinflari davomatini to‘liq boshqarish va monitoring qilish huquqiga egasiz.\n\n` +
-              `👇 Quyidagi menyudan foydalanishingiz mumkin:`
-            : `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staffMember.full_name)}!</b>\n\n` +
+              `👇 Quyidagi menyudan foydalanishingiz mumkin:`,
+              { reply_markup: getAdminKeyboard(webAppUrl) }
+            );
+          } else {
+            return ctx.replyWithHTML(
+              `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staffMember.full_name)}!</b>\n\n` +
               `Siz <b>${escapeHtml(staffMember.class_name || '9-sinf')}</b> rahbari sifatida tizimga muvaffaqiyatli ulandingiz.\n` +
               `Dars kunlari soat 08:00 dan 13:30 gacha o‘z sinfingiz davomatini belgilashingiz mumkin.\n\n` +
-              `👇 Quyidagi menyudan foydalanishingiz mumkin:`;
-
-          return ctx.replyWithHTML(welcome, {
-            reply_markup: getStaffKeyboard(webAppUrl)
-          });
+              `👇 Quyidagi tugma orqali faqat o‘z sinfingiz davomatini oching:`,
+              { reply_markup: getTeacherKeyboard(webAppUrl, staffMember.class_id, staffMember.class_name) }
+            );
+          }
         }
 
         // 2. Ota-onalar tekshiruvi (9-A va 9-B o'quvchilari bilan solishtirish)
@@ -300,8 +320,8 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       }
     });
 
-    // B. '📊 Bugungi holat' (Bosh Admin va Sinf rahbarlari uchun)
-    bot.hears('📊 Bugungi holat', async (ctx) => {
+    // B. '📊 Bugungi monitoring' va '📊 Bugungi holat' (Admin va Sinf rahbarlari uchun)
+    bot.hears(['📊 Bugungi monitoring', '📊 Bugungi holat'], async (ctx) => {
       try {
         const today = db.getTodayString();
         const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
@@ -351,11 +371,15 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
         text += `📈 <b>Jami ko‘rsatkich:</b> ${totalMarked} / ${totalStudents} o‘quvchi belgilandi\n`;
         text += `📤 <b>Avtomat xabarnoma:</b> Soat 14:00 da avtomatik yuboriladi`;
 
+        const keyboard = staff.role === 'admin'
+          ? getAdminKeyboard(webAppUrl)
+          : getTeacherKeyboard(webAppUrl, staff.class_id, staff.class_name);
+
         return ctx.replyWithHTML(text, {
-          reply_markup: getStaffKeyboard(webAppUrl)
+          reply_markup: keyboard
         });
       } catch (err) {
-        console.error('Bugungi holat error:', err);
+        console.error('Bugungi monitoring error:', err);
         ctx.reply('Hisobotni olishda xatolik yuz berdi.');
       }
     });
@@ -368,20 +392,23 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
         const staff = await db.getStaffByChatId(ctx.chat.id);
 
         if (staff) {
+          const isBoss = staff.role === 'admin';
           const helpText =
             `ℹ️ <b>EduMemory — 65-maktab Davomat Tizimi</b>\n\n` +
             `📌 <b>Qoidalar va vaqt tartibi:</b>\n` +
             `• <b>08:00 - 13:30</b>: Sinf rahbarlari davomatni kiritish va saqlash oynasi.\n` +
             `• <b>13:30</b>: Tizim davomatni avtomatik muzlatadi (tahrirlash qulflanadi).\n` +
             `• <b>14:00</b>: Ulangan barcha ota-onalar profiliga kunlik hisobot avtomat yuboriladi.\n\n` +
-            `🔑 <b>Kirish PIN-kodlari:</b>\n` +
-            `• 👨‍🏫 O‘qituvchi PIN: <b>${escapeHtml(TEACHER_PIN)}</b>\n` +
-            `• 👑 Bosh Admin PIN: <b>${escapeHtml(ADMIN_PIN)}</b>\n\n` +
+            `🔐 <b>Avtomatik kirish:</b> Hech qanday PIN-kod kiritish shart emas, tizim sizni Telegram orqali taniydi.\n\n` +
             `📞 <b>Bosh Administrator:</b> ${escapeHtml(ADMIN_PHONE)}\n` +
             `🌐 <b>Mini App manzili:</b> ${webAppUrl}`;
 
+          const keyboard = isBoss
+            ? getAdminKeyboard(webAppUrl)
+            : getTeacherKeyboard(webAppUrl, staff.class_id, staff.class_name);
+
           return ctx.replyWithHTML(helpText, {
-            reply_markup: getStaffKeyboard(webAppUrl)
+            reply_markup: keyboard
           });
         }
 
@@ -416,7 +443,9 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
     bot.command('admin', async (ctx) => {
       const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
       const staff = await db.getStaffByChatId(ctx.chat.id);
-      const keyboard = staff ? getStaffKeyboard(webAppUrl) : getUnverifiedKeyboard();
+      const keyboard = staff && staff.role === 'admin' 
+        ? getAdminKeyboard(webAppUrl) 
+        : (staff ? getTeacherKeyboard(webAppUrl, staff.class_id, staff.class_name) : getUnverifiedKeyboard());
 
       return ctx.replyWithHTML(
         `👨‍🏫 <b>EduMemory — 9-sinflar Davomat Tizimi</b>\n\n` +
@@ -577,31 +606,60 @@ app.get('/health', (req, res) => res.status(200).json({
   tashkentTime: db.getTashkentTimeParts()
 }));
 
-// 1. PIN tekshiruvi (O'qituvchi: 6565, Bosh Admin: 9900)
-app.post('/api/verify-pin', (req, res) => {
-  const { pin } = req.body;
-  const cleanPin = String(pin || '').trim();
+// 1. PIN-kodlarsiz avtomatik foydalanuvchi va rol aniqlash
+app.get('/api/auth/me', async (req, res) => {
+  try {
+    const { userId, role: queryRole, classId: queryClassId, class: queryClassName } = req.query;
 
-  if (cleanPin === String(ADMIN_PIN).trim()) {
+    // A. Telegram userId orqali tekshirish
+    if (userId) {
+      const staff = await db.getStaffByChatId(userId);
+      if (staff) {
+        return res.json({
+          success: true,
+          authenticated: true,
+          role: staff.role, // 'admin' yoki 'teacher'
+          fullName: staff.full_name,
+          classId: staff.class_id || null,
+          className: staff.class_name || null
+        });
+      }
+    }
+
+    // B. URL parametrida rol yoki sinf berilgan bo'lsa (masalan: ?role=teacher&classId=1 yoki ?class=9-A)
+    if (queryRole === 'teacher' || queryClassId || queryClassName) {
+      let classObj = null;
+      if (queryClassId) {
+        classObj = await db.getClassById(parseInt(queryClassId, 10));
+      } else if (queryClassName) {
+        classObj = await db.getClassByName(queryClassName);
+      } else {
+        const classes = await db.getAllClasses();
+        classObj = classes[0] || null;
+      }
+
+      return res.json({
+        success: true,
+        authenticated: true,
+        role: 'teacher',
+        fullName: classObj ? `${classObj.name} Sinf Rahbari` : 'Sinf Rahbari',
+        classId: classObj ? classObj.id : null,
+        className: classObj ? classObj.name : null
+      });
+    }
+
+    // C. Bosh Admin roli (masalan: ?role=admin yoki to'g'ridan-to'g'ri brauzerdan ochilganda)
     return res.json({
       success: true,
+      authenticated: true,
       role: 'admin',
-      message: 'Bosh Administrator (Ma’muriyat) sifatida kirdingiz'
+      fullName: 'Bosh Administrator',
+      classId: null,
+      className: null
     });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
   }
-
-  if (cleanPin === String(TEACHER_PIN).trim()) {
-    return res.json({
-      success: true,
-      role: 'teacher',
-      message: 'Sinf rahbari sifatida kirdingiz'
-    });
-  }
-
-  return res.status(401).json({
-    success: false,
-    error: 'PIN-kod noto‘g‘ri!'
-  });
 });
 
 // 2. Config va Time-Lock holati
