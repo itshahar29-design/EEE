@@ -9,14 +9,12 @@ const db = require('./db.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const OLD_REVOKED_TOKENS = ['8831381677:AAHZfOhKQspNYVKAtI9OkrbsmcDhDPib6Yw'];
 const OFFICIAL_BOT_TOKEN = '8877313297:AAHBIV4kU9g_d287m092fW9b7XOkScZU4Gw';
-let effectiveToken = (process.env.BOT_TOKEN && process.env.BOT_TOKEN.trim() !== '')
-  ? process.env.BOT_TOKEN.trim()
-  : OFFICIAL_BOT_TOKEN;
-if (OLD_REVOKED_TOKENS.includes(effectiveToken)) {
-  console.log('⚠️ Eski bekor qilingan token aniqlandi. Yangi rasmiy bot tokeni ishlatilmoqda.');
-  effectiveToken = OFFICIAL_BOT_TOKEN;
+let effectiveToken = OFFICIAL_BOT_TOKEN;
+if (process.env.BOT_TOKEN && process.env.BOT_TOKEN.startsWith('8877313297')) {
+  effectiveToken = process.env.BOT_TOKEN.trim();
+} else if (process.env.BOT_TOKEN) {
+  console.log(`⚠️ Render muhitidagi noto'g'ri/placeholder token (${process.env.BOT_TOKEN.slice(0, 10)}...) inkor qilindi va rasmiy 8877313297 tokeni ishlatilmoqda.`);
 }
 const BOT_TOKEN = effectiveToken;
 const WEBAPP_URL = process.env.WEBAPP_URL || 'https://eee-w2yj.onrender.com';
