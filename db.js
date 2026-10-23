@@ -430,6 +430,33 @@ async function linkStaffByPhone(rawPhone, chatId) {
   return await getStaffByPhone(rawPhone);
 }
 
+async function getStaffByChatId(chatId) {
+  if (!chatId) return null;
+  const sql = `
+    SELECT s.*, c.name as class_name 
+    FROM staff s 
+    LEFT JOIN classes c ON s.class_id = c.id 
+    WHERE s.chat_id = ? 
+    LIMIT 1
+  `;
+  const staff = await queryOne(sql, [chatId]);
+  if (staff) return staff;
+
+  if (process.env.ADMIN_CHAT_ID && String(process.env.ADMIN_CHAT_ID) === String(chatId)) {
+    return {
+      id: 0,
+      full_name: 'Bosh Administrator',
+      phone: process.env.ADMIN_PHONE || '+998996893228',
+      phone_norm: '996893228',
+      role: 'admin',
+      class_id: null,
+      chat_id: chatId,
+      class_name: null
+    };
+  }
+  return null;
+}
+
 async function getAdminChatIds() {
   const rows = await queryAll(`SELECT chat_id FROM staff WHERE role = 'admin' AND chat_id IS NOT NULL`);
   const ids = rows.map(r => r.chat_id);
@@ -883,6 +910,7 @@ module.exports = {
   formatPhone,
   initDatabase,
   getStaffByPhone,
+  getStaffByChatId,
   linkStaffByPhone,
   getAdminChatIds,
   getAllStaff,

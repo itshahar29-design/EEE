@@ -80,26 +80,108 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       console.warn('⚠️ Bot getMe xatosi:', err.message);
     });
 
-    // 1. /start buyrug'i: Faqat bitta qulay kontakt yuborish tugmasi
-    bot.start(async (ctx) => {
-      const welcomeText =
-        `Assalomu alaykum! <b>65-maktabning "EduMemory"</b> ` +
-        `(9-A va 9-B sinflari davomat tizimi) botiga xush kelibsiz.\n\n` +
-        `Farzandingizning kunlik maktab davomati haqida shaxsiy Telegram profilingizga ` +
-        `avtomatik xabarnomalar olish uchun quyidagi tugmani bosing va <b>telefon raqamingizni tasdiqlang</b>:`;
+    // ==========================================
+    // MENYU TUGMALARI (REPLY KEYBOARDS)
+    // ==========================================
+    // 1. Hali raqami tasdiqlanmagan foydalanuvchi uchun
+    function getUnverifiedKeyboard() {
+      return {
+        keyboard: [
+          [{ text: '📱 Telefon raqamimni tasdiqlash', request_contact: true }]
+        ],
+        resize_keyboard: true,
+        one_time_keyboard: false
+      };
+    }
 
-      return ctx.replyWithHTML(welcomeText, {
-        reply_markup: {
-          keyboard: [
-            [{ text: '📱 Telefon raqamimni tasdiqlash', request_contact: true }]
-          ],
-          resize_keyboard: true,
-          one_time_keyboard: false
+    // 2. Raqami tasdiqlangan ota-ona uchun
+    function getParentKeyboard() {
+      return {
+        keyboard: [
+          [{ text: '📊 Farzandim davomati' }],
+          [{ text: '📱 Raqamni yangilash', request_contact: true }]
+        ],
+        resize_keyboard: true,
+        one_time_keyboard: false
+      };
+    }
+
+    // 3. Bosh Admin va O'qituvchilar uchun
+    function getStaffKeyboard(webAppUrl) {
+      return {
+        keyboard: [
+          [{ text: '📝 Davomatni ochish', web_app: { url: webAppUrl } }],
+          [{ text: '📊 Bugungi holat' }, { text: 'ℹ️ Yordam' }]
+        ],
+        resize_keyboard: true,
+        one_time_keyboard: false
+      };
+    }
+
+    // ==========================================
+    // 1. /START BUYRUG'I: FOYDALANUVCHI HOLATIGA KO'RA 3 XIL MENYU
+    // ==========================================
+    bot.start(async (ctx) => {
+      try {
+        const chatId = ctx.chat.id;
+        const today = db.getTodayString();
+        const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
+
+        // 1. Bosh Admin yoki Sinf rahbari tekshiruvi
+        const staff = await db.getStaffByChatId(chatId);
+        if (staff) {
+          const isBoss = staff.role === 'admin';
+          const greeting = isBoss
+            ? `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
+              `Siz <b>9-A</b> va <b>9-B</b> sinflari davomat tizimini to‘liq nazorat qilish va boshqarish huquqiga egasiz.\n\n` +
+              `👇 Quyidagi menyu orqali boshqaruv amallarini bajaring:`
+            : `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staff.full_name)}!</b>\n\n` +
+              `Siz <b>${escapeHtml(staff.class_name || '9-sinf')}</b> rahbari sifatida tizimga ulangansiz.\n` +
+              `Dars kunlari soat 08:00 dan 13:30 gacha o‘z sinfingiz davomatini kiritishingiz mumkin.\n\n` +
+              `👇 Davomatni ochish uchun pastdagi tugmani bosing:`;
+
+          return ctx.replyWithHTML(greeting, {
+            reply_markup: getStaffKeyboard(webAppUrl)
+          });
         }
-      });
+
+        // 2. Raqami tasdiqlangan Ota-ona tekshiruvi
+        const students = await db.getStudentsByParentChatId(chatId, today);
+        if (students && students.length > 0) {
+          let msg = `✅ <b>Assalomu alaykum!</b>\n\n` +
+            `Siz quyidagi o‘quvchi(lar)ning ota-onasi sifatida tizimga ulangansiz:\n\n`;
+
+          for (const s of students) {
+            msg += `▫️ <b>${escapeHtml(s.full_name)}</b> (${escapeHtml(s.class_name)})\n`;
+          }
+
+          msg += `\n🔔 Har kuni soat 14:00 da darslar tugagach davomat shaxsiy profilingizga avtomatik yuboriladi.\n` +
+            `Farzandingizning bugungi davomatini bilish uchun pastdagi <b>"📊 Farzandim davomati"</b> tugmasini bosing:`;
+
+          return ctx.replyWithHTML(msg, {
+            reply_markup: getParentKeyboard()
+          });
+        }
+
+        // 3. Hali raqami tasdiqlanmagan foydalanuvchi uchun
+        const welcomeText =
+          `Assalomu alaykum! <b>65-maktabning "EduMemory"</b> ` +
+          `(9-A va 9-B sinflari davomat tizimi) botiga xush kelibsiz.\n\n` +
+          `Farzandingizning kunlik maktab davomati haqida shaxsiy Telegram profilingizga ` +
+          `avtomatik xabarnomalar olish uchun quyidagi tugmani bosing va <b>telefon raqamingizni tasdiqlang</b>:`;
+
+        return ctx.replyWithHTML(welcomeText, {
+          reply_markup: getUnverifiedKeyboard()
+        });
+      } catch (err) {
+        console.error('/start xatosi:', err);
+        return ctx.reply('Xatolik yuz berdi. Iltimos, qayta /start buyrug‘ini yuboring.');
+      }
     });
 
-    // 2. Kontakt kartasini qabul qilish: Bosh Admin, Sinf rahbarlari va Ota-onalar
+    // ==========================================
+    // 2. KONTAKT QABUL QILISH (TASDIQLASH VA RAQAMNI YANGILASH)
+    // ==========================================
     bot.on('contact', async (ctx) => {
       try {
         const contact = ctx.message.contact;
@@ -116,87 +198,62 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
         if (staffMember) {
           await db.linkStaffByPhone(rawPhone, chatId);
 
-          if (staffMember.role === 'admin') {
-            return ctx.replyWithHTML(
-              `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
+          const isBoss = staffMember.role === 'admin';
+          const welcome = isBoss
+            ? `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
               `Sizning Telegram profilingiz tizimga muvaffaqiyatli biriktirildi.\n` +
               `Siz <b>9-A</b> va <b>9-B</b> sinflari davomatini to‘liq boshqarish va monitoring qilish huquqiga egasiz.\n\n` +
-              `👇 Tizimni ochish uchun pastdagi tugmani bosing:`,
-              {
-                reply_markup: {
-                  keyboard: [
-                    [{ text: '📝 Davomatni ochish (Mini App)', web_app: { url: webAppUrl } }],
-                    [{ text: '📊 Umumiy davomat holati' }]
-                  ],
-                  resize_keyboard: true
-                }
-              }
-            );
-          } else if (staffMember.role === 'teacher') {
-            return ctx.replyWithHTML(
-              `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staffMember.full_name)}!</b>\n\n` +
+              `👇 Quyidagi menyudan foydalanishingiz mumkin:`
+            : `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staffMember.full_name)}!</b>\n\n` +
               `Siz <b>${escapeHtml(staffMember.class_name || '9-sinf')}</b> rahbari sifatida tizimga muvaffaqiyatli ulandingiz.\n` +
               `Dars kunlari soat 08:00 dan 13:30 gacha o‘z sinfingiz davomatini belgilashingiz mumkin.\n\n` +
-              `👇 Davomatni ochish uchun pastdagi tugmani bosing:`,
-              {
-                reply_markup: {
-                  keyboard: [
-                    [{ text: '📝 Davomatni ochish (Mini App)', web_app: { url: webAppUrl } }],
-                    [{ text: '📊 Sinfim davomati' }]
-                  ],
-                  resize_keyboard: true
-                }
-              }
-            );
-          }
+              `👇 Quyidagi menyudan foydalanishingiz mumkin:`;
+
+          return ctx.replyWithHTML(welcome, {
+            reply_markup: getStaffKeyboard(webAppUrl)
+          });
         }
 
         // 2. Ota-onalar tekshiruvi (9-A va 9-B o'quvchilari bilan solishtirish)
         const linkedStudents = await db.linkParentByPhone(rawPhone, chatId);
 
         if (linkedStudents && linkedStudents.length > 0) {
-          let msg = `✅ <b>Assalomu alaykum!</b>\n\n` +
-                    `Siz quyidagi o‘quvchi(lar)ning ota-onasi sifatida tizimga muvaffaqiyatli ulandingiz:\n\n`;
+          let msg = `✅ <b>Tabriklaymiz! Telefon raqamingiz muvaffaqiyatli tasdiqlandi.</b>\n\n` +
+                    `Siz quyidagi o‘quvchi(lar)ning ota-onasi sifatida tizimga biriktirildingiz:\n\n`;
 
           for (const s of linkedStudents) {
             msg += `▫️ <b>${escapeHtml(s.full_name)}</b> (${escapeHtml(s.class_name)})\n`;
           }
 
-          msg += `\n🔔 Har kuni soat 14:00 da darslar tugagach davomat shaxsiy profilingizga avtomatik yuboriladi.`;
+          msg += `\n🔔 Har kuni soat 14:00 da darslar tugagach davomat shaxsiy profilingizga avtomatik yuboriladi.\n` +
+                 `Quyidagi menyu orqali istalgan vaqtda farzandingiz davomatini tekshirishingiz mumkin:`;
 
           return ctx.replyWithHTML(msg, {
-            reply_markup: {
-              keyboard: [
-                [{ text: '📊 Farzandim davomati' }],
-                [{ text: '🔄 Raqamni qayta tekshirish', request_contact: true }]
-              ],
-              resize_keyboard: true
-            }
+            reply_markup: getParentKeyboard()
           });
         } else {
           return ctx.replyWithHTML(
-            `❌ <b>Siz yuborgan telefon raqami 9-sinflar ro'yxatida topilmadi.</b>\n\n` +
+            `❌ <b>Siz yuborgan telefon raqami 9-sinflar ro‘yxatida topilmadi.</b>\n\n` +
             `Raqam: <b>${escapeHtml(rawPhone)}</b>\n\n` +
             `Iltimos, farzandingizning <b>sinf rahbariga (9-A yoki 9-B)</b> murojaat qiling va telefon raqamingiz to‘g‘ri kiritilganligini tekshirtiring. ` +
             `O‘qituvchi raqamingizni tizimga kiritgach, qayta kontakt yuborsangiz darhol ulanasiz.`,
             {
-              reply_markup: {
-                keyboard: [
-                  [{ text: '📱 Telefon raqamimni tasdiqlash', request_contact: true }]
-                ],
-                resize_keyboard: true
-              }
+              reply_markup: getUnverifiedKeyboard()
             }
           );
         }
       } catch (err) {
         console.error('Contact error:', err);
-        ctx.reply('Kontaktni tekshirishda xatolik yuz berdi.');
+        ctx.reply('Kontaktni tekshirishda xatolik yuz berdi. Qayta urinib ko‘ring.');
       }
     });
 
-    // 3. Farzand davomati hisoboti
-    bot.hears(['/holat', '📊 Farzandim davomati'], async (ctx) => {
+    // ==========================================
+    // 3. TUGMALAR UCHUN HANDLERLAR (BOT.HEARS)
+    // ==========================================
+
+    // A. '📊 Farzandim davomati'
+    bot.hears(['📊 Farzandim davomati', '/holat'], async (ctx) => {
       try {
         const today = db.getTodayString();
         const students = await db.getStudentsByParentChatId(ctx.chat.id, today);
@@ -206,27 +263,27 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
             `ℹ️ <b>Siz hali hech bir 9-sinf o‘quvchisiga biriktirilmagansiz.</b>\n\n` +
             `Iltimos, pastdagi <b>"📱 Telefon raqamimni tasdiqlash"</b> tugmasini bosing:`,
             {
-              reply_markup: {
-                keyboard: [
-                  [{ text: '📱 Telefon raqamimni tasdiqlash', request_contact: true }]
-                ],
-                resize_keyboard: true
-              }
+              reply_markup: getUnverifiedKeyboard()
             }
           );
         }
 
-        let message = `🔔 <b>65-MAKTAB | DAVOMAT HISOBOTI</b>\n`;
+        let message = `🔔 <b>65-MAKTAB | FARZANDINGIZ DAVOMATI</b>\n`;
         message += `📅 <b>Sana:</b> ${formatUzbekDate(today)}\n`;
         message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
         for (const s of students) {
-          const statusInfo = getStatusDisplay(s.status);
-          message += `👤 <b>O'quvchi:</b> ${escapeHtml(s.full_name)}\n`;
+          message += `👤 <b>O‘quvchi:</b> ${escapeHtml(s.full_name)}\n`;
           message += `🏫 <b>Sinf:</b> ${escapeHtml(s.class_name)}\n`;
-          message += `📊 <b>Holat:</b> ${statusInfo.emoji} <b>${statusInfo.label}</b>\n`;
-          if (s.reason) {
-            message += `📝 <b>Izoh:</b> <i>${escapeHtml(s.reason)}</i>\n`;
+
+          if (s.status) {
+            const statusInfo = getStatusDisplay(s.status);
+            message += `📊 <b>Holat:</b> ${statusInfo.emoji} <b>${statusInfo.label}</b>\n`;
+            if (s.reason) {
+              message += `📝 <b>Izoh:</b> <i>${escapeHtml(s.reason)}</i>\n`;
+            }
+          } else {
+            message += `📊 <b>Holat:</b> ⏳ <i>Bugungi davomat hali o‘qituvchi tomonidan kiritilmadi (soat 13:30 gacha kiritiladi, 14:00 da esa hisobot yuboriladi)</i>\n`;
           }
           message += `\n`;
         }
@@ -234,25 +291,138 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
         message += `━━━━━━━━━━━━━━━━━━━━\n`;
         message += `<i>Farzandingiz ta'lim-tarbiyasiga befarq bo'lmaganingiz uchun tashakkur!</i>`;
 
-        return ctx.replyWithHTML(message);
+        return ctx.replyWithHTML(message, {
+          reply_markup: getParentKeyboard()
+        });
       } catch (err) {
-        console.error('Holat command error:', err);
+        console.error('Farzandim davomati error:', err);
         ctx.reply('Ma\'lumotlarni olishda xatolik yuz berdi.');
       }
     });
 
-    // 4. Admin buyrug'i
-    bot.command('admin', (ctx) => {
+    // B. '📊 Bugungi holat' (Bosh Admin va Sinf rahbarlari uchun)
+    bot.hears('📊 Bugungi holat', async (ctx) => {
+      try {
+        const today = db.getTodayString();
+        const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
+        const staff = await db.getStaffByChatId(ctx.chat.id);
+
+        if (!staff) {
+          const students = await db.getStudentsByParentChatId(ctx.chat.id, today);
+          if (students && students.length > 0) {
+            return ctx.reply('Farzandingiz davomatini bilish uchun pastdagi "📊 Farzandim davomati" tugmasini bosing:', {
+              reply_markup: getParentKeyboard()
+            });
+          }
+          return ctx.reply('Siz xodimlar ro‘yxatida emassiz. Iltimos, telefon raqamingizni tasdiqlang:', {
+            reply_markup: getUnverifiedKeyboard()
+          });
+        }
+
+        const summary = await db.getClassAttendanceSummary(today);
+        const windowInfo = db.checkAttendanceWindow(today);
+
+        let text = `📊 <b>65-MAKTAB | 9-SINFLAR BUGUNGI DAVOMATI</b>\n`;
+        text += `📅 <b>Sana:</b> ${formatUzbekDate(today)}\n`;
+        text += `⏱ <b>Vaqt rejimi:</b> ${windowInfo.isFrozen ? '🔒 Muzlatilgan (13:30 yakunlangan)' : '🔓 Ochiq (08:00 - 13:30)'}\n`;
+        text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+        let totalStudents = 0;
+        let totalMarked = 0;
+
+        for (const c of summary) {
+          totalStudents += c.student_count;
+          totalMarked += c.marked_count;
+
+          let statusBadge = '';
+          if (c.status === 'completed') {
+            statusBadge = '✅ To‘liq kiritilgan';
+          } else if (c.status === 'partial') {
+            statusBadge = '⏱ Qisman kiritilgan';
+          } else {
+            statusBadge = '❌ Kiritilmagan';
+          }
+
+          text += `🏫 <b>${escapeHtml(c.name)}-sinf:</b> ${statusBadge}\n`;
+          text += `   👥 O‘quvchilar: <b>${c.student_count}</b> ta | Belgilandi: <b>${c.marked_count}</b> ta\n\n`;
+        }
+
+        text += `━━━━━━━━━━━━━━━━━━━━\n`;
+        text += `📈 <b>Jami ko‘rsatkich:</b> ${totalMarked} / ${totalStudents} o‘quvchi belgilandi\n`;
+        text += `📤 <b>Avtomat xabarnoma:</b> Soat 14:00 da avtomatik yuboriladi`;
+
+        return ctx.replyWithHTML(text, {
+          reply_markup: getStaffKeyboard(webAppUrl)
+        });
+      } catch (err) {
+        console.error('Bugungi holat error:', err);
+        ctx.reply('Hisobotni olishda xatolik yuz berdi.');
+      }
+    });
+
+    // C. 'ℹ️ Yordam'
+    bot.hears('ℹ️ Yordam', async (ctx) => {
+      try {
+        const today = db.getTodayString();
+        const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
+        const staff = await db.getStaffByChatId(ctx.chat.id);
+
+        if (staff) {
+          const helpText =
+            `ℹ️ <b>EduMemory — 65-maktab Davomat Tizimi</b>\n\n` +
+            `📌 <b>Qoidalar va vaqt tartibi:</b>\n` +
+            `• <b>08:00 - 13:30</b>: Sinf rahbarlari davomatni kiritish va saqlash oynasi.\n` +
+            `• <b>13:30</b>: Tizim davomatni avtomatik muzlatadi (tahrirlash qulflanadi).\n` +
+            `• <b>14:00</b>: Ulangan barcha ota-onalar profiliga kunlik hisobot avtomat yuboriladi.\n\n` +
+            `🔑 <b>Kirish PIN-kodlari:</b>\n` +
+            `• 👨‍🏫 O‘qituvchi PIN: <b>${escapeHtml(TEACHER_PIN)}</b>\n` +
+            `• 👑 Bosh Admin PIN: <b>${escapeHtml(ADMIN_PIN)}</b>\n\n` +
+            `📞 <b>Bosh Administrator:</b> ${escapeHtml(ADMIN_PHONE)}\n` +
+            `🌐 <b>Mini App manzili:</b> ${webAppUrl}`;
+
+          return ctx.replyWithHTML(helpText, {
+            reply_markup: getStaffKeyboard(webAppUrl)
+          });
+        }
+
+        const students = await db.getStudentsByParentChatId(ctx.chat.id, today);
+        if (students && students.length > 0) {
+          const parentHelp =
+            `ℹ️ <b>EduMemory — Ota-onalar uchun ma‘lumot</b>\n\n` +
+            `• Farzandingizning davomati har kuni darslar tugagach, soat <b>14:00 da</b> shaxsiy profilingizga avtomatik yuboriladi.\n` +
+            `• Kun davomida istalgan vaqtda <b>"📊 Farzandim davomati"</b> tugmasi orqali joriy holatni tekshirishingiz mumkin.\n` +
+            `• Agar telefon raqamingiz o‘zgarsa, <b>"📱 Raqamni yangilash"</b> tugmasini bosing.\n\n` +
+            `📞 Savollar bo‘yicha sinf rahbariga yoki maktab ma‘muriyatiga murojaat qiling.`;
+
+          return ctx.replyWithHTML(parentHelp, {
+            reply_markup: getParentKeyboard()
+          });
+        }
+
+        return ctx.replyWithHTML(
+          `ℹ️ <b>EduMemory — 65-maktab Davomat Tizimi</b>\n\n` +
+          `Farzandingiz davomati haqida xabardor bo‘lish uchun iltimos, pastdagi tugma orqali telefon raqamingizni tasdiqlang:`,
+          {
+            reply_markup: getUnverifiedKeyboard()
+          }
+        );
+      } catch (err) {
+        console.error('Yordam error:', err);
+        ctx.reply('Ma\'lumotni olishda xatolik yuz berdi.');
+      }
+    });
+
+    // D. Admin buyrug'i
+    bot.command('admin', async (ctx) => {
       const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
-      ctx.replyWithHTML(
+      const staff = await db.getStaffByChatId(ctx.chat.id);
+      const keyboard = staff ? getStaffKeyboard(webAppUrl) : getUnverifiedKeyboard();
+
+      return ctx.replyWithHTML(
         `👨‍🏫 <b>EduMemory — 9-sinflar Davomat Tizimi</b>\n\n` +
         `Davomat kiritish (08:00 - 13:30) yoki nazorat qilish uchun pastdagi tugmani bosing:`,
         {
-          reply_markup: {
-            inline_keyboard: [
-              [{ text: '📝 Davomatni ochish (Mini App)', web_app: { url: webAppUrl } }]
-            ]
-          }
+          reply_markup: keyboard
         }
       );
     });
