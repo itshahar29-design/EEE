@@ -16,8 +16,12 @@ if (process.env.BOT_TOKEN && process.env.BOT_TOKEN.startsWith('8877313297')) {
 } else if (process.env.BOT_TOKEN) {
   console.log(`⚠️ Render muhitidagi noto'g'ri/placeholder token (${process.env.BOT_TOKEN.slice(0, 10)}...) inkor qilindi va rasmiy 8877313297 tokeni ishlatilmoqda.`);
 }
-const BOT_TOKEN = effectiveToken;
-const WEBAPP_URL = process.env.WEBAPP_URL || 'https://eee-w2yj.onrender.com';
+const OFFICIAL_WEBAPP_URL = 'https://eee-w2yj.onrender.com';
+let effectiveWebAppUrl = OFFICIAL_WEBAPP_URL;
+if (process.env.WEBAPP_URL && !process.env.WEBAPP_URL.includes('edumemory-65') && process.env.WEBAPP_URL.startsWith('http')) {
+  effectiveWebAppUrl = process.env.WEBAPP_URL.trim();
+}
+const WEBAPP_URL = effectiveWebAppUrl;
 const SCHOOL_NAME = process.env.SCHOOL_NAME || "65-umumiy o'rta ta'lim maktabi";
 const TEACHER_PIN = process.env.TEACHER_PIN || '6565';
 const ADMIN_PIN = process.env.ADMIN_PIN || '9900';
