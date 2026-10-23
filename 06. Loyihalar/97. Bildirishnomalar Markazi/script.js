@@ -1,1 +1,0 @@
-window.showToast=(txt,col)=>{const t=document.createElement('div');t.style.cssText=`background:${col};color:white;padding:12px 20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-weight:bold;`;t.textContent=txt;document.getElementById('toast-area').appendChild(t);setTimeout(()=>t.remove(),2500);};

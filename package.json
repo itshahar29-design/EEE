@@ -1,23 +1,32 @@
 {
-  "name": "frontcraft-pro",
-  "version": "2.0.0",
-  "description": "FrontCraft Pro - Frontend Dasturchilar Platformasi (300+ Real Loyihalar va Darslar)",
-  "main": "server.js",
+  "name": "edumemory-65-maktab",
+  "version": "1.0.0",
+  "description": "65-maktab EduMemory - O'quvchilar davomati va ota-onalarni xabardor qilish tizimi",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "build": "node scripts/validate.js",
-    "validate": "node scripts/validate.js",
-    "build:zips": "node scripts/build-zips.js"
+    "start": "node index.js",
+    "dev": "node --watch index.js"
   },
   "keywords": [
-    "frontend",
-    "html5",
-    "css3",
-    "javascript",
-    "portfolio",
-    "frontcraft",
-    "education"
+    "telegram-bot",
+    "telegram-mini-app",
+    "attendance",
+    "education",
+    "school",
+    "express",
+    "telegraf",
+    "sqlite"
   ],
-  "author": "FrontCraft",
-  "license": "MIT"
+  "author": "EduMemory Team",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "node-cron": "^3.0.3",
+    "telegraf": "^4.16.3"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.8.1"
+  }
 }

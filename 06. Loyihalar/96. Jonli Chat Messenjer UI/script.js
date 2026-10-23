@@ -1,1 +1,0 @@
-window.sendMsg=()=>{const i=document.getElementById('chat-in');if(!i.value.trim())return;const m=document.createElement('div');m.style.cssText="align-self:flex-end;background:#0284c7;color:white;padding:10px 14px;border-radius:12px;";m.textContent=i.value;document.getElementById('chat-box').appendChild(m);i.value='';};

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>EduMemory — 65-maktab Davomat Tizimi</title>
+
+  <!-- Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563eb',
+            'primary-dark': '#1d4ed8',
+            tgBg: 'var(--tg-theme-bg-color, #f8fafc)',
+            tgSecBg: 'var(--tg-theme-secondary-bg-color, #ffffff)',
+            tgText: 'var(--tg-theme-text-color, #0f172a)',
+            tgHint: 'var(--tg-theme-hint-color, #64748b)',
+            tgBtn: 'var(--tg-theme-button-color, #2563eb)',
+            tgBtnText: 'var(--tg-theme-button-text-color, #ffffff)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-24 selection:bg-blue-200">
+
+  <!-- ================= TOP APP BAR ================= -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-sm font-bold text-lg">
+          65
+        </div>
+        <div>
+          <h1 class="text-base font-bold leading-tight text-slate-900 flex items-center gap-1.5">
+            EduMemory
+            <span class="text-[10px] font-semibold uppercase tracking-wider bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded">v1.0</span>
+          </h1>
+          <p class="text-xs text-slate-500" id="schoolSubtitle">65-maktab davomat tizimi</p>
+        </div>
+      </div>
+
+      <!-- Sana tanlash -->
+      <div class="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1.5 rounded-xl border border-slate-200/80">
+        <i class="fa-regular fa-calendar text-blue-600 text-xs"></i>
+        <input 
+          type="date" 
+          id="datePicker" 
+          class="bg-transparent text-xs font-semibold text-slate-700 focus:outline-none cursor-pointer"
+        />
+      </div>
+    </div>
+
+    <!-- Sinf tanlash gorizontal paneli -->
+    <div class="max-w-3xl mx-auto px-4 pb-3">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Sinfni tanlang:</span>
+        <button id="refreshBtn" class="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+          <i class="fa-solid fa-rotate-right"></i> Yangilash
+        </button>
+      </div>
+      <div id="classesList" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+        <!-- Sinflar tugmalari JS orqali qo'shiladi -->
+        <div class="animate-pulse flex gap-2">
+          <div class="h-9 w-16 bg-slate-200 rounded-xl"></div>
+          <div class="h-9 w-16 bg-slate-200 rounded-xl"></div>
+          <div class="h-9 w-16 bg-slate-200 rounded-xl"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= ASOSIY KONTENT ================= -->
+  <main class="max-w-3xl mx-auto px-4 pt-4">
+
+    <!-- STATISTIKA BLOKI -->
+    <section class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs mb-4">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+          <h2 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+            <span id="currentClassName" class="text-blue-600">Sinf</span> davomati ko‘rsatkichi
+          </h2>
+        </div>
+        <span id="totalStudentsBadge" class="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full">
+          0 o‘quvchi
+        </span>
+      </div>
+
+      <!-- Stat kartochkalari -->
+      <div class="grid grid-cols-4 gap-2 text-center">
+        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-2 transition-all">
+          <div class="text-emerald-700 font-bold text-lg leading-none" id="statKeldi">0</div>
+          <div class="text-[11px] font-medium text-emerald-800 mt-1">Keldi</div>
+        </div>
+        <div class="bg-rose-50 border border-rose-200 rounded-xl p-2 transition-all">
+          <div class="text-rose-700 font-bold text-lg leading-none" id="statKelmadi">0</div>
+          <div class="text-[11px] font-medium text-rose-800 mt-1">Kelmadi</div>
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-2 transition-all">
+          <div class="text-amber-700 font-bold text-lg leading-none" id="statKechikdi">0</div>
+          <div class="text-[11px] font-medium text-amber-800 mt-1">Kechikdi</div>
+        </div>
+        <div class="bg-sky-50 border border-sky-200 rounded-xl p-2 transition-all">
+          <div class="text-sky-700 font-bold text-lg leading-none" id="statSababli">0</div>
+          <div class="text-[11px] font-medium text-sky-800 mt-1">Sababli</div>
+        </div>
+      </div>
+
+      <!-- Tezkor amallar -->
+      <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+        <button 
+          id="markAllPresentBtn" 
+          class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-2 px-3 rounded-xl transition flex items-center justify-center gap-1.5 active:scale-95"
+        >
+          <i class="fa-solid fa-check-double"></i> Barchasini "Keldi" qilish
+        </button>
+        <button 
+          id="sendNotifyClassBtn" 
+          class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-semibold py-2 px-3 rounded-xl transition flex items-center justify-center gap-1.5 active:scale-95"
+          title="Ushbu sinf ota-onalariga xabar yuborish"
+        >
+          <i class="fa-solid fa-paper-plane"></i> Xabar yuborish
+        </button>
+      </div>
+    </section>
+
+    <!-- QIDIRUV VA FILTR -->
+    <div class="flex items-center gap-2 mb-3">
+      <div class="relative flex-1">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="O‘quvchi ism-familiyasi..."
+          class="w-full bg-white border border-slate-200 rounded-xl pl-8 pr-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+        />
+      </div>
+    </div>
+
+    <!-- O'QUVCHILAR RO'YXATI -->
+    <section id="studentsContainer" class="space-y-2.5">
+      <!-- O'quvchilar ro'yxati JS orqali render qilinadi -->
+      <div class="text-center py-12 text-slate-400 text-sm">
+        <i class="fa-solid fa-spinner fa-spin text-2xl mb-2 text-blue-500"></i>
+        <p>Ma'lumotlar yuklanmoqda...</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= PASTKI SUZUVCHI TUGMA (SAQLASH) ================= -->
+  <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 shadow-lg">
+    <div class="max-w-3xl mx-auto flex items-center justify-between gap-3">
+      <div class="text-xs">
+        <div class="text-slate-500 font-medium">Belgilandi:</div>
+        <div class="font-bold text-slate-800 text-sm">
+          <span id="markedCount" class="text-blue-600">0</span> / <span id="totalCount">0</span>
+        </div>
+      </div>
+      <button 
+        id="saveAttendanceBtn" 
+        class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-xl shadow-md shadow-blue-500/20 active:scale-98 transition flex items-center justify-center gap-2 text-sm"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
+        <span>Davomatni saqlash</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: OTA-ONA HAVOLASI ================= -->
+  <div id="linkModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl transform transition-all">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="font-bold text-slate-900 text-base">Ota-onani biriktirish</h3>
+        <button id="closeModalBtn" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <p class="text-xs text-slate-600 mb-3" id="modalStudentName">
+        O‘quvchi: <b>...</b>
+      </p>
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 mb-4">
+        <p class="text-[11px] text-slate-500 mb-1 font-medium">Ota-ona uchun shaxsiy Telegram havola:</p>
+        <input 
+          type="text" 
+          id="modalDeepLinkInput" 
+          readonly 
+          class="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs text-blue-700 font-mono select-all focus:outline-none"
+        />
+      </div>
+      <div class="flex gap-2">
+        <button 
+          id="copyLinkBtn" 
+          class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
+        >
+          <i class="fa-regular fa-copy"></i> Havoladan nusxa olish
+        </button>
+        <button 
+          id="shareLinkBtn" 
+          class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
+        >
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION ================= -->
+  <div 
+    id="toast" 
+    class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 text-white text-xs font-semibold py-2.5 px-4 rounded-full shadow-lg backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none translate-y-[-20px] flex items-center gap-2"
+  >
+    <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toastMessage">Xabar</span>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

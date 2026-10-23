@@ -1,1 +1,0 @@
-window.viewStorage=()=>{document.getElementById('st-dump').textContent=JSON.stringify(localStorage,null,2);};viewStorage();

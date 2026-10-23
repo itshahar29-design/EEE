@@ -1,1 +1,0 @@
-window.parseURL=()=>{const u=new URL(document.getElementById('url-inp').value);let s=`Origin: ${u.origin}\nPath: ${u.pathname}\nParams:\n`;u.searchParams.forEach((v,k)=>s+=`  ${k}: ${v}\n`);document.getElementById('url-res').textContent=s;};parseURL();
