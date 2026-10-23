@@ -1,6 +1,6 @@
 /**
  * EduMemory — 65-maktab Davomat Tizimi
- * Telegram Mini App Frontend (To'liq CRUD, Excel Import/Export, PIN-kod xavfsizligi)
+ * Frontend: Time-Lock (13:30 dedlayn), Avtomat nazorat va Rollar (O'qituvchi / Admin)
  */
 
 // ==========================================
@@ -33,7 +33,6 @@ function triggerHaptic(type = 'light') {
   } catch (e) {}
 }
 
-// Telefon raqamni formatlash (+998 (90) 123-45-67)
 function formatPhoneDisplay(raw) {
   if (!raw) return 'Raqam kiritilmagan';
   const digits = String(raw).replace(/\D/g, '');
@@ -58,6 +57,9 @@ const state = {
   schoolName: "65-umumiy o'rta ta'lim maktabi",
   searchQuery: '',
   enteredPin: '',
+  userRole: localStorage.getItem('edumemory_role') || 'teacher', // 'teacher' yoki 'admin'
+  isFrozen: false,
+  freezeReason: null,
   selectedExcelFile: null
 };
 
@@ -72,6 +74,11 @@ const pinClearBtn = document.getElementById('pinClearBtn');
 const pinBackspaceBtn = document.getElementById('pinBackspaceBtn');
 const pinKeys = document.querySelectorAll('.pin-key');
 const lockAppBtn = document.getElementById('lockAppBtn');
+const roleBadge = document.getElementById('roleBadge');
+
+// Muzlatish holati banneri
+const freezeBanner = document.getElementById('freezeBanner');
+const freezeBannerText = document.getElementById('freezeBannerText');
 
 // Asosiy boshqaruv
 const datePicker = document.getElementById('datePicker');
@@ -93,18 +100,28 @@ const statPendingParentsEl = document.getElementById('statPendingParents');
 const markedCountEl = document.getElementById('markedCount');
 const totalCountEl = document.getElementById('totalCount');
 
-// Harakat tugmalari
+// Tugmalar
 const markAllPresentBtn = document.getElementById('markAllPresentBtn');
-const sendNotifyClassBtn = document.getElementById('sendNotifyClassBtn');
 const saveAttendanceBtn = document.getElementById('saveAttendanceBtn');
+const saveBtnText = document.getElementById('saveBtnText');
 
-// CRUD va Excel Tugmalari
+// Ma'muriyat va CRUD tugmalari
+const openAdminSummaryBtn = document.getElementById('openAdminSummaryBtn');
 const openAddClassBtn = document.getElementById('openAddClassBtn');
 const openAddStudentBtn = document.getElementById('openAddStudentBtn');
 const openExcelImportBtn = document.getElementById('openExcelImportBtn');
 const openExcelExportBtn = document.getElementById('openExcelExportBtn');
+const adminToolbar = document.getElementById('adminToolbar');
 
 // Modallar
+const adminSummaryModal = document.getElementById('adminSummaryModal');
+const summaryModalDate = document.getElementById('summaryModalDate');
+const summaryDoneCount = document.getElementById('summaryDoneCount');
+const summaryPartialCount = document.getElementById('summaryPartialCount');
+const summaryUnmarkedCount = document.getElementById('summaryUnmarkedCount');
+const summaryClassesList = document.getElementById('summaryClassesList');
+const summaryDispatchStatus = document.getElementById('summaryDispatchStatus');
+
 const addClassModal = document.getElementById('addClassModal');
 const newClassNameInput = document.getElementById('newClassNameInput');
 const saveNewClassBtn = document.getElementById('saveNewClassBtn');
@@ -154,18 +171,34 @@ function showToast(message, type = 'success') {
   toastTimeout = setTimeout(() => {
     toastEl.classList.remove('opacity-100', 'translate-y-0');
     toastEl.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
-  }, 2800);
+  }, 3000);
 }
 
 // ==========================================
-// 4. PIN-KOD XAVFSIZLIK VA LOCKSCREEN
+// 4. PIN-KOD VA ROLLAR BOSHQARUVI
 // ==========================================
 const PIN_STORAGE_KEY = 'edumemory_pin_verified';
+const ROLE_STORAGE_KEY = 'edumemory_role';
+
+function applyRoleUI() {
+  if (state.userRole === 'admin') {
+    roleBadge.textContent = '👑 Ma‘muriyat (Zavuch/Direktor)';
+    roleBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200';
+    document.querySelectorAll('.admin-only').forEach((el) => el.classList.remove('hidden'));
+    if (openAdminSummaryBtn) openAdminSummaryBtn.classList.remove('hidden');
+  } else {
+    roleBadge.textContent = '👨‍🏫 O‘qituvchi';
+    roleBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200';
+    document.querySelectorAll('.admin-only').forEach((el) => el.classList.add('hidden'));
+    if (openAdminSummaryBtn) openAdminSummaryBtn.classList.add('hidden');
+  }
+}
 
 function checkPinAuth() {
   const isVerified = localStorage.getItem(PIN_STORAGE_KEY) === 'true';
   if (isVerified) {
     pinScreen.classList.add('hidden');
+    applyRoleUI();
   } else {
     pinScreen.classList.remove('hidden');
     resetPin();
@@ -203,11 +236,15 @@ async function verifyEnteredPin() {
     if (res.ok && data.success) {
       triggerHaptic('success');
       localStorage.setItem(PIN_STORAGE_KEY, 'true');
+      localStorage.setItem(ROLE_STORAGE_KEY, data.role || 'teacher');
+      state.userRole = data.role || 'teacher';
+
       pinScreen.classList.add('hidden');
       resetPin();
-      showToast('Xush kelibsiz! Tizimga muvaffaqiyatli kirdingiz.');
-      
-      // Agar ma'lumotlar yuklanmagan bo'lsa, yuklaymiz
+      applyRoleUI();
+
+      showToast(data.message || 'Tizimga muvaffaqiyatli kirdingiz.');
+
       if (state.classes.length === 0) {
         await initAppData();
       }
@@ -232,7 +269,6 @@ async function verifyEnteredPin() {
   }
 }
 
-// Keypad hodisalari
 pinKeys.forEach((key) => {
   key.onclick = () => {
     if (state.enteredPin.length < 4) {
@@ -265,18 +301,47 @@ pinClearBtn.onclick = () => {
 lockAppBtn.onclick = () => {
   triggerHaptic('light');
   localStorage.removeItem(PIN_STORAGE_KEY);
+  localStorage.removeItem(ROLE_STORAGE_KEY);
   resetPin();
   pinScreen.classList.remove('hidden');
   showToast('Tizim qulflandi', 'info');
 };
 
 // ==========================================
-// 5. SERVER MA'LUMOTLARINI YUKLASH
+// 5. TIME-LOCK (MUZLATISH) VA CONFIG YUKLASH
 // ==========================================
+function updateFreezeUI() {
+  if (state.isFrozen) {
+    freezeBanner.classList.remove('hidden');
+    freezeBannerText.textContent = state.freezeReason || 'Bugungi davomat kiritish vaqti (08:00 - 13:30) yakunlangan. Tizim muzlatilgan.';
+    
+    // Tugmalarni nofaol qilish
+    markAllPresentBtn.disabled = true;
+    markAllPresentBtn.classList.add('opacity-50', 'pointer-events-none');
+
+    saveAttendanceBtn.disabled = true;
+    saveAttendanceBtn.classList.add('opacity-50', 'pointer-events-none');
+    saveBtnText.textContent = 'Muzlatilgan (13:30 yakunlangan)';
+
+    if (tg?.MainButton) {
+      tg.MainButton.hide();
+    }
+  } else {
+    freezeBanner.classList.add('hidden');
+    markAllPresentBtn.disabled = false;
+    markAllPresentBtn.classList.remove('opacity-50', 'pointer-events-none');
+
+    saveAttendanceBtn.disabled = false;
+    saveAttendanceBtn.classList.remove('opacity-50', 'pointer-events-none');
+    saveBtnText.textContent = 'Davomatni saqlash';
+  }
+}
+
 async function fetchConfig() {
   try {
     const res = await fetch('/api/config');
     const data = await res.json();
+
     if (data.schoolName) {
       state.schoolName = data.schoolName;
       schoolSubtitleEl.textContent = data.schoolName;
@@ -288,6 +353,10 @@ async function fetchConfig() {
       state.currentDate = data.today;
       datePicker.value = data.today;
     }
+
+    state.isFrozen = Boolean(data.isFrozen);
+    state.freezeReason = data.freezeReason || null;
+    updateFreezeUI();
   } catch (err) {
     datePicker.value = state.currentDate;
   }
@@ -307,7 +376,6 @@ async function fetchClasses() {
     state.classes = result.data;
     renderClassesTabs();
 
-    // Agar sinf tanlanmagan bo'lsa yoki joriy sinf ro'yxatda bo'lmasa, birinchisini tanlaymiz
     const currentStillExists = state.classes.some((c) => c.id === state.currentClassId);
     if (!state.currentClassId || !currentStillExists) {
       selectClass(state.classes[0].id, state.classes[0].name);
@@ -374,6 +442,10 @@ async function fetchStudents() {
     state.students = result.data.students || [];
     state.attendanceMap = {};
 
+    state.isFrozen = Boolean(result.data.isFrozen);
+    state.freezeReason = result.data.freezeReason || null;
+    updateFreezeUI();
+
     state.students.forEach((s) => {
       state.attendanceMap[s.id] = {
         status: s.status || null,
@@ -396,7 +468,7 @@ async function fetchStudents() {
 }
 
 // ==========================================
-// 6. O'QUVCHILAR RO'YXATI VA CRUD INTERFEYSI
+// 6. O'QUVCHILAR RO'YXATI VA DAVOMATNI BELGILASH
 // ==========================================
 function renderStudentsList() {
   const query = state.searchQuery.toLowerCase().trim();
@@ -416,15 +488,15 @@ function renderStudentsList() {
         <p class="text-xs text-slate-500 font-medium">
           ${query ? 'Qidiruv bo‘yicha o‘quvchi topilmadi' : 'Bu sinfda hozircha o‘quvchilar mavjud emas'}
         </p>
-        <button onclick="openAddStudentModal()" class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-xl text-xs font-semibold hover:bg-blue-100 transition">
-          <i class="fa-solid fa-user-plus text-[10px]"></i> Birinchi o‘quvchini qo‘shish
-        </button>
       </div>
     `;
     return;
   }
 
   studentsContainer.innerHTML = '';
+
+  const isAdmin = state.userRole === 'admin';
+  const isFrozen = state.isFrozen;
 
   filteredStudents.forEach((student, index) => {
     const currentAtt = state.attendanceMap[student.id] || { status: null, reason: '' };
@@ -433,7 +505,7 @@ function renderStudentsList() {
       'student-card bg-white rounded-2xl p-3.5 border border-slate-200/90 shadow-2xs transition-all';
     card.id = `student-card-${student.id}`;
 
-    // Telegram profil holati nishoni (Badge)
+    // Telegram profil holati nishoni
     let statusBadgeHtml = '';
     if (student.parent_status === 'linked') {
       statusBadgeHtml = `
@@ -456,9 +528,37 @@ function renderStudentsList() {
     }
 
     const showReason = currentAtt.status === 'kechikdi' || currentAtt.status === 'sababli';
+    const disabledAttr = isFrozen ? 'disabled' : '';
+    const disabledClass = isFrozen ? 'cursor-not-allowed opacity-80' : '';
+
+    // Admin amallari (Tahrirlash va O'chirish) faqat admin kelsa ko'rinadi
+    let adminActionsHtml = '';
+    if (isAdmin) {
+      adminActionsHtml = `
+        <button 
+          type="button" 
+          class="edit-student-btn w-7 h-7 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-500 flex items-center justify-center text-xs transition"
+          data-id="${student.id}"
+          data-name="${escapeQuotes(student.full_name)}"
+          data-class-id="${student.class_id}"
+          data-phone="${student.parent_phone || ''}"
+          title="O‘quvchini tahrirlash"
+        >
+          <i class="fa-solid fa-pen"></i>
+        </button>
+        <button 
+          type="button" 
+          class="delete-student-btn w-7 h-7 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-500 flex items-center justify-center text-xs transition"
+          data-id="${student.id}"
+          data-name="${escapeQuotes(student.full_name)}"
+          title="O‘quvchini o‘chirish"
+        >
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      `;
+    }
 
     card.innerHTML = `
-      <!-- O'quvchi ma'lumotlari va Amallar -->
       <div class="flex items-start justify-between gap-2 mb-2">
         <div class="flex items-start gap-2.5">
           <span class="w-6 h-6 rounded-lg bg-slate-100 text-slate-600 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
@@ -466,8 +566,6 @@ function renderStudentsList() {
           </span>
           <div>
             <h3 class="text-xs font-bold text-slate-800 leading-tight">${student.full_name}</h3>
-            
-            <!-- Telefon raqam -->
             <div class="flex items-center gap-2 mt-1">
               <span class="text-[11px] font-medium text-slate-500 flex items-center gap-1">
                 <i class="fa-solid fa-phone text-[9px] text-slate-400"></i>
@@ -479,30 +577,7 @@ function renderStudentsList() {
 
         <div class="flex items-center gap-1.5 shrink-0">
           ${statusBadgeHtml}
-          
-          <!-- Tahrirlash tugmasi -->
-          <button 
-            type="button" 
-            class="edit-student-btn w-7 h-7 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-500 flex items-center justify-center text-xs transition"
-            data-id="${student.id}"
-            data-name="${escapeQuotes(student.full_name)}"
-            data-class-id="${student.class_id}"
-            data-phone="${student.parent_phone || ''}"
-            title="O‘quvchini tahrirlash"
-          >
-            <i class="fa-solid fa-pen"></i>
-          </button>
-
-          <!-- O'chirish tugmasi -->
-          <button 
-            type="button" 
-            class="delete-student-btn w-7 h-7 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-500 flex items-center justify-center text-xs transition"
-            data-id="${student.id}"
-            data-name="${escapeQuotes(student.full_name)}"
-            title="O‘quvchini o‘chirish"
-          >
-            <i class="fa-solid fa-trash-can"></i>
-          </button>
+          ${adminActionsHtml}
         </div>
       </div>
 
@@ -510,58 +585,62 @@ function renderStudentsList() {
       <div class="grid grid-cols-4 gap-1.5 mt-2.5">
         <button 
           type="button" 
-          class="status-btn status-btn-keldi py-2 px-1 text-center rounded-xl text-xs font-bold border ${
+          class="status-btn status-btn-keldi py-2 px-1 text-center rounded-xl text-xs font-bold border ${disabledClass} ${
             currentAtt.status === 'keldi'
               ? 'active'
               : 'bg-slate-50 border-slate-200/80 text-slate-600 hover:bg-emerald-50/60'
           }"
           data-student-id="${student.id}" 
           data-status="keldi"
+          ${disabledAttr}
         >
           <div class="text-[11px]">✅ Keldi</div>
         </button>
 
         <button 
           type="button" 
-          class="status-btn status-btn-kelmadi py-2 px-1 text-center rounded-xl text-xs font-bold border ${
+          class="status-btn status-btn-kelmadi py-2 px-1 text-center rounded-xl text-xs font-bold border ${disabledClass} ${
             currentAtt.status === 'kelmadi'
               ? 'active'
               : 'bg-slate-50 border-slate-200/80 text-slate-600 hover:bg-rose-50/60'
           }"
           data-student-id="${student.id}" 
           data-status="kelmadi"
+          ${disabledAttr}
         >
           <div class="text-[11px]">❌ Kelmadi</div>
         </button>
 
         <button 
           type="button" 
-          class="status-btn status-btn-kechikdi py-2 px-1 text-center rounded-xl text-xs font-bold border ${
+          class="status-btn status-btn-kechikdi py-2 px-1 text-center rounded-xl text-xs font-bold border ${disabledClass} ${
             currentAtt.status === 'kechikdi'
               ? 'active'
               : 'bg-slate-50 border-slate-200/80 text-slate-600 hover:bg-amber-50/60'
           }"
           data-student-id="${student.id}" 
           data-status="kechikdi"
+          ${disabledAttr}
         >
           <div class="text-[11px]">⏱ Kechikdi</div>
         </button>
 
         <button 
           type="button" 
-          class="status-btn status-btn-sababli py-2 px-1 text-center rounded-xl text-xs font-bold border ${
+          class="status-btn status-btn-sababli py-2 px-1 text-center rounded-xl text-xs font-bold border ${disabledClass} ${
             currentAtt.status === 'sababli'
               ? 'active'
               : 'bg-slate-50 border-slate-200/80 text-slate-600 hover:bg-sky-50/60'
           }"
           data-student-id="${student.id}" 
           data-status="sababli"
+          ${disabledAttr}
         >
           <div class="text-[11px]">📋 Sababli</div>
         </button>
       </div>
 
-      <!-- Izoh maydoni (Kechikdi yoki Sababli holatida) -->
+      <!-- Izoh maydoni -->
       <div 
         id="reason-box-${student.id}" 
         class="mt-2.5 pt-2 border-t border-slate-100 ${showReason ? 'block' : 'hidden'}"
@@ -570,8 +649,9 @@ function renderStudentsList() {
           type="text" 
           placeholder="Sabab yoki kechikish izohi (ixtiyoriy)..." 
           value="${studentEscape(currentAtt.reason || '')}"
-          class="reason-input w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:bg-white transition"
+          class="reason-input w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:bg-white transition ${disabledClass}"
           data-student-id="${student.id}"
+          ${disabledAttr}
         />
       </div>
     `;
@@ -593,20 +673,24 @@ function studentEscape(str) {
 }
 
 function attachStudentCardListeners() {
-  // Davomat status tugmalari
   const statusButtons = studentsContainer.querySelectorAll('.status-btn');
   statusButtons.forEach((btn) => {
     btn.onclick = () => {
+      if (state.isFrozen) {
+        triggerHaptic('warning');
+        showToast('Davomat kiritish vaqti (08:00 - 13:30) yakunlangan! Tizim muzlatilgan.', 'warning');
+        return;
+      }
       const studentId = parseInt(btn.getAttribute('data-student-id'), 10);
       const newStatus = btn.getAttribute('data-status');
       setStatus(studentId, newStatus);
     };
   });
 
-  // Izoh o'zgarishi
   const reasonInputs = studentsContainer.querySelectorAll('.reason-input');
   reasonInputs.forEach((input) => {
     input.oninput = () => {
+      if (state.isFrozen) return;
       const studentId = parseInt(input.getAttribute('data-student-id'), 10);
       if (state.attendanceMap[studentId]) {
         state.attendanceMap[studentId].reason = input.value;
@@ -614,7 +698,6 @@ function attachStudentCardListeners() {
     };
   });
 
-  // Tahrirlash (Edit) tugmalari
   const editButtons = studentsContainer.querySelectorAll('.edit-student-btn');
   editButtons.forEach((btn) => {
     btn.onclick = () => {
@@ -626,7 +709,6 @@ function attachStudentCardListeners() {
     };
   });
 
-  // O'chirish (Delete) tugmalari
   const deleteButtons = studentsContainer.querySelectorAll('.delete-student-btn');
   deleteButtons.forEach((btn) => {
     btn.onclick = async () => {
@@ -701,7 +783,6 @@ function updateStats() {
   statSababliEl.textContent = sababli;
   markedCountEl.textContent = marked;
 
-  // Profil ulanish ko'rsatkichlari
   let linked = 0;
   let pending = 0;
   state.students.forEach((s) => {
@@ -712,7 +793,7 @@ function updateStats() {
   statPendingParentsEl.textContent = pending;
 
   if (tg?.MainButton) {
-    if (marked > 0) {
+    if (marked > 0 && !state.isFrozen) {
       tg.MainButton.setText(`💾 DAVOMATNI SAQLASH (${marked}/${state.students.length})`);
       tg.MainButton.show();
     } else {
@@ -723,6 +804,10 @@ function updateStats() {
 
 // Barchasini "Keldi" qilish
 markAllPresentBtn.onclick = () => {
+  if (state.isFrozen) {
+    showToast('Davomat kiritish vaqti yakunlangan!', 'warning');
+    return;
+  }
   triggerHaptic('medium');
   if (state.students.length === 0) return;
 
@@ -741,6 +826,12 @@ markAllPresentBtn.onclick = () => {
 
 // Davomatni saqlash
 async function saveAttendance() {
+  if (state.isFrozen) {
+    showToast('Davomat kiritish vaqti (08:00 - 13:30) yakunlangan! Saqlash taqiqlanadi.', 'warning');
+    triggerHaptic('warning');
+    return;
+  }
+
   if (!state.currentClassId) return;
 
   const records = Object.entries(state.attendanceMap)
@@ -776,7 +867,7 @@ async function saveAttendance() {
 
     const result = await res.json();
 
-    if (result.success) {
+    if (res.ok && result.success) {
       triggerHaptic('success');
       showToast(`✅ ${result.savedCount} ta o‘quvchi davomati saqlandi!`, 'success');
       if (tg?.showAlert) {
@@ -784,17 +875,22 @@ async function saveAttendance() {
       }
       fetchStudents();
     } else {
+      if (res.status === 403 || result.isFrozen) {
+        state.isFrozen = true;
+        state.freezeReason = result.error;
+        updateFreezeUI();
+      }
       throw new Error(result.error || 'Saqlashda xatolik');
     }
   } catch (err) {
     console.error('Save attendance error:', err);
     triggerHaptic('error');
-    showToast('Saqlashda xatolik yuz berdi', 'error');
+    showToast(err.message || 'Saqlashda xatolik yuz berdi', 'error');
   } finally {
-    saveAttendanceBtn.disabled = false;
+    saveAttendanceBtn.disabled = state.isFrozen;
     saveAttendanceBtn.innerHTML = `
       <i class="fa-solid fa-floppy-disk"></i>
-      <span>Davomatni saqlash</span>
+      <span id="saveBtnText">${state.isFrozen ? 'Muzlatilgan (13:30 yakunlangan)' : 'Davomatni saqlash'}</span>
     `;
   }
 }
@@ -804,45 +900,75 @@ if (tg?.MainButton) {
   tg.MainButton.onClick(saveAttendance);
 }
 
-// Ota-onalarga xabar yuborish
-sendNotifyClassBtn.onclick = async () => {
-  if (!state.currentClassId) return;
-
-  const confirmMsg = `${state.currentClassName} sinfida Telegram profili ulangan barcha ota-onalarga bugungi hisobot yuborilsinmi?`;
-  const proceed = confirm(confirmMsg);
-  if (!proceed) return;
-
-  sendNotifyClassBtn.disabled = true;
-  sendNotifyClassBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Yuborilmoqda...`;
+// ==========================================
+// 7. MA'MURIYAT MONITORINGI (DIREKTOR / ZAVUCH)
+// ==========================================
+openAdminSummaryBtn.onclick = async () => {
+  triggerHaptic('light');
+  summaryModalDate.textContent = `${state.currentDate} sanasidagi barcha sinflar nazorati`;
+  summaryClassesList.innerHTML = '<div class="text-center py-6 text-slate-400 text-xs"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Ma‘lumotlar tahlil qilinmoqda...</div>';
+  adminSummaryModal.classList.remove('hidden');
 
   try {
-    const res = await fetch('/api/notify-parents', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        classId: state.currentClassId,
-        date: state.currentDate
-      })
+    const res = await fetch(`/api/admin/summary?date=${state.currentDate}`);
+    const data = await res.json();
+
+    if (!data.success) {
+      throw new Error(data.error || 'Yuklab bo‘lmadi');
+    }
+
+    let done = 0;
+    let partial = 0;
+    let unmarked = 0;
+
+    summaryClassesList.innerHTML = '';
+    data.summary.forEach((item) => {
+      if (item.status === 'completed') done++;
+      else if (item.status === 'partial') partial++;
+      else unmarked++;
+
+      const div = document.createElement('div');
+      div.className = 'p-2.5 rounded-xl border border-slate-200/90 bg-slate-50 flex items-center justify-between text-xs';
+
+      let statusBadge = '';
+      if (item.status === 'completed') {
+        statusBadge = '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">✅ To‘liq</span>';
+      } else if (item.status === 'partial') {
+        statusBadge = '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">⏱ Qisman</span>';
+      } else {
+        statusBadge = '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">❌ Kiritilmagan</span>';
+      }
+
+      div.innerHTML = `
+        <div>
+          <div class="font-bold text-slate-800 text-xs">${item.name}-sinf</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">
+            O‘quvchilar: <b>${item.student_count}</b> | Belgilandi: <b>${item.marked_count}</b>
+          </div>
+        </div>
+        <div class="text-right">
+          ${statusBadge}
+        </div>
+      `;
+      summaryClassesList.appendChild(div);
     });
-    const result = await res.json();
-    if (result.success) {
-      triggerHaptic('success');
-      const s = result.stats;
-      showToast(`Xabar yuborildi: ${s.sent} ta (Jami: ${s.total})`, 'success');
+
+    summaryDoneCount.textContent = done;
+    summaryPartialCount.textContent = partial;
+    summaryUnmarkedCount.textContent = unmarked;
+
+    if (data.isDispatched) {
+      summaryDispatchStatus.innerHTML = '<span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check"></i> Bugungi xabarnoma ota-onalarga yuborilgan va qulflangan</span>';
     } else {
-      throw new Error(result.error || 'Xatolik');
+      summaryDispatchStatus.innerHTML = '<span class="text-slate-500"><i class="fa-solid fa-clock"></i> Soat 14:00 da avtomat yuboriladi</span>';
     }
   } catch (err) {
-    console.error('Notify parents error:', err);
-    showToast('Xabar yuborishda xatolik yuz berdi', 'error');
-  } finally {
-    sendNotifyClassBtn.disabled = false;
-    sendNotifyClassBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Xabar yuborish`;
+    summaryClassesList.innerHTML = `<div class="text-center py-6 text-rose-500 text-xs">${err.message}</div>`;
   }
 };
 
 // ==========================================
-// 7. SINF QO'SHISH BOSHQARUVI
+// 8. SINF QO'SHISH BOSHQARUVI (ADMIN)
 // ==========================================
 openAddClassBtn.onclick = () => {
   triggerHaptic('light');
@@ -889,7 +1015,7 @@ saveNewClassBtn.onclick = async () => {
 };
 
 // ==========================================
-// 8. O'QUVCHI QO'SHISH VA TAHRIRLASH MODALI
+// 9. O'QUVCHI CRUD BOSHQARUVI (ADMIN)
 // ==========================================
 function populateClassDropdown(selectEl, selectedId = null) {
   selectEl.innerHTML = '';
@@ -953,7 +1079,6 @@ saveStudentFormBtn.onclick = async () => {
   try {
     let res;
     if (studentId) {
-      // Tahrirlash (PUT)
       res = await fetch(`/api/students/${studentId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -964,7 +1089,6 @@ saveStudentFormBtn.onclick = async () => {
         })
       });
     } else {
-      // Yangi qo'shish (POST)
       res = await fetch('/api/students', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1026,7 +1150,7 @@ async function deleteStudentAction(id, name) {
 }
 
 // ==========================================
-// 9. EXCEL IMPORT (OMMAVIY YUKLASH)
+// 10. EXCEL IMPORT (OMMAVIY YUKLASH)
 // ==========================================
 openExcelImportBtn.onclick = () => {
   triggerHaptic('light');
@@ -1049,7 +1173,6 @@ excelFileInput.onchange = (e) => {
   }
 };
 
-// Drag & drop
 dropZone.ondragover = (e) => {
   e.preventDefault();
   dropZone.classList.add('bg-blue-50', 'border-blue-400');
@@ -1106,7 +1229,7 @@ submitExcelImportBtn.onclick = async () => {
 };
 
 // ==========================================
-// 10. EXCEL EXPORT (OYLIK DAVOMAT JURNALI)
+// 11. EXCEL EXPORT (OYLIK DAVOMAT JURNALI)
 // ==========================================
 openExcelExportBtn.onclick = () => {
   triggerHaptic('light');
@@ -1134,10 +1257,7 @@ submitExcelExportBtn.onclick = () => {
   showToast('Oylik jurnal shakllanmoqda, yuklab olish boshlandi...');
   excelExportModal.classList.add('hidden');
 
-  // Yuklab olish URLi
   const downloadUrl = `/api/export/excel?classId=${classId}&month=${month}`;
-  
-  // Brauzer orqali yuklab olishni boshlash
   const a = document.createElement('a');
   a.href = downloadUrl;
   a.download = `Davomat_${month}.xlsx`;
@@ -1147,7 +1267,7 @@ submitExcelExportBtn.onclick = () => {
 };
 
 // ==========================================
-// 11. MODALLARNI YOPISH
+// 12. MODALLARNI YOPISH
 // ==========================================
 document.querySelectorAll('.close-modal-btn').forEach((btn) => {
   btn.onclick = () => {
@@ -1157,7 +1277,7 @@ document.querySelectorAll('.close-modal-btn').forEach((btn) => {
   };
 });
 
-[addClassModal, studentFormModal, excelImportModal, excelExportModal].forEach((modal) => {
+[adminSummaryModal, addClassModal, studentFormModal, excelImportModal, excelExportModal].forEach((modal) => {
   if (modal) {
     modal.onclick = (e) => {
       if (e.target === modal) {
@@ -1168,7 +1288,7 @@ document.querySelectorAll('.close-modal-btn').forEach((btn) => {
 });
 
 // ==========================================
-// 12. FILTER VA SANA QIDIRUVLARI
+// 13. SANA VA QIDIRUV
 // ==========================================
 datePicker.onchange = () => {
   state.currentDate = datePicker.value;
@@ -1178,6 +1298,7 @@ datePicker.onchange = () => {
 
 refreshBtn.onclick = () => {
   triggerHaptic('light');
+  fetchConfig();
   fetchClasses();
   fetchStudents();
 };
@@ -1188,7 +1309,7 @@ searchInput.oninput = (e) => {
 };
 
 // ==========================================
-// 13. TIZIMNI ISHGA TUSHIRISH (INIT)
+// 14. INIT
 // ==========================================
 async function initAppData() {
   await fetchConfig();

@@ -1,50 +1,40 @@
 require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
 const path = require('path');
-const cron = require('node-cron');
+const express = require('express');
 const { Telegraf } = require('telegraf');
+const cron = require('node-cron');
 const multer = require('multer');
 const xlsx = require('xlsx');
-
-const db = require('./db');
+const db = require('./db.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const BOT_TOKEN = process.env.BOT_TOKEN;
 const SCHOOL_NAME = process.env.SCHOOL_NAME || "65-umumiy o'rta ta'lim maktabi";
 const TEACHER_PIN = process.env.TEACHER_PIN || '6565';
-const MESSAGE_DELAY_MS = parseInt(process.env.MESSAGE_DELAY_MS, 10) || 50;
+const ADMIN_PIN = process.env.ADMIN_PIN || '9900';
+const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID ? String(process.env.ADMIN_CHAT_ID).trim() : null;
+const MESSAGE_DELAY_MS = parseInt(process.env.MESSAGE_DELAY_MS || '50', 10);
 
-// Fayl yuklash (Excel import uchun Multer)
+// Multer xotirada fayllarni qabul qiladi
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 } // 10 MB gacha
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
 });
 
-// Toshkent vaqti bo'yicha YYYY-MM-DD
-function getTodayString() {
-  const now = new Date();
-  const utcOffset = 5 * 60; // Toshkent UTC+5
-  const localTime = new Date(now.getTime() + (now.getTimezoneOffset() + utcOffset) * 60000);
-  const year = localTime.getFullYear();
-  const month = String(localTime.getMonth() + 1).padStart(2, '0');
-  const day = String(localTime.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
+// JSON va URL-encoded parsing
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-function formatUzbekDate(dateStr) {
-  if (!dateStr) return '';
-  const [year, month, day] = dateStr.split('-');
-  const months = [
-    'yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun',
-    'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'
-  ];
-  const mIndex = parseInt(month, 10) - 1;
-  return `${parseInt(day, 10)}-${months[mIndex] || month}, ${year}-yil`;
-}
+// Statik frontend fayllarni tarqatish
+app.use(express.static(path.join(__dirname, 'public')));
 
+// Yordamchi uyqu funksiyasi
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// HTML xavfsiz qilish
 function escapeHtml(text) {
-  if (text === null || text === undefined) return '';
+  if (!text) return '';
   return String(text)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -53,96 +43,69 @@ function escapeHtml(text) {
     .replace(/'/g, '&#039;');
 }
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 function getStatusDisplay(status) {
   switch (status) {
     case 'keldi':
-      return { emoji: '✅', label: 'Darsda qatnashdi', char: '+' };
+      return { emoji: '✅', label: 'Keldi' };
     case 'kelmadi':
-      return { emoji: '❌', label: 'Darsga kelmadi', char: '-' };
+      return { emoji: '❌', label: 'Kelmadi' };
     case 'kechikdi':
-      return { emoji: '⏱', label: 'Kechikdi', char: 'K' };
+      return { emoji: '⏱', label: 'Kechikdi' };
     case 'sababli':
-      return { emoji: '📋', label: 'Sababli darsda qatnashmadi', char: 'S' };
+      return { emoji: '📋', label: 'Sababli' };
     default:
-      return { emoji: '⏳', label: 'Belgilanmagan', char: '' };
+      return { emoji: '❓', label: 'Belgilanmagan' };
   }
 }
 
-// 1. EXPRESS SOZLAMALARI
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+function formatUzbekDate(dateStr) {
+  if (!dateStr) return '';
+  const [y, m, d] = dateStr.split('-');
+  const months = [
+    'yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun',
+    'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'
+  ];
+  const monthName = months[parseInt(m, 10) - 1] || m;
+  return `${parseInt(d, 10)}-${monthName}, ${y}-yil`;
+}
 
-// 2. TELEGRAM BOT
+// ==========================================
+// 1. TELEGRAM BOT INTEGRATSIYASI
+// ==========================================
 let bot = null;
 let botUsername = '';
 
-if (process.env.BOT_TOKEN && process.env.BOT_TOKEN.trim() !== '') {
+if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
   try {
-    bot = new Telegraf(process.env.BOT_TOKEN.trim());
+    bot = new Telegraf(BOT_TOKEN);
 
     bot.telegram.getMe().then((me) => {
       botUsername = me.username;
-      console.log(`🤖 Telegram Bot ishga tushdi: @${botUsername} (${me.first_name})`);
+      console.log(`🤖 Telegram Bot faol: @${botUsername}`);
     }).catch((err) => {
-      console.error('❌ Bot getMe xatosi:', err.message);
+      console.warn('⚠️ Bot getMe xatosi:', err.message);
     });
 
-    // 1. /start: Telefon raqamini tasdiqlash uchun bitta katta tugma
+    // 1. /start buyrug'i
     bot.start(async (ctx) => {
-      try {
-        const chatId = ctx.chat.id;
-        const today = getTodayString();
-        const linkedStudents = await db.getStudentsByParentChatId(chatId, today);
+      const welcomeText =
+        `Assalomu alaykum! <b>65-umumiy o‘rta ta‘lim maktabining "EduMemory"</b> ` +
+        `avtomatlashtirilgan davomat tizimiga xush kelibsiz.\n\n` +
+        `Farzandingizning kunlik maktab davomati haqida shaxsiy Telegram profilingizga ` +
+        `avtomatik xabarnomalar olish uchun quyidagi tugmani bosing va <b>kontakt kartangizni yuboring</b>:`;
 
-        if (linkedStudents && linkedStudents.length > 0) {
-          let msg = `👋 <b>Assalomu alaykum, hurmatli ota-ona!</b>\n\n` +
-                    `Siz <b>${escapeHtml(SCHOOL_NAME)}</b> davomat tizimiga ulangansiz.\n\n` +
-                    `📌 <b>Biriktirilgan farzandingiz(lar):</b>\n`;
-          for (const s of linkedStudents) {
-            msg += `▫️ <b>${escapeHtml(s.full_name)}</b> (${escapeHtml(s.class_name)}-sinf)\n`;
-          }
-          msg += `\n🔔 Har kuni soat 14:00 da darslar tugagach davomat shaxsiy profilingizga avtomatik yuboriladi.\n` +
-                 `Bugungi davomat holatini tekshirish uchun pastdagi tugmani bosing:`;
-
-          return ctx.replyWithHTML(msg, {
-            reply_markup: {
-              keyboard: [
-                [{ text: '📊 Farzandim davomati' }],
-                [{ text: '📱 Telefon raqamimni yangilash', request_contact: true }]
-              ],
-              resize_keyboard: true
-            }
-          });
+      return ctx.replyWithHTML(welcomeText, {
+        reply_markup: {
+          keyboard: [
+            [{ text: '📱 Telefon raqamimni tasdiqlash', request_contact: true }]
+          ],
+          resize_keyboard: true,
+          one_time_keyboard: false
         }
-
-        return ctx.replyWithHTML(
-          `🏫 <b>${escapeHtml(SCHOOL_NAME)}</b>\n` +
-          `📚 <b>"EduMemory" — O‘quvchilar Davomati Tizimi</b>\n\n` +
-          `Assalomu alaykum, hurmatli ota-ona!\n\n` +
-          `Farzandingizning darslarga qatnashishi, kelgan-kelmaganligi va kechikishlari haqida ` +
-          `har kuni shaxsiy Telegram profilingizga avtomatik hisobot borishi uchun ` +
-          `telefon raqamingizni tasdiqlang.\n\n` +
-          `👇 <b>Pastdagi "📱 Telefon raqamimni tasdiqlash" tugmasini bosing:</b>`,
-          {
-            reply_markup: {
-              keyboard: [
-                [{ text: '📱 Telefon raqamimni tasdiqlash', request_contact: true }]
-              ],
-              resize_keyboard: true
-            }
-          }
-        );
-      } catch (err) {
-        console.error('Bot start error:', err);
-        ctx.reply('Xatolik yuz berdi. Iltimos qaytadan urinib ko‘ring.');
-      }
+      });
     });
 
-    // 2. KONTAKT KELGANDA: Barcha farzandlarni avtomatik ulash
+    // 2. Kontakt kartasini qabul qilish
     bot.on('contact', async (ctx) => {
       try {
         const contact = ctx.message.contact;
@@ -156,13 +119,13 @@ if (process.env.BOT_TOKEN && process.env.BOT_TOKEN.trim() !== '') {
 
         if (linkedStudents && linkedStudents.length > 0) {
           let msg = `✅ <b>Tabriklaymiz! Muvaffaqiyatli ulandingiz.</b>\n\n` +
-                    `Siz quyidagi o‘quvchi(lar)ning ota-onasi sifatida tizimga muvaffaqiyatli biriktirildingiz:\n\n`;
+                    `Siz quyidagi o‘quvchi(lar)ning ota-onasi sifatida tizimga biriktirildingiz:\n\n`;
 
           for (const s of linkedStudents) {
             msg += `▫️ <b>${escapeHtml(s.full_name)}</b> (${escapeHtml(s.class_name)}-sinf)\n`;
           }
 
-          msg += `\n🔔 Endilikda har kuni darslar tugagach (soat 14:00 da) davomat hisoboti ` +
+          msg += `\n🔔 Endilikda har kuni darslar tugagach (soat 14:00 da) bugungi davomat hisoboti ` +
                  `ushbu shaxsiy profilingizga avtomatik yuboriladi.`;
 
           return ctx.replyWithHTML(msg, {
@@ -201,7 +164,7 @@ if (process.env.BOT_TOKEN && process.env.BOT_TOKEN.trim() !== '') {
     // 3. Farzand davomati hisoboti
     bot.hears(['/holat', '📊 Farzandim davomati'], async (ctx) => {
       try {
-        const today = getTodayString();
+        const today = db.getTodayString();
         const students = await db.getStudentsByParentChatId(ctx.chat.id, today);
 
         if (!students || students.length === 0) {
@@ -247,8 +210,8 @@ if (process.env.BOT_TOKEN && process.env.BOT_TOKEN.trim() !== '') {
     bot.command('admin', (ctx) => {
       const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
       ctx.replyWithHTML(
-        `👨‍🏫 <b>O‘qituvchilar paneli</b>\n\n` +
-        `Sinf davomatini belgilash uchun pastdagi tugmani bosing:`,
+        `👨‍🏫 <b>EduMemory — O‘qituvchilar va Ma'muriyat paneli</b>\n\n` +
+        `Davomat kiritish (08:00 - 13:30) yoki hisobotlarni ko‘rish uchun pastdagi tugmani bosing:`,
         {
           reply_markup: {
             inline_keyboard: [
@@ -271,17 +234,62 @@ if (process.env.BOT_TOKEN && process.env.BOT_TOKEN.trim() !== '') {
   }
 }
 
-// 3. DARSLAR TUGAGACH TELEGRAM PROFILIGA XABAR YUBORISH
-async function sendAttendanceNotifications(date, classId = null) {
-  if (!bot) {
-    console.warn('⚠️ Bot faol emas, xabar yuborish imkoni yo‘q.');
-    return { total: 0, sent: 0, failed: 0 };
+// ==========================================
+// 2. QAT'IY 14:00 CRON JOB VA AVTOMAT DISPATCH
+// ==========================================
+async function runDailyAttendanceDispatch() {
+  const today = db.getTodayString();
+  console.log(`⏰ [CRON 14:00] ${today} sanasi uchun kunlik avtomat xabarnoma jarayoni boshlandi.`);
+
+  // 1. TAKRORIY XABARLARNI BLOKLASH: Agar bugun yuborilgan bo'lsa, to'xtatish
+  const alreadyDispatched = await db.isDailyDispatched(today);
+  if (alreadyDispatched) {
+    console.log(`⚠️ [CRON 14:00] ${today} sanasi uchun xabarlar allaqachon yuborilgan! Qayta yuborish to‘xtatildi.`);
+    return;
   }
 
-  const pendingList = await db.getPendingNotifications(date, classId);
-  const total = pendingList.length;
+  // 2. DAVOMAT QILINMAGAN SINFLAR NAZORATI
+  const unmarkedClasses = await db.getUnmarkedClassesToday(today);
+  const unmarkedNames = unmarkedClasses.map(c => c.name);
 
-  console.log(`📤 [${date}] Xabarnoma yuborish boshlandi. Jami: ${total} ta xabar.`);
+  if (unmarkedClasses.length > 0) {
+    console.warn(`⚠️ [CRON 14:00] Bugun davomat kiritilmagan sinflar:`, unmarkedNames.join(', '));
+
+    // Maktab ma'muriyatiga (ADMIN_CHAT_ID ga) ogohlantirish yuborish
+    if (bot && ADMIN_CHAT_ID) {
+      for (const cls of unmarkedClasses) {
+        const adminAlert = 
+          `⚠️ <b>DIQQAT! 65-MAKTAB MA'MURIYATI NAZORATIGA:</b>\n\n` +
+          `Bugun <b>${escapeHtml(cls.name)}</b> sinfi davomati o‘qituvchi tomonidan kiritilmadi!\n` +
+          `❌ Ota-onalarga xabar bormadi.\n\n` +
+          `📅 Sana: ${today}\n` +
+          `⏱ Dedlayn: 13:30 da yakunlangan.`;
+
+        try {
+          await bot.telegram.sendMessage(ADMIN_CHAT_ID, adminAlert, { parse_mode: 'HTML' });
+          await sleep(MESSAGE_DELAY_MS);
+        } catch (err) {
+          console.error(`❌ Admin alert yuborishda xatolik (${cls.name}):`, err.message);
+        }
+      }
+    }
+  }
+
+  // 3. DAVOMATI BELGILANGAN O'QUVCHILARNING OTA-ONALARIGA XABAR JO'NATISH
+  if (!bot) {
+    console.warn('⚠️ Telegram bot mavjud emas, xabarlar yuborilmadi.');
+    await db.recordDailyDispatch({
+      date: today,
+      total_sent: 0,
+      total_failed: 0,
+      unmarked_classes: unmarkedNames,
+      status: 'completed'
+    });
+    return;
+  }
+
+  const pendingList = await db.getPendingNotifications(today);
+  console.log(`📤 [CRON 14:00] ${today} bo‘yicha ota-onalarga yuboriladigan xabarlar soni: ${pendingList.length} ta.`);
 
   let sent = 0;
   let failed = 0;
@@ -310,6 +318,7 @@ async function sendAttendanceNotifications(date, classId = null) {
       console.error(`❌ Xabar yuborilmadi (Chat ID: ${item.parent_chat_id}):`, err.message);
     }
 
+    // Telegram limitidan himoyalanish kechikishi
     if (MESSAGE_DELAY_MS > 0) {
       await sleep(MESSAGE_DELAY_MS);
     }
@@ -319,20 +328,26 @@ async function sendAttendanceNotifications(date, classId = null) {
     await db.markAttendanceAsNotified(notifiedIds);
   }
 
-  console.log(`✅ [${date}] Xabarnoma yakunlandi. Yuborildi: ${sent}, Xato: ${failed}, Jami: ${total}`);
-  return { total, sent, failed };
+  // 4. Nazorat jadvaliga bugungi sana xabarini "completed" deb muhrlash
+  await db.recordDailyDispatch({
+    date: today,
+    total_sent: sent,
+    total_failed: failed,
+    unmarked_classes: unmarkedNames,
+    status: 'completed'
+  });
+
+  console.log(`✅ [CRON 14:00] ${today} sanasi uchun barcha amallar yakunlandi va qulflandi. Yuborildi: ${sent}, Xato: ${failed}.`);
 }
 
-// 4. CRON JOB: HAR KUNI SOAT 14:00 DA AVTOMATIK XABAR
+// Har kuni Dushanba-Shanba soat 14:00 da (Asia/Tashkent)
 const cronSchedule = process.env.CRON_SCHEDULE || '0 14 * * 1-6';
 
 cron.schedule(
   cronSchedule,
   async () => {
-    const today = getTodayString();
-    console.log(`⏰ [CRON JOB 14:00] ${today} sanasi uchun ota-onalarga hisobot yuborilmoqda...`);
     try {
-      await sendAttendanceNotifications(today);
+      await runDailyAttendanceDispatch();
     } catch (err) {
       console.error('❌ Cron job bajarilishida xatolik:', err);
     }
@@ -341,36 +356,66 @@ cron.schedule(
     timezone: 'Asia/Tashkent'
   }
 );
-console.log(`⏱️ Cron vazifasi rejalashtirildi: [${cronSchedule}], Timezone: Asia/Tashkent`);
+console.log(`⏱️ Cron avtomat xabarnoma rejalashtirildi: [${cronSchedule}], Timezone: Asia/Tashkent`);
 
 // ==========================================
-// 5. REST API ROUTELARI
+// 3. REST API ROUTELARI
 // ==========================================
 
-// Render Health check
+// Health check
 app.get('/ping', (req, res) => res.status(200).send('pong'));
-app.get('/health', (req, res) => res.status(200).json({ status: 'ok', uptime: Math.floor(process.uptime()), db: db.hasPostgres ? 'postgresql' : 'sqlite' }));
+app.get('/health', (req, res) => res.status(200).json({
+  status: 'ok',
+  uptime: Math.floor(process.uptime()),
+  db: db.hasPostgres ? 'postgresql' : 'sqlite',
+  tashkentTime: db.getTashkentTimeParts()
+}));
 
-// 1. PIN-kodni tekshirish
+// 1. PIN-kod tekshiruvi (Rollar: 'admin' yoki 'teacher')
 app.post('/api/verify-pin', (req, res) => {
   const { pin } = req.body;
-  if (pin && String(pin).trim() === String(TEACHER_PIN).trim()) {
-    return res.json({ success: true, message: 'PIN to‘g‘ri' });
+  const cleanPin = String(pin || '').trim();
+
+  if (cleanPin === String(ADMIN_PIN).trim()) {
+    return res.json({
+      success: true,
+      role: 'admin',
+      message: 'Direktor / Zavuch (Ma’muriyat) sifatida kirdingiz'
+    });
   }
-  return res.status(401).json({ success: false, error: 'PIN-kod noto‘g‘ri!' });
+
+  if (cleanPin === String(TEACHER_PIN).trim()) {
+    return res.json({
+      success: true,
+      role: 'teacher',
+      message: 'O‘qituvchi sifatida kirdingiz'
+    });
+  }
+
+  return res.status(401).json({
+    success: false,
+    error: 'PIN-kod noto‘g‘ri!'
+  });
 });
 
-// 2. Config
+// 2. Config va Time-Lock holati
 app.get('/api/config', (req, res) => {
+  const today = db.getTodayString();
+  const timeInfo = db.checkAttendanceWindow(today);
+
   res.json({
     schoolName: SCHOOL_NAME,
     botUsername: botUsername,
-    today: getTodayString(),
+    today: today,
+    serverTime: timeInfo.serverTime,
+    isFrozen: timeInfo.isFrozen,
+    freezeReason: timeInfo.reason,
+    editWindow: { start: '08:00', end: '13:30' },
     hasPostgres: db.hasPostgres
   });
 });
 
-// 3. Sinflar CRUD
+// 3. Sinflar ro'yxati
 app.get('/api/classes', async (req, res) => {
   try {
     const classes = await db.getAllClasses();
@@ -403,21 +448,24 @@ app.delete('/api/classes/:id', async (req, res) => {
   }
 });
 
-// 4. O'quvchilar CRUD
+// 4. O'quvchilar va davomat
 app.get('/api/classes/:id/students', async (req, res) => {
   try {
     const classId = parseInt(req.params.id, 10);
-    const date = req.query.date || getTodayString();
+    const date = req.query.date || db.getTodayString();
 
     const students = await db.getStudentsWithAttendance(classId, date);
     const classInfo = await db.getClassById(classId);
+    const windowInfo = db.checkAttendanceWindow(date);
 
     res.json({
       success: true,
       data: {
         class: classInfo,
         date: date,
-        students: students
+        students: students,
+        isFrozen: windowInfo.isFrozen,
+        freezeReason: windowInfo.reason
       }
     });
   } catch (err) {
@@ -459,39 +507,50 @@ app.delete('/api/students/:id', async (req, res) => {
   }
 });
 
-app.post('/api/students/:id/phone', async (req, res) => {
-  try {
-    const studentId = parseInt(req.params.id, 10);
-    const { phone } = req.body;
-    const updated = await db.updateStudentParentPhone(studentId, phone);
-    res.json({ success: true, data: updated });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
-
-// 5. Davomat saqlash
+// 5. Davomat saqlash (Qat'iy vaqt va muzlatish tekshiruvi bilan)
 app.post('/api/attendance', async (req, res) => {
   try {
-    const { classId, date, records } = req.body;
-    if (!date || !Array.isArray(records) || records.length === 0) {
+    const { date, records } = req.body;
+    const targetDate = date || db.getTodayString();
+
+    // 08:00 - 13:30 Time-lock tekshiruvi:
+    const windowCheck = db.checkAttendanceWindow(targetDate);
+    if (!windowCheck.allowed) {
+      return res.status(403).json({
+        success: false,
+        error: windowCheck.reason,
+        isFrozen: true
+      });
+    }
+
+    if (!Array.isArray(records) || records.length === 0) {
       return res.status(400).json({ success: false, error: 'Ma\'lumotlar to‘liq emas' });
     }
 
-    const savedCount = await db.saveAttendanceBatch(records, date);
+    const savedCount = await db.saveAttendanceBatch(records, targetDate);
     res.json({ success: true, message: 'Davomat muvaffaqiyatli saqlandi', savedCount });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    const status = err.status || 500;
+    res.status(status).json({ success: false, error: err.message });
   }
 });
 
-// 6. Ota-onalarga zudlik bilan xabar yuborish
-app.post('/api/notify-parents', async (req, res) => {
+// 6. Ma'muriyat (Direktor / Zavuch) uchun umumiy monitoring
+app.get('/api/admin/summary', async (req, res) => {
   try {
-    const date = req.body.date || getTodayString();
-    const classId = req.body.classId ? parseInt(req.body.classId, 10) : null;
-    const result = await sendAttendanceNotifications(date, classId);
-    res.json({ success: true, message: 'Xabarlar muvaffaqiyatli jo‘natildi', stats: result });
+    const date = req.query.date || db.getTodayString();
+    const summary = await db.getClassAttendanceSummary(date);
+    const isDispatched = await db.isDailyDispatched(date);
+    const timeInfo = db.checkAttendanceWindow(date);
+
+    res.json({
+      success: true,
+      date,
+      isDispatched,
+      isFrozen: timeInfo.isFrozen,
+      freezeReason: timeInfo.reason,
+      summary
+    });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
@@ -500,7 +559,7 @@ app.post('/api/notify-parents', async (req, res) => {
 // 7. Statistika
 app.get('/api/stats', async (req, res) => {
   try {
-    const date = req.query.date || getTodayString();
+    const date = req.query.date || db.getTodayString();
     const classId = req.query.classId ? parseInt(req.query.classId, 10) : null;
     const stats = await db.getAttendanceStats(date, classId);
     res.json({ success: true, data: stats, date });
@@ -509,9 +568,7 @@ app.get('/api/stats', async (req, res) => {
   }
 });
 
-// ==========================================
-// 8. EXCEL IMPORT (OMMAVIY YUKLASH)
-// ==========================================
+// 8. Excel Import (Ommaviy yuklash)
 app.post('/api/import/excel', upload.single('file'), async (req, res) => {
   try {
     if (!req.file || !req.file.buffer) {
@@ -531,14 +588,12 @@ app.post('/api/import/excel', upload.single('file'), async (req, res) => {
     let classesCreatedCount = 0;
     const classesMap = {};
 
-    // Mavjud sinflarni xotiraga yuklash
     const existingClasses = await db.getAllClasses();
     for (const c of existingClasses) {
       classesMap[c.name.toLowerCase().trim()] = c.id;
     }
 
     for (const row of rawRows) {
-      // Ustun nomlarini moslashuvchan izlash
       const classNameRaw = row['Sinf'] || row['sinf'] || row['Class'] || row['class'] || row['Синф'] || row['sinfi'];
       const fullNameRaw = row['O‘quvchi F.I.SH'] || row['O\'quvchi F.I.SH'] || row['F.I.SH'] || row['F.I.O'] || row['Ism'] || row['Full Name'] || row['Ф.И.О'] || row['Oquvchi'] || row['F.I.Sh'];
       const phoneRaw = row['Ota-ona telefoni'] || row['Telefon'] || row['Phone'] || row['Ota-onasi telefoni'] || row['Телефон'] || row['Tel'];
@@ -549,7 +604,6 @@ app.post('/api/import/excel', upload.single('file'), async (req, res) => {
       const fullName = String(fullNameRaw).trim();
       const phone = phoneRaw ? String(phoneRaw).trim() : '';
 
-      // Sinf mavjud bo'lmasa, avtomatik yaratamiz
       const classKey = className.toLowerCase();
       let classId = classesMap[classKey];
       if (!classId) {
@@ -579,13 +633,11 @@ app.post('/api/import/excel', upload.single('file'), async (req, res) => {
   }
 });
 
-// ==========================================
-// 9. EXCEL EXPORT (OYLIK DAVOMAT JURNALI)
-// ==========================================
+// 9. Excel Export (Oylik Davomat Jurnali)
 app.get('/api/export/excel', async (req, res) => {
   try {
     const classId = parseInt(req.query.classId, 10);
-    const month = req.query.month || getTodayString().slice(0, 7); // YYYY-MM
+    const month = req.query.month || db.getTodayString().slice(0, 7); // YYYY-MM
 
     if (isNaN(classId)) {
       return res.status(400).send('Sinf tanlanishi shart');
@@ -597,17 +649,14 @@ app.get('/api/export/excel', async (req, res) => {
     }
 
     const [year, monthNum] = month.split('-').map(Number);
-    // Shu oydagi kunlar soni
     const daysInMonth = new Date(year, monthNum, 0).getDate();
 
-    // Attendance xaritasi: `${student_id}_${day}` -> status
     const attMap = {};
     for (const a of exportData.attendance) {
       const day = parseInt(a.date.split('-')[2], 10);
       attMap[`${a.student_id}_${day}`] = a.status;
     }
 
-    // Excel satrlari (AOA: Array of Arrays)
     const headerRow1 = [
       `65-MAKTAB | "${exportData.class.name}" SINFI OYLIK DAVOMAT JURNALI (${month})`
     ];
@@ -659,45 +708,39 @@ app.get('/api/export/excel', async (req, res) => {
     const ws = xlsx.utils.aoa_to_sheet(aoa);
 
     // Ustun kengliklari
-    ws['!cols'] = [
-      { wch: 5 },   // №
-      { wch: 32 },  // F.I.SH
-      { wch: 20 },  // Telefon
-      ...Array(daysInMonth).fill({ wch: 4 }), // Kunlar
-      { wch: 10 },
-      { wch: 12 },
-      { wch: 12 },
-      { wch: 12 },
-      { wch: 14 }
-    ];
+    const cols = [{ wch: 5 }, { wch: 32 }, { wch: 18 }];
+    for (let d = 1; d <= daysInMonth; d++) {
+      cols.push({ wch: 4 });
+    }
+    cols.push({ wch: 10 }, { wch: 12 }, { wch: 13 }, { wch: 12 }, { wch: 14 });
+    ws['!cols'] = cols;
 
     const wb = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(wb, ws, `${exportData.class.name} Davomat`);
+    xlsx.utils.book_append_sheet(wb, ws, 'Davomat');
 
-    const excelBuffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
+    const buffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
+    const filename = `Davomat_${exportData.class.name}_${month}.xlsx`;
 
-    const fileName = `Davomat_${exportData.class.name}_${month}.xlsx`;
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(fileName)}"`);
-    res.send(excelBuffer);
-
+    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(filename)}"`);
+    res.send(buffer);
   } catch (err) {
-    console.error('Excel export error:', err);
-    res.status(500).send('Excel yaratishda xatolik: ' + err.message);
+    console.error('Export error:', err);
+    res.status(500).send('Excel generatsiyasida xatolik: ' + err.message);
   }
 });
 
-// Bosh sahifa
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
+// ==========================================
+// 4. SERVERNI ISHGA TUSHIRISH
+// ==========================================
 app.listen(PORT, () => {
   console.log(`====================================================`);
   console.log(`🚀 "EduMemory" — 65-maktab Davomat Tizimi Serveri`);
   console.log(`🌐 Server manzili: http://localhost:${PORT}`);
   console.log(`🔐 O'qituvchilar PIN-kodi: ${TEACHER_PIN}`);
+  console.log(`👑 Ma'muriyat (Admin) PIN-kodi: ${ADMIN_PIN}`);
   console.log(`📊 Baza turi: ${db.hasPostgres ? 'PostgreSQL' : 'SQLite'}`);
-  console.log(`📱 Telegram Mini App tayyor`);
+  console.log(`⏱️ Dars davomat vaqti: 08:00 - 13:30 (Asia/Tashkent)`);
+  console.log(`🤖 Avtomat xabarnoma: 14:00 (Dushanba-Shanba)`);
   console.log(`====================================================`);
 });

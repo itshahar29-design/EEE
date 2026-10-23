@@ -79,6 +79,122 @@ async function execute(sql, params = []) {
 }
 
 /**
+ * 2. VAQT VA SANA BOSHQARUVI (Asia/Tashkent - UTC+5)
+ */
+function getTashkentTimeParts() {
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Tashkent',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hourCycle: 'h23'
+  });
+  
+  const parts = formatter.formatToParts(new Date());
+  const map = {};
+  parts.forEach(p => { map[p.type] = p.value; });
+
+  const year = map.year;
+  const month = map.month;
+  const day = map.day;
+  const hour = parseInt(map.hour, 10);
+  const minute = parseInt(map.minute, 10);
+  const second = parseInt(map.second, 10);
+  const dateStr = `${year}-${month}-${day}`;
+  const timeStr = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+  
+  // Toshkent kunduzi bo'yicha hafta kunini hisoblash (0 = Yakshanba, 1 = Dushanba, ..., 6 = Shanba)
+  const d = new Date(`${dateStr}T12:00:00+05:00`);
+  const dayOfWeek = d.getDay();
+
+  return {
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    second,
+    dateStr,
+    timeStr,
+    dayOfWeek
+  };
+}
+
+function getTodayString() {
+  return getTashkentTimeParts().dateStr;
+}
+
+/**
+ * Qat'iy vaqt rejimi (Time-Lock):
+ * Davomat faqat dars vaqtida — soat 08:00 dan 13:30 gacha (Asia/Tashkent) kiritilishi va tahrirlanishi mumkin.
+ * Soat 13:30 da tizim bugungi kun davomatini avtomatik "MUZLATADI" (FREEZE).
+ * Yakshanba kunlari davomat kiritish man etiladi.
+ */
+function checkAttendanceWindow(targetDate = null) {
+  const t = getTashkentTimeParts();
+  const todayStr = t.dateStr;
+  const checkDate = targetDate || todayStr;
+
+  // Faqat bugungi kun davomati ochiladi
+  if (checkDate !== todayStr) {
+    return {
+      allowed: false,
+      reason: 'Faqat bugungi sana davomati kiritilishi mumkin. O‘tgan yoki kelajak kunlar qat’iy muzlatilgan.',
+      isFrozen: true,
+      serverTime: t.timeStr,
+      today: todayStr
+    };
+  }
+
+  // Yakshanba kuni dars bo'lmaydi
+  if (t.dayOfWeek === 0) {
+    return {
+      allowed: false,
+      reason: 'Bugun yakshanba — dam olish kuni. Davomat kiritish tizim tomonidan to‘xtatilgan.',
+      isFrozen: true,
+      serverTime: t.timeStr,
+      today: todayStr
+    };
+  }
+
+  // 08:00 dan 13:30 gacha
+  const currentMinutes = t.hour * 60 + t.minute;
+  const startMinutes = 8 * 60; // 08:00 -> 480 daqiqa
+  const endMinutes = 13 * 60 + 30; // 13:30 -> 810 daqiqa
+
+  if (currentMinutes < startMinutes) {
+    return {
+      allowed: false,
+      reason: 'Davomat kiritish vaqti hali boshlanmadi. Qabul vaqti: soat 08:00 dan 13:30 gacha.',
+      isFrozen: true,
+      serverTime: t.timeStr,
+      today: todayStr
+    };
+  }
+
+  if (currentMinutes >= endMinutes) {
+    return {
+      allowed: false,
+      reason: 'Bugungi davomat qulflangan, tahrirlash vaqti 13:30 da yakunlangan!',
+      isFrozen: true,
+      serverTime: t.timeStr,
+      today: todayStr
+    };
+  }
+
+  return {
+    allowed: true,
+    reason: null,
+    isFrozen: false,
+    serverTime: t.timeStr,
+    today: todayStr
+  };
+}
+
+/**
  * Telefon raqamini normalizatsiya qilish (oxirgi 9 ta raqam: masalan, 901234567)
  */
 function normalizePhone(raw) {
@@ -102,7 +218,7 @@ function formatPhone(raw) {
 }
 
 /**
- * Ma'lumotlar bazasini initsializatsiya qilish
+ * 3. MA'LUMOTLAR BAZASINI INITSIALIZATSIYA QILISH
  */
 async function initDatabase() {
   if (hasPostgres) {
@@ -133,9 +249,21 @@ async function initDatabase() {
         UNIQUE(student_id, date)
       );
 
+      -- Takroriy xabarlarning oldini oluvchi nazorat jadvali
+      CREATE TABLE IF NOT EXISTS daily_dispatches (
+        id SERIAL PRIMARY KEY,
+        date VARCHAR(10) UNIQUE NOT NULL,
+        dispatched_at TIMESTAMPTZ NOT NULL,
+        total_sent INTEGER DEFAULT 0,
+        total_failed INTEGER DEFAULT 0,
+        unmarked_classes TEXT,
+        status VARCHAR(20) NOT NULL
+      );
+
       CREATE INDEX IF NOT EXISTS idx_pg_students_class ON students(class_id);
       CREATE INDEX IF NOT EXISTS idx_pg_students_phone_norm ON students(parent_phone_norm);
       CREATE INDEX IF NOT EXISTS idx_pg_attendance_date ON attendance(date);
+      CREATE INDEX IF NOT EXISTS idx_pg_daily_dispatches_date ON daily_dispatches(date);
     `);
   } else {
     sqliteDb.exec(`
@@ -158,98 +286,81 @@ async function initDatabase() {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         student_id INTEGER NOT NULL,
         date TEXT NOT NULL,
-        status TEXT CHECK(status IN ('keldi', 'kelmadi', 'kechikdi', 'sababli')),
-        reason TEXT DEFAULT NULL,
+        status TEXT,
+        reason TEXT,
         notified INTEGER DEFAULT 0,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
-        UNIQUE(student_id, date)
+        UNIQUE(student_id, date),
+        FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
       );
 
-      CREATE INDEX IF NOT EXISTS idx_students_class ON students(class_id);
-      CREATE INDEX IF NOT EXISTS idx_students_phone_norm ON students(parent_phone_norm);
-      CREATE INDEX IF NOT EXISTS idx_attendance_date ON attendance(date);
+      -- Takroriy xabarlarning oldini oluvchi nazorat jadvali
+      CREATE TABLE IF NOT EXISTS daily_dispatches (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date TEXT UNIQUE NOT NULL,
+        dispatched_at TEXT NOT NULL,
+        total_sent INTEGER DEFAULT 0,
+        total_failed INTEGER DEFAULT 0,
+        unmarked_classes TEXT,
+        status TEXT NOT NULL
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_sqlite_students_class ON students(class_id);
+      CREATE INDEX IF NOT EXISTS idx_sqlite_students_phone_norm ON students(parent_phone_norm);
+      CREATE INDEX IF NOT EXISTS idx_sqlite_attendance_date ON attendance(date);
+      CREATE INDEX IF NOT EXISTS idx_sqlite_daily_dispatches_date ON daily_dispatches(date);
     `);
   }
 
+  // Boshlang'ich test ma'lumotlari (agar bo'sh bo'lsa)
   await seedInitialData();
 }
 
-/**
- * Baza bo'sh bo'lsa test sinflari va o'quvchilarni kiritish
- */
 async function seedInitialData() {
-  const countRow = await queryOne('SELECT COUNT(*) as count FROM classes');
-  if (countRow && Number(countRow.count) > 0) return;
+  const existingClass = await queryOne('SELECT id FROM classes LIMIT 1');
+  if (existingClass) return;
 
-  console.log('🌱 Baza bo‘sh. 65-maktab uchun boshlang‘ich ma\'lumotlar kiritilmoqda...');
+  console.log('🌱 Baza bo‘sh. 65-maktab uchun boshlang‘ich ma‘lumotlar kiritilmoqda...');
 
-  const sampleClasses = [
-    {
-      name: '9-A',
-      students: [
-        ['Aliyev Jasur Rustam o‘g‘li', '+998901234501'],
-        ['Karimova Madina Dilshod qizi', '+998901234502'],
-        ['Sobirov Azizbek Bobur o‘g‘li', '+998901234503'],
-        ['Toshmatova Nilufar Shuhrat qizi', '+998901234504'],
-        ['Yo‘ldoshev Diyorbek Ulug‘bek o‘g‘li', '+998901234505'],
-        ['Xoliqova Shahnoza Otabek qizi', '+998901234506'],
-        ['Ergashev Sanjar Farhod o‘g‘li', '+998901234507'],
-        ['Qodirova Zarina Jamshid qizi', '+998901234508']
-      ]
-    },
-    {
-      name: '9-B',
-      students: [
-        ['Rahimov Mirjalol Akbar o‘g‘li', '+998911234501'],
-        ['Usmonova Diyora Ravshan qizi', '+998911234502'],
-        ['Nurmatov Shaxboz Ilhom o‘g‘li', '+998911234503'],
-        ['Ismoilova Rayhona Shavkat qizi', '+998911234504'],
-        ['Bekmurodov Javohir Elyor o‘g‘li', '+998911234505']
-      ]
-    },
-    {
-      name: '10-A',
-      students: [
-        ['Aliyeva Zarina Rustam qizi', '+998901234501'], // Jasurning singlisi (bir xil raqam)
-        ['Mahmudova Feruza Odil qizi', '+998931234502'],
-        ['G‘aniyev Sardor Botir o‘g‘li', '+998931234503'],
-        ['Fayzullayeva Sevinch Xurshid qizi', '+998931234504'],
-        ['Abdullayev Otabek Mansur o‘g‘li', '+998931234505']
-      ]
-    },
-    {
-      name: '11-A',
-      students: [
-        ['Zokirov Doniyor Baxtiyor o‘g‘li', '+998971234501'],
-        ['Ne‘matova Kamola Rustam qizi', '+998971234502'],
-        ['Ikromov Abbos Anvar o‘g‘li', '+998971234503'],
-        ['Samadova Sabina Sherzod qizi', '+998971234504']
-      ]
-    }
-  ];
-
-  for (const c of sampleClasses) {
-    const cls = await createClass(c.name);
-    for (const [name, phone] of c.students) {
-      await createStudent({
-        full_name: name,
-        class_id: cls.id,
-        parent_phone: phone
-      });
-    }
+  const classes = ['9-A', '9-B', '10-A', '11-A'];
+  for (const name of classes) {
+    await execute('INSERT INTO classes (name) VALUES (?)', [name]);
   }
 
-  console.log('✅ 65-maktab boshlang‘ich ma\'lumotlari muvaffaqiyatli kiritildi!');
+  const cls9A = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-A']);
+  const cls9B = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-B']);
+  const cls10A = await queryOne('SELECT id FROM classes WHERE name = ?', ['10-A']);
+
+  const sampleStudents = [
+    { name: 'Abdullayev Anvar Ikrom o‘g‘li', class_id: cls9A.id, phone: '+998901234567' },
+    { name: 'Baxromova Dilnoza Sanjar qizi', class_id: cls9A.id, phone: '+998901234568' },
+    { name: 'Karimov Jasur Bobur o‘g‘li', class_id: cls9A.id, phone: '+998901234569' },
+    { name: 'Normatova Shahnoza Otabek qizi', class_id: cls9A.id, phone: '+998901234570' },
+    { name: 'Rustamov Sardor Ulug‘bek o‘g‘li', class_id: cls9A.id, phone: '+998901234571' },
+    { name: 'Tursunov Bekzod Akmal o‘g‘li', class_id: cls9B.id, phone: '+998901234572' },
+    { name: 'Xamidova Madina Ilhom qizi', class_id: cls9B.id, phone: '+998901234573' },
+    { name: 'Yusupov Doniyor Nodir o‘g‘li', class_id: cls9B.id, phone: '+998901234574' },
+    { name: 'Zokirov Eldor Mansur o‘g‘li', class_id: cls10A.id, phone: '+998901234575' }
+  ];
+
+  for (const s of sampleStudents) {
+    const norm = normalizePhone(s.phone);
+    await execute(
+      'INSERT INTO students (full_name, class_id, parent_phone, parent_phone_norm) VALUES (?, ?, ?, ?)',
+      [s.name, s.class_id, s.phone, norm]
+    );
+  }
+
+  console.log('✅ Boshlang‘ich ma‘lumotlar muvaffaqiyatli yuklandi.');
 }
 
 // ==========================================
-// SINFLAR BOSHQARUVI (CRUD)
+// 4. SINFLAR BOSHQARUVI (CRUD)
 // ==========================================
 async function getAllClasses() {
   const sql = `
-    SELECT c.id, c.name, COUNT(s.id) AS student_count
+    SELECT c.id, c.name, COUNT(s.id) as student_count
     FROM classes c
     LEFT JOIN students s ON s.class_id = c.id
     GROUP BY c.id, c.name
@@ -257,7 +368,7 @@ async function getAllClasses() {
   `;
   const rows = await queryAll(sql);
   return rows.map((r) => ({
-    id: Number(r.id),
+    id: r.id,
     name: r.name,
     student_count: Number(r.student_count || 0)
   }));
@@ -268,21 +379,16 @@ async function getClassById(classId) {
 }
 
 async function getClassByName(name) {
-  return await queryOne('SELECT * FROM classes WHERE LOWER(name) = LOWER(?)', [name.trim()]);
+  return await queryOne('SELECT * FROM classes WHERE LOWER(TRIM(name)) = LOWER(TRIM(?))', [name]);
 }
 
 async function createClass(name) {
-  const trimmed = name.trim();
+  const trimmed = String(name).trim();
   const existing = await getClassByName(trimmed);
   if (existing) return existing;
 
-  if (hasPostgres) {
-    const res = await queryOne('INSERT INTO classes (name) VALUES (?) RETURNING *', [trimmed]);
-    return res;
-  } else {
-    const res = await execute('INSERT INTO classes (name) VALUES (?)', [trimmed]);
-    return { id: res.lastInsertRowid, name: trimmed };
-  }
+  const res = await execute('INSERT INTO classes (name) VALUES (?)', [trimmed]);
+  return await getClassByName(trimmed);
 }
 
 async function deleteClass(classId) {
@@ -290,7 +396,7 @@ async function deleteClass(classId) {
 }
 
 // ==========================================
-// O'QUVCHILAR BOSHQARUVI (CRUD)
+// 5. O'QUVCHILAR BOSHQARUVI (CRUD)
 // ==========================================
 async function getStudentsWithAttendance(classId, date) {
   const sql = `
@@ -298,22 +404,19 @@ async function getStudentsWithAttendance(classId, date) {
       s.id,
       s.full_name,
       s.class_id,
-      c.name AS class_name,
       s.parent_chat_id,
       s.parent_phone,
       s.parent_phone_norm,
-      a.id AS attendance_id,
       a.status,
       a.reason,
       a.notified,
       CASE 
         WHEN s.parent_chat_id IS NOT NULL THEN 'linked'
-        WHEN s.parent_phone_norm IS NOT NULL AND s.parent_phone_norm != '' THEN 'pending'
+        WHEN s.parent_phone IS NOT NULL AND s.parent_phone != '' THEN 'pending'
         ELSE 'no_phone'
-      END AS parent_status
+      END as parent_status
     FROM students s
-    JOIN classes c ON s.class_id = c.id
-    LEFT JOIN attendance a ON s.id = a.student_id AND a.date = ?
+    LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
     WHERE s.class_id = ?
     ORDER BY s.full_name ASC
   `;
@@ -321,250 +424,372 @@ async function getStudentsWithAttendance(classId, date) {
 }
 
 async function getStudentById(studentId) {
-  const sql = `
-    SELECT s.*, c.name AS class_name,
-      CASE 
-        WHEN s.parent_chat_id IS NOT NULL THEN 'linked'
-        WHEN s.parent_phone_norm IS NOT NULL AND s.parent_phone_norm != '' THEN 'pending'
-        ELSE 'no_phone'
-      END AS parent_status
-    FROM students s
-    JOIN classes c ON s.class_id = c.id
-    WHERE s.id = ?
-  `;
-  return await queryOne(sql, [studentId]);
+  return await queryOne(
+    `SELECT s.*, c.name as class_name 
+     FROM students s 
+     JOIN classes c ON s.class_id = c.id 
+     WHERE s.id = ?`,
+    [studentId]
+  );
 }
 
 async function createStudent({ full_name, class_id, parent_phone }) {
-  const normPhone = normalizePhone(parent_phone);
-
-  // Agar bu telefon raqami bazada avval Telegram ga ulangan bo'lsa, chat_id sini avtomat ulaymiz!
+  const norm = normalizePhone(parent_phone);
+  
+  // Agar ushbu telefon raqam bilan avval boshqa farzand orqali profil ulangan bo'lsa, chat_id ni avtomat biriktiramiz
   let existingChatId = null;
-  if (normPhone) {
-    const prev = await queryOne(
+  if (norm) {
+    const matched = await queryOne(
       'SELECT parent_chat_id FROM students WHERE parent_phone_norm = ? AND parent_chat_id IS NOT NULL LIMIT 1',
-      [normPhone]
+      [norm]
     );
-    if (prev && prev.parent_chat_id) {
-      existingChatId = prev.parent_chat_id;
+    if (matched) {
+      existingChatId = matched.parent_chat_id;
     }
   }
 
-  const sql = `
-    INSERT INTO students (full_name, class_id, parent_phone, parent_phone_norm, parent_chat_id)
-    VALUES (?, ?, ?, ?, ?)
-  `;
-  const res = await execute(sql, [
-    full_name.trim(),
-    class_id,
-    parent_phone || null,
-    normPhone || null,
-    existingChatId
-  ]);
+  await execute(
+    'INSERT INTO students (full_name, class_id, parent_phone, parent_phone_norm, parent_chat_id) VALUES (?, ?, ?, ?, ?)',
+    [full_name.trim(), class_id, parent_phone ? parent_phone.trim() : null, norm, existingChatId]
+  );
 
-  const newId = hasPostgres ? (await queryOne('SELECT MAX(id) as id FROM students')).id : res.lastInsertRowid;
-  return await getStudentById(newId);
+  return await queryOne(
+    'SELECT * FROM students WHERE full_name = ? AND class_id = ? ORDER BY id DESC LIMIT 1',
+    [full_name.trim(), class_id]
+  );
 }
 
-async function updateStudent(id, { full_name, class_id, parent_phone }) {
-  const normPhone = normalizePhone(parent_phone);
-
+async function updateStudent(studentId, { full_name, class_id, parent_phone }) {
+  const norm = normalizePhone(parent_phone);
+  
   let existingChatId = null;
-  if (normPhone) {
-    const prev = await queryOne(
+  if (norm) {
+    const matched = await queryOne(
       'SELECT parent_chat_id FROM students WHERE parent_phone_norm = ? AND parent_chat_id IS NOT NULL LIMIT 1',
-      [normPhone]
+      [norm]
     );
-    if (prev && prev.parent_chat_id) {
-      existingChatId = prev.parent_chat_id;
+    if (matched) {
+      existingChatId = matched.parent_chat_id;
     }
   }
 
-  const sql = `
-    UPDATE students
-    SET full_name = ?, class_id = ?, parent_phone = ?, parent_phone_norm = ?, parent_chat_id = ?
-    WHERE id = ?
-  `;
-  await execute(sql, [full_name.trim(), class_id, parent_phone || null, normPhone || null, existingChatId, id]);
-  return await getStudentById(id);
+  await execute(
+    `UPDATE students 
+     SET full_name = ?, class_id = ?, parent_phone = ?, parent_phone_norm = ?,
+         parent_chat_id = COALESCE(?, parent_chat_id)
+     WHERE id = ?`,
+    [full_name.trim(), class_id, parent_phone ? parent_phone.trim() : null, norm, existingChatId, studentId]
+  );
+
+  return await getStudentById(studentId);
 }
 
 async function deleteStudent(studentId) {
   return await execute('DELETE FROM students WHERE id = ?', [studentId]);
 }
 
-async function updateStudentParentPhone(studentId, newPhone) {
-  const normPhone = normalizePhone(newPhone);
+async function updateStudentParentPhone(studentId, rawPhone) {
+  const norm = normalizePhone(rawPhone);
+  
   let existingChatId = null;
-
-  if (normPhone) {
-    const prev = await queryOne(
+  if (norm) {
+    const matched = await queryOne(
       'SELECT parent_chat_id FROM students WHERE parent_phone_norm = ? AND parent_chat_id IS NOT NULL LIMIT 1',
-      [normPhone]
+      [norm]
     );
-    if (prev && prev.parent_chat_id) {
-      existingChatId = prev.parent_chat_id;
+    if (matched) {
+      existingChatId = matched.parent_chat_id;
     }
   }
 
-  const sql = `
-    UPDATE students 
-    SET parent_phone = ?, parent_phone_norm = ?, parent_chat_id = ?
-    WHERE id = ?
-  `;
-  await execute(sql, [newPhone || null, normPhone || null, existingChatId, studentId]);
+  await execute(
+    `UPDATE students 
+     SET parent_phone = ?, parent_phone_norm = ?, parent_chat_id = COALESCE(?, parent_chat_id)
+     WHERE id = ?`,
+    [rawPhone ? rawPhone.trim() : null, norm, existingChatId, studentId]
+  );
+
   return await getStudentById(studentId);
 }
 
 // ==========================================
-// TELEGRAM ORQALI BIRIKTIRISH
+// 6. TELEGRAM KONTAKT VA PROFIL BIRIKTIRISH
 // ==========================================
-async function linkParentByPhone(rawPhone, parentChatId) {
-  const normPhone = normalizePhone(rawPhone);
-  if (!normPhone || normPhone.length < 9) return [];
+async function linkParentByPhone(rawPhone, chatId) {
+  const norm = normalizePhone(rawPhone);
+  if (!norm) return [];
 
-  await execute('UPDATE students SET parent_chat_id = ? WHERE parent_phone_norm = ?', [
-    parentChatId,
-    normPhone
-  ]);
+  const students = await queryAll(
+    `SELECT s.id, s.full_name, c.name as class_name 
+     FROM students s 
+     JOIN classes c ON s.class_id = c.id 
+     WHERE s.parent_phone_norm = ?`,
+    [norm]
+  );
 
-  const sql = `
-    SELECT s.id, s.full_name, s.class_id, c.name AS class_name, s.parent_phone
-    FROM students s
-    JOIN classes c ON s.class_id = c.id
-    WHERE s.parent_phone_norm = ?
-    ORDER BY s.full_name ASC
-  `;
-  return await queryAll(sql, [normPhone]);
+  if (students.length > 0) {
+    await execute('UPDATE students SET parent_chat_id = ? WHERE parent_phone_norm = ?', [chatId, norm]);
+  }
+
+  return students;
 }
 
-async function getStudentsByParentChatId(parentChatId, date) {
+async function getStudentsByParentChatId(chatId, date) {
   const sql = `
     SELECT 
       s.id,
       s.full_name,
-      s.class_id,
-      c.name AS class_name,
-      s.parent_phone,
+      c.name as class_name,
       a.status,
-      a.reason,
-      a.notified,
-      a.date
+      a.reason
     FROM students s
     JOIN classes c ON s.class_id = c.id
-    LEFT JOIN attendance a ON s.id = a.student_id AND a.date = ?
+    LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
     WHERE s.parent_chat_id = ?
     ORDER BY s.full_name ASC
   `;
-  return await queryAll(sql, [date, parentChatId]);
+  return await queryAll(sql, [date, chatId]);
 }
 
 // ==========================================
-// DAVOMAT BOSHQARUVI
+// 7. DAVOMATNI SAQLASH (TIME-LOCK BILAN)
 // ==========================================
 async function saveAttendanceBatch(records, date) {
-  let savedCount = 0;
-  for (const item of records) {
-    if (!item.student_id || !item.status) continue;
-
-    const sql = `
-      INSERT INTO attendance (student_id, date, status, reason, notified, updated_at)
-      VALUES (?, ?, ?, ?, 0, CURRENT_TIMESTAMP)
-      ON CONFLICT(student_id, date) DO UPDATE SET
-        status = excluded.status,
-        reason = excluded.reason,
-        notified = CASE WHEN attendance.status != excluded.status THEN 0 ELSE attendance.notified END,
-        updated_at = CURRENT_TIMESTAMP
-    `;
-    await execute(sql, [item.student_id, date, item.status, item.reason || null]);
-    savedCount++;
+  // 1. Qat'iy vaqt tekshiruvi: 08:00 - 13:30
+  const windowCheck = checkAttendanceWindow(date);
+  if (!windowCheck.allowed) {
+    const err = new Error(windowCheck.reason);
+    err.status = 403;
+    throw err;
   }
-  return savedCount;
+
+  let count = 0;
+  for (const record of records) {
+    const { student_id, status, reason } = record;
+    if (!student_id || !status) continue;
+
+    if (hasPostgres) {
+      await pgPool.query(
+        `INSERT INTO attendance (student_id, date, status, reason, updated_at)
+         VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP)
+         ON CONFLICT (student_id, date) 
+         DO UPDATE SET status = EXCLUDED.status, reason = EXCLUDED.reason, updated_at = CURRENT_TIMESTAMP`,
+        [student_id, date, status, reason || null]
+      );
+    } else {
+      sqliteDb.prepare(
+        `INSERT INTO attendance (student_id, date, status, reason, updated_at)
+         VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+         ON CONFLICT(student_id, date) 
+         DO UPDATE SET status = excluded.status, reason = excluded.reason, updated_at = CURRENT_TIMESTAMP`
+      ).run(student_id, date, status, reason || null);
+    }
+    count++;
+  }
+  return count;
 }
 
-async function getPendingNotifications(date, classId = null) {
-  let query = `
+// ==========================================
+// 8. CRON VA AVTOMAT DISPATCH (DAILY_DISPATCHES)
+// ==========================================
+
+/**
+ * Ushbu sana uchun xabarlar allaqachon yuborilganmi?
+ */
+async function isDailyDispatched(date) {
+  const row = await queryOne(
+    `SELECT * FROM daily_dispatches WHERE date = ? AND status = 'completed'`,
+    [date]
+  );
+  return Boolean(row);
+}
+
+/**
+ * Kunlik xabarnoma hisobotini saqlash
+ */
+async function recordDailyDispatch({ date, total_sent, total_failed, unmarked_classes, status }) {
+  const unmarkedStr = Array.isArray(unmarked_classes) ? unmarked_classes.join(', ') : (unmarked_classes || '');
+  const now = new Date().toISOString();
+
+  if (hasPostgres) {
+    await pgPool.query(
+      `INSERT INTO daily_dispatches (date, dispatched_at, total_sent, total_failed, unmarked_classes, status)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       ON CONFLICT (date)
+       DO UPDATE SET dispatched_at = EXCLUDED.dispatched_at, total_sent = EXCLUDED.total_sent,
+                     total_failed = EXCLUDED.total_failed, unmarked_classes = EXCLUDED.unmarked_classes,
+                     status = EXCLUDED.status`,
+      [date, now, total_sent, total_failed, unmarkedStr, status]
+    );
+  } else {
+    sqliteDb.prepare(
+      `INSERT INTO daily_dispatches (date, dispatched_at, total_sent, total_failed, unmarked_classes, status)
+       VALUES (?, ?, ?, ?, ?, ?)
+       ON CONFLICT (date)
+       DO UPDATE SET dispatched_at = excluded.dispatched_at, total_sent = excluded.total_sent,
+                     total_failed = excluded.total_failed, unmarked_classes = excluded.unmarked_classes,
+                     status = excluded.status`
+    ).run(date, now, total_sent, total_failed, unmarkedStr, status);
+  }
+}
+
+/**
+ * Bugun davomati umuman kiritilmagan sinflarni topish
+ */
+async function getUnmarkedClassesToday(date) {
+  const sql = `
     SELECT 
-      a.id AS attendance_id,
+      c.id, 
+      c.name, 
+      COUNT(s.id) as student_count,
+      COUNT(CASE WHEN a.status IS NOT NULL THEN 1 END) as marked_count
+    FROM classes c
+    LEFT JOIN students s ON s.class_id = c.id
+    LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
+    GROUP BY c.id, c.name
+    HAVING marked_count = 0 AND student_count > 0
+    ORDER BY c.name ASC
+  `;
+  const rows = await queryAll(sql, [date]);
+  return rows.map(r => ({
+    id: r.id,
+    name: r.name,
+    student_count: Number(r.student_count || 0),
+    marked_count: Number(r.marked_count || 0)
+  }));
+}
+
+/**
+ * Direktor / Zavuch uchun barcha sinflarning bugungi davomat nazorati xulosasi
+ */
+async function getClassAttendanceSummary(date) {
+  const sql = `
+    SELECT 
+      c.id, 
+      c.name, 
+      COUNT(s.id) as student_count,
+      COUNT(CASE WHEN a.status IS NOT NULL THEN 1 END) as marked_count,
+      MAX(a.updated_at) as last_marked_at
+    FROM classes c
+    LEFT JOIN students s ON s.class_id = c.id
+    LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
+    GROUP BY c.id, c.name
+    ORDER BY c.name ASC
+  `;
+  const rows = await queryAll(sql, [date]);
+  return rows.map(r => {
+    const studentCount = Number(r.student_count || 0);
+    const markedCount = Number(r.marked_count || 0);
+    let status = 'unmarked';
+    if (markedCount > 0 && markedCount >= studentCount) {
+      status = 'completed';
+    } else if (markedCount > 0) {
+      status = 'partial';
+    }
+    return {
+      id: r.id,
+      name: r.name,
+      student_count: studentCount,
+      marked_count: markedCount,
+      last_marked_at: r.last_marked_at || null,
+      status
+    };
+  });
+}
+
+/**
+ * Avtomat xabarnoma jo'natish uchun tayyor o'quvchilar ro'yxati
+ * Faqat:
+ * 1. O'quvchi davomati belgilangan (unmarked emas)
+ * 2. Ota-onasi Telegramda ro'yxatdan o'tgan (parent_chat_id mavjud)
+ * 3. Hali bugungi kun uchun xabar bormagan (notified = 0)
+ */
+async function getPendingNotifications(date) {
+  const sql = `
+    SELECT 
+      a.id as attendance_id,
+      a.date,
       a.status,
       a.reason,
-      a.date,
-      a.notified,
-      s.id AS student_id,
+      s.id as student_id,
       s.full_name,
       s.parent_chat_id,
       s.parent_phone,
-      c.id AS class_id,
-      c.name AS class_name
+      c.name as class_name
     FROM attendance a
     JOIN students s ON a.student_id = s.id
     JOIN classes c ON s.class_id = c.id
     WHERE a.date = ? 
-      AND s.parent_chat_id IS NOT NULL 
+      AND a.notified = 0 
       AND a.status IS NOT NULL
+      AND s.parent_chat_id IS NOT NULL
+    ORDER BY c.name ASC, s.full_name ASC
   `;
-  const params = [date];
-  if (classId) {
-    query += ' AND c.id = ?';
-    params.push(classId);
-  }
-  return await queryAll(query, params);
+  return await queryAll(sql, [date]);
 }
 
 async function markAttendanceAsNotified(attendanceIds) {
   if (!attendanceIds || attendanceIds.length === 0) return;
-  const placeholders = attendanceIds.map(() => '?').join(',');
-  const sql = `UPDATE attendance SET notified = 1 WHERE id IN (${placeholders})`;
-  return await execute(sql, attendanceIds);
+
+  if (hasPostgres) {
+    const placeholders = attendanceIds.map((_, i) => `$${i + 1}`).join(',');
+    await pgPool.query(
+      `UPDATE attendance SET notified = 1, updated_at = CURRENT_TIMESTAMP WHERE id IN (${placeholders})`,
+      attendanceIds
+    );
+  } else {
+    const placeholders = attendanceIds.map(() => '?').join(',');
+    sqliteDb.prepare(
+      `UPDATE attendance SET notified = 1, updated_at = CURRENT_TIMESTAMP WHERE id IN (${placeholders})`
+    ).run(...attendanceIds);
+  }
 }
 
+// ==========================================
+// 9. STATISTIKA VA EXCEL OYLIK JURNAL
+// ==========================================
 async function getAttendanceStats(date, classId = null) {
-  let query = `
+  let sql = `
     SELECT 
-      COUNT(s.id) AS total_students,
-      COUNT(a.id) AS marked_students,
-      SUM(CASE WHEN a.status = 'keldi' THEN 1 ELSE 0 END) AS keldi,
-      SUM(CASE WHEN a.status = 'kelmadi' THEN 1 ELSE 0 END) AS kelmadi,
-      SUM(CASE WHEN a.status = 'kechikdi' THEN 1 ELSE 0 END) AS kechikdi,
-      SUM(CASE WHEN a.status = 'sababli' THEN 1 ELSE 0 END) AS sababli,
-      SUM(CASE WHEN s.parent_chat_id IS NOT NULL THEN 1 ELSE 0 END) AS parents_linked,
-      SUM(CASE WHEN s.parent_chat_id IS NULL AND s.parent_phone_norm IS NOT NULL AND s.parent_phone_norm != '' THEN 1 ELSE 0 END) AS parents_pending
+      COUNT(s.id) as total_students,
+      COUNT(CASE WHEN a.status = 'keldi' THEN 1 END) as count_keldi,
+      COUNT(CASE WHEN a.status = 'kelmadi' THEN 1 END) as count_kelmadi,
+      COUNT(CASE WHEN a.status = 'kechikdi' THEN 1 END) as count_kechikdi,
+      COUNT(CASE WHEN a.status = 'sababli' THEN 1 END) as count_sababli,
+      COUNT(CASE WHEN a.status IS NOT NULL THEN 1 END) as total_marked,
+      COUNT(CASE WHEN s.parent_chat_id IS NOT NULL THEN 1 END) as parents_linked,
+      COUNT(CASE WHEN s.parent_chat_id IS NULL AND s.parent_phone IS NOT NULL AND s.parent_phone != '' THEN 1 END) as parents_pending
     FROM students s
-    LEFT JOIN attendance a ON s.id = a.student_id AND a.date = ?
+    LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
   `;
   const params = [date];
   if (classId) {
-    query += ' WHERE s.class_id = ?';
+    sql += ' WHERE s.class_id = ?';
     params.push(classId);
   }
-  const result = await queryOne(query, params);
+
+  const result = await queryOne(sql, params);
   return {
     total_students: Number(result?.total_students || 0),
-    marked_students: Number(result?.marked_students || 0),
-    keldi: Number(result?.keldi || 0),
-    kelmadi: Number(result?.kelmadi || 0),
-    kechikdi: Number(result?.kechikdi || 0),
-    sababli: Number(result?.sababli || 0),
-    unmarked: Number(result?.total_students || 0) - Number(result?.marked_students || 0),
+    count_keldi: Number(result?.count_keldi || 0),
+    count_kelmadi: Number(result?.count_kelmadi || 0),
+    count_kechikdi: Number(result?.count_kechikdi || 0),
+    count_sababli: Number(result?.count_sababli || 0),
+    total_marked: Number(result?.total_marked || 0),
     parents_linked: Number(result?.parents_linked || 0),
     parents_pending: Number(result?.parents_pending || 0)
   };
 }
 
-// ==========================================
-// EXCEL OYLIK JURNAL EXPORT UCHUN MA'LUMOT
-// ==========================================
 async function getMonthAttendanceForExport(classId, yearMonth) {
   const classInfo = await getClassById(classId);
   if (!classInfo) return null;
 
-  // Shu sinfdagi barcha o'quvchilar
   const students = await queryAll(
     'SELECT id, full_name, parent_phone FROM students WHERE class_id = ? ORDER BY full_name ASC',
     [classId]
   );
 
-  // Shu oyning barcha davomat yozuvlari
   const attendanceRows = await queryAll(
     `SELECT a.student_id, a.date, a.status, a.reason
      FROM attendance a
@@ -586,6 +811,9 @@ initDatabase().catch((e) => console.error('initDatabase error:', e));
 
 module.exports = {
   hasPostgres,
+  getTashkentTimeParts,
+  getTodayString,
+  checkAttendanceWindow,
   normalizePhone,
   formatPhone,
   initDatabase,
@@ -603,6 +831,10 @@ module.exports = {
   linkParentByPhone,
   getStudentsByParentChatId,
   saveAttendanceBatch,
+  isDailyDispatched,
+  recordDailyDispatch,
+  getUnmarkedClassesToday,
+  getClassAttendanceSummary,
   getPendingNotifications,
   markAttendanceAsNotified,
   getAttendanceStats,
