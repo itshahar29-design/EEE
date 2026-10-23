@@ -9,7 +9,7 @@ const db = require('./db.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const BOT_TOKEN = process.env.BOT_TOKEN || '8831381677:AAHZfOhKQspNYVKAtI9OkrbsmcDhDPib6Yw';
+const BOT_TOKEN = process.env.BOT_TOKEN || '8877313297:AAHBIV4kU9g_d287m092fW9b7XOkScZU4Gw';
 const WEBAPP_URL = process.env.WEBAPP_URL || 'https://eee-w2yj.onrender.com';
 const SCHOOL_NAME = process.env.SCHOOL_NAME || "65-umumiy o'rta ta'lim maktabi";
 const TEACHER_PIN = process.env.TEACHER_PIN || '6565';
