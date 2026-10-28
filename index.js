@@ -16,6 +16,8 @@ if (process.env.BOT_TOKEN && process.env.BOT_TOKEN.startsWith('8877313297')) {
 } else if (process.env.BOT_TOKEN) {
   console.log(`⚠️ Render muhitidagi noto'g'ri/placeholder token (${process.env.BOT_TOKEN.slice(0, 10)}...) inkor qilindi va rasmiy 8877313297 tokeni ishlatilmoqda.`);
 }
+const BOT_TOKEN = effectiveToken;
+
 const OFFICIAL_WEBAPP_URL = 'https://eee-w2yj.onrender.com';
 let effectiveWebAppUrl = OFFICIAL_WEBAPP_URL;
 if (process.env.WEBAPP_URL && !process.env.WEBAPP_URL.includes('edumemory-65') && process.env.WEBAPP_URL.startsWith('http')) {
