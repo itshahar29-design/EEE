@@ -697,6 +697,20 @@ async function saveAttendanceBatch(records, date) {
   return count;
 }
 
+async function getPreviousAttendanceMap(studentIds, date) {
+  if (!studentIds || studentIds.length === 0) return {};
+  const placeholders = studentIds.map(() => '?').join(',');
+  const rows = await queryAll(
+    `SELECT student_id, status, reason, updated_at FROM attendance WHERE date = ? AND student_id IN (${placeholders})`,
+    [date, ...studentIds]
+  );
+  const map = {};
+  for (const r of rows) {
+    map[r.student_id] = r;
+  }
+  return map;
+}
+
 // ==========================================
 // 9. CRON VA AVTOMAT DISPATCH (DAILY_DISPATCHES)
 // ==========================================
@@ -926,6 +940,7 @@ module.exports = {
   linkParentByPhone,
   getStudentsByParentChatId,
   saveAttendanceBatch,
+  getPreviousAttendanceMap,
   isDailyDispatched,
   recordDailyDispatch,
   getUnmarkedClassesToday,

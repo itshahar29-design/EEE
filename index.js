@@ -832,6 +832,60 @@ app.post('/api/students/:id/phone', async (req, res) => {
   }
 });
 
+// Kelmaganlarga tezkor ogohlantirish va 15 daqiqada kechikib kelganlarga to'g'rilash xabari
+async function handleInstantAttendanceAlerts(records, prevMap, targetDate) {
+  if (!bot) return;
+
+  for (const rec of records) {
+    const studentId = rec.student_id;
+    const newStatus = rec.status;
+    const prev = prevMap[studentId];
+    const prevStatus = prev ? prev.status : null;
+
+    // 1. Yangi holat "KELMADI" bo'lsa va avval "kelmadi" deb xabar ketmagan bo'lsa:
+    if (newStatus === 'kelmadi' && prevStatus !== 'kelmadi') {
+      try {
+        const student = await db.getStudentById(studentId);
+        if (student && student.parent_chat_id) {
+          const alertText =
+            `🚨 <b>65-MAKTAB | TEZKOR OGOHLANTIRISH</b>\n\n` +
+            `Hurmatli ota-ona!\n` +
+            `Farzandingiz <b>${escapeHtml(student.full_name)}</b> bugun (${formatUzbekDate(targetDate)}) <b>${escapeHtml(student.class_name || '9-sinf')}</b>da darsga <b>kirmadi (yo‘q)</b> deb qayd etildi.\n\n` +
+            (rec.reason ? `📝 <i>Sababi: ${escapeHtml(rec.reason)}</i>\n\n` : '') +
+            `⚠️ <i>Agar farzandingiz sababli bormagan bo‘lsa yoki yo‘lda bo‘lsa, zudlik bilan sinf rahbariga xabar bering!</i>`;
+
+          await bot.telegram.sendMessage(student.parent_chat_id, alertText, { parse_mode: 'HTML' });
+          console.log(`📤 [Tezkor Ogohlantirish] ${student.full_name} kelmadi deb ota-onasiga yuborildi.`);
+          await sleep(MESSAGE_DELAY_MS);
+        }
+      } catch (err) {
+        console.error(`Tezkor ogohlantirish xatosi (student ${studentId}):`, err.message);
+      }
+    }
+
+    // 2. Avval "KELMADI" bo'lib, o'quvchi kechikib kelsa va "KECHIKDI" yoki "KELDI" deb o'zgartirilsa:
+    else if ((newStatus === 'kechikdi' || newStatus === 'keldi') && prevStatus === 'kelmadi') {
+      try {
+        const student = await db.getStudentById(studentId);
+        if (student && student.parent_chat_id) {
+          const statusText = newStatus === 'kechikdi' ? 'kechikib yetib keldi' : 'darsga yetib keldi';
+          const correctionText =
+            `✅ <b>65-MAKTAB | XABAR TO‘G‘RILANDI</b>\n\n` +
+            `Hurmatli ota-ona!\n` +
+            `Farzandingiz <b>${escapeHtml(student.full_name)}</b> darsga <b>${statusText}</b> va hozirda <b>${escapeHtml(student.class_name || '9-sinf')}</b> sinfida darsda qatnashmoqda.\n\n` +
+            `⏱ <i>Holat yangilandi: ${newStatus === 'kechikdi' ? '⏱ Kechikdi' : '✅ Keldi'}. Xavotirga o‘rin yo‘q!</i>`;
+
+          await bot.telegram.sendMessage(student.parent_chat_id, correctionText, { parse_mode: 'HTML' });
+          console.log(`📤 [Xabar To‘g‘rilandi] ${student.full_name} kechikdi/keldi deb ota-onasiga yuborildi.`);
+          await sleep(MESSAGE_DELAY_MS);
+        }
+      } catch (err) {
+        console.error(`Xabar to'g'rilash xatosi (student ${studentId}):`, err.message);
+      }
+    }
+  }
+}
+
 // 9. Davomat saqlash (Qat'iy 08:00 - 13:30 Time-Lock)
 app.post('/api/attendance', async (req, res) => {
   try {
@@ -851,7 +905,16 @@ app.post('/api/attendance', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Ma\'lumotlar to‘liq emas' });
     }
 
+    const studentIds = records.map(r => r.student_id);
+    const prevMap = await db.getPreviousAttendanceMap(studentIds, targetDate);
+
     const savedCount = await db.saveAttendanceBatch(records, targetDate);
+
+    // Kelmaganlarga srazi ogohlantirish yoki kechikib kelganlarga to'g'rilash xabarini yuborish
+    handleInstantAttendanceAlerts(records, prevMap, targetDate).catch(err => {
+      console.error('Instant attendance alert xatosi:', err.message);
+    });
+
     res.json({ success: true, message: 'Davomat muvaffaqiyatli saqlandi', savedCount });
   } catch (err) {
     const status = err.status || 500;

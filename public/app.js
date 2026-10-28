@@ -889,6 +889,29 @@ async function saveAttendance() {
     return;
   }
 
+  // 1. Agar "Kelmadi" (❌) bo'lgan o'quvchilar bo'lsa, o'qituvchini 2-marta ogohlantirib amin bo'lish
+  const absentStudents = records
+    .filter(r => r.status === 'kelmadi')
+    .map(r => state.students.find(s => s.id === r.student_id))
+    .filter(Boolean);
+
+  if (absentStudents.length > 0) {
+    triggerHaptic('warning');
+    const namesList = absentStudents.map((s, idx) => `${idx + 1}. ${s.full_name}`).join('\n');
+    const confirmText = 
+      `⚠️ DIQQAT! (2-marta amin bo'ling)\n\n` +
+      `Quyidagi ${absentStudents.length} nafar o‘quvchi darsda YO‘Q (kelmadi) deb belgilandi:\n\n` +
+      `${namesList}\n\n` +
+      `"OK" ni bossangiz, ularning ota-onalariga Telegram orqali DARHOL ogohlantirish xabari yuboriladi.\n\n` +
+      `Rostdan ham tasdiqlaysizmi?\n` +
+      `(Eslatma: Agar o‘quvchi 15 daqiqa ichida yetib kelsa, uni "Kechikdi" deb o‘zgartirishingiz mumkin — ota-onasiga to‘g‘rilash xabari boradi)`;
+
+    const isConfirmed = confirm(confirmText);
+    if (!isConfirmed) {
+      return; // O'qituvchi bekor qildi, saqlanmaydi va xabar ketmaydi
+    }
+  }
+
   if (saveAttendanceBtn) {
     saveAttendanceBtn.disabled = true;
     saveAttendanceBtn.innerHTML = `
@@ -912,9 +935,12 @@ async function saveAttendance() {
 
     if (res.ok && result.success) {
       triggerHaptic('success');
-      showToast(`✅ ${result.savedCount} ta o‘quvchi davomati saqlandi!`, 'success');
+      const msg = absentStudents.length > 0 
+        ? `✅ Saqlandi! ${absentStudents.length} ta o‘quvchi ota-onasiga tezkor xabar yuborildi.` 
+        : `✅ ${result.savedCount} ta o‘quvchi davomati saqlandi!`;
+      showToast(msg, 'success');
       if (tg?.showAlert) {
-        tg.showAlert(`${state.currentClassName} sinfi davomati muvaffaqiyatli saqlandi!`);
+        tg.showAlert(`${state.currentClassName} sinfi davomati saqlandi!`);
       }
       fetchStudents();
     } else {
