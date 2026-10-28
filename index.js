@@ -196,7 +196,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       try {
         const chatId = ctx.chat.id;
         const today = db.getTodayString();
-        const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
+        const webAppUrl = WEBAPP_URL;
 
         // 1. Bosh Admin yoki Sinf rahbari tekshiruvi
         const staff = await db.getStaffByChatId(chatId);
@@ -265,7 +265,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
 
         const rawPhone = contact.phone_number;
         const chatId = ctx.chat.id;
-        const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
+        const webAppUrl = WEBAPP_URL;
 
         // 1. Xodimlar (Bosh Admin yoki Sinf rahbari) tekshiruvi
         const staffMember = await db.getStaffByPhone(rawPhone);
@@ -333,7 +333,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
     async function handleHolat(ctx) {
       try {
         const today = db.getTodayString();
-        const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
+        const webAppUrl = WEBAPP_URL;
         const staff = await db.getStaffByChatId(ctx.chat.id);
 
         // 1. Agar xodim (Admin yoki Sinf rahbari) bo'lsa
@@ -425,7 +425,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
     async function handleYordam(ctx) {
       try {
         const today = db.getTodayString();
-        const webAppUrl = process.env.WEBAPP_URL || `http://localhost:${PORT}`;
+        const webAppUrl = WEBAPP_URL;
         const staff = await db.getStaffByChatId(ctx.chat.id);
 
         if (staff) {
