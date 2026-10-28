@@ -1110,8 +1110,41 @@ app.get('/api/export/excel', async (req, res) => {
 });
 
 // ==========================================
-// 4. SERVERNI ISHGA TUSHIRISH
+// 4. SERVERNI ISHGA TUSHIRISH VA SELF-PING
 // ==========================================
+function startSelfPing() {
+  if (!WEBAPP_URL || !WEBAPP_URL.startsWith('https://')) return;
+  const pingUrl = `${WEBAPP_URL}/ping`;
+  const PING_INTERVAL_MS = 10 * 60 * 1000; // Har 10 daqiqada (Render 15 daqiqada uxlaydi)
+
+  // 1 daqiqadan keyin birinchi sinov signali
+  setTimeout(() => {
+    try {
+      const client = require('https');
+      client.get(pingUrl, (res) => res.resume()).on('error', () => {});
+    } catch (e) {}
+  }, 60 * 1000);
+
+  // Har 10 daqiqada doimiy uyg'otish
+  setInterval(() => {
+    try {
+      const client = require('https');
+      client.get(pingUrl, (res) => {
+        res.resume();
+        if (res.statusCode === 200) {
+          console.log(`💓 [Self-Ping] Server faol va uyg‘oq: ${new Date().toLocaleTimeString('uz-UZ', { timeZone: 'Asia/Tashkent' })}`);
+        }
+      }).on('error', (err) => {
+        console.warn('⚠️ [Self-Ping] Aloqa xatosi:', err.message);
+      });
+    } catch (e) {
+      console.warn('⚠️ [Self-Ping] Xatolik:', e.message);
+    }
+  }, PING_INTERVAL_MS);
+
+  console.log(`💓 Self-Ping faollashtirildi: Har 10 daqiqada (${pingUrl})`);
+}
+
 app.listen(PORT, () => {
   console.log(`====================================================`);
   console.log(`🚀 "EduMemory" — 65-maktab 9-A va 9-B Davomat Tizimi`);
@@ -1123,4 +1156,6 @@ app.listen(PORT, () => {
   console.log(`⏱️ Dars davomat vaqti: 08:00 - 13:30 (Asia/Tashkent)`);
   console.log(`🤖 Avtomat xabarnoma: 14:00 (Dushanba-Shanba)`);
   console.log(`====================================================`);
+  
+  startSelfPing();
 });
