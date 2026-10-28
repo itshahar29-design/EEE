@@ -79,6 +79,14 @@
         <i class="fa-solid fa-chart-pie text-[10px]"></i> Nazorat (Monitoring)
       </button>
 
+      <button id="openTeachersBtn" class="bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200/60 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
+        <i class="fa-solid fa-chalkboard-user text-[10px]"></i> O‘qituvchilar
+      </button>
+
+      <button id="openBackupBtn" class="bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200/60 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
+        <i class="fa-solid fa-hard-drive text-[10px]"></i> Server / Zaxira
+      </button>
+
       <button id="openExcelImportBtn" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200/60 px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shrink-0 transition">
         <i class="fa-solid fa-file-excel text-[10px]"></i> Excel Import
       </button>
@@ -380,6 +388,135 @@
       >
         <i class="fa-solid fa-download"></i> Excelni yuklab olish
       </button>
+    </div>
+  </div>
+
+  <!-- MODAL: O'QITUVCHILAR VA SINF RAHBARLARI BOSHQARUVI -->
+  <div id="teachersModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+          <i class="fa-solid fa-chalkboard-user text-purple-600"></i>
+          <span>Sinf Rahbarlari (O‘qituvchilar)</span>
+        </h3>
+        <button class="close-modal-btn text-slate-400 hover:text-slate-600 p-1" data-modal="teachersModal">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- O'qituvchilar ro'yxati -->
+      <div class="overflow-y-auto flex-1 space-y-2 mb-3" id="teachersListContainer">
+        <!-- JS orqali to'ldiriladi -->
+      </div>
+
+      <!-- O'qituvchi biriktirish/tahrirlash formasi -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+        <h4 class="text-xs font-bold text-slate-800 mb-2 flex items-center justify-between">
+          <span id="teacherFormTitle">Rahbar biriktirish / o‘zgartirish</span>
+          <button id="cancelTeacherEditBtn" class="text-[10px] text-slate-400 hover:text-slate-600 hidden">Bekor qilish</button>
+        </h4>
+        <input type="hidden" id="teacherIdInput" value="" />
+        <div class="space-y-2 text-xs">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-0.5">Sinf:</label>
+            <select id="teacherClassSelect" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 font-bold text-slate-800">
+              <option value="1">9-A sinfi</option>
+              <option value="2">9-B sinfi</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-0.5">O‘qituvchi F.I.SH:</label>
+            <input type="text" id="teacherNameInput" placeholder="Masalan: Rustamova Dilnoza" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-900 font-medium" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-0.5">Telefon raqami:</label>
+            <input type="tel" id="teacherPhoneInput" placeholder="+998 90 123 45 67" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-900 font-medium" />
+            <p class="text-[10px] text-slate-400 mt-0.5">O‘qituvchi botda kontakt yuborganda shu raqam orqali avtomat o‘z sinfiga ulanadi.</p>
+          </div>
+          <button id="saveTeacherBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded-lg transition active:scale-95 flex items-center justify-center gap-1.5 mt-1">
+            <i class="fa-solid fa-check"></i> Saqlash va biriktirish
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SERVER VA BAZA ZAXIRASI (BACKUP & RESTORE) -->
+  <div id="backupModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+          <i class="fa-solid fa-hard-drive text-amber-600"></i>
+          <span>Server va Ma‘lumotlar Xavfsizligi</span>
+        </h3>
+        <button class="close-modal-btn text-slate-400 hover:text-slate-600 p-1" data-modal="backupModal">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 overflow-y-auto flex-1 text-xs">
+        <!-- Server holati -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+          <div class="font-bold text-slate-800 mb-1 flex items-center justify-between">
+            <span>Server Holati:</span>
+            <span class="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full text-[10px] font-bold">🟢 Ishlamoqda</span>
+          </div>
+          <div class="text-[11px] text-slate-600 space-y-1 mt-2">
+            <div class="flex justify-between">
+              <span>Baza turi:</span>
+              <span id="backupModalDbType" class="font-bold text-slate-800">Tekshirilmoqda...</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Uyg‘oq saqlash (Ping):</span>
+              <span class="text-emerald-600 font-semibold">Har 10 daqiqada faol</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Sinflar:</span>
+              <span class="font-bold text-slate-800">Faqat 9-A va 9-B</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-Bosishda Zaxirani yuklab olish -->
+        <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-3">
+          <h4 class="font-bold text-amber-900 mb-1 flex items-center gap-1">
+            <i class="fa-solid fa-cloud-arrow-down text-amber-600"></i>
+            <span>1-Bosishda To‘liq Zaxira (JSON)</span>
+          </h4>
+          <p class="text-[11px] text-amber-800/80 mb-2.5">
+            Barcha 9-A va 9-B o‘quvchilari, ota-onalar kontaktlari, o‘qituvchilar va davomat tarixini qurilmangizga fayl qilib saqlang.
+          </p>
+          <a href="/api/backup/export" download class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-lg transition active:scale-95 flex items-center justify-center gap-1.5 text-xs text-center shadow-xs">
+            <i class="fa-solid fa-download"></i> Zaxirani yuklab olish (.json)
+          </a>
+        </div>
+
+        <!-- Zaxiradan qayta tiklash -->
+        <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-3">
+          <h4 class="font-bold text-blue-900 mb-1 flex items-center gap-1">
+            <i class="fa-solid fa-cloud-arrow-up text-blue-600"></i>
+            <span>Zaxiradan Qayta Tiklash</span>
+          </h4>
+          <p class="text-[11px] text-blue-800/80 mb-2.5">
+            Server qayta o‘rnatilsa ham, oldingi JSON faylni yuklab barcha ma‘lumotlarni 1 soniyada qayta tiklang.
+          </p>
+          <input type="file" id="restoreBackupFileInput" accept=".json,application/json" class="hidden" />
+          <button id="triggerRestoreBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition active:scale-95 flex items-center justify-center gap-1.5 text-xs">
+            <i class="fa-solid fa-upload"></i> Faylni tanlash va Tiklash
+          </button>
+        </div>
+
+        <!-- Doimiy Render PostgreSQL yo'riqnomasi -->
+        <div class="bg-purple-50/70 border border-purple-200 rounded-xl p-3 text-[11px] text-purple-950">
+          <h4 class="font-bold mb-1 flex items-center gap-1 text-purple-900">
+            <i class="fa-solid fa-database text-purple-600"></i>
+            <span>Doimiy Bulutli Xotira (Render PostgreSQL)</span>
+          </h4>
+          <p class="text-purple-800/90 leading-relaxed">
+            Render.com panelida bepul <b>New PostgreSQL</b> ochib, <code>DATABASE_URL</code> ni o‘rnatsangiz — ma‘lumotlar butun umrga saqlanadi va server o‘chib yonsa ham hech qachon yo‘qolmaydi.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 

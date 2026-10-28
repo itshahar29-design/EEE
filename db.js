@@ -356,17 +356,7 @@ async function cleanAndSetupProduction() {
     }
   }
 
-  // 3. Test/soxta o'quvchilarni butunlay tozalash (faqat real o'quvchilar kiritiladi)
-  const mockCheck = await queryOne(
-    `SELECT COUNT(*) as cnt FROM students WHERE full_name LIKE '%Abdullayev%' OR full_name LIKE '%Baxromova%' OR full_name LIKE '%Karimov%'`
-  );
-  if (mockCheck && Number(mockCheck.cnt) > 0) {
-    console.log('🗑️ Sinov tariqasidagi barcha soxta test o‘quvchilar tozalanmoqda...');
-    await execute('DELETE FROM attendance');
-    await execute('DELETE FROM students');
-  }
-
-  // 4. Bosh Admin va Sinf rahbarlarini staff jadvaliga biriktirish
+  // 3. Bosh Admin va Sinf rahbarlarini staff jadvaliga biriktirish
   const cls9A = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-A']);
   const cls9B = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-B']);
 
@@ -380,31 +370,30 @@ async function cleanAndSetupProduction() {
       'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
       ['Bosh Administrator', adminPhone, adminNorm, 'admin', null]
     );
-  } else {
-    await execute(
-      'UPDATE staff SET full_name = ?, phone = ?, role = ? WHERE phone_norm = ?',
-      ['Bosh Administrator', adminPhone, 'admin', adminNorm]
-    );
   }
 
-  // 9-A va 9-B sinf rahbarlari yozuvlari
-  const teacher9A = await queryOne('SELECT id FROM staff WHERE phone_norm = ?', ['teacher_9a']);
-  if (!teacher9A) {
-    await execute(
-      'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
-      ['9-A Sinf Rahbari', '', 'teacher_9a', 'teacher', cls9A.id]
-    );
+  // 9-A va 9-B sinf rahbarlari yozuvlari (agar mavjud bo'lmasa)
+  if (cls9A) {
+    const existingTeacherA = await queryOne("SELECT id FROM staff WHERE class_id = ? AND role = 'teacher'", [cls9A.id]);
+    if (!existingTeacherA) {
+      await execute(
+        'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
+        ['9-A Sinf Rahbari', '', 'teacher_9a', 'teacher', cls9A.id]
+      );
+    }
   }
 
-  const teacher9B = await queryOne('SELECT id FROM staff WHERE phone_norm = ?', ['teacher_9b']);
-  if (!teacher9B) {
-    await execute(
-      'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
-      ['9-B Sinf Rahbari', '', 'teacher_9b', 'teacher', cls9B.id]
-    );
+  if (cls9B) {
+    const existingTeacherB = await queryOne("SELECT id FROM staff WHERE class_id = ? AND role = 'teacher'", [cls9B.id]);
+    if (!existingTeacherB) {
+      await execute(
+        'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
+        ['9-B Sinf Rahbari', '', 'teacher_9b', 'teacher', cls9B.id]
+      );
+    }
   }
 
-  console.log('✅ 9-A va 9-B sinflari hamda Bosh Admin (+998996893228) sozlandi.');
+  console.log('✅ Baza jadvallari va Bosh Admin (+998996893228) sozlandi.');
 }
 
 // ==========================================
@@ -474,6 +463,195 @@ async function getAllStaff() {
     ORDER BY s.role ASC, s.id ASC
   `;
   return await queryAll(sql);
+}
+
+async function getTeachers() {
+  const sql = `
+    SELECT s.id, s.full_name, s.phone, s.phone_norm, s.role, s.class_id, s.chat_id, c.name as class_name
+    FROM staff s
+    LEFT JOIN classes c ON s.class_id = c.id
+    WHERE s.role = 'teacher'
+    ORDER BY c.name ASC, s.id ASC
+  `;
+  return await queryAll(sql);
+}
+
+async function saveTeacher({ id, full_name, phone, class_id }) {
+  const norm = normalizePhone(phone) || (id ? null : `teacher_${Date.now()}`);
+  const targetClassId = class_id ? parseInt(class_id, 10) : null;
+  const name = full_name ? full_name.trim() : 'Sinf Rahbari';
+  const cleanPhone = phone ? phone.trim() : '';
+
+  if (id) {
+    const updateSql = norm 
+      ? `UPDATE staff SET full_name = ?, phone = ?, phone_norm = ?, class_id = ? WHERE id = ?`
+      : `UPDATE staff SET full_name = ?, phone = ?, class_id = ? WHERE id = ?`;
+    const params = norm ? [name, cleanPhone, norm, targetClassId, id] : [name, cleanPhone, targetClassId, id];
+    await execute(updateSql, params);
+    return await queryOne('SELECT s.*, c.name as class_name FROM staff s LEFT JOIN classes c ON s.class_id = c.id WHERE s.id = ?', [id]);
+  } else {
+    // 1. Agar sinfda placeholder yoki eski rahbar bo'lsa, o'shani yangilaymiz
+    if (targetClassId) {
+      const existingInClass = await queryOne(
+        "SELECT id, phone_norm FROM staff WHERE class_id = ? AND role = 'teacher'",
+        [targetClassId]
+      );
+      if (existingInClass && (!existingInClass.phone_norm || existingInClass.phone_norm.startsWith('teacher_'))) {
+        const updateParams = norm
+          ? [name, cleanPhone, norm, targetClassId, existingInClass.id]
+          : [name, cleanPhone, targetClassId, existingInClass.id];
+        const updateSql = norm
+          ? "UPDATE staff SET full_name = ?, phone = ?, phone_norm = ?, class_id = ? WHERE id = ?"
+          : "UPDATE staff SET full_name = ?, phone = ?, class_id = ? WHERE id = ?";
+        await execute(updateSql, updateParams);
+        return await queryOne('SELECT s.*, c.name as class_name FROM staff s LEFT JOIN classes c ON s.class_id = c.id WHERE s.id = ?', [existingInClass.id]);
+      }
+    }
+
+    // 2. Telefon raqami bo'yicha mavjud bo'lsa yangilaymiz
+    if (norm) {
+      const existing = await queryOne('SELECT id FROM staff WHERE phone_norm = ?', [norm]);
+      if (existing) {
+        await execute(
+          "UPDATE staff SET full_name = ?, phone = ?, role = 'teacher', class_id = ? WHERE id = ?",
+          [name, cleanPhone, targetClassId, existing.id]
+        );
+        return await queryOne('SELECT s.*, c.name as class_name FROM staff s LEFT JOIN classes c ON s.class_id = c.id WHERE s.id = ?', [existing.id]);
+      }
+    }
+
+    // 3. Yangi qilib kiritamiz
+    await execute(
+      'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
+      [name, cleanPhone, norm, 'teacher', targetClassId]
+    );
+    return await queryOne('SELECT s.*, c.name as class_name FROM staff s LEFT JOIN classes c ON s.class_id = c.id WHERE phone_norm = ?', [norm]);
+  }
+}
+
+async function deleteTeacher(id) {
+  return await execute("DELETE FROM staff WHERE id = ? AND role = 'teacher'", [id]);
+}
+
+// ==========================================
+// 4.1 BAZA ZAXIRASI VA QAYTA TIKLASH (BACKUP & RESTORE)
+// ==========================================
+async function exportBackup() {
+  const classes = await queryAll('SELECT id, name FROM classes ORDER BY id ASC');
+  const students = await queryAll('SELECT id, full_name, class_id, parent_chat_id, parent_phone, parent_phone_norm FROM students ORDER BY id ASC');
+  const staff = await queryAll('SELECT id, full_name, phone, phone_norm, role, class_id, chat_id FROM staff ORDER BY id ASC');
+  const attendance = await queryAll('SELECT id, student_id, date, status, reason, notified FROM attendance ORDER BY date DESC, id ASC');
+
+  return {
+    version: '1.0',
+    exported_at: new Date().toISOString(),
+    system: 'EduMemory 65-maktab Davomat Tizimi',
+    classes,
+    students,
+    staff,
+    attendance
+  };
+}
+
+async function restoreBackup(backupData) {
+  if (!backupData || !Array.isArray(backupData.classes) || !Array.isArray(backupData.students)) {
+    throw new Error('Noto‘g‘ri zaxira fayli formati. Zaxirada classes va students bo‘lishi shart.');
+  }
+
+  // 1. Sinflarni tiklash va xarita hosil qilish
+  const classMap = {};
+  for (const c of backupData.classes) {
+    let existing = await queryOne('SELECT id FROM classes WHERE name = ?', [c.name]);
+    if (!existing) {
+      await execute('INSERT INTO classes (name) VALUES (?)', [c.name]);
+      existing = await queryOne('SELECT id FROM classes WHERE name = ?', [c.name]);
+    }
+    if (existing) {
+      classMap[c.id] = existing.id;
+      classMap[c.name] = existing.id;
+    }
+  }
+
+  // 2. O'quvchilarni tiklash va xarita
+  const studentMap = {};
+  if (Array.isArray(backupData.students)) {
+    for (const s of backupData.students) {
+      const targetClassId = classMap[s.class_id] || (s.class_id <= 2 ? s.class_id : 1);
+      const normPhone = s.parent_phone_norm || normalizePhone(s.parent_phone);
+
+      let existing = await queryOne(
+        'SELECT id FROM students WHERE full_name = ? AND class_id = ?',
+        [s.full_name, targetClassId]
+      );
+
+      if (existing) {
+        await execute(
+          'UPDATE students SET parent_chat_id = ?, parent_phone = ?, parent_phone_norm = ? WHERE id = ?',
+          [s.parent_chat_id || null, s.parent_phone || '', normPhone, existing.id]
+        );
+        studentMap[s.id] = existing.id;
+      } else {
+        await execute(
+          'INSERT INTO students (full_name, class_id, parent_chat_id, parent_phone, parent_phone_norm) VALUES (?, ?, ?, ?, ?)',
+          [s.full_name, targetClassId, s.parent_chat_id || null, s.parent_phone || '', normPhone]
+        );
+        const inserted = await queryOne(
+          'SELECT id FROM students WHERE full_name = ? AND class_id = ?',
+          [s.full_name, targetClassId]
+        );
+        if (inserted) {
+          studentMap[s.id] = inserted.id;
+        }
+      }
+    }
+  }
+
+  // 3. Xodimlarni tiklash
+  if (Array.isArray(backupData.staff)) {
+    for (const st of backupData.staff) {
+      if (st.phone_norm) {
+        const targetClassId = st.class_id ? (classMap[st.class_id] || st.class_id) : null;
+        const existing = await queryOne('SELECT id FROM staff WHERE phone_norm = ?', [st.phone_norm]);
+        if (existing) {
+          await execute(
+            'UPDATE staff SET full_name = ?, phone = ?, role = ?, class_id = ?, chat_id = ? WHERE id = ?',
+            [st.full_name, st.phone || '', st.role, targetClassId, st.chat_id || null, existing.id]
+          );
+        } else {
+          await execute(
+            'INSERT INTO staff (full_name, phone, phone_norm, role, class_id, chat_id) VALUES (?, ?, ?, ?, ?, ?)',
+            [st.full_name, st.phone || '', st.phone_norm, st.role, targetClassId, st.chat_id || null]
+          );
+        }
+      }
+    }
+  }
+
+  // 4. Davomat yozuvlarini tiklash
+  if (Array.isArray(backupData.attendance)) {
+    for (const att of backupData.attendance) {
+      const newStudentId = studentMap[att.student_id] || att.student_id;
+      if (newStudentId) {
+        const existingAtt = await queryOne(
+          'SELECT id FROM attendance WHERE student_id = ? AND date = ?',
+          [newStudentId, att.date]
+        );
+        if (existingAtt) {
+          await execute(
+            'UPDATE attendance SET status = ?, reason = ?, notified = ? WHERE id = ?',
+            [att.status, att.reason || '', att.notified || 0, existingAtt.id]
+          );
+        } else {
+          await execute(
+            'INSERT INTO attendance (student_id, date, status, reason, notified) VALUES (?, ?, ?, ?, ?)',
+            [newStudentId, att.date, att.status, att.reason || '', att.notified || 0]
+          );
+        }
+      }
+    }
+  }
+
+  return { success: true };
 }
 
 // ==========================================
@@ -928,6 +1106,11 @@ module.exports = {
   linkStaffByPhone,
   getAdminChatIds,
   getAllStaff,
+  getTeachers,
+  saveTeacher,
+  deleteTeacher,
+  exportBackup,
+  restoreBackup,
   getAllClasses,
   getClassById,
   getClassByName,

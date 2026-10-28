@@ -832,6 +832,62 @@ app.post('/api/students/:id/phone', async (req, res) => {
   }
 });
 
+// 8.1 O'qituvchilar va sinf rahbarlari boshqaruvi
+app.get('/api/teachers', async (req, res) => {
+  try {
+    const teachers = await db.getTeachers();
+    res.json({ success: true, data: teachers });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/teachers', async (req, res) => {
+  try {
+    const { id, full_name, phone, class_id } = req.body;
+    if (!full_name || !class_id) {
+      return res.status(400).json({ success: false, error: 'O‘qituvchi F.I.SH va biriktiriladigan sinf tanlanishi shart' });
+    }
+    const saved = await db.saveTeacher({ id, full_name, phone, class_id });
+    res.json({ success: true, data: saved });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.delete('/api/teachers/:id', async (req, res) => {
+  try {
+    const teacherId = parseInt(req.params.id, 10);
+    await db.deleteTeacher(teacherId);
+    res.json({ success: true, message: 'O‘qituvchi o‘chirildi' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 8.2 Baza zaxirasi (Backup) va qayta tiklash (Restore)
+app.get('/api/backup/export', async (req, res) => {
+  try {
+    const data = await db.exportBackup();
+    const dateStr = db.getTodayString();
+    res.setHeader('Content-Disposition', `attachment; filename="edumemory_backup_${dateStr}.json"`);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(data, null, 2));
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/api/backup/restore', async (req, res) => {
+  try {
+    const backupData = req.body;
+    await db.restoreBackup(backupData);
+    res.json({ success: true, message: 'Baza ma‘lumotlari muvaffaqiyatli tiklandi!' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Kelmaganlarga tezkor ogohlantirish va 15 daqiqada kechikib kelganlarga to'g'rilash xabari
 async function handleInstantAttendanceAlerts(records, prevMap, targetDate) {
   if (!bot) return;

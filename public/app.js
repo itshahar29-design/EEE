@@ -46,6 +46,16 @@ function formatPhoneDisplay(raw) {
   return raw;
 }
 
+function escapeHtmlApp(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // ==========================================
 // 2. DASTUR HOLATI (STATE)
 // ==========================================
@@ -84,6 +94,22 @@ const openAddStudentBtn = document.getElementById('openAddStudentBtn');
 const openAdminSummaryBtn = document.getElementById('openAdminSummaryBtn');
 const openExcelImportBtn = document.getElementById('openExcelImportBtn');
 const openExcelExportBtn = document.getElementById('openExcelExportBtn');
+const openTeachersBtn = document.getElementById('openTeachersBtn');
+const teachersModal = document.getElementById('teachersModal');
+const teachersListContainer = document.getElementById('teachersListContainer');
+const teacherFormTitle = document.getElementById('teacherFormTitle');
+const cancelTeacherEditBtn = document.getElementById('cancelTeacherEditBtn');
+const teacherIdInput = document.getElementById('teacherIdInput');
+const teacherClassSelect = document.getElementById('teacherClassSelect');
+const teacherNameInput = document.getElementById('teacherNameInput');
+const teacherPhoneInput = document.getElementById('teacherPhoneInput');
+const saveTeacherBtn = document.getElementById('saveTeacherBtn');
+
+const openBackupBtn = document.getElementById('openBackupBtn');
+const backupModal = document.getElementById('backupModal');
+const backupModalDbType = document.getElementById('backupModalDbType');
+const triggerRestoreBtn = document.getElementById('triggerRestoreBtn');
+const restoreBackupFileInput = document.getElementById('restoreBackupFileInput');
 
 // Muzlatish holati banneri (Time-Lock)
 const freezeBanner = document.getElementById('freezeBanner');
@@ -1308,6 +1334,263 @@ if (submitExcelExportBtn) {
 }
 
 // ==========================================
+// 11.1 O'QITUVCHILAR VA SINF RAHBARLARI BOSHQARUVI
+// ==========================================
+async function fetchTeachers() {
+  if (!teachersListContainer) return;
+  teachersListContainer.innerHTML = `
+    <div class="p-4 text-center text-slate-400 text-xs">
+      <i class="fa-solid fa-spinner fa-spin text-base mb-1 block text-purple-600"></i>
+      O‘qituvchilar ro‘yxati yuklanmoqda...
+    </div>
+  `;
+
+  try {
+    const res = await fetch('/api/teachers');
+    const data = await res.json();
+
+    if (!data.success || !Array.isArray(data.data)) {
+      teachersListContainer.innerHTML = `<div class="p-3 text-center text-rose-500 text-xs font-semibold">Yuklab bo‘lmadi: ${data.error || 'Noma‘lum xato'}</div>`;
+      return;
+    }
+
+    const teachers = data.data;
+    if (teachers.length === 0) {
+      teachersListContainer.innerHTML = `
+        <div class="p-4 text-center text-slate-400 text-xs">
+          Biriktirilgan o‘qituvchilar topilmadi. Pastdagi forma orqali sinf rahbarini qo‘shing.
+        </div>
+      `;
+      return;
+    }
+
+    teachersListContainer.innerHTML = teachers.map((t) => {
+      const isLinked = Boolean(t.chat_id);
+      const isPlaceholder = !t.phone || t.phone_norm?.startsWith('teacher_');
+      const displayPhone = isPlaceholder ? 'Telefon kiritilmagan' : formatPhoneDisplay(t.phone);
+      const statusHtml = isLinked
+        ? `<span class="inline-flex items-center gap-1 text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-bold"><i class="fa-solid fa-circle-check"></i> Telegram: Ulangan</span>`
+        : `<span class="inline-flex items-center gap-1 text-[10px] text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full font-semibold"><i class="fa-regular fa-clock"></i> Telegram: Kutilmoqda</span>`;
+
+      return `
+        <div class="bg-white border border-slate-200 rounded-xl p-3 flex items-center justify-between gap-2 shadow-2xs hover:border-purple-200 transition">
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="bg-purple-100 text-purple-800 text-[10px] font-black px-2 py-0.5 rounded-md border border-purple-200 uppercase">
+                ${t.class_name || '9-sinf'}
+              </span>
+              <span class="font-bold text-xs text-slate-900 truncate">${escapeHtmlApp(t.full_name)}</span>
+            </div>
+            <div class="text-[11px] text-slate-600 flex items-center gap-1.5 flex-wrap">
+              <span class="font-medium"><i class="fa-solid fa-phone text-[10px] text-slate-400"></i> ${displayPhone}</span>
+              ${statusHtml}
+            </div>
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <button class="edit-teacher-btn p-1.5 text-slate-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition" 
+              data-id="${t.id}" 
+              data-name="${escapeHtmlApp(t.full_name)}" 
+              data-phone="${escapeHtmlApp(t.phone || '')}" 
+              data-class="${t.class_id || 1}"
+              title="Tahrirlash">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button class="delete-teacher-btn p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition" 
+              data-id="${t.id}" 
+              data-name="${escapeHtmlApp(t.full_name)}"
+              title="O‘chirish">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Tahrirlash tugmalari
+    teachersListContainer.querySelectorAll('.edit-teacher-btn').forEach((btn) => {
+      btn.onclick = () => {
+        triggerHaptic('light');
+        const id = btn.dataset.id;
+        const name = btn.dataset.name;
+        const phone = btn.dataset.phone;
+        const classId = btn.dataset.class;
+
+        if (teacherIdInput) teacherIdInput.value = id;
+        if (teacherNameInput) teacherNameInput.value = name;
+        if (teacherPhoneInput) teacherPhoneInput.value = phone;
+        if (teacherClassSelect) teacherClassSelect.value = classId;
+        if (teacherFormTitle) teacherFormTitle.textContent = 'O‘qituvchini tahrirlash';
+        if (cancelTeacherEditBtn) cancelTeacherEditBtn.classList.remove('hidden');
+        if (teacherNameInput) teacherNameInput.focus();
+      };
+    });
+
+    // O'chirish tugmalari
+    teachersListContainer.querySelectorAll('.delete-teacher-btn').forEach((btn) => {
+      btn.onclick = async () => {
+        const id = btn.dataset.id;
+        const name = btn.dataset.name;
+        if (!confirm(`Haqiqatan ham "${name}" o‘qituvchisini ro‘yxatdan o‘chirmoqchimisiz?`)) return;
+
+        triggerHaptic('warning');
+        try {
+          const res = await fetch(`/api/teachers/${id}`, { method: 'DELETE' });
+          const resData = await res.json();
+          if (resData.success) {
+            showToast('O‘qituvchi muvaffaqiyatli o‘chirildi', 'success');
+            fetchTeachers();
+          } else {
+            showToast(resData.error || 'O‘chirishda xatolik', 'error');
+          }
+        } catch (err) {
+          showToast('Server bilan bog‘lanishda xatolik', 'error');
+        }
+      };
+    });
+
+  } catch (err) {
+    console.error('fetchTeachers xatosi:', err);
+    teachersListContainer.innerHTML = `<div class="p-3 text-center text-rose-500 text-xs">Yuklashda xatolik yuz berdi.</div>`;
+  }
+}
+
+function resetTeacherForm() {
+  if (teacherIdInput) teacherIdInput.value = '';
+  if (teacherNameInput) teacherNameInput.value = '';
+  if (teacherPhoneInput) teacherPhoneInput.value = '';
+  if (teacherClassSelect) teacherClassSelect.value = '1';
+  if (teacherFormTitle) teacherFormTitle.textContent = 'Rahbar biriktirish / o‘zgartirish';
+  if (cancelTeacherEditBtn) cancelTeacherEditBtn.classList.add('hidden');
+}
+
+if (cancelTeacherEditBtn) {
+  cancelTeacherEditBtn.onclick = () => {
+    resetTeacherForm();
+  };
+}
+
+if (openTeachersBtn) {
+  openTeachersBtn.onclick = () => {
+    triggerHaptic('light');
+    resetTeacherForm();
+    if (teachersModal) teachersModal.classList.remove('hidden');
+    fetchTeachers();
+  };
+}
+
+if (saveTeacherBtn) {
+  saveTeacherBtn.onclick = async () => {
+    const id = teacherIdInput ? teacherIdInput.value : '';
+    const full_name = teacherNameInput ? teacherNameInput.value.trim() : '';
+    const phone = teacherPhoneInput ? teacherPhoneInput.value.trim() : '';
+    const class_id = teacherClassSelect ? teacherClassSelect.value : '1';
+
+    if (!full_name) {
+      showToast('O‘qituvchi F.I.SH ni kiriting', 'error');
+      if (teacherNameInput) teacherNameInput.focus();
+      return;
+    }
+
+    triggerHaptic('medium');
+    saveTeacherBtn.disabled = true;
+    saveTeacherBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saqlanmoqda...';
+
+    try {
+      const res = await fetch('/api/teachers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, full_name, phone, class_id })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        showToast('O‘qituvchi muvaffaqiyatli saqlandi va sinfga biriktirildi!', 'success');
+        resetTeacherForm();
+        fetchTeachers();
+      } else {
+        showToast(data.error || 'Saqlashda xatolik', 'error');
+      }
+    } catch (err) {
+      showToast('Server bilan bog‘lanishda xatolik', 'error');
+    } finally {
+      saveTeacherBtn.disabled = false;
+      saveTeacherBtn.innerHTML = '<i class="fa-solid fa-check"></i> Saqlash va biriktirish';
+    }
+  };
+}
+
+// ==========================================
+// 11.2 SERVER VA BAZA ZAXIRASI (BACKUP & RESTORE)
+// ==========================================
+if (openBackupBtn) {
+  openBackupBtn.onclick = async () => {
+    triggerHaptic('light');
+    if (backupModal) backupModal.classList.remove('hidden');
+    if (backupModalDbType) {
+      backupModalDbType.textContent = 'Tekshirilmoqda...';
+      try {
+        const res = await fetch('/health');
+        const data = await res.json();
+        if (data && data.db === 'postgresql') {
+          backupModalDbType.innerHTML = '<span class="text-purple-600 font-bold">🐘 PostgreSQL (Doimiy bulutli)</span>';
+        } else {
+          backupModalDbType.innerHTML = '<span class="text-amber-600 font-bold">📦 SQLite (Lokal xotira)</span>';
+        }
+      } catch (e) {
+        backupModalDbType.textContent = 'SQLite / Server faol';
+      }
+    }
+  };
+}
+
+if (triggerRestoreBtn && restoreBackupFileInput) {
+  triggerRestoreBtn.onclick = () => {
+    triggerHaptic('light');
+    restoreBackupFileInput.value = '';
+    restoreBackupFileInput.click();
+  };
+
+  restoreBackupFileInput.onchange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!confirm('Haqiqatan ham ushbu zaxira faylidan barcha ma‘lumotlarni bazaga tiklamoqchimisiz?')) {
+      return;
+    }
+
+    triggerHaptic('medium');
+    triggerRestoreBtn.disabled = true;
+    triggerRestoreBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Tiklanmoqda...';
+
+    try {
+      const text = await file.text();
+      const backupData = JSON.parse(text);
+
+      const res = await fetch('/api/backup/restore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(backupData)
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        showToast('Baza ma‘lumotlari muvaffaqiyatli tiklandi!', 'success');
+        if (backupModal) backupModal.classList.add('hidden');
+        fetchClasses();
+        fetchStudents();
+      } else {
+        showToast(data.error || 'Tiklashda xatolik', 'error');
+      }
+    } catch (err) {
+      showToast('Noto‘g‘ri JSON fayl yoki server xatosi: ' + err.message, 'error');
+    } finally {
+      triggerRestoreBtn.disabled = false;
+      triggerRestoreBtn.innerHTML = '<i class="fa-solid fa-upload"></i> Faylni tanlash va Tiklash';
+    }
+  };
+}
+
+// ==========================================
 // 12. MODALLARNI YOPISH
 // ==========================================
 document.querySelectorAll('.close-modal-btn').forEach((btn) => {
@@ -1318,7 +1601,7 @@ document.querySelectorAll('.close-modal-btn').forEach((btn) => {
   };
 });
 
-[adminSummaryModal, studentFormModal, excelImportModal, excelExportModal].forEach((modal) => {
+[adminSummaryModal, studentFormModal, excelImportModal, excelExportModal, teachersModal, backupModal].forEach((modal) => {
   if (modal) {
     modal.onclick = (e) => {
       if (e.target === modal) {
