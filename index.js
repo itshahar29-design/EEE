@@ -25,8 +25,6 @@ if (process.env.WEBAPP_URL && !process.env.WEBAPP_URL.includes('edumemory-65') &
 }
 const WEBAPP_URL = effectiveWebAppUrl;
 const SCHOOL_NAME = process.env.SCHOOL_NAME || "65-umumiy o'rta ta'lim maktabi";
-const TEACHER_PIN = process.env.TEACHER_PIN || '6565';
-const ADMIN_PIN = process.env.ADMIN_PIN || '9900';
 const ADMIN_PHONE = process.env.ADMIN_PHONE || '+998996893228';
 const MESSAGE_DELAY_MS = parseInt(process.env.MESSAGE_DELAY_MS || '50', 10);
 
@@ -478,33 +476,33 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
     // C. ADMIN BOSHQARUV PANEL BUYRUG'I
     bot.command('admin', async (ctx) => {
       const chatId = ctx.chat.id;
-      const text = (ctx.message.text || '').trim();
       const webAppUrl = process.env.WEBAPP_URL || WEBAPP_URL;
 
-      // Agar /admin 9900 deb yozilsa, profilni darhol Bosh Admin sifatida biriktirish
-      if (text.includes('9900')) {
-        await db.linkStaffByPhone(ADMIN_PHONE, chatId);
+      const staff = await db.getStaffByChatId(chatId);
+      if (staff && staff.role === 'admin') {
         return ctx.replyWithHTML(
-          `👑 <b>Tabriklaymiz! Siz Bosh Administrator sifatida tizimga muvaffaqiyatli ulandingiz.</b>\n\n` +
-          `Sizga barcha boshqaruv tugmalari faollashtirildi:`,
-          {
-            reply_markup: getAdminKeyboard(webAppUrl)
-          }
+          `👑 <b>Bosh Administrator Boshqaruv Paneli</b>\n\n` +
+          `Sizga barcha boshqaruv va monitoring tugmalari faol:\n` +
+          `• 9-A va 9-B sinflari davomati\n` +
+          `• O‘qituvchilar va sinf rahbarlari\n` +
+          `• Ota-onalar xabarnomalari`,
+          { reply_markup: getAdminKeyboard(webAppUrl) }
         );
       }
 
-      const staff = await db.getStaffByChatId(chatId);
-      const keyboard = staff && staff.role === 'admin' 
-        ? getAdminKeyboard(webAppUrl) 
-        : (staff ? getTeacherKeyboard(webAppUrl, staff.class_id, staff.class_name) : getUnverifiedKeyboard());
+      if (staff && staff.role === 'teacher') {
+        return ctx.replyWithHTML(
+          `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staff.full_name)}!</b>\n\n` +
+          `Siz <b>${escapeHtml(staff.class_name || '9-sinf')}</b> rahbari sifatida tizimga ulangansiz:`,
+          { reply_markup: getTeacherKeyboard(webAppUrl, staff.class_id, staff.class_name) }
+        );
+      }
 
       return ctx.replyWithHTML(
-        `👨‍🏫 <b>EduMemory — 9-sinflar Davomat Tizimi</b>\n\n` +
-        `Davomat kiritish (08:00 - 13:30) yoki nazorat qilish uchun pastdagi tugmani bosing:` +
-        (!staff ? `\n\n<i>Maslahat: Bosh Admin sifatida darhol ulanish uchun <code>/admin 9900</code> buyrug‘ini yuboring.</i>` : ''),
-        {
-          reply_markup: keyboard
-        }
+        `👑 <b>EduMemory — Administrator Paneli</b>\n\n` +
+        `Tizimga Bosh Admin sifatida ulanish uchun pastdagi <b>"📱 Telefon raqamimni tasdiqlash"</b> tugmasini bosing.\n\n` +
+        `<i>Telefon raqamingiz (+998 99 689-32-28) tizimda Bosh Administrator sifatida ro‘yxatga olingan.</i>`,
+        { reply_markup: getUnverifiedKeyboard() }
       );
     });
 
@@ -1206,8 +1204,7 @@ app.listen(PORT, () => {
   console.log(`🚀 "EduMemory" — 65-maktab 9-A va 9-B Davomat Tizimi`);
   console.log(`🌐 Server manzili: http://localhost:${PORT}`);
   console.log(`👑 Bosh Administrator: ${ADMIN_PHONE}`);
-  console.log(`🔐 O'qituvchilar PIN-kodi: ${TEACHER_PIN}`);
-  console.log(`👑 Ma'muriyat (Admin) PIN-kodi: ${ADMIN_PIN}`);
+  console.log(`🔐 Kirish tizimi: Telegram orqali avtomatik (PIN-kodlarsiz)`);
   console.log(`📊 Baza turi: ${db.hasPostgres ? 'PostgreSQL' : 'SQLite'}`);
   console.log(`⏱️ Dars davomat vaqti: 08:00 - 13:30 (Asia/Tashkent)`);
   console.log(`🤖 Avtomat xabarnoma: 14:00 (Dushanba-Shanba)`);
