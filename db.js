@@ -267,11 +267,26 @@ async function initDatabase() {
         chat_id BIGINT DEFAULT NULL
       );
 
+      -- Dars jadvali (Raspisaniya) jadvali
+      CREATE TABLE IF NOT EXISTS timetable (
+        id SERIAL PRIMARY KEY,
+        class_id INTEGER NOT NULL REFERENCES classes(id) ON DELETE CASCADE,
+        day_of_week INTEGER NOT NULL,
+        lesson_order INTEGER NOT NULL,
+        subject VARCHAR(150) NOT NULL,
+        teacher_name VARCHAR(255),
+        room VARCHAR(50),
+        start_time VARCHAR(20),
+        end_time VARCHAR(20),
+        UNIQUE(class_id, day_of_week, lesson_order)
+      );
+
       CREATE INDEX IF NOT EXISTS idx_pg_students_class ON students(class_id);
       CREATE INDEX IF NOT EXISTS idx_pg_students_phone_norm ON students(parent_phone_norm);
       CREATE INDEX IF NOT EXISTS idx_pg_attendance_date ON attendance(date);
       CREATE INDEX IF NOT EXISTS idx_pg_daily_dispatches_date ON daily_dispatches(date);
       CREATE INDEX IF NOT EXISTS idx_pg_staff_phone_norm ON staff(phone_norm);
+      CREATE INDEX IF NOT EXISTS idx_pg_timetable_class_day ON timetable(class_id, day_of_week);
     `);
   } else {
     sqliteDb.exec(`
@@ -325,11 +340,27 @@ async function initDatabase() {
         FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE SET NULL
       );
 
+      -- Dars jadvali (Raspisaniya) jadvali
+      CREATE TABLE IF NOT EXISTS timetable (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        class_id INTEGER NOT NULL,
+        day_of_week INTEGER NOT NULL,
+        lesson_order INTEGER NOT NULL,
+        subject TEXT NOT NULL,
+        teacher_name TEXT,
+        room TEXT,
+        start_time TEXT,
+        end_time TEXT,
+        UNIQUE(class_id, day_of_week, lesson_order),
+        FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
+      );
+
       CREATE INDEX IF NOT EXISTS idx_sqlite_students_class ON students(class_id);
       CREATE INDEX IF NOT EXISTS idx_sqlite_students_phone_norm ON students(parent_phone_norm);
       CREATE INDEX IF NOT EXISTS idx_sqlite_attendance_date ON attendance(date);
       CREATE INDEX IF NOT EXISTS idx_sqlite_daily_dispatches_date ON daily_dispatches(date);
       CREATE INDEX IF NOT EXISTS idx_sqlite_staff_phone_norm ON staff(phone_norm);
+      CREATE INDEX IF NOT EXISTS idx_sqlite_timetable_class_day ON timetable(class_id, day_of_week);
     `);
   }
 
@@ -362,6 +393,79 @@ const TEACHERS_9A = [
   { full_name: 'Xolmirzayeva D. (Adabiyot)', phone: '+998 91 988 36 37' },
   { full_name: 'Boymurodova N. (Chizmachilik)', phone: '+998 94 893 89 99' },
   { full_name: 'Norova A. (Tarbiya)', phone: '+998 95 336 88 14' }
+];
+
+/**
+ * Dars qo‘ng‘iroqlari jadvali (Dars vaqtlari)
+ */
+const LESSON_TIMES = {
+  1: { start: '08:00', end: '08:45' },
+  2: { start: '08:50', end: '09:35' },
+  3: { start: '09:40', end: '10:25' },
+  4: { start: '10:35', end: '11:20' },
+  5: { start: '11:25', end: '12:10' },
+  6: { start: '12:15', end: '13:00' }
+};
+
+const DAY_NAMES_UZ = {
+  1: 'Dushanba',
+  2: 'Seshanba',
+  3: 'Chorshanba',
+  4: 'Payshanba',
+  5: 'Juma',
+  6: 'Shanba'
+};
+
+/**
+ * 9-A sinfining to‘liq haftalik dars jadvali (Raspisaniya)
+ */
+const TIMETABLE_9A = [
+  // 1. DUSHANBA
+  { day: 1, order: 1, subject: 'Kelajak soati', teacher: 'Muhammadiyeva X. (Sinf rahbari)' },
+  { day: 1, order: 2, subject: 'Ingliz tili', teacher: 'Asatova M. / Murotqobilova B.' },
+  { day: 1, order: 3, subject: 'Geografiya / IBA', teacher: 'Rustamova' },
+  { day: 1, order: 4, subject: 'Rus tili', teacher: 'Jamolov Sh. / Ismoilova O.' },
+  { day: 1, order: 5, subject: 'Fizika', teacher: 'Muhammadiyeva X.' },
+  { day: 1, order: 6, subject: 'Jismoniy tarbiya', teacher: 'Davronov B. / Ergashov R.' },
+
+  // 2. SESHANBA
+  { day: 2, order: 1, subject: 'Algebra', teacher: 'Raxmonov F.' },
+  { day: 2, order: 2, subject: 'Algebra', teacher: 'Raxmonov F.' },
+  { day: 2, order: 3, subject: 'Biologiya', teacher: 'Jo‘raqulova X.' },
+  { day: 2, order: 4, subject: 'O‘zbekiston tarixi', teacher: 'Asadova D.' },
+  { day: 2, order: 5, subject: 'Jahon tarixi', teacher: 'Asadova D.' },
+  { day: 2, order: 6, subject: 'Kimyo', teacher: 'Qozoyeva Z.' },
+
+  // 3. CHORSHANBA
+  { day: 3, order: 1, subject: 'Informatika', teacher: 'Jumayeva U. / Norxolova G.' },
+  { day: 3, order: 2, subject: 'Rus tili', teacher: 'Jamolov Sh. / Ismoilova O.' },
+  { day: 3, order: 3, subject: 'Ingliz tili', teacher: 'Asatova M. / Murotqobilova B.' },
+  { day: 3, order: 4, subject: 'Geometriya', teacher: 'Xolmurodova L.' },
+  { day: 3, order: 5, subject: 'Ona tili', teacher: 'Sobirova S.' },
+
+  // 4. PAYSHANBA
+  { day: 4, order: 1, subject: 'Huquq', teacher: 'Mehriddinova E.' },
+  { day: 4, order: 2, subject: 'Adabiyot', teacher: 'Xolmirzayeva D.' },
+  { day: 4, order: 3, subject: 'Ingliz tili', teacher: 'Asatova M. / Murotqobilova B.' },
+  { day: 4, order: 4, subject: 'Geografiya', teacher: 'Rustamova S.' },
+  { day: 4, order: 5, subject: 'Chizmachilik', teacher: 'Boymurodova N.' },
+  { day: 4, order: 6, subject: 'Jismoniy tarbiya', teacher: 'Davronov B. / Ergashov R.' },
+
+  // 5. JUMA
+  { day: 5, order: 1, subject: 'Fizika', teacher: 'Muhammadiyeva X.' },
+  { day: 5, order: 2, subject: 'Informatika', teacher: 'Jumayeva U. / Norxolova G.' },
+  { day: 5, order: 3, subject: 'Algebra', teacher: 'Raxmonov F.' },
+  { day: 5, order: 4, subject: 'Ona tili', teacher: 'Sobirova S.' },
+  { day: 5, order: 5, subject: 'O‘zbekiston tarixi', teacher: 'Asadova D.' },
+  { day: 5, order: 6, subject: 'Texnologiya', teacher: 'Xolmatova Z. / Boliyeva M.' },
+
+  // 6. SHANBA
+  { day: 6, order: 1, subject: 'Kimyo', teacher: 'Qozoyeva Z.' },
+  { day: 6, order: 2, subject: 'Geometriya', teacher: 'Xolmurodova L.' },
+  { day: 6, order: 3, subject: 'Tarbiya', teacher: 'Norova A.' },
+  { day: 6, order: 4, subject: 'Adabiyot', teacher: 'Xolmirzayeva D.' },
+  { day: 6, order: 5, subject: 'Biologiya', teacher: 'Jo‘raqulova X.' },
+  { day: 6, order: 6, subject: 'Ona tili', teacher: 'Sobirova S.' }
 ];
 
 /**
@@ -431,7 +535,18 @@ async function cleanAndSetupProduction() {
     }
   }
 
-  console.log('✅ Baza jadvallari, Bosh Admin va 9-A sinfining 19 nafar o‘qituvchisi sozlandi.');
+  // 6. 9-A sinfining dars jadvalini (raspisaniyasini) sozlash
+  await execute('DELETE FROM timetable WHERE class_id = ?', [cls9A.id]);
+  for (const item of TIMETABLE_9A) {
+    const times = LESSON_TIMES[item.order] || { start: '', end: '' };
+    await execute(
+      `INSERT INTO timetable (class_id, day_of_week, lesson_order, subject, teacher_name, start_time, end_time)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [cls9A.id, item.day, item.order, item.subject, item.teacher, times.start, times.end]
+    );
+  }
+
+  console.log('✅ Baza jadvallari, Bosh Admin, Zavuch D.Bekmurodov, 19 nafar o‘qituvchi va 9-A dars jadvali sozlandi.');
 }
 
 // ==========================================
@@ -1129,6 +1244,24 @@ async function getMonthAttendanceForExport(classId, yearMonth) {
   };
 }
 
+/**
+ * Sinf dars jadvalini olish
+ */
+async function getTimetable(classId, dayOfWeek = null) {
+  let sql = `
+    SELECT id, class_id, day_of_week, lesson_order, subject, teacher_name, room, start_time, end_time
+    FROM timetable
+    WHERE class_id = ?
+  `;
+  const params = [classId];
+  if (dayOfWeek !== null && dayOfWeek !== undefined && Number(dayOfWeek) > 0) {
+    sql += ' AND day_of_week = ?';
+    params.push(Number(dayOfWeek));
+  }
+  sql += ' ORDER BY day_of_week ASC, lesson_order ASC';
+  return await queryAll(sql, params);
+}
+
 initDatabase().catch((e) => console.error('initDatabase error:', e));
 
 module.exports = {
@@ -1170,5 +1303,10 @@ module.exports = {
   markAttendanceAsNotified,
   getAttendanceStats,
   getMonthAttendanceForExport,
+  getTimetable,
+  TIMETABLE_9A,
+  LESSON_TIMES,
+  DAY_NAMES_UZ,
   execute
 };
+

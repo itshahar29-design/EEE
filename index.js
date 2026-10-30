@@ -129,6 +129,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
 
       bot.telegram.setMyCommands([
         { command: 'start', description: 'Tizimni ishga tushirish / Yangilash' },
+        { command: 'jadval', description: '9-A dars jadvali (raspisaniya)' },
         { command: 'holat', description: 'Bugungi davomat ko‘rsatkichi' },
         { command: 'admin', description: 'Boshqaruv paneli' },
         { command: 'yordam', description: 'Qo‘llanma va yordam' }
@@ -155,7 +156,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
     function getParentKeyboard() {
       return {
         keyboard: [
-          [{ text: '📊 Farzandim davomati' }],
+          [{ text: '📊 Farzandim davomati' }, { text: '📅 Dars jadvali' }],
           [{ text: '📱 Raqamni yangilash', request_contact: true }]
         ],
         resize_keyboard: true,
@@ -169,7 +170,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       return {
         keyboard: [
           [{ text: '📝 Mening sinfim davomati', web_app: { url } }],
-          [{ text: 'ℹ️ Yordam' }]
+          [{ text: '📅 Dars jadvali' }, { text: 'ℹ️ Yordam' }]
         ],
         resize_keyboard: true,
         one_time_keyboard: false
@@ -182,7 +183,8 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       return {
         keyboard: [
           [{ text: '👑 Boshqaruv paneli (Barcha sinflar)', web_app: { url } }],
-          [{ text: '📊 Bugungi monitoring' }, { text: 'ℹ️ Yordam' }]
+          [{ text: '📊 Bugungi monitoring' }, { text: '📅 Dars jadvali' }],
+          [{ text: 'ℹ️ Yordam' }]
         ],
         resize_keyboard: true,
         one_time_keyboard: false
@@ -475,7 +477,163 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
     bot.command('yordam', handleYordam);
     bot.hears('ℹ️ Yordam', handleYordam);
 
-    // C. ADMIN BOSHQARUV PANEL BUYRUG'I
+    // C. DARS JADVALI (RASPISANIYA) — /jadval VA '📅 Dars jadvali'
+    async function sendOrEditTimetable(ctx, dayNum, isEdit = false) {
+      const classId = 1; // 9-A
+      const lessons = await db.getTimetable(classId, dayNum);
+      const dayName = db.DAY_NAMES_UZ[dayNum] || 'Dushanba';
+
+      let text = `📅 <b>65-MAKTAB | 9-A SINFI DARS JADVALI</b>\n`;
+      text += `📆 <b>Kun:</b> ${dayName.toUpperCase()}\n`;
+      text += `⏰ <b>Dars vaqtlari:</b> 08:00 - 13:00\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+      if (!lessons || lessons.length === 0) {
+        text += `<i>Bu kunga darslar belgilanmagan.</i>\n`;
+      } else {
+        const orderEmojis = { 1: '1️⃣', 2: '2️⃣', 3: '3️⃣', 4: '4️⃣', 5: '5️⃣', 6: '6️⃣' };
+        for (const item of lessons) {
+          const emo = orderEmojis[item.lesson_order] || '🔹';
+          const timeStr = (item.start_time && item.end_time) ? `${item.start_time} - ${item.end_time}` : '';
+          text += `${emo} <b>${item.lesson_order}-dars: ${escapeHtml(item.subject)}</b>\n`;
+          if (timeStr) text += `   ⏰ <i>${timeStr}</i>\n`;
+          if (item.teacher_name) text += `   👤 <i>${escapeHtml(item.teacher_name)}</i>\n`;
+          text += `\n`;
+        }
+      }
+
+      text += `━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `👇 Kerakli kunni tanlang yoki to‘liq haftani ko‘ring:`;
+
+      const daysShort = [
+        { id: 1, name: 'Du' },
+        { id: 2, name: 'Se' },
+        { id: 3, name: 'Chor' },
+        { id: 4, name: 'Pay' },
+        { id: 5, name: 'Jum' },
+        { id: 6, name: 'Shan' }
+      ];
+
+      const row1 = daysShort.slice(0, 3).map(d => ({
+        text: (d.id === dayNum ? `📍 ${d.name}` : d.name),
+        callback_data: `jadval_${d.id}`
+      }));
+      const row2 = daysShort.slice(3, 6).map(d => ({
+        text: (d.id === dayNum ? `📍 ${d.name}` : d.name),
+        callback_data: `jadval_${d.id}`
+      }));
+      const row3 = [
+        { text: '📋 Haftalik to‘liq jadval', callback_data: 'jadval_week' }
+      ];
+
+      const extra = {
+        parse_mode: 'HTML',
+        reply_markup: {
+          inline_keyboard: [row1, row2, row3]
+        }
+      };
+
+      if (isEdit && ctx.callbackQuery) {
+        try {
+          return await ctx.editMessageText(text, extra);
+        } catch (e) {
+          return await ctx.replyWithHTML(text, extra);
+        }
+      } else {
+        return await ctx.replyWithHTML(text, extra);
+      }
+    }
+
+    async function sendOrEditWeekTimetable(ctx, isEdit = false) {
+      const classId = 1;
+      const allLessons = await db.getTimetable(classId);
+
+      let text = `📋 <b>65-MAKTAB | 9-A HAFTALIK DARS JADVALI</b>\n`;
+      text += `⏰ Darslar boshlanishi: <b>08:00</b> | Yakunlanishi: <b>13:00</b>\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+      for (let d = 1; d <= 6; d++) {
+        const dayLessons = allLessons.filter(l => l.day_of_week === d);
+        const dayName = db.DAY_NAMES_UZ[d];
+        text += `🔹 <b>${dayName.toUpperCase()}:</b>\n`;
+        if (dayLessons.length === 0) {
+          text += `   <i>Darslar yo‘q</i>\n\n`;
+          continue;
+        }
+        for (const l of dayLessons) {
+          const time = l.start_time ? `(${l.start_time}) ` : '';
+          text += `   <b>${l.lesson_order}.</b> ${time}${escapeHtml(l.subject)} — <i>${escapeHtml(l.teacher_name || '')}</i>\n`;
+        }
+        text += `\n`;
+      }
+
+      text += `━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `👇 Kunbay ko‘rishga o‘tish:`;
+
+      const daysShort = [
+        { id: 1, name: 'Du' },
+        { id: 2, name: 'Se' },
+        { id: 3, name: 'Chor' },
+        { id: 4, name: 'Pay' },
+        { id: 5, name: 'Jum' },
+        { id: 6, name: 'Shan' }
+      ];
+
+      const row1 = daysShort.slice(0, 3).map(d => ({ text: d.name, callback_data: `jadval_${d.id}` }));
+      const row2 = daysShort.slice(3, 6).map(d => ({ text: d.name, callback_data: `jadval_${d.id}` }));
+
+      const extra = {
+        parse_mode: 'HTML',
+        reply_markup: {
+          inline_keyboard: [row1, row2]
+        }
+      };
+
+      if (isEdit && ctx.callbackQuery) {
+        try {
+          return await ctx.editMessageText(text, extra);
+        } catch (e) {
+          return await ctx.replyWithHTML(text, extra);
+        }
+      } else {
+        return await ctx.replyWithHTML(text, extra);
+      }
+    }
+
+    async function handleJadval(ctx) {
+      try {
+        const dayNow = new Date().getDay();
+        const currentDay = (dayNow >= 1 && dayNow <= 6) ? dayNow : 1;
+        await sendOrEditTimetable(ctx, currentDay, false);
+      } catch (err) {
+        console.error('handleJadval xatosi:', err);
+        ctx.reply('Dars jadvalini olishda xatolik yuz berdi.');
+      }
+    }
+
+    bot.command('jadval', handleJadval);
+    bot.hears('📅 Dars jadvali', handleJadval);
+
+    bot.action(/^jadval_(\d)$/, async (ctx) => {
+      try {
+        await ctx.answerCbQuery().catch(() => {});
+        const day = parseInt(ctx.match[1], 10);
+        await sendOrEditTimetable(ctx, day, true);
+      } catch (err) {
+        console.error('bot.action jadval error:', err);
+      }
+    });
+
+    bot.action('jadval_week', async (ctx) => {
+      try {
+        await ctx.answerCbQuery().catch(() => {});
+        await sendOrEditWeekTimetable(ctx, true);
+      } catch (err) {
+        console.error('bot.action jadval_week error:', err);
+      }
+    });
+
+    // D. ADMIN BOSHQARUV PANEL BUYRUG'I
     bot.command('admin', async (ctx) => {
       const chatId = ctx.chat.id;
       const webAppUrl = process.env.WEBAPP_URL || WEBAPP_URL;
@@ -884,6 +1042,23 @@ app.post('/api/backup/restore', async (req, res) => {
     const backupData = req.body;
     await db.restoreBackup(backupData);
     res.json({ success: true, message: 'Baza ma‘lumotlari muvaffaqiyatli tiklandi!' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 8.3 Dars jadvali (Raspisaniya)
+app.get('/api/classes/:id/timetable', async (req, res) => {
+  try {
+    const classId = parseInt(req.params.id, 10);
+    const day = req.query.day ? parseInt(req.query.day, 10) : null;
+    const data = await db.getTimetable(classId, day);
+    res.json({
+      success: true,
+      data,
+      days: db.DAY_NAMES_UZ,
+      times: db.LESSON_TIMES
+    });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }

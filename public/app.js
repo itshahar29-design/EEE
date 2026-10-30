@@ -75,7 +75,11 @@ const state = {
   userName: '',
   isFrozen: false,
   freezeReason: null,
-  selectedExcelFile: null
+  selectedExcelFile: null,
+  timetableData: [],
+  timetableDays: {},
+  timetableTimes: {},
+  selectedTimetableDay: 1
 };
 
 // ==========================================
@@ -85,6 +89,15 @@ const roleBadge = document.getElementById('roleBadge');
 const schoolSubtitleEl = document.getElementById('schoolSubtitle');
 const datePicker = document.getElementById('datePicker');
 const refreshBtn = document.getElementById('refreshBtn');
+
+// Dars jadvali (Raspisaniya)
+const openTimetableBtn = document.getElementById('openTimetableBtn');
+const adminTimetableBtn = document.getElementById('adminTimetableBtn');
+const timetableModal = document.getElementById('timetableModal');
+const timetableDayTabs = document.getElementById('timetableDayTabs');
+const timetableCurrentDayTitle = document.getElementById('timetableCurrentDayTitle');
+const timetableLessonCountBadge = document.getElementById('timetableLessonCountBadge');
+const timetableCardsContainer = document.getElementById('timetableCardsContainer');
 
 // Admin bloklari (Faqat Adminga ko'rinadi)
 const adminToolbar = document.getElementById('adminToolbar');
@@ -1602,6 +1615,154 @@ if (triggerRestoreBtn && restoreBackupFileInput) {
 }
 
 // ==========================================
+// 11.3 DARS JADVALI (RASPISANIYA) BOSHQARUVI
+// ==========================================
+async function openTimetableModal() {
+  triggerHaptic('light');
+  if (timetableModal) timetableModal.classList.remove('hidden');
+
+  // Bugungi hafta kunini aniqlash (1=Du, ..., 6=Shan)
+  const todayDay = new Date().getDay();
+  state.selectedTimetableDay = (todayDay >= 1 && todayDay <= 6) ? todayDay : 1;
+
+  await fetchTimetableData();
+  renderTimetableTabs();
+  renderTimetableLessons();
+}
+
+if (openTimetableBtn) {
+  openTimetableBtn.onclick = openTimetableModal;
+}
+
+if (adminTimetableBtn) {
+  adminTimetableBtn.onclick = openTimetableModal;
+}
+
+async function fetchTimetableData() {
+  if (state.timetableData && state.timetableData.length > 0) return;
+
+  if (timetableCardsContainer) {
+    timetableCardsContainer.innerHTML = `
+      <div class="text-center py-8 text-slate-400 text-xs">
+        <i class="fa-solid fa-spinner fa-spin text-xl mb-1 text-blue-500"></i>
+        <p>Dars jadvali yuklanmoqda...</p>
+      </div>
+    `;
+  }
+
+  try {
+    const classId = state.currentClassId || 1;
+    const res = await fetch(`/api/classes/${classId}/timetable`);
+    const result = await res.json();
+    if (result.success) {
+      state.timetableData = result.data || [];
+      state.timetableDays = result.days || {
+        1: 'Dushanba', 2: 'Seshanba', 3: 'Chorshanba', 4: 'Payshanba', 5: 'Juma', 6: 'Shanba'
+      };
+      state.timetableTimes = result.times || {};
+    } else {
+      showToast('Dars jadvalini yuklashda xatolik', 'error');
+    }
+  } catch (err) {
+    showToast('Server bilan bog‘lanishda xatolik', 'error');
+  }
+}
+
+function renderTimetableTabs() {
+  if (!timetableDayTabs) return;
+  timetableDayTabs.innerHTML = '';
+
+  const dayList = [
+    { id: 1, name: 'Dushanba', short: 'Du' },
+    { id: 2, name: 'Seshanba', short: 'Se' },
+    { id: 3, name: 'Chorshanba', short: 'Chor' },
+    { id: 4, name: 'Payshanba', short: 'Pay' },
+    { id: 5, name: 'Juma', short: 'Jum' },
+    { id: 6, name: 'Shanba', short: 'Shan' }
+  ];
+
+  dayList.forEach(day => {
+    const isSelected = state.selectedTimetableDay === day.id;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition active:scale-95 ${
+      isSelected
+        ? 'bg-blue-600 text-white shadow-xs'
+        : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+    }`;
+    btn.innerHTML = `<span>${day.short}</span> <span class="hidden sm:inline">${day.name.slice(2)}</span>`;
+    btn.onclick = () => {
+      triggerHaptic('light');
+      state.selectedTimetableDay = day.id;
+      renderTimetableTabs();
+      renderTimetableLessons();
+    };
+    timetableDayTabs.appendChild(btn);
+  });
+}
+
+function renderTimetableLessons() {
+  if (!timetableCardsContainer) return;
+  const dayId = state.selectedTimetableDay;
+  const dayName = state.timetableDays[dayId] || 'Dushanba';
+
+  if (timetableCurrentDayTitle) {
+    timetableCurrentDayTitle.textContent = dayName;
+  }
+
+  const dayLessons = (state.timetableData || []).filter(item => item.day_of_week === dayId);
+
+  if (timetableLessonCountBadge) {
+    timetableLessonCountBadge.textContent = `${dayLessons.length} ta dars`;
+  }
+
+  if (dayLessons.length === 0) {
+    timetableCardsContainer.innerHTML = `
+      <div class="text-center py-8 text-slate-400 text-xs">
+        <i class="fa-regular fa-calendar-xmark text-2xl mb-1 text-slate-300"></i>
+        <p>Bu kunga darslar belgilanmagan</p>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+  dayLessons.forEach(lesson => {
+    const timeStr = (lesson.start_time && lesson.end_time)
+      ? `${lesson.start_time} - ${lesson.end_time}`
+      : (state.timetableTimes[lesson.lesson_order]
+          ? `${state.timetableTimes[lesson.lesson_order].start} - ${state.timetableTimes[lesson.lesson_order].end}`
+          : '');
+
+    html += `
+      <div class="bg-slate-50 hover:bg-white border border-slate-200 hover:border-blue-300 rounded-xl p-3 transition shadow-2xs flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black text-sm flex items-center justify-center shrink-0 shadow-xs">
+          ${lesson.lesson_order}
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between gap-2">
+            <h4 class="font-bold text-slate-900 text-xs sm:text-sm truncate leading-snug">
+              ${escapeHtmlApp(lesson.subject)}
+            </h4>
+            ${timeStr ? `
+              <span class="text-[10px] font-semibold text-blue-700 bg-blue-100/70 border border-blue-200/60 px-1.5 py-0.5 rounded-md shrink-0">
+                ${timeStr}
+              </span>
+            ` : ''}
+          </div>
+          <div class="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5 truncate">
+            <i class="fa-solid fa-chalkboard-user text-purple-500 text-[10px]"></i>
+            <span class="truncate">${escapeHtmlApp(lesson.teacher_name || 'Biriktirilmagan')}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  timetableCardsContainer.innerHTML = html;
+}
+
+// ==========================================
 // 12. MODALLARNI YOPISH
 // ==========================================
 document.querySelectorAll('.close-modal-btn').forEach((btn) => {
@@ -1612,7 +1773,7 @@ document.querySelectorAll('.close-modal-btn').forEach((btn) => {
   };
 });
 
-[adminSummaryModal, studentFormModal, excelImportModal, excelExportModal, teachersModal, backupModal].forEach((modal) => {
+[adminSummaryModal, studentFormModal, excelImportModal, excelExportModal, teachersModal, backupModal, timetableModal].forEach((modal) => {
   if (modal) {
     modal.onclick = (e) => {
       if (e.target === modal) {
