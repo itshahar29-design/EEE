@@ -1009,11 +1009,6 @@ app.get('/api/stats', async (req, res) => {
   }
 });
 
-// 12.0 Excel Shablonini yuklab olish
-app.get('/api/template/excel', (req, res) => {
-  const filePath = path.join(__dirname, 'public', 'shablon_9A_oquvchilar.xlsx');
-  res.download(filePath, '9A_sinf_oquvchilar_shabloni.xlsx');
-});
 
 // 12. Excel Import (Real o'quvchilarni ommaviy yuklash)
 app.post('/api/import/excel', upload.single('file'), async (req, res) => {
