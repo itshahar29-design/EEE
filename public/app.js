@@ -1,8 +1,8 @@
 /**
  * EduMemory — 65-maktab Davomat Tizimi
  * Frontend: PIN-kodlarsiz, Telegram WebApp / Avtomatik Rol aniqlash
- * 1. O'qituvchi Menyusi: Faqat o'z biriktirilgan sinfi (9-A yoki 9-B)
- * 2. Admin Menyusi: Barcha sinflar (9-A, 9-B), Ma'muriyat nazorati va O'quvchilar CRUD
+ * 1. O'qituvchi Menyusi: Faqat 9-A sinfi
+ * 2. Admin Menyusi: 9-A sinfi, Ma'muriyat nazorati va O'quvchilar CRUD
  * Qat'iy Time-Lock: 08:00 - 13:30 (13:30 muzlatiladi)
  */
 
@@ -368,7 +368,7 @@ async function fetchClasses() {
       }
       selectClass(teacherTarget.id, teacherTarget.name);
     } else {
-      // Adminga ikkala sinf (9-A va 9-B) ko'rsatiladi
+      // Adminga 9-A sinfi ko'rsatiladi
       renderClassesTabs();
       const currentStillExists = state.classes.some((c) => c.id === state.currentClassId);
       if (!state.currentClassId || !currentStillExists) {
@@ -996,12 +996,12 @@ if (saveAttendanceBtn) saveAttendanceBtn.onclick = saveAttendance;
 if (tg?.MainButton) tg.MainButton.onClick(saveAttendance);
 
 // ==========================================
-// 8. MA'MURIYAT MONITORINGI (9-A VA 9-B NAZORATI)
+// 8. MA'MURIYAT MONITORINGI (9-A SINF NAZORATI)
 // ==========================================
 if (openAdminSummaryBtn) {
   openAdminSummaryBtn.onclick = async () => {
     triggerHaptic('light');
-    if (summaryModalDate) summaryModalDate.textContent = `${state.currentDate} sanasidagi 9-sinflar nazorati`;
+    if (summaryModalDate) summaryModalDate.textContent = `${state.currentDate} sanasidagi 9-A sinf nazorati`;
     if (summaryClassesList) summaryClassesList.innerHTML = '<div class="text-center py-6 text-slate-400 text-xs"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Ma‘lumotlar tahlil qilinmoqda...</div>';
     if (adminSummaryModal) adminSummaryModal.classList.remove('hidden');
 

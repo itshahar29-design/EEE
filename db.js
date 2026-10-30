@@ -333,37 +333,63 @@ async function initDatabase() {
     `);
   }
 
-  // 100% PRODUCTION TOZALASH: Faqat 9-A va 9-B qoldiriladi, barcha soxta test ma'lumotlar o'chiriladi
+  // 100% PRODUCTION TOZALASH: Faqat 9-A qoldiriladi (9-B butunlay o'chirildi), 9-A o'qituvchilari kiritiladi
   await cleanAndSetupProduction();
   })();
   return initDbPromise;
 }
 
 /**
+ * 9-A sinfining 19 nafar fan o'qituvchilari va sinf rahbari ro'yxati
+ */
+const TEACHERS_9A = [
+  { full_name: 'Muhammadiyeva X. (Sinf rahbari)', phone: '+998 94 484 84 12' },
+  { full_name: 'Asatova M. (Ingliz tili)', phone: '+998 95 711 59 19' },
+  { full_name: 'Murotqobilova B. (Ingliz tili)', phone: '+998 88 373 07 05' },
+  { full_name: 'Rustamova (Geografiya)', phone: '+998 93 282 07 82' },
+  { full_name: 'Jamolov Sh. (Rus tili)', phone: '+998 87 053 13 67' },
+  { full_name: 'Ismoilova O. (Rus tili)', phone: '+998 77 150 16 25' },
+  { full_name: 'Ergashov R. (Jismoniy tarbiya)', phone: '+998 91 333 23 65' },
+  { full_name: 'Raxmonov F. (Algebra)', phone: '+998 94 222 37 75' },
+  { full_name: 'Jo‘raqulova (Biologiya)', phone: '+998 99 239 72 09' },
+  { full_name: 'Asadova D. (O‘zbekiston tarixi)', phone: '+998 93 312 09 67' },
+  { full_name: 'Qozoyeva Z. (Kimyo)', phone: '+998 91 254 08 02' },
+  { full_name: 'Jumayeva U. (Informatika)', phone: '+998 91 251 26 27' },
+  { full_name: 'Norxolova G. (Informatika)', phone: '+998 91 085 80 83' },
+  { full_name: 'Xolmurodova L. (Geometriya)', phone: '+998 93 708 82 20' },
+  { full_name: 'Sobirova S. (Ona tili)', phone: '+998 99 310 00 35' },
+  { full_name: 'Mehriddinova E. (Huquq)', phone: '+998 93 965 68 08' },
+  { full_name: 'Xolmirzayeva D. (Adabiyot)', phone: '+998 91 988 36 37' },
+  { full_name: 'Boymurodova N. (Chizmachilik)', phone: '+998 94 893 89 99' },
+  { full_name: 'Norova A. (Tarbiya)', phone: '+998 95 336 88 14' }
+];
+
+/**
  * Haqiqiy ishchi holat (Production setup)
  */
 async function cleanAndSetupProduction() {
-  console.log('🧹 Production holatiga o‘tkazilmoqda: faqat 9-A va 9-B sinflari sozlanmoqda...');
+  console.log('🧹 Production holatiga o‘tkazilmoqda: faqat 9-A sinfi va uning 19 nafar o‘qituvchilari sozlanmoqda...');
 
-  // 1. 9-A va 9-B dan boshqa har qanday sinflar va ularning o'quvchilarini o'chirish
-  await execute(`DELETE FROM classes WHERE name NOT IN ('9-A', '9-B')`);
+  // 1. 9-B va boshqa har qanday sinflar va ularning o'quvchilarini o'chirish (Faqat 9-A qoladi)
+  await execute(`DELETE FROM classes WHERE name != '9-A'`);
 
-  // 2. 9-A va 9-B sinflarini bazaga kiritish (agar yo'q bo'lsa)
-  for (const className of ['9-A', '9-B']) {
-    const existing = await queryOne('SELECT id FROM classes WHERE name = ?', [className]);
-    if (!existing) {
-      await execute('INSERT INTO classes (name) VALUES (?)', [className]);
-    }
+  // 2. 9-A sinfini bazaga kiritish (agar yo'q bo'lsa)
+  let cls9A = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-A']);
+  if (!cls9A) {
+    await execute('INSERT INTO classes (name) VALUES (?)', ['9-A']);
+    cls9A = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-A']);
   }
 
-  // 3. Bosh Admin va Sinf rahbarlarini staff jadvaliga biriktirish
-  const cls9A = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-A']);
-  const cls9B = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-B']);
+  // 3. 9-B ga yoki noaniq sinflarga tegishli o'qituvchilarni, shuningdek eski 'teacher_%' placeholderlarni o'chirish
+  await execute(
+    "DELETE FROM staff WHERE role = 'teacher' AND (class_id IS NULL OR class_id != ? OR phone_norm LIKE 'teacher_%')",
+    [cls9A.id]
+  );
 
+  // 4. Bosh Adminni kiritish yoki yangilash
   const adminPhone = process.env.ADMIN_PHONE || '+998996893228';
   const adminNorm = normalizePhone(adminPhone) || '996893228';
 
-  // Bosh Adminni kiritish yoki yangilash
   const existingAdmin = await queryOne('SELECT id FROM staff WHERE phone_norm = ?', [adminNorm]);
   if (!existingAdmin) {
     await execute(
@@ -372,28 +398,24 @@ async function cleanAndSetupProduction() {
     );
   }
 
-  // 9-A va 9-B sinf rahbarlari yozuvlari (agar mavjud bo'lmasa)
-  if (cls9A) {
-    const existingTeacherA = await queryOne("SELECT id FROM staff WHERE class_id = ? AND role = 'teacher'", [cls9A.id]);
-    if (!existingTeacherA) {
+  // 5. 9-A sinfining 19 nafar barcha fan o'qituvchilarini bazaga kiritish / yangilash
+  for (const t of TEACHERS_9A) {
+    const norm = normalizePhone(t.phone);
+    const existing = await queryOne('SELECT id FROM staff WHERE phone_norm = ?', [norm]);
+    if (existing) {
       await execute(
-        'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
-        ['9-A Sinf Rahbari', '', 'teacher_9a', 'teacher', cls9A.id]
+        "UPDATE staff SET full_name = ?, phone = ?, role = 'teacher', class_id = ? WHERE id = ?",
+        [t.full_name, t.phone, cls9A.id, existing.id]
+      );
+    } else {
+      await execute(
+        "INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, 'teacher', ?)",
+        [t.full_name, t.phone, norm, cls9A.id]
       );
     }
   }
 
-  if (cls9B) {
-    const existingTeacherB = await queryOne("SELECT id FROM staff WHERE class_id = ? AND role = 'teacher'", [cls9B.id]);
-    if (!existingTeacherB) {
-      await execute(
-        'INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, ?, ?)',
-        ['9-B Sinf Rahbari', '', 'teacher_9b', 'teacher', cls9B.id]
-      );
-    }
-  }
-
-  console.log('✅ Baza jadvallari va Bosh Admin (+998996893228) sozlandi.');
+  console.log('✅ Baza jadvallari, Bosh Admin va 9-A sinfining 19 nafar o‘qituvchisi sozlandi.');
 }
 
 // ==========================================
@@ -655,14 +677,14 @@ async function restoreBackup(backupData) {
 }
 
 // ==========================================
-// 5. SINFLAR BOSHQARUVI (FAQAT 9-A VA 9-B)
+// 5. SINFLAR BOSHQARUVI (FAQAT 9-A)
 // ==========================================
 async function getAllClasses() {
   const sql = `
     SELECT c.id, c.name, COUNT(s.id) as student_count
     FROM classes c
     LEFT JOIN students s ON s.class_id = c.id
-    WHERE c.name IN ('9-A', '9-B')
+    WHERE c.name = '9-A'
     GROUP BY c.id, c.name
     ORDER BY c.name ASC
   `;
@@ -810,7 +832,7 @@ async function linkParentByPhone(rawPhone, chatId) {
     `SELECT s.id, s.full_name, c.name as class_name 
      FROM students s 
      JOIN classes c ON s.class_id = c.id 
-     WHERE s.parent_phone_norm = ? AND c.name IN ('9-A', '9-B')`,
+     WHERE s.parent_phone_norm = ? AND c.name = '9-A'`,
     [norm]
   );
 
@@ -832,7 +854,7 @@ async function getStudentsByParentChatId(chatId, date) {
     FROM students s
     JOIN classes c ON s.class_id = c.id
     LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
-    WHERE s.parent_chat_id = ? AND c.name IN ('9-A', '9-B')
+    WHERE s.parent_chat_id = ? AND c.name = '9-A'
     ORDER BY s.full_name ASC
   `;
   return await queryAll(sql, [date, chatId]);
@@ -936,7 +958,7 @@ async function getUnmarkedClassesToday(date) {
     FROM classes c
     LEFT JOIN students s ON s.class_id = c.id
     LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
-    WHERE c.name IN ('9-A', '9-B')
+    WHERE c.name = '9-A'
     GROUP BY c.id, c.name
     HAVING marked_count = 0 AND student_count > 0
     ORDER BY c.name ASC
@@ -961,7 +983,7 @@ async function getClassAttendanceSummary(date) {
     FROM classes c
     LEFT JOIN students s ON s.class_id = c.id
     LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
-    WHERE c.name IN ('9-A', '9-B')
+    WHERE c.name = '9-A'
     GROUP BY c.id, c.name
     ORDER BY c.name ASC
   `;
@@ -1005,7 +1027,7 @@ async function getPendingNotifications(date) {
       AND a.notified = 0 
       AND a.status IS NOT NULL
       AND s.parent_chat_id IS NOT NULL
-      AND c.name IN ('9-A', '9-B')
+      AND c.name = '9-A'
     ORDER BY c.name ASC, s.full_name ASC
   `;
   return await queryAll(sql, [date]);
@@ -1045,7 +1067,7 @@ async function getAttendanceStats(date, classId = null) {
     FROM students s
     JOIN classes c ON s.class_id = c.id
     LEFT JOIN attendance a ON a.student_id = s.id AND a.date = ?
-    WHERE c.name IN ('9-A', '9-B')
+    WHERE c.name = '9-A'
   `;
   const params = [date];
   if (classId) {

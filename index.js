@@ -204,16 +204,16 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
           if (staff.role === 'admin') {
             return ctx.replyWithHTML(
               `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
-              `Siz <b>9-A</b> va <b>9-B</b> sinflari davomat tizimini to‘liq nazorat qilish va boshqarish huquqiga egasiz.\n\n` +
+              `Siz <b>9-A</b> sinfi davomat tizimini to‘liq nazorat qilish va boshqarish huquqiga egasiz.\n\n` +
               `👇 Quyidagi menyu orqali boshqaruv paneli yoki bugungi monitoringni oching:`,
               { reply_markup: getAdminKeyboard(webAppUrl) }
             );
           } else {
             return ctx.replyWithHTML(
               `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staff.full_name)}!</b>\n\n` +
-              `Siz <b>${escapeHtml(staff.class_name || '9-sinf')}</b> rahbari sifatida tizimga ulangansiz.\n` +
-              `Dars kunlari soat 08:00 dan 13:30 gacha o‘z sinfingiz davomatini kiritishingiz mumkin.\n\n` +
-              `👇 Quyidagi tugma orqali faqat o‘z sinfingiz davomatini oching:`,
+              `Siz <b>${escapeHtml(staff.class_name || '9-A sinf')}</b> rahbari/o‘qituvchisi sifatida tizimga ulangansiz.\n` +
+              `Dars kunlari soat 08:00 dan 13:30 gacha davomatni kiritishingiz mumkin.\n\n` +
+              `👇 Quyidagi tugma orqali davomatni oching:`,
               { reply_markup: getTeacherKeyboard(webAppUrl, staff.class_id, staff.class_name) }
             );
           }
@@ -240,7 +240,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
         // 3. Hali raqami tasdiqlanmagan foydalanuvchi uchun
         const welcomeText =
           `Assalomu alaykum! <b>65-maktabning "EduMemory"</b> ` +
-          `(9-A va 9-B sinflari davomat tizimi) botiga xush kelibsiz.\n\n` +
+          `(9-A sinfi davomat tizimi) botiga xush kelibsiz.\n\n` +
           `Farzandingizning kunlik maktab davomati haqida shaxsiy Telegram profilingizga ` +
           `avtomatik xabarnomalar olish uchun quyidagi tugmani bosing va <b>telefon raqamingizni tasdiqlang</b>:`;
 
@@ -276,22 +276,22 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
             return ctx.replyWithHTML(
               `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
               `Sizning Telegram profilingiz tizimga muvaffaqiyatli biriktirildi.\n` +
-              `Siz <b>9-A</b> va <b>9-B</b> sinflari davomatini to‘liq boshqarish va monitoring qilish huquqiga egasiz.\n\n` +
+              `Siz <b>9-A</b> sinfi davomatini to‘liq boshqarish va monitoring qilish huquqiga egasiz.\n\n` +
               `👇 Quyidagi menyudan foydalanishingiz mumkin:`,
               { reply_markup: getAdminKeyboard(webAppUrl) }
             );
           } else {
             return ctx.replyWithHTML(
               `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staffMember.full_name)}!</b>\n\n` +
-              `Siz <b>${escapeHtml(staffMember.class_name || '9-sinf')}</b> rahbari sifatida tizimga muvaffaqiyatli ulandingiz.\n` +
-              `Dars kunlari soat 08:00 dan 13:30 gacha o‘z sinfingiz davomatini belgilashingiz mumkin.\n\n` +
-              `👇 Quyidagi tugma orqali faqat o‘z sinfingiz davomatini oching:`,
+              `Siz <b>${escapeHtml(staffMember.class_name || '9-A sinf')}</b> o‘qituvchisi/rahbari sifatida tizimga muvaffaqiyatli ulandingiz.\n` +
+              `Dars kunlari soat 08:00 dan 13:30 gacha davomatni belgilashingiz mumkin.\n\n` +
+              `👇 Quyidagi tugma orqali 9-A davomatini oching:`,
               { reply_markup: getTeacherKeyboard(webAppUrl, staffMember.class_id, staffMember.class_name) }
             );
           }
         }
 
-        // 2. Ota-onalar tekshiruvi (9-A va 9-B o'quvchilari bilan solishtirish)
+        // 2. Ota-onalar tekshiruvi (9-A o'quvchilari bilan solishtirish)
         const linkedStudents = await db.linkParentByPhone(rawPhone, chatId);
 
         if (linkedStudents && linkedStudents.length > 0) {
@@ -310,9 +310,9 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
           });
         } else {
           return ctx.replyWithHTML(
-            `❌ <b>Siz yuborgan telefon raqami 9-sinflar ro‘yxatida topilmadi.</b>\n\n` +
+            `❌ <b>Siz yuborgan telefon raqami 9-A sinf ro‘yxatida topilmadi.</b>\n\n` +
             `Raqam: <b>${escapeHtml(rawPhone)}</b>\n\n` +
-            `Iltimos, farzandingizning <b>sinf rahbariga (9-A yoki 9-B)</b> murojaat qiling va telefon raqamingiz to‘g‘ri kiritilganligini tekshirtiring. ` +
+            `Iltimos, farzandingizning <b>sinf rahbariga (9-A)</b> murojaat qiling va telefon raqamingiz to‘g‘ri kiritilganligini tekshirtiring. ` +
             `O‘qituvchi raqamingizni tizimga kiritgach, qayta kontakt yuborsangiz darhol ulanasiz.`,
             {
               reply_markup: getUnverifiedKeyboard()
@@ -483,7 +483,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
         return ctx.replyWithHTML(
           `👑 <b>Bosh Administrator Boshqaruv Paneli</b>\n\n` +
           `Sizga barcha boshqaruv va monitoring tugmalari faol:\n` +
-          `• 9-A va 9-B sinflari davomati\n` +
+          `• 9-A sinfi davomati\n` +
           `• O‘qituvchilar va sinf rahbarlari\n` +
           `• Ota-onalar xabarnomalari`,
           { reply_markup: getAdminKeyboard(webAppUrl) }
@@ -540,7 +540,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
 // ==========================================
 async function runDailyAttendanceDispatch() {
   const today = db.getTodayString();
-  console.log(`⏰ [CRON 14:00] ${today} sanasi uchun 9-A va 9-B xabarnomasi boshlandi.`);
+  console.log(`⏰ [CRON 14:00] ${today} sanasi uchun 9-A xabarnomasi boshlandi.`);
 
   // 1. TAKRORIY XABARLARNI BLOKLASH
   const alreadyDispatched = await db.isDailyDispatched(today);
@@ -549,7 +549,7 @@ async function runDailyAttendanceDispatch() {
     return;
   }
 
-  // 2. DAVOMAT QILINMAGAN SINFLAR NAZORATI (9-A va 9-B)
+  // 2. DAVOMAT QILINMAGAN SINFLAR NAZORATI (9-A)
   const unmarkedClasses = await db.getUnmarkedClassesToday(today);
   const unmarkedNames = unmarkedClasses.map(c => c.name);
 
@@ -746,7 +746,7 @@ app.get('/api/config', (req, res) => {
   });
 });
 
-// 3. Sinflar ro'yxati (Faqat 9-A va 9-B)
+// 3. Sinflar ro'yxati (Faqat 9-A)
 app.get('/api/classes', async (req, res) => {
   try {
     const classes = await db.getAllClasses();
@@ -756,7 +756,7 @@ app.get('/api/classes', async (req, res) => {
   }
 });
 
-// 4. O'quvchilar va davomat (Faqat 9-A yoki 9-B)
+// 4. O'quvchilar va davomat (Faqat 9-A)
 app.get('/api/classes/:id/students', async (req, res) => {
   try {
     const classId = parseInt(req.params.id, 10);
@@ -976,7 +976,7 @@ app.post('/api/attendance', async (req, res) => {
   }
 });
 
-// 10. Ma'muriyat monitoringi (9-A va 9-B xulosasi)
+// 10. Ma'muriyat monitoringi (9-A xulosasi)
 app.get('/api/admin/summary', async (req, res) => {
   try {
     const date = req.query.date || db.getTodayString();
@@ -1044,8 +1044,8 @@ app.post('/api/import/excel', upload.single('file'), async (req, res) => {
       const fullName = String(fullNameRaw).trim();
       const phone = phoneRaw ? String(phoneRaw).trim() : '';
 
-      // Faqat 9-A yoki 9-B ga yuklashga ruxsat
-      const classId = classesMap[className];
+      // Faqat 9-A ga yuklashga ruxsat
+      const classId = classesMap[className] || classesMap['9-A'];
       if (!classId) continue;
 
       await db.createStudent({
@@ -1201,7 +1201,7 @@ function startSelfPing() {
 
 app.listen(PORT, () => {
   console.log(`====================================================`);
-  console.log(`🚀 "EduMemory" — 65-maktab 9-A va 9-B Davomat Tizimi`);
+  console.log(`🚀 "EduMemory" — 65-maktab 9-A Davomat Tizimi`);
   console.log(`🌐 Server manzili: http://localhost:${PORT}`);
   console.log(`👑 Bosh Administrator: ${ADMIN_PHONE}`);
   console.log(`🔐 Kirish tizimi: Telegram orqali avtomatik (PIN-kodlarsiz)`);
