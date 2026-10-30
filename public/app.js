@@ -243,9 +243,13 @@ function applyRoleUI() {
   const isAdmin = state.userRole === 'admin';
 
   if (isAdmin) {
-    // 👑 BOSH ADMINISTRATOR REJIMI:
+    // 👑 BOSH ADMINISTRATOR / ZAVUCH REJIMI:
     if (roleBadge) {
-      roleBadge.textContent = '👑 Bosh Administrator';
+      if (state.userFullName && state.userFullName.includes('Zavuch')) {
+        roleBadge.textContent = '🎓 ' + state.userFullName;
+      } else {
+        roleBadge.textContent = '👑 Bosh Administrator';
+      }
       roleBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200';
     }
     if (schoolSubtitleEl) {
@@ -1372,13 +1376,25 @@ async function fetchTeachers() {
         ? `<span class="inline-flex items-center gap-1 text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-bold"><i class="fa-solid fa-circle-check"></i> Telegram: Ulangan</span>`
         : `<span class="inline-flex items-center gap-1 text-[10px] text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full font-semibold"><i class="fa-regular fa-clock"></i> Telegram: Kutilmoqda</span>`;
 
+      const isAdmin = t.role === 'admin';
+      const roleBadge = isAdmin
+        ? `<span class="bg-indigo-100 text-indigo-800 text-[10px] font-black px-2 py-0.5 rounded-md border border-indigo-200 uppercase">${escapeHtmlApp(t.full_name?.includes('Zavuch') ? 'Zavuch' : 'Ma‘muriyat')}</span>`
+        : `<span class="bg-purple-100 text-purple-800 text-[10px] font-black px-2 py-0.5 rounded-md border border-purple-200 uppercase">${escapeHtmlApp(t.class_name || '9-sinf')}</span>`;
+
+      const deleteBtn = isAdmin
+        ? ''
+        : `<button class="delete-teacher-btn p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition" 
+              data-id="${t.id}" 
+              data-name="${escapeHtmlApp(t.full_name)}"
+              title="O‘chirish">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>`;
+
       return `
-        <div class="bg-white border border-slate-200 rounded-xl p-3 flex items-center justify-between gap-2 shadow-2xs hover:border-purple-200 transition">
+        <div class="bg-white border ${isAdmin ? 'border-indigo-200 bg-indigo-50/20' : 'border-slate-200'} rounded-xl p-3 flex items-center justify-between gap-2 shadow-2xs hover:border-purple-200 transition">
           <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2 mb-1">
-              <span class="bg-purple-100 text-purple-800 text-[10px] font-black px-2 py-0.5 rounded-md border border-purple-200 uppercase">
-                ${t.class_name || '9-sinf'}
-              </span>
+              ${roleBadge}
               <span class="font-bold text-xs text-slate-900 truncate">${escapeHtmlApp(t.full_name)}</span>
             </div>
             <div class="text-[11px] text-slate-600 flex items-center gap-1.5 flex-wrap">
@@ -1395,12 +1411,7 @@ async function fetchTeachers() {
               title="Tahrirlash">
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
-            <button class="delete-teacher-btn p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition" 
-              data-id="${t.id}" 
-              data-name="${escapeHtmlApp(t.full_name)}"
-              title="O‘chirish">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
+            ${deleteBtn}
           </div>
         </div>
       `;

@@ -398,6 +398,22 @@ async function cleanAndSetupProduction() {
     );
   }
 
+  // 4.1 Zavuch D.Bekmurodov (+998944822717) ga to'liq ma'muriy (admin) huquqini berish
+  const zavuchPhone = '+998 94 482 27 17';
+  const zavuchNorm = normalizePhone(zavuchPhone); // '944822717'
+  const existingZavuch = await queryOne('SELECT id FROM staff WHERE phone_norm = ?', [zavuchNorm]);
+  if (existingZavuch) {
+    await execute(
+      "UPDATE staff SET full_name = ?, phone = ?, role = 'admin', class_id = NULL WHERE id = ?",
+      ['D.Bekmurodov (Zavuch)', zavuchPhone, existingZavuch.id]
+    );
+  } else {
+    await execute(
+      "INSERT INTO staff (full_name, phone, phone_norm, role, class_id) VALUES (?, ?, ?, 'admin', NULL)",
+      ['D.Bekmurodov (Zavuch)', zavuchPhone, zavuchNorm]
+    );
+  }
+
   // 5. 9-A sinfining 19 nafar barcha fan o'qituvchilarini bazaga kiritish / yangilash
   for (const t of TEACHERS_9A) {
     const norm = normalizePhone(t.phone);
@@ -492,8 +508,8 @@ async function getTeachers() {
     SELECT s.id, s.full_name, s.phone, s.phone_norm, s.role, s.class_id, s.chat_id, c.name as class_name
     FROM staff s
     LEFT JOIN classes c ON s.class_id = c.id
-    WHERE s.role = 'teacher'
-    ORDER BY c.name ASC, s.id ASC
+    WHERE s.role IN ('admin', 'teacher')
+    ORDER BY CASE WHEN s.role = 'admin' THEN 1 ELSE 2 END, c.name ASC, s.id ASC
   `;
   return await queryAll(sql);
 }

@@ -202,8 +202,9 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
         const staff = await db.getStaffByChatId(chatId);
         if (staff) {
           if (staff.role === 'admin') {
+            const adminTitle = staff.full_name ? escapeHtml(staff.full_name) : 'Bosh Administrator';
             return ctx.replyWithHTML(
-              `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
+              `👑 <b>Assalomu alaykum, ${adminTitle}!</b>\n\n` +
               `Siz <b>9-A</b> sinfi davomat tizimini to‘liq nazorat qilish va boshqarish huquqiga egasiz.\n\n` +
               `👇 Quyidagi menyu orqali boshqaruv paneli yoki bugungi monitoringni oching:`,
               { reply_markup: getAdminKeyboard(webAppUrl) }
@@ -273,8 +274,9 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
           await db.linkStaffByPhone(rawPhone, chatId);
 
           if (staffMember.role === 'admin') {
+            const adminTitle = staffMember.full_name ? escapeHtml(staffMember.full_name) : 'Bosh Administrator';
             return ctx.replyWithHTML(
-              `👑 <b>Assalomu alaykum, Bosh Administrator!</b>\n\n` +
+              `👑 <b>Assalomu alaykum, ${adminTitle}!</b>\n\n` +
               `Sizning Telegram profilingiz tizimga muvaffaqiyatli biriktirildi.\n` +
               `Siz <b>9-A</b> sinfi davomatini to‘liq boshqarish va monitoring qilish huquqiga egasiz.\n\n` +
               `👇 Quyidagi menyudan foydalanishingiz mumkin:`,
@@ -480,8 +482,9 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
 
       const staff = await db.getStaffByChatId(chatId);
       if (staff && staff.role === 'admin') {
+        const adminTitle = staff.full_name ? escapeHtml(staff.full_name) : 'Bosh Administrator';
         return ctx.replyWithHTML(
-          `👑 <b>Bosh Administrator Boshqaruv Paneli</b>\n\n` +
+          `👑 <b>${adminTitle} — Boshqaruv Paneli</b>\n\n` +
           `Sizga barcha boshqaruv va monitoring tugmalari faol:\n` +
           `• 9-A sinfi davomati\n` +
           `• O‘qituvchilar va sinf rahbarlari\n` +
@@ -499,9 +502,9 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       }
 
       return ctx.replyWithHTML(
-        `👑 <b>EduMemory — Administrator Paneli</b>\n\n` +
-        `Tizimga Bosh Admin sifatida ulanish uchun pastdagi <b>"📱 Telefon raqamimni tasdiqlash"</b> tugmasini bosing.\n\n` +
-        `<i>Telefon raqamingiz (+998 99 689-32-28) tizimda Bosh Administrator sifatida ro‘yxatga olingan.</i>`,
+        `👑 <b>EduMemory — Administrator / Zavuch Paneli</b>\n\n` +
+        `Tizimga Ma‘muriyat (Bosh Admin yoki Zavuch) sifatida ulanish uchun pastdagi <b>"📱 Telefon raqamimni tasdiqlash"</b> tugmasini bosing.\n\n` +
+        `<i>Telefon raqamingiz tizimda Bosh Administrator yoki Zavuch sifatida ro‘yxatga olingan bo‘lishi lozim.</i>`,
         { reply_markup: getUnverifiedKeyboard() }
       );
     });
