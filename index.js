@@ -169,7 +169,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       const url = `${webAppUrl}?role=teacher&classId=${classId || ''}&class=${encodeURIComponent(className || '')}`;
       return {
         keyboard: [
-          [{ text: '📝 Mening sinfim davomati', web_app: { url } }],
+          [{ text: '📝 Fan davomatini kiritish (9-A)', web_app: { url } }],
           [{ text: '📅 Dars jadvali' }, { text: 'ℹ️ Yordam' }]
         ],
         resize_keyboard: true,
@@ -871,7 +871,7 @@ app.get('/api/auth/me', async (req, res) => {
         success: true,
         authenticated: true,
         role: 'teacher',
-        fullName: classObj ? `${classObj.name} Sinf Rahbari` : 'Sinf Rahbari',
+        fullName: classObj ? `${classObj.name} Fan O‘qituvchisi` : 'Fan O‘qituvchisi',
         classId: classObj ? classObj.id : null,
         className: classObj ? classObj.name : null
       });
@@ -1119,7 +1119,7 @@ async function handleInstantAttendanceAlerts(records, prevMap, targetDate) {
   }
 }
 
-// 9. Davomat saqlash (Qat'iy 08:00 - 13:30 Time-Lock)
+// 9. Davomat saqlash (Qat'iy 08:00 - 18:30 Time-Lock)
 app.post('/api/attendance', async (req, res) => {
   try {
     const { date, records } = req.body;

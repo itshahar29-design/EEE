@@ -90,7 +90,10 @@ const state = {
   timetableData: [],
   timetableDays: {},
   timetableTimes: {},
-  selectedTimetableDay: 1
+  selectedTimetableDay: 1,
+  selectedLessonOrder: null,
+  selectedSubject: '',
+  selectedTeacher: ''
 };
 
 // ==========================================
@@ -273,6 +276,29 @@ async function resolveAuthAndRole() {
   applyRoleUI();
 }
 
+function updateSaveBtnLabel() {
+  if (!saveAttendanceBtn) return;
+  const isAdmin = state.userRole === 'admin';
+  if (isAdmin) {
+    saveAttendanceBtn.disabled = true;
+    saveAttendanceBtn.classList.add('opacity-60', 'pointer-events-none');
+    if (saveBtnText) saveBtnText.textContent = '👁️ Zavuch nazorati (Faqat ko‘rish)';
+    return;
+  }
+  if (state.isFrozen) {
+    saveAttendanceBtn.disabled = true;
+    saveAttendanceBtn.classList.add('opacity-60', 'pointer-events-none');
+    if (saveBtnText) saveBtnText.textContent = 'Muzlatilgan (18:30 yakunlangan)';
+    return;
+  }
+  saveAttendanceBtn.disabled = false;
+  saveAttendanceBtn.classList.remove('opacity-60', 'pointer-events-none');
+  const subjectSuffix = state.selectedSubject ? ` (${state.selectedLessonOrder}-dars: ${state.selectedSubject})` : '';
+  if (saveBtnText) {
+    saveBtnText.textContent = `Davomatni saqlash${subjectSuffix}`;
+  }
+}
+
 function applyRoleUI() {
   const isAdmin = state.userRole === 'admin';
 
@@ -303,7 +329,7 @@ function applyRoleUI() {
     }
     if (roleNoticeSub) {
       roleNoticeSub.className = 'text-[11px] text-indigo-700';
-      roleNoticeSub.textContent = 'Davomatni faqat sinf rahbari (Muhammadiyeva X.) kiritadi. Siz bu yerda real vaqtda kuzatasiz.';
+      roleNoticeSub.textContent = 'Davomatni har bir dars bo‘yicha fan o‘qituvchilari kiritadi. Siz bu yerda real vaqtda kuzatasiz.';
     }
     if (roleNoticeTag) {
       roleNoticeTag.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200 shrink-0';
@@ -313,29 +339,24 @@ function applyRoleUI() {
     if (markAllPresentBtn) {
       markAllPresentBtn.disabled = true;
       markAllPresentBtn.classList.add('opacity-50', 'pointer-events-none');
-      markAllPresentBtn.title = 'Davomatni faqat sinf rahbari belgilaydi';
+      markAllPresentBtn.title = 'Davomatni fan o‘qituvchilari belgilaydi';
     }
 
-    if (saveAttendanceBtn) {
-      saveAttendanceBtn.disabled = true;
-      saveAttendanceBtn.classList.add('opacity-60', 'pointer-events-none');
-    }
-    if (saveBtnText) {
-      saveBtnText.textContent = '👁️ Zavuch nazorati (Faqat ko‘rish)';
-    }
+    updateSaveBtnLabel();
 
     // Admin uskunalarini ko'rsatish
     if (adminToolbar) adminToolbar.classList.remove('hidden');
     if (classSwitcherSection) classSwitcherSection.classList.remove('hidden');
   } else {
-    // 👨‍🏫 O'QITUVCHI REJIMI (MUHAMMADIYEVA X. / 9-A SINF RAHBARI):
+    // 👨‍🏫 O'QITUVCHI REJIMI (9-A FAN O'QITUVCHILARI):
     const currentClass = state.teacherClassName || state.currentClassName || '9-A';
+    const teacherName = state.userName || '';
     if (roleBadge) {
-      roleBadge.textContent = `👨‍🏫 ${currentClass} Sinf Rahbari`;
+      roleBadge.textContent = teacherName ? `👨‍🏫 ${teacherName}` : `👨‍🏫 ${currentClass} Fan O‘qituvchisi`;
       roleBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200';
     }
     if (schoolSubtitleEl) {
-      schoolSubtitleEl.textContent = `65-maktab — ${currentClass} sinf davomati`;
+      schoolSubtitleEl.textContent = `65-maktab — ${currentClass} sinf dars davomati`;
     }
 
     if (roleNoticeBanner) {
@@ -347,15 +368,15 @@ function applyRoleUI() {
     }
     if (roleNoticeTitle) {
       roleNoticeTitle.className = 'text-xs font-bold text-blue-950';
-      roleNoticeTitle.textContent = '9-A Sinf Rahbari: Muhammadiyeva X.';
+      roleNoticeTitle.textContent = teacherName ? `👨‍🏫 ${teacherName}` : '9-A Fan O‘qituvchisi';
     }
     if (roleNoticeSub) {
       roleNoticeSub.className = 'text-[11px] text-blue-700';
-      roleNoticeSub.textContent = 'Davomat belgilash rejimi ochiq (08:00 dan 18:30 gacha)';
+      roleNoticeSub.textContent = 'O‘z faningiz darsida davomatni belgilang (2-smena: 13:15 – 18:15)';
     }
     if (roleNoticeTag) {
       roleNoticeTag.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200 shrink-0';
-      roleNoticeTag.textContent = 'Kiritish rejimi';
+      roleNoticeTag.textContent = 'Davomat kiritish';
     }
 
     if (markAllPresentBtn && !state.isFrozen) {
@@ -363,13 +384,7 @@ function applyRoleUI() {
       markAllPresentBtn.classList.remove('opacity-50', 'pointer-events-none');
     }
 
-    if (saveAttendanceBtn && !state.isFrozen) {
-      saveAttendanceBtn.disabled = false;
-      saveAttendanceBtn.classList.remove('opacity-60', 'pointer-events-none');
-    }
-    if (saveBtnText && !state.isFrozen) {
-      saveBtnText.textContent = 'Davomatni saqlash';
-    }
+    updateSaveBtnLabel();
 
     // Boshqa sinflar va admin panellarini yashirish (Maksimal sodda interfeys)
     if (adminToolbar) adminToolbar.classList.add('hidden');
@@ -780,7 +795,7 @@ function renderStudentsList() {
 
       ${isAdmin ? `
         <div class="text-[10px] text-indigo-700/80 font-medium mt-1.5 text-center flex items-center justify-center gap-1 bg-indigo-50/50 py-1 rounded-lg border border-indigo-100">
-          <i class="fa-solid fa-eye text-[9px]"></i> Zavuch nazorati: Davomatni faqat sinf rahbari belgilaydi
+          <i class="fa-solid fa-eye text-[9px]"></i> Zavuch nazorati: Davomatni darsdagi fan o‘qituvchilari belgilaydi (Faqat ko‘rish)
         </div>
       ` : ''}
 
@@ -823,7 +838,7 @@ function attachStudentCardListeners() {
     btn.onclick = () => {
       if (state.userRole === 'admin') {
         triggerHaptic('warning');
-        showToast('Zavuch nazorati: Davomatni faqat sinf rahbari belgilaydi!', 'info');
+        showToast('Zavuch nazorati: Davomatni darsdagi fan o‘qituvchilari belgilaydi!', 'info');
         return;
       }
       if (state.isFrozen) {
@@ -991,7 +1006,7 @@ function updateStats() {
 if (markAllPresentBtn) {
   markAllPresentBtn.onclick = () => {
     if (state.userRole === 'admin') {
-      showToast('Zavuch nazorati: Davomatni faqat sinf rahbari belgilaydi!', 'info');
+      showToast('Zavuch nazorati: Davomatni darsdagi fan o‘qituvchilari belgilaydi!', 'info');
       triggerHaptic('warning');
       return;
     }
@@ -1019,7 +1034,7 @@ if (markAllPresentBtn) {
 // Davomatni saqlash
 async function saveAttendance() {
   if (state.userRole === 'admin') {
-    showToast('Zavuch nazorati: Davomatni faqat sinf rahbari saqlaydi!', 'info');
+    showToast('Zavuch nazorati: Davomatni darsdagi fan o‘qituvchilari saqlaydi!', 'info');
     triggerHaptic('warning');
     return;
   }
@@ -1092,12 +1107,13 @@ async function saveAttendance() {
 
     if (res.ok && result.success) {
       triggerHaptic('success');
+      const subjectInfo = state.selectedSubject ? `"${state.selectedSubject}" (${state.selectedLessonOrder}-dars) bo‘yicha ` : '';
       const msg = absentStudents.length > 0 
-        ? `✅ Saqlandi! ${absentStudents.length} ta o‘quvchi ota-onasiga tezkor xabar yuborildi.` 
-        : `✅ ${result.savedCount} ta o‘quvchi davomati saqlandi!`;
+        ? `✅ ${subjectInfo}saqlandi! ${absentStudents.length} ta o‘quvchi ota-onasiga tezkor xabar yuborildi.` 
+        : `✅ ${subjectInfo}${result.savedCount} ta o‘quvchi davomati saqlandi!`;
       showToast(msg, 'success');
       if (tg?.showAlert) {
-        tg.showAlert(`${state.currentClassName} sinfi davomati saqlandi!`);
+        tg.showAlert(`${state.currentClassName} sinfi ${subjectInfo}davomati saqlandi!`);
       }
       fetchStudents();
     } else {
@@ -1113,14 +1129,7 @@ async function saveAttendance() {
     triggerHaptic('error');
     showToast(err.message || 'Saqlashda xatolik yuz berdi', 'error');
   } finally {
-    if (saveAttendanceBtn) {
-      const isAdmin = state.userRole === 'admin';
-      saveAttendanceBtn.disabled = state.isFrozen || isAdmin;
-      saveAttendanceBtn.innerHTML = `
-        <i class="fa-solid fa-floppy-disk"></i>
-        <span id="saveBtnText">${isAdmin ? '👁️ Zavuch nazorati (Faqat ko‘rish)' : (state.isFrozen ? 'Muzlatilgan (18:30 yakunlangan)' : 'Davomatni saqlash')}</span>
-      `;
-    }
+    updateSaveBtnLabel();
   }
 }
 
@@ -1910,8 +1919,34 @@ function renderTodayLessonsWidget() {
 
   lessons.sort((a, b) => a.lesson_order - b.lesson_order);
 
+  // Agar dars tanlanmagan bo'lsa yoki mavjud bo'lmasa, joriy vaqtga qarab yoki 1-darsni avtomatik tanlash
+  const orderExists = lessons.some(l => l.lesson_order === state.selectedLessonOrder);
+  if (!orderExists && lessons.length > 0) {
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    let autoLesson = lessons[0];
+    for (const l of lessons) {
+      const times = state.timetableTimes[l.lesson_order];
+      if (times && times.start && times.end) {
+        const [sh, sm] = times.start.split(':').map(Number);
+        const [eh, em] = times.end.split(':').map(Number);
+        const startM = sh * 60 + sm;
+        const endM = eh * 60 + em;
+        if (currentMinutes >= startM && currentMinutes <= endM) {
+          autoLesson = l;
+          break;
+        }
+      }
+    }
+    state.selectedLessonOrder = autoLesson.lesson_order;
+    state.selectedSubject = autoLesson.subject;
+    state.selectedTeacher = autoLesson.teacher_name || '';
+    updateSaveBtnLabel();
+  }
+
   let html = '';
   lessons.forEach(l => {
+    const isSelected = state.selectedLessonOrder === l.lesson_order;
     const timeStr = (l.start_time && l.end_time)
       ? `${l.start_time} - ${l.end_time}`
       : (state.timetableTimes[l.lesson_order]
@@ -1919,31 +1954,61 @@ function renderTodayLessonsWidget() {
           : '');
 
     html += `
-      <div class="p-2 rounded-xl bg-slate-50/90 hover:bg-slate-100 border border-slate-200/70 transition flex items-center justify-between gap-2">
-        <div class="flex items-center gap-2 min-w-0">
-          <span class="w-6 h-6 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs">
-            ${l.lesson_order}
+      <div 
+        class="today-lesson-card cursor-pointer p-2.5 rounded-xl transition flex items-center justify-between gap-2 border select-none ${
+          isSelected 
+            ? 'bg-blue-50/95 border-blue-500 shadow-xs ring-1 ring-blue-400' 
+            : 'bg-slate-50/90 hover:bg-slate-100 border-slate-200/70 hover:border-slate-300'
+        }"
+        data-order="${l.lesson_order}"
+        data-subject="${escapeQuotes(l.subject)}"
+        data-teacher="${escapeQuotes(l.teacher_name || '')}"
+      >
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="w-7 h-7 rounded-lg ${isSelected ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-700'} font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+            ${isSelected ? '<i class="fa-solid fa-check text-[11px]"></i>' : l.lesson_order}
           </span>
           <div class="min-w-0">
-            <div class="text-xs font-bold text-slate-900 truncate leading-snug">
-              ${escapeHtmlApp(l.subject)}
+            <div class="text-xs font-bold ${isSelected ? 'text-blue-950 font-extrabold' : 'text-slate-900'} truncate leading-snug flex items-center gap-1.5">
+              <span>${escapeHtmlApp(l.subject)}</span>
+              ${isSelected ? '<span class="text-[9px] bg-blue-600 text-white px-1.5 py-0.5 rounded font-semibold shrink-0">Hozirgi dars</span>' : ''}
             </div>
-            <div class="text-[10px] text-slate-500 truncate flex items-center gap-1 mt-0.5">
+            <div class="text-[10px] ${isSelected ? 'text-blue-700 font-medium' : 'text-slate-500'} truncate flex items-center gap-1 mt-0.5">
               <i class="fa-solid fa-chalkboard-user text-purple-600 text-[9px]"></i>
-              <span class="truncate">${escapeHtmlApp(l.teacher_name || 'O‘qituvchi biriktirilmagan')}</span>
+              <span class="truncate">${escapeHtmlApp(l.teacher_name || 'Fan o‘qituvchisi')}</span>
             </div>
           </div>
         </div>
-        ${timeStr ? `
-          <span class="text-[10px] font-semibold text-blue-700 bg-blue-100/80 px-2 py-0.5 rounded-md shrink-0 border border-blue-200/50">
-            ${timeStr}
-          </span>
-        ` : ''}
+        <div class="flex items-center gap-1.5 shrink-0">
+          ${timeStr ? `
+            <span class="text-[10px] font-semibold ${isSelected ? 'text-blue-800 bg-blue-200/80 border-blue-300' : 'text-blue-700 bg-blue-100/80 border-blue-200/50'} px-2 py-0.5 rounded-md border">
+              ${timeStr}
+            </span>
+          ` : ''}
+          <i class="fa-solid fa-chevron-right text-[10px] ${isSelected ? 'text-blue-600' : 'text-slate-300'}"></i>
+        </div>
       </div>
     `;
   });
 
   todayLessonsList.innerHTML = html;
+
+  todayLessonsList.querySelectorAll('.today-lesson-card').forEach(card => {
+    card.onclick = () => {
+      const order = parseInt(card.getAttribute('data-order'), 10);
+      const subject = card.getAttribute('data-subject');
+      const teacher = card.getAttribute('data-teacher');
+
+      state.selectedLessonOrder = order;
+      state.selectedSubject = subject;
+      state.selectedTeacher = teacher;
+
+      triggerHaptic('medium');
+      showToast(`Tanlandi: ${order}-dars — "${subject}" (${teacher || 'Fan o‘qituvchisi'})`, 'info');
+      renderTodayLessonsWidget();
+      updateSaveBtnLabel();
+    };
+  });
 }
 
 if (todayOpenFullTimetableBtn) {
