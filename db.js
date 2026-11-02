@@ -128,8 +128,8 @@ function getTodayString() {
 
 /**
  * Qat'iy vaqt rejimi (Time-Lock):
- * Davomat faqat dars vaqtida — soat 08:00 dan 13:30 gacha (Asia/Tashkent) kiritilishi va tahrirlanishi mumkin.
- * Soat 13:30 da tizim bugungi kun davomatini avtomatik "MUZLATADI" (FREEZE).
+ * Davomat faqat dars vaqtida — soat 08:00 dan 18:30 gacha (Asia/Tashkent) kiritilishi va tahrirlanishi mumkin.
+ * Soat 18:30 da tizim bugungi kun davomatini avtomatik "MUZLATADI" (FREEZE).
  */
 function checkAttendanceWindow(targetDate = null) {
   const t = getTashkentTimeParts();
@@ -371,18 +371,19 @@ async function initDatabase() {
 }
 
 /**
- * 9-A sinfining 19 nafar fan o'qituvchilari va sinf rahbari ro'yxati
+ * 9-A sinfining barcha fan o'qituvchilari va sinf rahbari ro'yxati (22 nafar)
  */
 const TEACHERS_9A = [
   { full_name: 'Muhammadiyeva X. (Sinf rahbari)', phone: '+998 94 484 84 12' },
   { full_name: 'Asatova M. (Ingliz tili)', phone: '+998 95 711 59 19' },
   { full_name: 'Murotqobilova B. (Ingliz tili)', phone: '+998 88 373 07 05' },
-  { full_name: 'Rustamova (Geografiya)', phone: '+998 93 282 07 82' },
+  { full_name: 'Rustamova S. (Geografiya)', phone: '+998 93 282 07 82' },
   { full_name: 'Jamolov Sh. (Rus tili)', phone: '+998 87 053 13 67' },
   { full_name: 'Ismoilova O. (Rus tili)', phone: '+998 77 150 16 25' },
   { full_name: 'Ergashov R. (Jismoniy tarbiya)', phone: '+998 91 333 23 65' },
+  { full_name: 'Davronov B. (Jismoniy tarbiya)', phone: '+998 93 468 88 01' },
   { full_name: 'Raxmonov F. (Algebra)', phone: '+998 94 222 37 75' },
-  { full_name: 'Jo‘raqulova (Biologiya)', phone: '+998 99 239 72 09' },
+  { full_name: 'Jo‘raqulova X. (Biologiya)', phone: '+998 99 239 72 09' },
   { full_name: 'Asadova D. (O‘zbekiston tarixi)', phone: '+998 93 312 09 67' },
   { full_name: 'Qozoyeva Z. (Kimyo)', phone: '+998 91 254 08 02' },
   { full_name: 'Jumayeva U. (Informatika)', phone: '+998 91 251 26 27' },
@@ -392,7 +393,9 @@ const TEACHERS_9A = [
   { full_name: 'Mehriddinova E. (Huquq)', phone: '+998 93 965 68 08' },
   { full_name: 'Xolmirzayeva D. (Adabiyot)', phone: '+998 91 988 36 37' },
   { full_name: 'Boymurodova N. (Chizmachilik)', phone: '+998 94 893 89 99' },
-  { full_name: 'Norova A. (Tarbiya)', phone: '+998 95 336 88 14' }
+  { full_name: 'Norova A. (Tarbiya)', phone: '+998 95 336 88 14' },
+  { full_name: 'Xolmatova Z. (Texnologiya)', phone: '+998 93 258 71 01' },
+  { full_name: 'Boliyeva M. (Texnologiya)', phone: '+998 93 258 71 02' }
 ];
 
 /**
@@ -446,7 +449,7 @@ const TIMETABLE_9A = [
   // 1. DUSHANBA
   { day: 1, order: 1, subject: 'Kelajak soati', teacher: 'Muhammadiyeva X. (Sinf rahbari)' },
   { day: 1, order: 2, subject: 'Ingliz tili', teacher: 'Asatova M. / Murotqobilova B.' },
-  { day: 1, order: 3, subject: 'Geografiya / IBA', teacher: 'Rustamova' },
+  { day: 1, order: 3, subject: 'Geografiya / IBA', teacher: 'Rustamova S.' },
   { day: 1, order: 4, subject: 'Rus tili', teacher: 'Jamolov Sh. / Ismoilova O.' },
   { day: 1, order: 5, subject: 'Fizika', teacher: 'Muhammadiyeva X.' },
   { day: 1, order: 6, subject: 'Jismoniy tarbiya', teacher: 'Davronov B. / Ergashov R.' },
@@ -589,7 +592,7 @@ async function cleanAndSetupProduction() {
     }
   }
 
-  console.log('✅ Baza jadvallari, Bosh Admin, Zavuch D.Bekmurodov, 19 nafar o‘qituvchi, 9-A dars jadvali va 17 nafar o‘quvchi sozlandi.');
+  console.log('✅ Baza jadvallari, Bosh Admin, Zavuch D.Bekmurodov, 22 nafar o‘qituvchi, 9-A dars jadvali va 17 nafar o‘quvchi sozlandi.');
 }
 
 // ==========================================
@@ -1035,7 +1038,7 @@ async function getStudentsByParentChatId(chatId, date) {
 }
 
 // ==========================================
-// 8. DAVOMATNI SAQLASH (TIME-LOCK 08:00 - 13:30)
+// 8. DAVOMATNI SAQLASH (TIME-LOCK 08:00 - 18:30)
 // ==========================================
 async function saveAttendanceBatch(records, date) {
   const windowCheck = checkAttendanceWindow(date);

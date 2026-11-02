@@ -177,12 +177,12 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       };
     }
 
-    // 4. Bosh Administrator uchun (barcha sinflar va monitoring)
+    // 4. Bosh Administrator / Zavuch uchun (monitoring va dars jadvali)
     function getAdminKeyboard(webAppUrl) {
       const url = `${webAppUrl}?role=admin`;
       return {
         keyboard: [
-          [{ text: '👑 Boshqaruv paneli (Barcha sinflar)', web_app: { url } }],
+          [{ text: '👁️ Zavuch nazorati (Faqat ko‘rish)', web_app: { url } }],
           [{ text: '📊 Bugungi monitoring' }, { text: '📅 Dars jadvali' }],
           [{ text: 'ℹ️ Yordam' }]
         ],
@@ -206,9 +206,10 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
           if (staff.role === 'admin') {
             const adminTitle = staff.full_name ? escapeHtml(staff.full_name) : 'Bosh Administrator';
             return ctx.replyWithHTML(
-              `👑 <b>Assalomu alaykum, ${adminTitle}!</b>\n\n` +
-              `Siz <b>9-A</b> sinfi davomat tizimini to‘liq nazorat qilish va boshqarish huquqiga egasiz.\n\n` +
-              `👇 Quyidagi menyu orqali boshqaruv paneli yoki bugungi monitoringni oching:`,
+              `🎓 <b>Assalomu alaykum, ${adminTitle}!</b>\n\n` +
+              `Siz 65-maktab Zavuchi sifatida <b>9-A</b> sinfi davomatini va dars jarayonini to‘liq nazorat qilasiz.\n\n` +
+              `📌 <b>Muhim eslatma:</b> Davomatni faqat sinf rahbari (Muhammadiyeva X.) kiritadi. Siz bu yerda ma'lumotlarni real vaqtda kuzatasiz.\n\n` +
+              `👇 Quyidagi menyu orqali nazorat panelini yoki dars jadvalini oching:`,
               { reply_markup: getAdminKeyboard(webAppUrl) }
             );
           } else {
@@ -754,7 +755,7 @@ async function runDailyAttendanceDispatch() {
   }
 
   const pendingList = await db.getPendingNotifications(today);
-  console.log(`📤 [CRON 14:00] ${today} bo‘yicha yuboriladigan xabarlar soni: ${pendingList.length} ta.`);
+  console.log(`📤 [CRON 18:30] ${today} bo‘yicha yuboriladigan xabarlar soni: ${pendingList.length} ta.`);
 
   let sent = 0;
   let failed = 0;
@@ -1385,8 +1386,8 @@ app.listen(PORT, () => {
   console.log(`👑 Bosh Administrator: ${ADMIN_PHONE}`);
   console.log(`🔐 Kirish tizimi: Telegram orqali avtomatik (PIN-kodlarsiz)`);
   console.log(`📊 Baza turi: ${db.hasPostgres ? 'PostgreSQL' : 'SQLite'}`);
-  console.log(`⏱️ Dars davomat vaqti: 08:00 - 13:30 (Asia/Tashkent)`);
-  console.log(`🤖 Avtomat xabarnoma: 14:00 (Dushanba-Shanba)`);
+  console.log(`⏱️ Dars davomat vaqti: 08:00 - 18:30 (Asia/Tashkent)`);
+  console.log(`🤖 Avtomat xabarnoma: 18:30 (Dushanba-Shanba)`);
   console.log(`====================================================`);
   
   startSelfPing();

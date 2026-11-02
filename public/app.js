@@ -110,6 +110,16 @@ const timetableCurrentDayTitle = document.getElementById('timetableCurrentDayTit
 const timetableLessonCountBadge = document.getElementById('timetableLessonCountBadge');
 const timetableCardsContainer = document.getElementById('timetableCardsContainer');
 
+// Rol va Dars jadvali bannerlari
+const roleNoticeBanner = document.getElementById('roleNoticeBanner');
+const roleNoticeIcon = document.getElementById('roleNoticeIcon');
+const roleNoticeTitle = document.getElementById('roleNoticeTitle');
+const roleNoticeSub = document.getElementById('roleNoticeSub');
+const roleNoticeTag = document.getElementById('roleNoticeTag');
+const todayLessonsList = document.getElementById('todayLessonsList');
+const todayScheduleSubtitle = document.getElementById('todayScheduleSubtitle');
+const todayOpenFullTimetableBtn = document.getElementById('todayOpenFullTimetableBtn');
+
 // Admin bloklari (Faqat Adminga ko'rinadi)
 const adminToolbar = document.getElementById('adminToolbar');
 const classSwitcherSection = document.getElementById('classSwitcherSection');
@@ -267,24 +277,58 @@ function applyRoleUI() {
   const isAdmin = state.userRole === 'admin';
 
   if (isAdmin) {
-    // 👑 BOSH ADMINISTRATOR / ZAVUCH REJIMI:
+    // 🎓 ZAVUCH / ADMIN REJIMI:
+    const adminName = state.userName || '';
+    const isZavuch = adminName.toLowerCase().includes('zavuch') || adminName.toLowerCase().includes('bekmurodov');
+    const displayAdminTitle = isZavuch ? '🎓 D.Bekmurodov (Zavuch)' : (adminName || '👑 Bosh Administrator');
+
     if (roleBadge) {
-      if (state.userFullName && state.userFullName.includes('Zavuch')) {
-        roleBadge.textContent = '🎓 ' + state.userFullName;
-      } else {
-        roleBadge.textContent = '👑 Bosh Administrator';
-      }
+      roleBadge.textContent = displayAdminTitle;
       roleBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200';
     }
     if (schoolSubtitleEl) {
-      schoolSubtitleEl.textContent = '65-maktab — Ma‘muriyat Boshqaruv Paneli';
+      schoolSubtitleEl.textContent = '65-maktab — Zavuch Nazorat Paneli';
+    }
+
+    if (roleNoticeBanner) {
+      roleNoticeBanner.className = 'mb-3 p-3 rounded-2xl border border-indigo-200 bg-indigo-50/90 shadow-xs flex items-center justify-between';
+    }
+    if (roleNoticeIcon) {
+      roleNoticeIcon.className = 'w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0';
+      roleNoticeIcon.innerHTML = '🎓';
+    }
+    if (roleNoticeTitle) {
+      roleNoticeTitle.className = 'text-xs font-bold text-indigo-950';
+      roleNoticeTitle.textContent = 'Zavuch Nazorati (D.Bekmurodov)';
+    }
+    if (roleNoticeSub) {
+      roleNoticeSub.className = 'text-[11px] text-indigo-700';
+      roleNoticeSub.textContent = 'Davomatni faqat sinf rahbari (Muhammadiyeva X.) kiritadi. Siz bu yerda real vaqtda kuzatasiz.';
+    }
+    if (roleNoticeTag) {
+      roleNoticeTag.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200 shrink-0';
+      roleNoticeTag.textContent = 'Faqat ko‘rish';
+    }
+
+    if (markAllPresentBtn) {
+      markAllPresentBtn.disabled = true;
+      markAllPresentBtn.classList.add('opacity-50', 'pointer-events-none');
+      markAllPresentBtn.title = 'Davomatni faqat sinf rahbari belgilaydi';
+    }
+
+    if (saveAttendanceBtn) {
+      saveAttendanceBtn.disabled = true;
+      saveAttendanceBtn.classList.add('opacity-60', 'pointer-events-none');
+    }
+    if (saveBtnText) {
+      saveBtnText.textContent = '👁️ Zavuch nazorati (Faqat ko‘rish)';
     }
 
     // Admin uskunalarini ko'rsatish
     if (adminToolbar) adminToolbar.classList.remove('hidden');
     if (classSwitcherSection) classSwitcherSection.classList.remove('hidden');
   } else {
-    // 👨‍🏫 O'QITUVCHI REJIMI (FAQAT BIRIKTIRILGAN SINF):
+    // 👨‍🏫 O'QITUVCHI REJIMI (MUHAMMADIYEVA X. / 9-A SINF RAHBARI):
     const currentClass = state.teacherClassName || state.currentClassName || '9-A';
     if (roleBadge) {
       roleBadge.textContent = `👨‍🏫 ${currentClass} Sinf Rahbari`;
@@ -294,6 +338,39 @@ function applyRoleUI() {
       schoolSubtitleEl.textContent = `65-maktab — ${currentClass} sinf davomati`;
     }
 
+    if (roleNoticeBanner) {
+      roleNoticeBanner.className = 'mb-3 p-3 rounded-2xl border border-blue-200 bg-blue-50/90 shadow-xs flex items-center justify-between';
+    }
+    if (roleNoticeIcon) {
+      roleNoticeIcon.className = 'w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0';
+      roleNoticeIcon.innerHTML = '👨‍🏫';
+    }
+    if (roleNoticeTitle) {
+      roleNoticeTitle.className = 'text-xs font-bold text-blue-950';
+      roleNoticeTitle.textContent = '9-A Sinf Rahbari: Muhammadiyeva X.';
+    }
+    if (roleNoticeSub) {
+      roleNoticeSub.className = 'text-[11px] text-blue-700';
+      roleNoticeSub.textContent = 'Davomat belgilash rejimi ochiq (08:00 dan 18:30 gacha)';
+    }
+    if (roleNoticeTag) {
+      roleNoticeTag.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200 shrink-0';
+      roleNoticeTag.textContent = 'Kiritish rejimi';
+    }
+
+    if (markAllPresentBtn && !state.isFrozen) {
+      markAllPresentBtn.disabled = false;
+      markAllPresentBtn.classList.remove('opacity-50', 'pointer-events-none');
+    }
+
+    if (saveAttendanceBtn && !state.isFrozen) {
+      saveAttendanceBtn.disabled = false;
+      saveAttendanceBtn.classList.remove('opacity-60', 'pointer-events-none');
+    }
+    if (saveBtnText && !state.isFrozen) {
+      saveBtnText.textContent = 'Davomatni saqlash';
+    }
+
     // Boshqa sinflar va admin panellarini yashirish (Maksimal sodda interfeys)
     if (adminToolbar) adminToolbar.classList.add('hidden');
     if (classSwitcherSection) classSwitcherSection.classList.add('hidden');
@@ -301,14 +378,14 @@ function applyRoleUI() {
 }
 
 // ==========================================
-// 5. TIME-LOCK (MUZLATISH: 13:30 DEDLAYN)
+// 5. TIME-LOCK (MUZLATISH: 18:30 DEDLAYN)
 // ==========================================
 function updateFreezeUI() {
   if (state.isFrozen) {
     if (freezeBanner) {
       freezeBanner.classList.remove('hidden');
       if (freezeBannerText) {
-        freezeBannerText.textContent = state.freezeReason || 'Bugungi davomat kiritish vaqti (08:00 - 13:30) yakunlangan. Tizim muzlatilgan.';
+        freezeBannerText.textContent = state.freezeReason || 'Bugungi davomat kiritish vaqti (08:00 - 18:30) yakunlangan. Tizim muzlatilgan.';
       }
     }
 
@@ -322,23 +399,24 @@ function updateFreezeUI() {
       saveAttendanceBtn.disabled = true;
       saveAttendanceBtn.classList.add('opacity-50', 'pointer-events-none');
     }
-    if (saveBtnText) saveBtnText.textContent = 'Muzlatilgan (13:30 yakunlangan)';
+    if (saveBtnText) saveBtnText.textContent = 'Muzlatilgan (18:30 yakunlangan)';
 
     if (tg?.MainButton) {
       tg.MainButton.hide();
     }
   } else {
     if (freezeBanner) freezeBanner.classList.add('hidden');
-    if (markAllPresentBtn) {
+    const isAdmin = state.userRole === 'admin';
+    if (markAllPresentBtn && !isAdmin) {
       markAllPresentBtn.disabled = false;
       markAllPresentBtn.classList.remove('opacity-50', 'pointer-events-none');
     }
 
-    if (saveAttendanceBtn) {
+    if (saveAttendanceBtn && !isAdmin) {
       saveAttendanceBtn.disabled = false;
-      saveAttendanceBtn.classList.remove('opacity-50', 'pointer-events-none');
+      saveAttendanceBtn.classList.remove('opacity-50', 'opacity-60', 'pointer-events-none');
     }
-    if (saveBtnText) saveBtnText.textContent = 'Davomatni saqlash';
+    if (saveBtnText && !isAdmin) saveBtnText.textContent = 'Davomatni saqlash';
   }
 }
 
@@ -576,8 +654,9 @@ function renderStudentsList() {
     }
 
     const showReason = currentAtt.status === 'kechikdi' || currentAtt.status === 'sababli';
-    const disabledAttr = isFrozen ? 'disabled' : '';
-    const disabledClass = isFrozen ? 'cursor-not-allowed opacity-80' : '';
+    const isMarkingDisabled = isFrozen || isAdmin;
+    const disabledAttr = isMarkingDisabled ? 'disabled' : '';
+    const disabledClass = isMarkingDisabled ? 'cursor-default pointer-events-none opacity-90' : '';
 
     // Admin tahrirlash va o'chirish tugmalari (Faqat adminga ko'rinadi)
     let adminButtonsHtml = '';
@@ -699,6 +778,12 @@ function renderStudentsList() {
         </button>
       </div>
 
+      ${isAdmin ? `
+        <div class="text-[10px] text-indigo-700/80 font-medium mt-1.5 text-center flex items-center justify-center gap-1 bg-indigo-50/50 py-1 rounded-lg border border-indigo-100">
+          <i class="fa-solid fa-eye text-[9px]"></i> Zavuch nazorati: Davomatni faqat sinf rahbari belgilaydi
+        </div>
+      ` : ''}
+
       <!-- Izoh maydoni (Kechikdi yoki Sababli holatida ochiladi) -->
       <div 
         id="reason-box-${student.id}" 
@@ -736,9 +821,14 @@ function attachStudentCardListeners() {
   const statusButtons = studentsContainer.querySelectorAll('.status-btn');
   statusButtons.forEach((btn) => {
     btn.onclick = () => {
+      if (state.userRole === 'admin') {
+        triggerHaptic('warning');
+        showToast('Zavuch nazorati: Davomatni faqat sinf rahbari belgilaydi!', 'info');
+        return;
+      }
       if (state.isFrozen) {
         triggerHaptic('warning');
-        showToast('Davomat kiritish vaqti (08:00 - 13:30) yakunlangan! Tizim muzlatilgan.', 'warning');
+        showToast('Davomat kiritish vaqti (08:00 - 18:30) yakunlangan! Tizim muzlatilgan.', 'warning');
         return;
       }
       const studentId = parseInt(btn.getAttribute('data-student-id'), 10);
@@ -900,8 +990,13 @@ function updateStats() {
 // Barchasini "Keldi" qilish
 if (markAllPresentBtn) {
   markAllPresentBtn.onclick = () => {
+    if (state.userRole === 'admin') {
+      showToast('Zavuch nazorati: Davomatni faqat sinf rahbari belgilaydi!', 'info');
+      triggerHaptic('warning');
+      return;
+    }
     if (state.isFrozen) {
-      showToast('Davomat kiritish vaqti yakunlangan!', 'warning');
+      showToast('Davomat kiritish vaqti (08:00 - 18:30) yakunlangan!', 'warning');
       return;
     }
     triggerHaptic('medium');
@@ -923,8 +1018,14 @@ if (markAllPresentBtn) {
 
 // Davomatni saqlash
 async function saveAttendance() {
+  if (state.userRole === 'admin') {
+    showToast('Zavuch nazorati: Davomatni faqat sinf rahbari saqlaydi!', 'info');
+    triggerHaptic('warning');
+    return;
+  }
+
   if (state.isFrozen) {
-    showToast('Davomat kiritish vaqti (08:00 - 13:30) yakunlangan! Saqlash taqiqlanadi.', 'warning');
+    showToast('Davomat kiritish vaqti (08:00 - 18:30) yakunlangan! Saqlash taqiqlanadi.', 'warning');
     triggerHaptic('warning');
     return;
   }
@@ -1013,10 +1114,11 @@ async function saveAttendance() {
     showToast(err.message || 'Saqlashda xatolik yuz berdi', 'error');
   } finally {
     if (saveAttendanceBtn) {
-      saveAttendanceBtn.disabled = state.isFrozen;
+      const isAdmin = state.userRole === 'admin';
+      saveAttendanceBtn.disabled = state.isFrozen || isAdmin;
       saveAttendanceBtn.innerHTML = `
         <i class="fa-solid fa-floppy-disk"></i>
-        <span id="saveBtnText">${state.isFrozen ? 'Muzlatilgan (13:30 yakunlangan)' : 'Davomatni saqlash'}</span>
+        <span id="saveBtnText">${isAdmin ? '👁️ Zavuch nazorati (Faqat ko‘rish)' : (state.isFrozen ? 'Muzlatilgan (18:30 yakunlangan)' : 'Davomatni saqlash')}</span>
       `;
     }
   }
@@ -1087,7 +1189,7 @@ if (openAdminSummaryBtn) {
         if (data.isDispatched) {
           summaryDispatchStatus.innerHTML = '<span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check"></i> Bugungi hisobot ota-onalarga yuborilgan va qulflangan</span>';
         } else {
-          summaryDispatchStatus.innerHTML = '<span class="text-slate-500"><i class="fa-solid fa-clock"></i> Soat 14:00 da avtomat yuboriladi</span>';
+          summaryDispatchStatus.innerHTML = '<span class="text-slate-500"><i class="fa-solid fa-clock"></i> Soat 18:30 da avtomat yuboriladi</span>';
         }
       }
     } catch (err) {
@@ -1775,6 +1877,79 @@ function renderTimetableLessons() {
   timetableCardsContainer.innerHTML = html;
 }
 
+function renderTodayLessonsWidget() {
+  if (!todayLessonsList) return;
+
+  const d = new Date(state.currentDate + 'T12:00:00');
+  let dayOfWeek = d.getDay(); // 0 = Yakshanba, 1..6 = Dushanba..Shanba
+  const dayName = state.timetableDays[dayOfWeek] || (dayOfWeek === 0 ? 'Yakshanba' : 'Dushanba');
+
+  if (todayScheduleSubtitle) {
+    todayScheduleSubtitle.textContent = `${dayName} — 2-smena darslari va o‘qituvchilar`;
+  }
+
+  if (dayOfWeek === 0) {
+    todayLessonsList.innerHTML = `
+      <div class="text-center py-3 px-2 bg-slate-50 rounded-xl text-slate-500 text-xs">
+        <i class="fa-regular fa-sun text-amber-500 mr-1"></i> Bugun yakshanba — dam olish kuni. Darslar dushanbadan shanbagacha 13:15 – 18:15 da bo‘lib o‘tadi.
+      </div>
+    `;
+    return;
+  }
+
+  const lessons = (state.timetableData || []).filter(item => item.day_of_week === dayOfWeek);
+
+  if (lessons.length === 0) {
+    todayLessonsList.innerHTML = `
+      <div class="text-center py-3 px-2 bg-slate-50 rounded-xl text-slate-500 text-xs">
+        <i class="fa-regular fa-calendar-xmark text-slate-400 mr-1"></i> Bugungi kunga darslar belgilanmagan.
+      </div>
+    `;
+    return;
+  }
+
+  lessons.sort((a, b) => a.lesson_order - b.lesson_order);
+
+  let html = '';
+  lessons.forEach(l => {
+    const timeStr = (l.start_time && l.end_time)
+      ? `${l.start_time} - ${l.end_time}`
+      : (state.timetableTimes[l.lesson_order]
+          ? `${state.timetableTimes[l.lesson_order].start} - ${state.timetableTimes[l.lesson_order].end}`
+          : '');
+
+    html += `
+      <div class="p-2 rounded-xl bg-slate-50/90 hover:bg-slate-100 border border-slate-200/70 transition flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="w-6 h-6 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+            ${l.lesson_order}
+          </span>
+          <div class="min-w-0">
+            <div class="text-xs font-bold text-slate-900 truncate leading-snug">
+              ${escapeHtmlApp(l.subject)}
+            </div>
+            <div class="text-[10px] text-slate-500 truncate flex items-center gap-1 mt-0.5">
+              <i class="fa-solid fa-chalkboard-user text-purple-600 text-[9px]"></i>
+              <span class="truncate">${escapeHtmlApp(l.teacher_name || 'O‘qituvchi biriktirilmagan')}</span>
+            </div>
+          </div>
+        </div>
+        ${timeStr ? `
+          <span class="text-[10px] font-semibold text-blue-700 bg-blue-100/80 px-2 py-0.5 rounded-md shrink-0 border border-blue-200/50">
+            ${timeStr}
+          </span>
+        ` : ''}
+      </div>
+    `;
+  });
+
+  todayLessonsList.innerHTML = html;
+}
+
+if (todayOpenFullTimetableBtn) {
+  todayOpenFullTimetableBtn.onclick = openTimetableModal;
+}
+
 // ==========================================
 // 12. MODALLARNI YOPISH
 // ==========================================
@@ -1804,6 +1979,7 @@ if (datePicker) {
     state.currentDate = datePicker.value;
     triggerHaptic('light');
     fetchStudents();
+    renderTodayLessonsWidget();
   };
 }
 
@@ -1813,6 +1989,7 @@ if (refreshBtn) {
     fetchConfig();
     fetchClasses();
     fetchStudents();
+    fetchTimetableData().then(() => renderTodayLessonsWidget());
   };
 }
 
@@ -1830,4 +2007,6 @@ if (searchInput) {
   await fetchConfig();
   await resolveAuthAndRole();
   await fetchClasses();
+  await fetchTimetableData();
+  renderTodayLessonsWidget();
 })();

@@ -139,6 +139,22 @@
       </div>
     </div>
 
+    <!-- ROL MA'LUMOTI BANNERI: ZAVUCH VS O'QITUVCHI -->
+    <div id="roleNoticeBanner" class="mb-3 p-3 rounded-2xl border border-blue-200 bg-blue-50/80 shadow-xs flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div id="roleNoticeIcon" class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
+          👨‍🏫
+        </div>
+        <div>
+          <div id="roleNoticeTitle" class="text-xs font-bold text-blue-950">9-A Sinf Rahbari (Muhammadiyeva X.)</div>
+          <div id="roleNoticeSub" class="text-[11px] text-blue-700">Davomatni faqat sinf rahbari belgilaydi (08:00 - 18:30)</div>
+        </div>
+      </div>
+      <span id="roleNoticeTag" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200 shrink-0">
+        Kiritish rejimi
+      </span>
+    </div>
+
     <!-- STATISTIKA BLOKI -->
     <section class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs mb-3.5">
       <div class="flex items-center justify-between mb-2.5">
@@ -191,7 +207,40 @@
           <i class="fa-solid fa-check-double"></i> Barchasini "Keldi" qilish
         </button>
         <div class="text-[11px] text-slate-500 font-medium px-2 py-1 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center gap-1">
-          <i class="fa-solid fa-clock text-blue-500"></i> Avtomat hisobot: <b>14:00 da</b>
+          <i class="fa-solid fa-clock text-blue-500"></i> Avtomat hisobot: <b>18:30 da</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUGUNGI DARS JADVALI VA FAN O'QITUVCHILARI (2-SMENA: 13:15 - 18:15) -->
+    <section class="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-xs mb-3">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-1.5">
+          <div class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">
+            <i class="fa-solid fa-calendar-day"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-slate-900 leading-tight flex items-center gap-1.5">
+              <span>Bugungi darslar</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.2 bg-blue-100 text-blue-800 rounded">2-smena: 13:15 – 18:15</span>
+            </h3>
+            <p class="text-[10px] text-slate-500" id="todayScheduleSubtitle">Dars qo‘ng‘iroqlari va fan o‘qituvchilari</p>
+          </div>
+        </div>
+        <button 
+          id="todayOpenFullTimetableBtn" 
+          type="button" 
+          class="text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded-lg transition flex items-center gap-1"
+        >
+          <span>Haftalik</span>
+          <i class="fa-solid fa-chevron-right text-[9px]"></i>
+        </button>
+      </div>
+
+      <!-- Darslar ro'yxati -->
+      <div id="todayLessonsList" class="space-y-1.5 mt-2">
+        <div class="text-center py-2 text-slate-400 text-xs">
+          <i class="fa-solid fa-spinner fa-spin text-sm text-blue-500"></i> Darslar yuklanmoqda...
         </div>
       </div>
     </section>
@@ -280,7 +329,7 @@
       </div>
 
       <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-[11px] text-slate-500">
-        <span id="summaryDispatchStatus"><i class="fa-solid fa-clock"></i> 14:00 xabarnomasi kutilmoqda</span>
+        <span id="summaryDispatchStatus"><i class="fa-solid fa-clock"></i> 18:30 xabarnomasi kutilmoqda</span>
         <button class="close-modal-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-semibold transition" data-modal="adminSummaryModal">
           Yopish
         </button>
