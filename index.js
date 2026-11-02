@@ -215,7 +215,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
             return ctx.replyWithHTML(
               `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staff.full_name)}!</b>\n\n` +
               `Siz <b>${escapeHtml(staff.class_name || '9-A sinf')}</b> rahbari/o‘qituvchisi sifatida tizimga ulangansiz.\n` +
-              `Dars kunlari soat 08:00 dan 13:30 gacha davomatni kiritishingiz mumkin.\n\n` +
+              `Dars kunlari soat 08:00 dan 18:30 gacha davomatni kiritishingiz mumkin.\n\n` +
               `👇 Quyidagi tugma orqali davomatni oching:`,
               { reply_markup: getTeacherKeyboard(webAppUrl, staff.class_id, staff.class_name) }
             );
@@ -232,7 +232,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
             msg += `▫️ <b>${escapeHtml(s.full_name)}</b> (${escapeHtml(s.class_name)})\n`;
           }
 
-          msg += `\n🔔 Har kuni soat 14:00 da darslar tugagach davomat shaxsiy profilingizga avtomatik yuboriladi.\n` +
+          msg += `\n🔔 Har kuni darslar tugagach (soat 18:30 da) davomat shaxsiy profilingizga avtomatik yuboriladi.\n` +
             `Farzandingizning bugungi davomatini bilish uchun pastdagi <b>"📊 Farzandim davomati"</b> tugmasini bosing:`;
 
           return ctx.replyWithHTML(msg, {
@@ -288,7 +288,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
             return ctx.replyWithHTML(
               `👨‍🏫 <b>Assalomu alaykum, ${escapeHtml(staffMember.full_name)}!</b>\n\n` +
               `Siz <b>${escapeHtml(staffMember.class_name || '9-A sinf')}</b> o‘qituvchisi/rahbari sifatida tizimga muvaffaqiyatli ulandingiz.\n` +
-              `Dars kunlari soat 08:00 dan 13:30 gacha davomatni belgilashingiz mumkin.\n\n` +
+              `Dars kunlari soat 08:00 dan 18:30 gacha davomatni belgilashingiz mumkin.\n\n` +
               `👇 Quyidagi tugma orqali 9-A davomatini oching:`,
               { reply_markup: getTeacherKeyboard(webAppUrl, staffMember.class_id, staffMember.class_name) }
             );
@@ -306,7 +306,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
             msg += `▫️ <b>${escapeHtml(s.full_name)}</b> (${escapeHtml(s.class_name)})\n`;
           }
 
-          msg += `\n🔔 Har kuni soat 14:00 da darslar tugagach davomat shaxsiy profilingizga avtomatik yuboriladi.\n` +
+          msg += `\n🔔 Har kuni darslar tugagach (soat 18:30 da) davomat shaxsiy profilingizga avtomatik yuboriladi.\n` +
                  `Quyidagi menyu orqali istalgan vaqtda farzandingiz davomatini tekshirishingiz mumkin:`;
 
           return ctx.replyWithHTML(msg, {
@@ -347,7 +347,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
 
           let text = `📊 <b>65-MAKTAB | 9-SINFLAR BUGUNGI DAVOMATI</b>\n`;
           text += `📅 <b>Sana:</b> ${formatUzbekDate(today)}\n`;
-          text += `⏱ <b>Vaqt rejimi:</b> ${windowInfo.isFrozen ? '🔒 Muzlatilgan (13:30 yakunlangan)' : '🔓 Ochiq (08:00 - 13:30)'}\n`;
+          text += `⏱ <b>Vaqt rejimi:</b> ${windowInfo.isFrozen ? '🔒 Muzlatilgan (18:30 yakunlangan)' : '🔓 Ochiq (08:00 - 18:30)'}\n`;
           text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
           let totalStudents = 0;
@@ -372,7 +372,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
 
           text += `━━━━━━━━━━━━━━━━━━━━\n`;
           text += `📈 <b>Jami ko‘rsatkich:</b> ${totalMarked} / ${totalStudents} o‘quvchi belgilandi\n`;
-          text += `📤 <b>Avtomat xabarnoma:</b> Soat 14:00 da avtomatik yuboriladi`;
+          text += `📤 <b>Avtomat xabarnoma:</b> Soat 18:30 da avtomatik yuboriladi`;
 
           const keyboard = staff.role === 'admin'
             ? getAdminKeyboard(webAppUrl)
@@ -399,7 +399,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
                 message += `📝 <b>Izoh:</b> <i>${escapeHtml(s.reason)}</i>\n`;
               }
             } else {
-              message += `📊 <b>Holat:</b> ⏳ <i>Bugungi davomat hali o‘qituvchi tomonidan kiritilmadi (soat 13:30 gacha kiritiladi, 14:00 da esa hisobot yuboriladi)</i>\n`;
+              message += `📊 <b>Holat:</b> ⏳ <i>Bugungi davomat hali o‘qituvchi tomonidan kiritilmadi (soat 18:30 gacha kiritiladi, 18:30 da esa hisobot yuboriladi)</i>\n`;
             }
             message += `\n`;
           }
@@ -436,10 +436,10 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
           const isBoss = staff.role === 'admin';
           const helpText =
             `ℹ️ <b>EduMemory — 65-maktab Davomat Tizimi</b>\n\n` +
-            `📌 <b>Qoidalar va vaqt tartibi:</b>\n` +
-            `• <b>08:00 - 13:30</b>: Sinf rahbarlari davomatni kiritish va saqlash oynasi.\n` +
-            `• <b>13:30</b>: Tizim davomatni avtomatik muzlatadi (tahrirlash qulflanadi).\n` +
-            `• <b>14:00</b>: Ulangan barcha ota-onalar profiliga kunlik hisobot avtomat yuboriladi.\n\n` +
+            `📌 <b>Qoidalar va vaqt tartibi (Abetdan keyingi 2-smena):</b>\n` +
+            `• <b>08:00 - 18:30</b>: Sinf rahbarlari davomatni kiritish va saqlash oynasi.\n` +
+            `• <b>18:30</b>: Tizim davomatni avtomatik muzlatadi (tahrirlash qulflanadi).\n` +
+            `• <b>18:30</b>: Ulangan barcha ota-onalar profiliga kunlik hisobot avtomat yuboriladi.\n\n` +
             `🔐 <b>Avtomatik kirish:</b> Hech qanday PIN-kod kiritish shart emas, tizim sizni Telegram orqali taniydi.\n\n` +
             `📞 <b>Bosh Administrator:</b> ${escapeHtml(ADMIN_PHONE)}\n` +
             `🌐 <b>Mini App manzili:</b> ${webAppUrl}`;
@@ -455,7 +455,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
         if (students && students.length > 0) {
           const parentHelp =
             `ℹ️ <b>EduMemory — Ota-onalar uchun ma‘lumot</b>\n\n` +
-            `• Farzandingizning davomati har kuni darslar tugagach, soat <b>14:00 da</b> shaxsiy profilingizga avtomatik yuboriladi.\n` +
+            `• Farzandingizning davomati har kuni darslar tugagach, soat <b>18:30 da</b> shaxsiy profilingizga avtomatik yuboriladi.\n` +
             `• Kun davomida istalgan vaqtda <b>"📊 Farzandim davomati"</b> tugmasi orqali joriy holatni tekshirishingiz mumkin.\n` +
             `• Agar telefon raqamingiz o‘zgarsa, <b>"📱 Raqamni yangilash"</b> tugmasini bosing.\n\n` +
             `📞 Savollar bo‘yicha sinf rahbariga yoki maktab ma‘muriyatiga murojaat qiling.`;
@@ -485,7 +485,7 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
 
       let text = `📅 <b>65-MAKTAB | 9-A SINFI DARS JADVALI</b>\n`;
       text += `📆 <b>Kun:</b> ${dayName.toUpperCase()}\n`;
-      text += `⏰ <b>Dars vaqtlari:</b> 08:00 - 13:00\n`;
+      text += `⏰ <b>Dars vaqtlari (2-smena):</b> 13:15 - 18:15\n`;
       text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
       if (!lessons || lessons.length === 0) {
@@ -548,8 +548,8 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       const classId = 1;
       const allLessons = await db.getTimetable(classId);
 
-      let text = `📋 <b>65-MAKTAB | 9-A HAFTALIK DARS JADVALI</b>\n`;
-      text += `⏰ Darslar boshlanishi: <b>08:00</b> | Yakunlanishi: <b>13:00</b>\n`;
+      let text = `📋 <b>65-MAKTAB | 9-A HAFTALIK DARS JADVALI (2-SMENA)</b>\n`;
+      text += `⏰ Darslar boshlanishi: <b>13:15</b> | Yakunlanishi: <b>18:15</b>\n`;
       text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
       for (let d = 1; d <= 6; d++) {
@@ -697,16 +697,16 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
 }
 
 // ==========================================
-// 2. QAT'IY 14:00 CRON JOB VA AVTOMAT DISPATCH
+// 2. QAT'IY 18:30 CRON JOB VA AVTOMAT DISPATCH
 // ==========================================
 async function runDailyAttendanceDispatch() {
   const today = db.getTodayString();
-  console.log(`⏰ [CRON 14:00] ${today} sanasi uchun 9-A xabarnomasi boshlandi.`);
+  console.log(`⏰ [CRON 18:30] ${today} sanasi uchun 9-A xabarnomasi boshlandi.`);
 
   // 1. TAKRORIY XABARLARNI BLOKLASH
   const alreadyDispatched = await db.isDailyDispatched(today);
   if (alreadyDispatched) {
-    console.log(`⚠️ [CRON 14:00] ${today} sanasi uchun xabarlar allaqachon yuborilgan! Qayta yuborish to‘xtatildi.`);
+    console.log(`⚠️ [CRON 18:30] ${today} sanasi uchun xabarlar allaqachon yuborilgan! Qayta yuborish to‘xtatildi.`);
     return;
   }
 
@@ -715,7 +715,7 @@ async function runDailyAttendanceDispatch() {
   const unmarkedNames = unmarkedClasses.map(c => c.name);
 
   if (unmarkedClasses.length > 0) {
-    console.warn(`⚠️ [CRON 14:00] Bugun davomat kiritilmagan sinflar:`, unmarkedNames.join(', '));
+    console.warn(`⚠️ [CRON 18:30] Bugun davomat kiritilmagan sinflar:`, unmarkedNames.join(', '));
 
     // Bosh Administratorga ogohlantirish yuborish
     const adminChatIds = await db.getAdminChatIds();
@@ -726,7 +726,7 @@ async function runDailyAttendanceDispatch() {
           `Bugun <b>${escapeHtml(cls.name)}</b> sinfi davomati o‘qituvchi tomonidan kiritilmadi!\n` +
           `❌ Ota-onalarga xabar bormadi.\n\n` +
           `📅 Sana: ${today}\n` +
-          `⏱ Dedlayn: 13:30 da yakunlangan.`;
+          `⏱ Dedlayn: 18:30 da yakunlangan.`;
 
         for (const chatId of adminChatIds) {
           try {
@@ -801,11 +801,11 @@ async function runDailyAttendanceDispatch() {
     status: 'completed'
   });
 
-  console.log(`✅ [CRON 14:00] ${today} sanasi uchun xabarlar yakunlandi. Yuborildi: ${sent}, Xato: ${failed}.`);
+  console.log(`✅ [CRON 18:30] ${today} sanasi uchun xabarlar yakunlandi. Yuborildi: ${sent}, Xato: ${failed}.`);
 }
 
-// Har kuni Dushanba-Shanba soat 14:00 da (Asia/Tashkent)
-const cronSchedule = process.env.CRON_SCHEDULE || '0 14 * * 1-6';
+// Har kuni Dushanba-Shanba soat 18:30 da (Asia/Tashkent - Abetdan keyingi darslar yakunlangach)
+const cronSchedule = process.env.CRON_SCHEDULE || '30 18 * * 1-6';
 
 cron.schedule(
   cronSchedule,
@@ -902,7 +902,7 @@ app.get('/api/config', (req, res) => {
     serverTime: timeInfo.serverTime,
     isFrozen: timeInfo.isFrozen,
     freezeReason: timeInfo.reason,
-    editWindow: { start: '08:00', end: '13:30' },
+    editWindow: { start: '08:00', end: '18:30' },
     hasPostgres: db.hasPostgres
   });
 });

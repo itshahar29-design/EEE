@@ -56,6 +56,17 @@ function escapeHtmlApp(str) {
     .replace(/'/g, '&#39;');
 }
 
+function cyrillicToLatin(text) {
+  if (!text) return '';
+  const map = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'j', 'з': 'z',
+    'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r',
+    'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'x', 'ҳ': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh',
+    'щ': 'sh', 'ъ': "'", 'ы': 'i', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya', 'ў': "o'", 'ғ': "g'", 'қ': 'q'
+  };
+  return text.toLowerCase().split('').map(char => map[char] || char).join('');
+}
+
 // ==========================================
 // 2. DASTUR HOLATI (STATE)
 // ==========================================
@@ -499,8 +510,10 @@ function renderStudentsList() {
   if (!studentsContainer) return;
 
   const query = state.searchQuery.toLowerCase().trim();
+  const queryLatin = cyrillicToLatin(query);
   const filteredStudents = state.students.filter((s) => {
-    const nameMatch = s.full_name.toLowerCase().includes(query);
+    const nameLower = s.full_name.toLowerCase();
+    const nameMatch = nameLower.includes(query) || nameLower.includes(queryLatin);
     const phoneMatch = s.parent_phone && s.parent_phone.includes(query);
     return nameMatch || phoneMatch;
   });

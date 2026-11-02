@@ -159,12 +159,12 @@ function checkAttendanceWindow(targetDate = null) {
 
   const currentMinutes = t.hour * 60 + t.minute;
   const startMinutes = 8 * 60; // 08:00 -> 480 daqiqa
-  const endMinutes = 13 * 60 + 30; // 13:30 -> 810 daqiqa
+  const endMinutes = 18 * 60 + 30; // 18:30 -> 1110 daqiqa (Abetdan keyingi 2-smena darslari uchun)
 
   if (currentMinutes < startMinutes) {
     return {
       allowed: false,
-      reason: 'Davomat kiritish vaqti hali boshlanmadi. Qabul vaqti: soat 08:00 dan 13:30 gacha.',
+      reason: 'Davomat kiritish vaqti hali boshlanmadi. Qabul vaqti: soat 08:00 dan 18:30 gacha.',
       isFrozen: true,
       serverTime: t.timeStr,
       today: todayStr
@@ -174,7 +174,7 @@ function checkAttendanceWindow(targetDate = null) {
   if (currentMinutes >= endMinutes) {
     return {
       allowed: false,
-      reason: 'Bugungi davomat qulflangan, tahrirlash vaqti 13:30 da yakunlangan!',
+      reason: 'Bugungi davomat qulflangan, tahrirlash vaqti 18:30 da yakunlangan!',
       isFrozen: true,
       serverTime: t.timeStr,
       today: todayStr
@@ -396,16 +396,39 @@ const TEACHERS_9A = [
 ];
 
 /**
- * Dars qo‘ng‘iroqlari jadvali (Dars vaqtlari)
+ * Dars qo‘ng‘iroqlari jadvali (Abetdan keyingi 2-smena dars vaqtlari)
  */
 const LESSON_TIMES = {
-  1: { start: '08:00', end: '08:45' },
-  2: { start: '08:50', end: '09:35' },
-  3: { start: '09:40', end: '10:25' },
-  4: { start: '10:35', end: '11:20' },
-  5: { start: '11:25', end: '12:10' },
-  6: { start: '12:15', end: '13:00' }
+  1: { start: '13:15', end: '14:00' },
+  2: { start: '14:05', end: '14:50' },
+  3: { start: '14:55', end: '15:40' },
+  4: { start: '15:50', end: '16:35' },
+  5: { start: '16:40', end: '17:25' },
+  6: { start: '17:30', end: '18:15' }
 };
+
+/**
+ * 9-A sinfining rasmiy o‘quvchilari va ota-onalar kontaktlari (17 nafar)
+ */
+const STUDENTS_9A = [
+  { full_name: 'Abdusodiqov Shahzod', parent_phone: '+998 99 311 85 02' },
+  { full_name: 'Shermamatova Malika', parent_phone: '+998 99 143 72 00' },
+  { full_name: 'Jaloliddinova E’zoza', parent_phone: '+998 99 739 74 03' },
+  { full_name: 'Bo‘riyev Sardor', parent_phone: '+998 93 305 18 34' },
+  { full_name: 'Salohiddinov Azimjon', parent_phone: '+998 94 403 31 63' },
+  { full_name: 'Sag‘dullayeva Madina', parent_phone: '+998 99 689 13 12' },
+  { full_name: 'Ahmedova Bahora', parent_phone: '+998 90 646 23 34' },
+  { full_name: 'Otamurodov Odilbek', parent_phone: '+998 94 801 85 88' },
+  { full_name: 'Jaloliddinov Ibrohim', parent_phone: '+998 94 186 06 81' },
+  { full_name: 'Toshmuhammadova Ozoda', parent_phone: '+998 99 666 78 09' },
+  { full_name: 'Jumayeva Shabnam', parent_phone: '+998 97 191 30 04' },
+  { full_name: 'Abdukarimov Kamron', parent_phone: '+998 90 739 82 89' },
+  { full_name: 'Komilov Kamron', parent_phone: '+998 91 988 36 37' },
+  { full_name: 'Egamberdiyev Farrux', parent_phone: '+998 90 500 19 06' },
+  { full_name: 'Turdimurodov Xondamir', parent_phone: '+998 93 468 88 00' },
+  { full_name: 'Hamdullayev Behruzjon', parent_phone: '+998 93 662 88 01' },
+  { full_name: 'Sag‘dullayeva Xursanoy', parent_phone: '+998 93 258 71 05' }
+];
 
 const DAY_NAMES_UZ = {
   1: 'Dushanba',
@@ -546,7 +569,27 @@ async function cleanAndSetupProduction() {
     );
   }
 
-  console.log('✅ Baza jadvallari, Bosh Admin, Zavuch D.Bekmurodov, 19 nafar o‘qituvchi va 9-A dars jadvali sozlandi.');
+  // 7. 9-A sinfining 17 nafar rasmiy o‘quvchilarini kiritish / yangilash
+  for (const s of STUDENTS_9A) {
+    const norm = normalizePhone(s.parent_phone);
+    const existing = await queryOne(
+      'SELECT id, parent_chat_id FROM students WHERE class_id = ? AND parent_phone_norm = ?',
+      [cls9A.id, norm]
+    );
+    if (existing) {
+      await execute(
+        'UPDATE students SET full_name = ?, parent_phone = ? WHERE id = ?',
+        [s.full_name, s.parent_phone, existing.id]
+      );
+    } else {
+      await execute(
+        'INSERT INTO students (full_name, class_id, parent_phone, parent_phone_norm) VALUES (?, ?, ?, ?)',
+        [s.full_name, cls9A.id, s.parent_phone, norm]
+      );
+    }
+  }
+
+  console.log('✅ Baza jadvallari, Bosh Admin, Zavuch D.Bekmurodov, 19 nafar o‘qituvchi, 9-A dars jadvali va 17 nafar o‘quvchi sozlandi.');
 }
 
 // ==========================================
@@ -1305,6 +1348,7 @@ module.exports = {
   getMonthAttendanceForExport,
   getTimetable,
   TIMETABLE_9A,
+  STUDENTS_9A,
   LESSON_TIMES,
   DAY_NAMES_UZ,
   execute
