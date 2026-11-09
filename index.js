@@ -806,7 +806,7 @@ async function runDailyAttendanceDispatch() {
 }
 
 // Har kuni Dushanba-Shanba soat 18:30 da (Asia/Tashkent - Abetdan keyingi darslar yakunlangach)
-const cronSchedule = process.env.CRON_SCHEDULE || '30 18 * * 1-6';
+const cronSchedule = (process.env.CRON_SCHEDULE && !process.env.CRON_SCHEDULE.includes('14')) ? process.env.CRON_SCHEDULE : '30 18 * * 1-6';
 
 cron.schedule(
   cronSchedule,
