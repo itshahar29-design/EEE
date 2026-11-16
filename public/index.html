@@ -111,11 +111,19 @@
 
     <!-- SINF TANLASH TABS: FAQAT ADMIN REJIMIDA CHIQADI -->
     <div id="classSwitcherSection" class="hidden max-w-3xl mx-auto px-4 pb-2.5 pt-1 border-t border-slate-100">
-      <div class="flex items-center justify-between mb-1">
+      <div class="flex items-center justify-between mb-1.5">
         <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Sinfni tanlang:</span>
+        <button 
+          id="openAddClassBtn" 
+          type="button" 
+          class="text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-xl transition flex items-center gap-1 active:scale-95"
+        >
+          <i class="fa-solid fa-plus text-[10px]"></i>
+          <span>Yangi sinf</span>
+        </button>
       </div>
       <div id="classesList" class="grid grid-cols-2 gap-2 py-1">
-        <!-- 9-A sinf tugmasi -->
+        <!-- Sinflar ro'yxati -->
       </div>
     </div>
   </header>

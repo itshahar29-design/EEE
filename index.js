@@ -166,11 +166,13 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
 
     // 3. O'qituvchi uchun (faqat o'z biriktirilgan sinfi)
     function getTeacherKeyboard(webAppUrl, classId, className) {
-      const url = `${webAppUrl}?role=teacher&classId=${classId || ''}&class=${encodeURIComponent(className || '')}`;
+      const clsName = className || '9-A';
+      const url = `${webAppUrl}?role=teacher&classId=${classId || ''}&class=${encodeURIComponent(clsName)}`;
       return {
         keyboard: [
-          [{ text: '📝 Fan davomatini kiritish (9-A)', web_app: { url } }],
-          [{ text: '📅 Dars jadvali' }, { text: 'ℹ️ Yordam' }]
+          [{ text: `📝 Fan davomatini kiritish (${clsName})`, web_app: { url } }],
+          [{ text: '📊 Bugungi monitoring' }, { text: '📥 Oylik Excel hisobot' }],
+          [{ text: '📢 Ota-onalarga taklifnoma' }, { text: '📅 Dars jadvali' }]
         ],
         resize_keyboard: true,
         one_time_keyboard: false
@@ -183,8 +185,9 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       return {
         keyboard: [
           [{ text: '👁️ Zavuch nazorati (Faqat ko‘rish)', web_app: { url } }],
-          [{ text: '📊 Bugungi monitoring' }, { text: '📅 Dars jadvali' }],
-          [{ text: 'ℹ️ Yordam' }]
+          [{ text: '📊 Bugungi monitoring' }, { text: '📥 Oylik Excel hisobot' }],
+          [{ text: '📢 Ota-onalarga taklifnoma' }, { text: '💾 Baza zaxirasi' }],
+          [{ text: '📅 Dars jadvali' }, { text: 'ℹ️ Yordam' }]
         ],
         resize_keyboard: true,
         one_time_keyboard: false
@@ -668,6 +671,160 @@ if (BOT_TOKEN && BOT_TOKEN.trim() !== '') {
       );
     });
 
+    // E. OYLIK EXCEL HISOBOTNI TELEGRAMDA TO'G'RIDAN-TO'G'RI YUKLAB OLISH
+    async function handleExcelExport(ctx) {
+      try {
+        const staff = await db.getStaffByChatId(ctx.chat.id);
+        if (!staff) {
+          return ctx.reply('Kechirasiz, ushbu amal faqat maktab xodimlari (o‘qituvchilar va zavuch) uchun.');
+        }
+
+        const classes = await db.getAllClasses();
+        const targetClass = classes.find(c => c.id === staff.class_id) || classes[0];
+        if (!targetClass) {
+          return ctx.reply('Hech qanday sinf topilmadi.');
+        }
+
+        const month = db.getTodayString().slice(0, 7);
+        const exportData = await db.getMonthAttendanceForExport(targetClass.id, month);
+
+        if (!exportData || !exportData.students || exportData.students.length === 0) {
+          return ctx.reply(`"${targetClass.name}" sinfida hozircha o‘quvchilar ro‘yxati mavjud emas.`);
+        }
+
+        const [year, monthNum] = month.split('-').map(Number);
+        const daysInMonth = new Date(year, monthNum, 0).getDate();
+
+        const attMap = {};
+        for (const a of exportData.attendance) {
+          const day = parseInt(a.date.split('-')[2], 10);
+          attMap[`${a.student_id}_${day}`] = a.status;
+        }
+
+        const headerRow1 = [
+          `65-MAKTAB | "${exportData.class.name}" SINFI OYLIK DAVOMAT JURNALI (${month})`
+        ];
+        const headerRow2 = [
+          '№',
+          'O‘quvchi F.I.SH',
+          'Ota-ona telefoni'
+        ];
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          headerRow2.push(String(d));
+        }
+        headerRow2.push('Keldi (+)', 'Kelmadi (-)', 'Kechikdi (K)', 'Sababli (S)', 'Qatnashuv %');
+
+        const aoa = [headerRow1, [], headerRow2];
+
+        exportData.students.forEach((student, index) => {
+          let keldi = 0;
+          let kelmadi = 0;
+          let kechikdi = 0;
+          let sababli = 0;
+          let markedDays = 0;
+
+          const row = [
+            index + 1,
+            student.full_name,
+            db.formatPhone(student.parent_phone) || 'Yo‘q'
+          ];
+
+          for (let d = 1; d <= daysInMonth; d++) {
+            const st = attMap[`${student.id}_${d}`];
+            if (st) {
+              markedDays++;
+              if (st === 'keldi') { keldi++; row.push('+'); }
+              else if (st === 'kelmadi') { kelmadi++; row.push('-'); }
+              else if (st === 'kechikdi') { kechikdi++; row.push('K'); }
+              else if (st === 'sababli') { sababli++; row.push('S'); }
+              else row.push('');
+            } else {
+              row.push('');
+            }
+          }
+
+          const percent = markedDays > 0 ? `${Math.round(((keldi + kechikdi) / markedDays) * 100)}%` : '0%';
+          row.push(keldi, kelmadi, kechikdi, sababli, percent);
+          aoa.push(row);
+        });
+
+        const ws = xlsx.utils.aoa_to_sheet(aoa);
+        const cols = [{ wch: 5 }, { wch: 32 }, { wch: 18 }];
+        for (let d = 1; d <= daysInMonth; d++) cols.push({ wch: 4 });
+        cols.push({ wch: 10 }, { wch: 12 }, { wch: 13 }, { wch: 12 }, { wch: 14 });
+        ws['!cols'] = cols;
+
+        const wb = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(wb, ws, 'Davomat');
+        const buffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
+        const filename = `Davomat_${exportData.class.name}_${month}.xlsx`;
+
+        await ctx.replyWithDocument(
+          { source: buffer, filename: filename },
+          { caption: `📊 <b>65-MAKTAB | OYLIK DAVOMAT JURNALI</b>\n\n🏫 Sinf: <b>${exportData.class.name}</b>\n📅 Oy: <b>${month}</b>\n👥 O‘quvchilar soni: <b>${exportData.students.length}</b> ta\n\n<i>Faylni Excel orqali ochib ko‘rishingiz yoki chop etishingiz mumkin.</i>`, parse_mode: 'HTML' }
+        );
+      } catch (err) {
+        console.error('Bot Excel export error:', err);
+        ctx.reply('Excel tayyorlashda xatolik: ' + err.message);
+      }
+    }
+
+    bot.command('excel', handleExcelExport);
+    bot.hears(['📥 Oylik Excel hisobot', '📊 Excel hisobot', '/excel'], handleExcelExport);
+
+    // F. OTA-ONALARGA GURUHGA YUBORISH UCHUN TAYYOR TAKLIFNOMA
+    async function handleTaklif(ctx) {
+      try {
+        const botUser = botUsername || 'EduMemorBot';
+        const msg = 
+          `📢 <b>65-MAKTAB | OTA-ONALAR GURUHIGA YUBORISH UCHUN RASMIY XABAR:</b>\n` +
+          `━━━━━━━━━━━━━━━━━━━━\n\n` +
+          `<b>Hurmatli ota-onalar!</b>\n\n` +
+          `Maktabimizda o‘quvchilarning har bir darsdagi davomatini real vaqtda kuzatish tizimi ishga tushirildi.\n\n` +
+          `Farzandingiz darslarga kirdi-kirmaganini har kuni avtomatik bilib turish uchun quyidagi 3 ta amalni bajaring:\n\n` +
+          `1️⃣ Botga kiring 👉 @${botUser}\n` +
+          `2️⃣ Pastdagi <b>/start</b> tugmasini bosing\n` +
+          `3️⃣ Chiqadigan <b>«📱 Telefon raqamimni tasdiqlash»</b> tugmasini bosing\n\n` +
+          `<i>(Eslatma: Botga sinf rahbariga bergan o‘z telefon raqamingiz orqali kiring. Tizim sizni avtomatik taniydi va farzandingizga ulaydi!)</i>\n\n` +
+          `━━━━━━━━━━━━━━━━━━━━\n` +
+          `👉 <i>Ushbu xabarni nusxalab (yoki Uzatish / Forward orqali) sinf ota-onalar guruhiga yuboring!</i>`;
+
+        await ctx.replyWithHTML(msg);
+      } catch (err) {
+        console.error('Taklif error:', err);
+      }
+    }
+
+    bot.command('taklif', handleTaklif);
+    bot.hears('📢 Ota-onalarga taklifnoma', handleTaklif);
+
+    // G. BAZA ZAXIRASI (BACKUP JSON)
+    async function handleBackup(ctx) {
+      try {
+        const staff = await db.getStaffByChatId(ctx.chat.id);
+        if (!staff || staff.role !== 'admin') {
+          return ctx.reply('Kechirasiz, baza zaxirasini olish faqat Bosh Administrator / Zavuchga ruxsat etilgan.');
+        }
+
+        const data = await db.exportBackup();
+        const dateStr = db.getTodayString();
+        const buffer = Buffer.from(JSON.stringify(data, null, 2), 'utf-8');
+        const filename = `edumemory_backup_${dateStr}.json`;
+
+        await ctx.replyWithDocument(
+          { source: buffer, filename: filename },
+          { caption: `💾 <b>65-MAKTAB | BAZA ZAXIRA NUSXASI</b>\n\n📅 Sana: <b>${dateStr}</b>\n📦 Barcha o‘quvchilar, o‘qituvchilar va dars jadvali to‘liq saqlandi.`, parse_mode: 'HTML' }
+        );
+      } catch (err) {
+        console.error('Backup error:', err);
+        ctx.reply('Zaxira olishda xatolik: ' + err.message);
+      }
+    }
+
+    bot.command('backup', handleBackup);
+    bot.hears('💾 Baza zaxirasi', handleBackup);
+
     // ==========================================
     // 4. BOTNI ISHGA TUSHIRISH (WEBHOOK / POLLING)
     // ==========================================
@@ -908,11 +1065,25 @@ app.get('/api/config', (req, res) => {
   });
 });
 
-// 3. Sinflar ro'yxati (Faqat 9-A)
+// 3. Sinflar ro'yxati
 app.get('/api/classes', async (req, res) => {
   try {
     const classes = await db.getAllClasses();
     res.json({ success: true, data: classes });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 3.1 Yangi sinf qo'shish
+app.post('/api/classes', async (req, res) => {
+  try {
+    const { name } = req.body;
+    if (!name || !name.trim()) {
+      return res.status(400).json({ success: false, error: 'Sinf nomi kiritilishi shart (masalan: 9-B, 10-A)' });
+    }
+    const cls = await db.createClass(name.trim());
+    res.json({ success: true, data: cls });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }

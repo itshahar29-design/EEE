@@ -127,6 +127,7 @@ const todayOpenFullTimetableBtn = document.getElementById('todayOpenFullTimetabl
 const adminToolbar = document.getElementById('adminToolbar');
 const classSwitcherSection = document.getElementById('classSwitcherSection');
 const classesList = document.getElementById('classesList');
+const openAddClassBtn = document.getElementById('openAddClassBtn');
 const openAddStudentBtn = document.getElementById('openAddStudentBtn');
 const openAdminSummaryBtn = document.getElementById('openAdminSummaryBtn');
 const openExcelImportBtn = document.getElementById('openExcelImportBtn');
@@ -543,6 +544,33 @@ function selectClass(classId, className) {
   applyRoleUI();
   renderClassesTabs();
   fetchStudents();
+}
+
+if (openAddClassBtn) {
+  openAddClassBtn.onclick = async () => {
+    triggerHaptic('light');
+    const name = prompt('Yangi sinf nomini kiriting:\n(Masalan: 9-B, 10-A, 11-B)');
+    if (!name || !name.trim()) return;
+
+    try {
+      const res = await fetch('/api/classes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name.trim().toUpperCase() })
+      });
+      const result = await res.json();
+      if (result.success && result.data) {
+        triggerHaptic('success');
+        showToast(`"${result.data.name}" sinfi muvaffaqiyatli qo‘shildi!`, 'success');
+        await fetchClasses();
+        selectClass(result.data.id, result.data.name);
+      } else {
+        throw new Error(result.error || 'Qo‘shib bo‘lmadi');
+      }
+    } catch (err) {
+      showToast(err.message || 'Xatolik yuz berdi', 'error');
+    }
+  };
 }
 
 // ==========================================

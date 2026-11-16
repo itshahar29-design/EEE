@@ -498,22 +498,18 @@ const TIMETABLE_9A = [
  * Haqiqiy ishchi holat (Production setup)
  */
 async function cleanAndSetupProduction() {
-  console.log('🧹 Production holatiga o‘tkazilmoqda: faqat 9-A sinfi va uning 19 nafar o‘qituvchilari sozlanmoqda...');
+  console.log('🧹 Baza sozlanmoqda: 9-A sinfi va o‘qituvchilar tayyorlanmoqda...');
 
-  // 1. 9-B va boshqa har qanday sinflar va ularning o'quvchilarini o'chirish (Faqat 9-A qoladi)
-  await execute(`DELETE FROM classes WHERE name != '9-A'`);
-
-  // 2. 9-A sinfini bazaga kiritish (agar yo'q bo'lsa)
+  // 1. 9-A sinfini bazaga kiritish (agar yo'q bo'lsa)
   let cls9A = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-A']);
   if (!cls9A) {
     await execute('INSERT INTO classes (name) VALUES (?)', ['9-A']);
     cls9A = await queryOne('SELECT id FROM classes WHERE name = ?', ['9-A']);
   }
 
-  // 3. 9-B ga yoki noaniq sinflarga tegishli o'qituvchilarni, shuningdek eski 'teacher_%' placeholderlarni o'chirish
+  // 2. Eski placeholder o‘qituvchilarni tozalash
   await execute(
-    "DELETE FROM staff WHERE role = 'teacher' AND (class_id IS NULL OR class_id != ? OR phone_norm LIKE 'teacher_%')",
-    [cls9A.id]
+    "DELETE FROM staff WHERE role = 'teacher' AND phone_norm LIKE 'teacher_%'"
   );
 
   // 4. Bosh Adminni kiritish yoki yangilash
@@ -854,14 +850,13 @@ async function restoreBackup(backupData) {
 }
 
 // ==========================================
-// 5. SINFLAR BOSHQARUVI (FAQAT 9-A)
+// 5. SINFLAR BOSHQARUVI
 // ==========================================
 async function getAllClasses() {
   const sql = `
     SELECT c.id, c.name, COUNT(s.id) as student_count
     FROM classes c
     LEFT JOIN students s ON s.class_id = c.id
-    WHERE c.name = '9-A'
     GROUP BY c.id, c.name
     ORDER BY c.name ASC
   `;
@@ -871,6 +866,15 @@ async function getAllClasses() {
     name: r.name,
     student_count: Number(r.student_count || 0)
   }));
+}
+
+async function createClass(name) {
+  const trimmed = String(name || '').trim();
+  if (!trimmed) throw new Error('Sinf nomi kiritilishi shart');
+  const existing = await getClassByName(trimmed);
+  if (existing) return existing;
+  await execute('INSERT INTO classes (name) VALUES (?)', [trimmed]);
+  return await getClassByName(trimmed);
 }
 
 async function getClassById(classId) {
@@ -1329,6 +1333,7 @@ module.exports = {
   exportBackup,
   restoreBackup,
   getAllClasses,
+  createClass,
   getClassById,
   getClassByName,
   getStudentsWithAttendance,
